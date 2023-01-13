@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="quiryMapper">
+
+	<!-- 상품문의 추가 -->
+	<insert id="quiryInsert" parameterType="QuiryVO">
+		insert into inquirys values ((select NVL(MAX(iqNo) + 1, 1) from inquirys),#{iqmemId},#{iqpdId},#{iqTitle},#{iqContent},#{iqPrivate},#{iqState},sysdate,sysdate)
+	</insert>
+	
+	<!-- 상품문의 삭제 - iqNo로 판단 -->
+	<delete id="quiryDelOne" parameterType="Long">
+		delete from inquirys where iqNo = #{iqNo}
+	</delete>
+	
+	<!-- 상품문의 수정 - 넘겨준 VO의 iqNo로 판단-->
+	<update id="quiryUpd" parameterType="QuiryVO">
+		update inquirys set iqTitle = #{iqTitle}, iqContent = #{iqContent}, iqPrivate=#{iqPrivate}, iqUpdDate=sysdate where iqNo = #{iqNo}
+	</update>
+	
+	<!-- iqNo에 해당하는 레코드 가져옴 -->
+	<select id="quirySelOne" parameterType="long" resultType="QuiryVO">
+		select * from inquirys where iqNo = #{iqNo}
+	</select>
+
+</mapper>

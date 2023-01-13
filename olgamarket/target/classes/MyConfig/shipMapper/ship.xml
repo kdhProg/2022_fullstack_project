@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shipMapper">
+
+	<insert id="shipInsert" parameterType="shipVO">
+		insert into shippingLists
+			values((select NVL(MAX(slNo) + 1, 1) from shippingLists), #{slmemId}, #{slAddress})
+	</insert>
+	
+	<delete id="shipDelOne" parameterType="Long">
+		delete from shippingLists where slNo = #{slNo}
+	</delete>
+	
+	<update id="shipUpdate" parameterType="ShipVO">
+		update shippingLists set slAddress = #{slAddress} where slNo = #{slNo}
+	</update>
+	
+	<select id="shipSelectOne" resultType="ShipVO" parameterType="Long" >
+		select * from shippingLists where slNo = #{slNo}
+	</select>
+	
+	<select id="shipSelectList" resultType="ShipVO" parameterType="Long" >
+		select * from shippingLists 
+	</select>
+	
+	
+	
+</mapper>

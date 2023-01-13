@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sellerMapper">
+	
+	<!-- 넘겨준 VO객체 인서트 -->
+	<insert id="sellerJoin" parameterType="SellerVO">
+		insert into sellers values (#{selId},#{selPwd},#{selName},#{selstlBrandName},#{selEmail},#{selPhone},#{selAddress},#{selGender},#{selGrade},#{selMarketUniqueNo},#{selSelRegiNo},#{selChoice},#{selTypeGrade},sysdate,sysdate)
+	</insert>
+	
+	<!-- selId에 해당하는 레코드 삭제 -->
+	<delete id="sellerDelOne" parameterType="String">
+		delete from sellers where selId = #{selId}
+	</delete>
+	
+	<!-- 넘겨준 VO객체의 selId에 해당하는 레코드 수정 -->
+	<update id="sellerUpdateOne" parameterType="SellerVO">
+		update sellers set selPwd=#{selPwd}, selName=#{selName},
+		selEmail=#{selEmail}, selPhone=#{selPhone}, selAddress=#{selAddress}, selGender=#{selGender}, 
+		selGrade=#{selGrade},
+		selChoice=#{selChoice}, selTypeGrade=#{selTypeGrade}, selUpdDate=sysdate where selId=#{selId}
+	</update>
+	
+	<!-- selId에 해당하는 레코드 반환 -->
+	<select id="sellerSelOne" parameterType="String" resultType="SellerVO">
+		select * from sellers where selId = #{selId}
+	</select>
+	
+	<!-- 모든 레코드 반환 -->
+	<select id="sellerSelAll" resultType="SellerVO">
+		select * from sellers
+	</select>
+	
+	<!-- 로그인 ID 중복검사 중복시 1 아니면 0-->
+	<select id="sellerIdcheck" parameterType="String" resultType="Long">
+		select count(*) from sellers where selId = #{selId}
+	</select>
+	
+	<!-- 비밀번호만 바꿈 -->
+	<update id="sellerUpdatePwd" parameterType="SellerVO">
+		update sellers set selPwd=#{selPwd} where selId=#{selId}
+	</update>
+	
+	<!--  -->
+	<select id="sellerIdFind" parameterType="SellerVO" resultType="SellerVO">
+		select * from sellers where selName=#{selName} and selPhone=#{selPhone} and selSelRegiNo=#{selSelRegiNo}
+	</select>
+
+	<!--  -->
+	<select id="sellerPwdFind" parameterType="SellerVO" resultType="SellerVO">
+		select * from sellers where selName=#{selName} and selPhone=#{selPhone} and selSelRegiNo=#{selSelRegiNo} and selId=#{selId}
+	</select>
+	
+<!-- 관리자 판매자 관리 + 페이징 -->
+	<select id="getSellerPageList" parameterType="PagingVO" resultType="NoticeVO">
+		select * from
+			(select selId, selPwd, selName, selstlBrandName, selEmail, selPhone, selAddress,
+			selGender, selGrade, selMarketUniqueNo, selSelRegiNo, selChoice, selTypeGrade,
+			selRegiDate, selUpdDate ruw_number() OVER(order by selstlBrandName desc) as Rnum
+				from sellers) mp
+					where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+	      				order by selstlBrandName desc
+	</select>	
+	
+	<select id="getSellerCount" parameterType="int" resultType="Integer">
+		select count(*) from sellers
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

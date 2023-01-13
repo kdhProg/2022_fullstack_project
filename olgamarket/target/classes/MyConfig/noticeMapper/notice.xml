@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="noticeMapper">
+
+<!-- 공지사항 추가 -->
+	<insert id="noticeInsert" parameterType="NoticeVO">
+		insert into notices 
+			values( (select NVL(MAX(ntNo) +1, 1) from notices), #{ntadmId}, 
+					#{ntCategory}, #{ntTitle}, #{ntContent}, sysdate, sysdate)
+	</insert>
+	
+<!-- 공지사항 수정 -->
+	<update id="noticeUpdate" parameterType="NoticeVO">
+		update notices set 
+			ntCategory = #{ntCategory}, ntTitle = #{ntTitle}, ntContent = #{ntContent}, ntUpdDate = sysdate
+				where ntNo = #{ntNo}
+	</update>
+	
+
+<!-- 공지사항 삭제 (ntadmId 기준(외래키로 가져온걸 기준) -->
+	<delete id="noticeDeleteOne" parameterType="Long">
+		delete from notices where ntNo = #{ntNo}
+	</delete>
+	
+<!-- 공지사항 하나 가져오기 -->	
+	<select id="noticeSelectOne" resultType="NoticeVO" parameterType="Long">
+		select * from notices where ntNo = #{ntNo}
+	</select>
+
+<!-- 공지사항 전체 가져오기 + 페이징 -->
+	<select id="noticeSelectList" parameterType="PagingVO" resultType="NoticeVO">
+	      select * from 
+	      	(select ntNo, ntadmId, ntCategory, ntTitle, ntContent, ntUpdDate, row_number() OVER(order by ntNo desc) as Rnum 
+	      		from notices) mp
+	      			where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+	      				order by ntNo desc
+	</select>	
+	
+	<select id="getNoticeCount" parameterType="int" resultType="Integer">
+		select count(*) from notices
+	</select>
+	
+
+	
+	
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qnMapper">
+
+	<!-- 1대1문의등록 -->
+	<insert id="qnInsert" parameterType="QnVO">
+		insert into oneToOneQs
+		values((select NVL(MAX(otqNo) + 1, 1) from oneToOneQs),
+		#{otqMainCategory}, #{otqSubCategory},#{otqTitle},#{otqContent},#{otqmemId},#{otqState},sysdate, sysdate)
+	</insert>
+	
+	<!-- 1대1문의수정 -->
+	<update id="qnUpdate" parameterType="QnVO">
+		update oneToOneQs set otqMainCategory=#{otqMainCategory}, otqSubCategory=#{otqSubCategory}, otqTitle=#{otqTitle},
+		otqContent=#{otqContent}, otqState=#{otqState}, otqUpdDate=sysdate where otqNo = #{otqNo}
+	</update>
+	
+	<!-- 1대1문의삭제 -->
+	<delete id="qnDelete" parameterType="Long">
+		delete from oneToOneQs
+		where otqNo = #{otqNo}
+	</delete>
+	
+	<!-- 1대1문의 1개행 가져오기 -->
+	<select id="qnSelOne" parameterType="Long" resultType="QnVO">
+		select * from oneToOneQs where otqNo = #{otqNo}
+	</select>
+	
+	
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="answerMapper">
+
+	<!-- 상품문의답변등록 -->
+	<insert id="answerInsert" parameterType="AnswerVO">
+		insert into iqAnswers
+		values((select NVL(MAX(iaiqNo) + 1, 1) from iqAnswers),
+		#{iaContents}, sysdate, sysdate)
+	</insert>
+	
+	<!-- 상품문의답변수정 -->
+	<update id="answerUpdate" parameterType="AnswerVO">
+		update iqAnswers set iaContents=#{iaContents}, iqUpdDate=sysdate where iaiqNo = #{iaiqNo}
+	</update>
+		
+	<!-- 상품문의답변삭제 -->
+	<delete id="answerDelete" parameterType="Long">
+		delete from iqAnswers
+		where iaiqNo = #{iaiqNo}
+	</delete>
+	
+	<!-- 상품문의 1개 행 가져오기 -->
+	<select id="answerSelOne" parameterType="Long" resultType="AnswerVO">
+	 select * from iqAnswers where iaiqNo=#{iaiqNo}
+	</select>
+
+	
+
+
+
+
+
+
+
+
+
+</mapper>

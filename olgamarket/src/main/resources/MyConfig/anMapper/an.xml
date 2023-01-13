@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="anMapper">
+	
+	<!-- 상품문의답변등록 -->
+	<insert id="anInsert" parameterType="AnVO">
+		insert into oneToOneAs
+		values((select NVL(MAX(otaotqNo) + 1, 1) from oneToOneAs),
+		#{otaadmId}, #{otaMainCategory},#{otaSubCategory},#{otaTitle},
+		#{otaContent},sysdate, sysdate)
+	</insert>
+	
+	<!-- 상품문의답변수정-->
+	<update id="anUpdate" parameterType="AnVO">
+		update oneToOneAs set otaMainCategory=#{otaMainCategory}, otaSubCategory=#{otaSubCategory},
+		otaTitle=#{otaTitle}, otaContent=#{otaContent},otaUpdDate=sysdate
+		where otaotqNo = #{otaotqNo}
+	</update>
+	
+	<!-- 상품문의답변삭제-->
+	<delete id="anDelete" parameterType="Long">
+		delete from oneToOneAs
+		where otaotqNo = #{otaotqNo}
+	</delete>
+	
+	<!-- 상품문의 1개행 가져오기-->
+	<select id="anSelOne" parameterType="Long" resultType="AnVO">
+		select* from oneToOneAs
+		where otaotqNo = #{otaotqNo}
+	</select>
+		
+	
+</mapper>

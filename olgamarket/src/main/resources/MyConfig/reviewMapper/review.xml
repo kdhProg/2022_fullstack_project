@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reviewMapper">
+
+	<!-- 상품후기 추가 -->
+	<insert id="reviewInsert" parameterType="ReviewVO">
+		insert into reviews values ((select NVL(MAX(rvpdId) + 1, 1) from reviews),#{rvmemId},#{rvpdId},#{rvContent},#{rvImg},sysdate,sysdate,0,0)
+	</insert>
+	
+	<!-- 상품후기 삭제 - rvNo로 삭제 -->
+	<delete id="reviewDelOne" parameterType="Long">
+		delete from reviews where rvNO = #{rvNo}
+	</delete>
+	
+	<!-- 상품후기 수정 - 내용/이미지 + 날짜 수정 / rvNo로 레코드 판별 -->
+	<update id="reviewUpd" parameterType="ReviewVO">
+		update reviews set rvContent=#{rvContent}, rvImg=#{rvImg}, rvUpdDate=sysdate where rvNo=#{rvNo}
+	</update>
+	
+	<!-- 상품후기 추천수 1증가 -->
+	<update id="reviewNiceUp" parameterType="Long">
+		update reviews set rvNice=rvNice+1 where rvNo=#{rvNo}
+	</update>
+	
+	<!-- 상품후기 신고수 1증가 -->
+	<update id="reviewRptUp" parameterType="Long">
+		update reviews set rvReport=rvReport+1 where rvNo=#{rvNo}
+	</update>
+	
+	<!-- rvNO에 해당하는 상품후기 가져옴 -->
+	<select id="reviewSelOne" parameterType="Long" resultType="ReviewVO">
+		select * from reviews where rvNo=#{rvNo}
+	</select>
+	
+</mapper>

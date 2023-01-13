@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="productMapper">
+
+<!-- 상품 추가 -->
+	<insert id="productInsert" parameterType="ProductVO">
+		insert into productDatas 
+			values((select NVL(MAX(pdId) + 1, 1) from productDatas), #{pdThumbImg}, 
+				#{pdName}, #{pdMainCategory}, #{pdSubCategory}, 
+				#{pdstlBrandName}, #{pdStorageType}, #{pdUnit}, #{pdWeight}, 
+				#{pdCountry}, #{pdBBE}, sysdate, sysdate, #{pdDesInfoImg}, 
+				#{pdSeason}, 0, 0, #{pdPrice}, 0, 0)
+	</insert>
+
+<!-- 상품 정보 수정(썸네일, 이름, 보관타입, 단위, 단위 당 무게, 원산지, 유통기한, 수정날짜, 설명이미지, 가격, 세일, 재고 -->	
+	<update id="productUpdate" parameterType="ProductVO">
+		update productDatas set
+			pdThumbImg = #{pdThumbImg}, pdName = #{pdName}, 
+			pdStorageType = #{pdStorageType}, pdUnit = #{pdUnit}, pdWeight = #{pdWeight}, 
+			pdCountry = #{pdCountry}, pdBBE = #{pdBBE}, pdUpdDate = sysdate, pdDesInfoImg = #{pdDesInfoImg}, 
+			pdPrice = #{pdPrice}, pdSale = #{pdSale}, pdStock = #{pdStock} 
+				where pdId = #{pdId}
+	</update>
+
+<!-- 상품 삭제 -->
+	<delete id="productDelete" parameterType="ProductVO">
+		delete from productDatas where pdId = #{pdId}
+	</delete>
+	
+<!-- 상품 디테일 조회 -->	
+	<select id="productSelectOne" parameterType="Long" resultType="ProductVO">
+		select * from productDatas where pdId = #{pdId}
+	</select>
+	
+<!-- 메인, 페이지 -->	
+	<!-- 메인페이지 제철과일 select -->	
+		<select id="mainProductSeasonFruitSelect" parameterType="ProductVO" resultType="ProductVO">
+			select * from productDatas where pdSeason = 'summer' and rownum <![CDATA[<=]]> 10
+		</select>
+		<!-- 제철과일 selectList 페이지 -->
+			<select id="productSeasonFruitSelectList" parameterType="ProductVO" resultType="ProductVO">
+				select * from productDatas where pdSeason = 'winter' and rownum <![CDATA[<=]]> 30
+			</select>
+	
+	<!-- 메인페이지 지금 할인 중 select -->	
+		<select id="mainProductSaleSelect" parameterType="ProductVO" resultType="ProductVO">
+			select * from productDatas where pdSale >= 30 and rownum <![CDATA[<=]]> 10
+		</select>
+		<!-- 지금 할인 중 30% 이상 selectList 페이지 -->
+			<select id="productSaleSelectList" parameterType="ProductVO" resultType="ProductVO">
+				select * from productDatas where pdSale >= 30 and rownum <![CDATA[<=]]> 30
+			</select>
+		
+	<!-- 메인페이지 만원 이하 판매량 높은 제품 select -->	
+		<select id="mainProductSalesVolumeSelect" parameterType="ProductVO" resultType="ProductVO">
+			select * from productDatas 
+				where pdPrice <![CDATA[<=]]> 10000 
+				and rownum <![CDATA[<=]]> 10 
+				order by pdSalesVolume desc
+		</select>
+		<!-- 만원 이하 판매량 높은 제품 selectList 페이지 -->
+			<select id="productSalesVolumeSelectList" parameterType="ProductVO" resultType="ProductVO">
+				select * from productDatas where pdPrice <![CDATA[<=]]> 10000 and rownum <![CDATA[<=]]> 30 order by pdSalesVolume desc
+			</select>
+			
+	<!-- 메인페이지 후기 10,000개 이상 select -->	
+		<select id="mainProductReviewSelect" parameterType="ProductVO" resultType="ProductVO">
+			select pd.pdId from productDatas pd, reviews rv 
+    			where pd.pdId = rv.rvpdId and rownum <![CDATA[<=]]> 10
+    				group by pdId
+    					having count(rvNo) >= 5
+		</select>
+		<!-- 후기 10,000개 이상 selectList 페이지 -->
+			<select id="productReviewSelectList" parameterType="ProductVO" resultType="ProductVO">
+				select pd.pdId from productDatas pd, reviews rv 
+    				where pd.pdId = rv.rvpdId and rownum <![CDATA[<=]]> 30
+    					group by pdId having count(rvNo) >= 5
+			</select>
+					
+	<!-- 메인페이지 조회수 100,000 이상 select -->	
+		<select id="mainProductHitsSelect" parameterType="ProductVO" resultType="ProductVO">
+			select * from productDatas where pdHits >= 100000 and rownum <![CDATA[<=]]> 10
+		</select>
+		<!-- 조회수 100,000 이상 selectList 페이지 -->
+			<select id="productHitsSelectList" parameterType="ProductVO" resultType="ProductVO">
+				select * from productDatas where pdHits >= 100000 and rownum <![CDATA[<=]]> 30
+			</select>
+					
+	<!-- 메인페이지 제품 출시 6개월 미만 판매량 높은 제품 select -->	
+		<select id="mainProductDateSelect" parameterType="ProductVO" resultType="ProductVO">
+			select * from productDatas where pdRegiDate <![CDATA[<]]> (select add_months(pdRegiDate, 6) from dual) and rownum <![CDATA[<=]]> 10 order by pdSalesVolume desc
+		</select>
+		<!-- 제품 출시 6개월 미만 판매량 높은 제품 selectList 페이지 -->
+			<select id="productDateSelectList" parameterType="ProductVO" resultType="ProductVO">
+				select * from productDatas where pdRegiDate <![CDATA[<]]> (select add_months(pdRegiDate, 6) from dual) and rownum <![CDATA[<=]]> 30 order by pdSalesVolume desc
+			</select>	
+	
+<!-- 검색결과 select -->	
+<!-- 카테고리 select -->
+<!-- 신상품 select -->	
+<!-- 베스트 select -->	
+<!-- 할인 select -->	
+
+<!-- 2023-01-11 김동훈 추가 -->
+<select id="getCateList" parameterType="String" resultType="String">
+	select distinct pdmaincategory from productDatas
+	<if test="_parameter == 'newProduct'">
+    	where pdregidate >= TO_CHAR(SYSDATE-14,'YYYYMMDD')
+    </if>
+</select>
+
+<!-- 해당 페이지의 레코드 조회 -->
+<!-- 문자열 인자 하나 넘길때 오류발생시 _parameter로 해보기 -->
+<select id="getProdCount" parameterType="String" resultType="Integer">
+	select count(*) from productDatas
+	<if test="_parameter == 'newProduct'">
+    	where pdregidate >= TO_CHAR(SYSDATE-14,'YYYYMMDD')
+    </if>
+</select>
+
+
+<select id="getProdPageList" parameterType="PagingVO" resultType="ProductVO">
+		select * from 
+			(select rownum rnum, temp.* from
+				(select * from productDatas where pdregidate <![CDATA[>=]]> TO_CHAR(SYSDATE-14,'YYYYMMDD') order by 
+				<if test='sort == 1'>
+    				pdRegidate desc
+   				</if>
+   				<if test='sort == 2'>
+    				pdSalesVolume desc
+   				</if>
+   				<if test='sort == 3'>
+    				pdPrice asc
+   				</if>
+   				<if test='sort == 4'>
+    				pdPrice desc
+   				</if>
+				) 
+			temp) 
+		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+</select>
+
+<select id="getBrandList" parameterType="String" resultType="String">
+	select distinct pdstlbrandname from productDatas
+	<if test="_parameter == 'newProduct'">
+    	where pdregidate >= TO_CHAR(SYSDATE-14,'YYYYMMDD')
+    </if>
+</select>
+
+<!-- 판매자 페이지 상품 목록 조회 동적쿼리 -->
+	<select id="getPdList" resultType="ProductVO" parameterType="ProductVO">
+		select * from productDatas where pdstlBrandName = '판매점1'
+	</select>
+
+<!-- 관리자용 모든 상품 조회 -->
+	<select id="getProductPageList" parameterType="PagingVO" resultType="ProductVO">
+		select * from 
+			(select pdId, pdThumbImg, pdName, pdMainCategory, pdSubCategory, pdstlBrandName,  
+			pdStorageType, pdUnit, pdWeight, pdCountry, pdBBE, pdRegiDate, pdUpdDate, pdDesInfoImg,
+			pdSeason, pdHits, pdSalesVolume, pdPrice, pdSale, pdStock, row_number() OVER(order by pdId desc) as Rnum
+				from productDatas) mp
+					where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+	      				order by pdId desc
+	</select>
+	
+	<select id="getProductCount" parameterType="int" resultType="Integer">
+		select count(*) from productDatas
+	</select>
+
+
+
+
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

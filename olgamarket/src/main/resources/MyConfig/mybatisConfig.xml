@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <typeAliases>
+  	<typeAlias type="kr.co.olga.vo.MemberVO" alias="MemberVO"/>
+  	<typeAlias type="kr.co.olga.vo.ProductVO" alias="ProductVO"/>
+  	<typeAlias type="kr.co.olga.vo.FAQVO" alias="FAQVO"/>
+  	<typeAlias type="kr.co.olga.vo.NoticeVO" alias="NoticeVO"/>
+  	<typeAlias type="kr.co.olga.vo.StoreVO" alias="StoreVO"/>
+  	<typeAlias type="kr.co.olga.vo.QuiryVO" alias="QuiryVO"/>
+  	<typeAlias type="kr.co.olga.vo.ReviewVO" alias="ReviewVO"/>
+  	<typeAlias type="kr.co.olga.vo.SellerVO" alias="SellerVO"/>
+  	<typeAlias type="kr.co.olga.vo.FavorVO" alias="FavorVO"/>
+  	<typeAlias type="kr.co.olga.vo.ShipVO" alias="ShipVO"/>
+  	<typeAlias type="kr.co.olga.vo.AnswerVO" alias="AnswerVO"/>
+  	<typeAlias type="kr.co.olga.vo.QnVO" alias="QnVO"/>
+  	<typeAlias type="kr.co.olga.vo.AnVO" alias="AnVO"/>
+  	<typeAlias type="kr.co.olga.vo.PagingVO" alias="PagingVO"/>
+  	<typeAlias type="kr.co.olga.vo.AdminVO" alias="AdminVO"/>
+  </typeAliases>
+</configuration>

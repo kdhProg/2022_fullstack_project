@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="storeMapper">
+
+<!-- 판매점 추가 -->
+	<insert id="storeInsert" parameterType="StoreVO">
+		insert into storeLists
+			values( (select NVL(MAX(stlNo) +1, 1) from storeLists), #{stlBrandName}, 
+					#{stlInfo}, #{stlPhone}, #{stlEmail}, #{stlMarketUniqueNo}, 
+					#{stlSelRegiNo}, sysdate, sysdate)	
+	</insert>
+
+<!-- 판매점 정보 수정 -->
+	<update id="storeUpdate" parameterType="StoreVO">
+		update storeLists set
+			stlBrandName = #{stlBrandName}, stlInfo = #{stlInfo}, 
+			stlPhone = #{stlPhone}, stlEmail = #{stlEmail}
+				where stlNo = #{stlNo}
+	</update>
+
+<!-- 판매점 삭제 -->
+	<delete id="storeDeleteOne" parameterType="String">
+		delete from storeLists
+			where stlBrandName = #{stlBrandName}
+	</delete>
+
+<!-- 판매점 하나 조회  -->	
+	<select id="storeSelectOne" parameterType="String" resultType="StoreVO">
+		select * from storeLists 
+			where stlBrandName = #{stlBrandName}
+	</select>
+
+<!-- 판매점 모두 조회  -->	
+	<select id="storeSelectList" parameterType="String" resultType="StoreVO">
+		select * from storeLists
+	</select>
+	
+	
+<!-- 관리자 판매점 관리 페이징 -->	
+	<select id="getStorePageList" parameterType="PagingVO" resultType="NoticeVO">
+		select * from
+			(select stlNo, stlBrandName, stlInfo, stlPhone, stlEmail, 
+			stlMarketUniqueNo, stlSelRegiNo, stlRegiDate, stlUpdDate, row_number OVER(order by stlNo desc) as Rnum 
+				from storeLists) mp
+					where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+	      				order by stlNo desc
+	</select>
+	
+	<select id="getStoreCount" parameterType="int" resultType="Integer">
+		select count(*) from storeLists
+	</select>
+
+
+
+
+
+	
+</mapper>
+
+
+
+
+
+
+
+

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="faqMapper">
+
+<!-- FAQ 추가 -->
+	<insert id="faqInsert" parameterType="NoticeVO">
+		insert into FAQS 
+			values( (select NVL(MAX(faqNo) +1, 1) from FAQS), #{faqadmId}, 
+					#{faqCategory}, #{faqTitle}, #{faqContent}, sysdate, sysdate)
+	</insert>
+	
+<!-- FAQ 수정 -->
+	<update id="faqUpdate" parameterType="NoticeVO">
+		update FAQS set 
+			faqCategory = #{faqCategory}, faqTitle = #{faqTitle}, faqContent = #{faqContent}, faqUpdDate = sysdate
+				where faqNo = #{faqNo}
+	</update>
+	
+<!-- FAQ 삭제 -->
+	<delete id="faqDeleteOne" parameterType="Long">
+		delete from FAQS where faqNo = #{faqNo}
+	</delete>
+	
+<!-- FAQ 하나 가져오기 -->	
+	<select id="faqSelectOne" resultType="FAQVO" parameterType="Long">
+		select * from FAQS where faqNo = #{faqNo}
+	</select>
+
+
+<!-- FAQ 전체 가져오기 -->	
+	<select id="faqSelectList" resultType="FAQVO" parameterType="Long">
+		select * from FAQS
+	</select>	
+
+<!-- 2023 01 12 페이징  -->
+<!-- 카테고리에 해당하는 정보 개수 -->
+<select id="getFaqCount" parameterType="String" resultType="Integer">
+	select count(*) from FAQS  
+	<if test="_parameter == 'defaultCate'">
+		where 1=1
+	</if>
+	<if test="_parameter == '주문/결제'">
+		where faqcategory = '주문/결제'
+	</if>
+	<if test="_parameter == '취소/교환/환불'">
+		where faqcategory = '취소/교환/환불'
+	</if>
+	<if test="_parameter == '포장'">
+		where faqcategory = '포장'
+	</if>
+	<if test="_parameter == '회원'">
+		where faqcategory = '회원'
+	</if>
+</select>
+
+<select id="getFaqPageList" parameterType="PagingVO" resultType="FAQVO">
+		select * from 
+			(select rownum rnum, temp.* from
+				(select * from FAQS 
+					<foreach collection="categories" item="cate" open="where " close=" " separator="">
+						<if test="cate == 'defaultCate'">
+							1=1
+						</if>
+						<if test="cate != 'defaultCate'">
+							faqCategory = #{cate}
+						</if>
+					</foreach>
+				) 
+			temp) 
+		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+</select>
+	
+</mapper>

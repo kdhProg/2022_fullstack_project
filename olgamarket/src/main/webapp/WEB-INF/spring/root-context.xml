@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<!-- 데이터베이스 -->
+	<bean class="com.zaxxer.hikari.HikariConfig" id="hikariConfig">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="olga" />
+		<property name="password" value="1234" />
+	</bean>
+
+	<bean class="com.zaxxer.hikari.HikariDataSource" id="dataSource">
+		<constructor-arg ref="hikariConfig" />
+	</bean>
+
+	<!-- 마이바티스 -->
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:MyConfig/mybatisConfig.xml" />
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:MyConfig/memberMapper/member.xml</value>
+				<value>classpath:MyConfig/productMapper/product.xml</value>
+				<value>classpath:MyConfig/faqMapper/faq.xml</value>
+				<value>classpath:MyConfig/favorMapper/favor.xml</value>
+				<value>classpath:MyConfig/noticeMapper/notice.xml</value>
+				<value>classpath:MyConfig/quiryMapper/quiry.xml</value>
+				<value>classpath:MyConfig/reviewMapper/review.xml</value>
+				<value>classpath:MyConfig/sellerMapper/seller.xml</value>
+				<value>classpath:MyConfig/shipMapper/ship.xml</value>
+				<value>classpath:MyConfig/storeMapper/store.xml</value>
+				<value>classpath:MyConfig/answerMapper/answer.xml</value>
+				<value>classpath:MyConfig/qnMapper/qn.xml</value>
+				<value>classpath:MyConfig/anMapper/an.xml</value>
+				<value>classpath:MyConfig/adminMapper/admin.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactoryBean" />
+	</bean>
+
+	<!-- 컨택스트 스캔 -->
+	<context:component-scan base-package="kr.co.olga" />
+
+</beans>
