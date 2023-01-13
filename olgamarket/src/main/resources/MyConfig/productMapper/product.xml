@@ -168,9 +168,6 @@
 	<select id="getProductCount" parameterType="int" resultType="Integer">
 		select count(*) from productDatas
 	</select>
-	
-<!-- 관리자용 판매자 관리 (해당 하는 상품 보기) -->	
-	
 
 
 

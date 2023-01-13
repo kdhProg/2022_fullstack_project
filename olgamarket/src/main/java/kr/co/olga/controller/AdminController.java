@@ -173,32 +173,7 @@ public class AdminController {
 
 		return "/adimn/sellerOne";
 	}
-/*
-	
-	// 판매자에 해당 하는 상품 목록
-	@RequestMapping(value = "/sellerPdList")
-	public String sellerPdList(Model model, Integer showPage) {
-		int currPage;
-		if(showPage == null) {
-			currPage = 1;
-		}else {
-			currPage = showPage;
-		}
-		
-		PagingVO vo = productService.getProductPageInfo(currPage); //페이징에 필요한 정보 계산
-		List<ProductVO> pageList =  productService.getProductPageList(vo);
-		
-		model.addAttribute("sellerPdList",pageList);  //상품 목록
-		model.addAttribute("pageInfo",vo);  //페이징정보
-		model.addAttribute("currPage",currPage); //현재페이지
 
-		List<SellerVO> slVo = sellerService.sellerSelAll();
-		model.addAttribute("slList", slVo);
-		
-		
-		return "/admin/sellerPdList";
-	}
-*/
 /************ 상품 관리 ************************************************************************************************************************/
 
 	@Autowired
