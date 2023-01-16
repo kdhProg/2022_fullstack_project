@@ -23,5 +23,20 @@
 	<select id="quirySelOne" parameterType="long" resultType="QuiryVO">
 		select * from inquirys where iqNo = #{iqNo}
 	</select>
+	
+	<!-- pdId에 해당하는 레코드 개수 -->
+	<select id="quiryCountPdId" parameterType="Integer" resultType="Integer">
+		select count(*) from inquirys where iqpdId = #{getPdId}
+	</select>
+	
+	<!-- 페이징 작업 -->
+	<select id="quiryGetPdList" parameterType="PagingVO" resultType="QuiryVO">
+		select * from 
+			(select rownum rnum, temp.* from
+				(select * from inquirys where iqpdId = #{pdId} order by iqRegiDate) 
+			temp) 
+		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+	</select>
+
 
 </mapper>

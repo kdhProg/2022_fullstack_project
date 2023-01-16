@@ -44,7 +44,7 @@ public interface ProductDAO {
 	List<String> getCateList(String pgName);
 
 //	해당 페이지의 총 레코드 개수
-	int getProdCount(String pgName);
+	int getProdCount(PagingVO temp_vo);  //20230115 김동훈 수정
 
 	List<ProductVO> getProdPageList(PagingVO vo);
 
