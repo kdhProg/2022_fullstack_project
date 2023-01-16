@@ -26,13 +26,13 @@ public class StoreDAOImpl implements StoreDAO {
 	}
 
 	@Override
-	public long storeDeleteOne(String stlBrandName) {
-		return session.delete("storeMapper.storeDeleteOne", stlBrandName);
+	public long storeDeleteOne(Long stlNoe) {
+		return session.delete("storeMapper.storeDeleteOne", stlNoe);
 	}
 
 	@Override
-	public StoreVO storeSelectOne(String stlBrandName) {
-		return session.selectOne("storeMapper.storeSelectOne", stlBrandName);
+	public StoreVO storeSelectOne(Long stlNo) {
+		return session.selectOne("storeMapper.storeSelectOne", stlNo);
 	}
 
 	@Override

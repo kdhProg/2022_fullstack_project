@@ -51,17 +51,17 @@ public class StoreTest {
 	
 	@Test
 	public void storeDeleteOneTest() {
-		String stlBrandName = "이 가게 이름은 브랜드223";
+		long stlNo = 3L;
 		
-		assertEquals(service.storeDeleteOne(stlBrandName), 1);
+		assertEquals(service.storeDeleteOne(stlNo), 1);
 	}
 	
 	@Test
 	public void storeSelectOneTest() {
-		String stlBrandName = "이 가게 이름은 브랜드2";
+		long stlNo = 3L;
 		
 		System.out.println("==========================================");
-		System.out.println(service.storeSelectOne(stlBrandName));
+		System.out.println(service.storeSelectOne(stlNo));
 		System.out.println("==========================================");
 	}
 /*	

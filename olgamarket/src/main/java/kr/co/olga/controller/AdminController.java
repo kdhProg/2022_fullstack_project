@@ -13,21 +13,25 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.olga.service.AdminService;
 import kr.co.olga.service.AnService;
+import kr.co.olga.service.AnswerService;
 import kr.co.olga.service.FAQService;
 import kr.co.olga.service.MemberService;
 import kr.co.olga.service.NoticeService;
 import kr.co.olga.service.ProductService;
 import kr.co.olga.service.QnService;
+import kr.co.olga.service.QuiryService;
 import kr.co.olga.service.SellerService;
 import kr.co.olga.service.StoreService;
 import kr.co.olga.vo.AdminVO;
 import kr.co.olga.vo.AnVO;
+import kr.co.olga.vo.AnswerVO;
 import kr.co.olga.vo.FAQVO;
 import kr.co.olga.vo.MemberVO;
 import kr.co.olga.vo.NoticeVO;
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ProductVO;
 import kr.co.olga.vo.QnVO;
+import kr.co.olga.vo.QuiryVO;
 import kr.co.olga.vo.SellerVO;
 import kr.co.olga.vo.StoreVO;
 
@@ -71,7 +75,7 @@ public class AdminController {
 	@Autowired
 	private StoreService storeService;
 
-	// 모든 판매점 목록
+	// 모든 판매점 목록	
 	@RequestMapping(value = "/storeList")
 	public String storeList(Model model, Integer showPage) {
 		int currPage;
@@ -95,7 +99,7 @@ public class AdminController {
 	@RequestMapping(value = "/storeOne")
 	public String storeOne(Model model, StoreVO vo) {
 
-		model.addAttribute("storeOne", storeService.storeSelectOne(vo.getStlBrandName()));
+		model.addAttribute("storeOne", storeService.storeSelectOne(vo.getStlNo()));
 
 		return "/admin/storeOne";
 	}
@@ -111,7 +115,7 @@ public class AdminController {
 
 	// 판매점 추가 화면
 	@RequestMapping(value = "/storeInsertView")
-	public String storeInsertView() {
+	public String storeInsertView(StoreVO vo, Model model) {
 
 		return "/admin/storeInsertView";
 	}
@@ -127,7 +131,9 @@ public class AdminController {
 
 	// 판매점 수정 화면
 	@RequestMapping(value = "/storeUpdateView")
-	public String storeUpdateView() {
+	public String storeUpdateView(StoreVO vo, Model model) {
+		
+		model.addAttribute("update", storeService.storeSelectOne(vo.getStlNo()));
 
 		return "/admin/storeUpdateView";
 	}
@@ -136,7 +142,7 @@ public class AdminController {
 	@RequestMapping(value = "/storeDelete")
 	public String storeDelete(StoreVO vo) {
 
-		storeService.storeDeleteOne(vo.getStlBrandName());
+		storeService.storeDeleteOne(vo.getStlNo());
 
 		return "redirect:/admin/storeList";
 	}
@@ -255,7 +261,9 @@ public class AdminController {
 
 	// 상품 수정 화면
 	@RequestMapping(value = "/productUpdateView")
-	public String productUpdateView() {
+	public String productUpdateView(ProductVO vo, Model model) {
+		
+		model.addAttribute("update", productService.productSelectOne(vo.getPdId()));
 
 		return "/admin/productUpdateView";
 	}
@@ -266,7 +274,7 @@ public class AdminController {
 
 		productService.productDelete(vo.getPdId());
 
-		return "redirect:/admin/productDelete";
+		return "redirect:/admin/productList";
 	}
 
 /************ 공지사항 관리 ************************************************************************************************************************/
@@ -449,14 +457,15 @@ public class AdminController {
 		return "redirect:/admin/memberList";
 	}
 	
-	/*
-	// 회원 정지 화면 (업데이트)
-	@RequestMapping(value = "memRepotView")
-	public String memRepotView() {
+	// 회원 등급 조정
+	@RequestMapping(value = "memGrade")
+	public String memGrade(MemberVO vo) {
+	//	memberService.memGrade(vo); // 등급만 조절
 		
-		return "";
+		
+		return "redirect:/admin/memGrade";
 	}
-	*/
+	
 	
 /************ 1:1 문의 관리 ************************************************************************************************************************/		
 	
@@ -529,7 +538,78 @@ public class AdminController {
 		return "/admin/anUpdateView";
 	}
 	
+/************ 상품 문의 답변 ************************************************************************************************************************/
 	
+	// 상품 문의 
+	@Autowired
+	private QuiryService quiryService;
+	
+	// 상품 문의 답변 
+	@Autowired
+	private AnswerService answerService;
+	
+	// 상품 문의 목록
+	@RequestMapping(value = "/quiryPageInitInfos")
+	public String getQuiryPagingDatas(String showPage,String pdId, Model model) {
+		int currPage;
+		if(showPage == null) {
+			currPage = 1;
+		}else {
+			currPage = Integer.parseInt(showPage);
+		}
+
+		int getPdId = Integer.parseInt(pdId);
+		
+		PagingVO vo = quiryService.getRvPageInfo(currPage,getPdId);
+		List<QuiryVO> rvPageList =  quiryService.getRvPageList(vo);
+		
+		model.addAttribute("qrPageList",rvPageList);  //게시판목록
+		model.addAttribute("pageInfo",vo);  //페이징정보
+		model.addAttribute("currPage",currPage); //현재페이지
+		
+		return "/admin/quiryPageInitInfos";
+	}
+	
+	// 상품 문의 조회 + 답변
+	@RequestMapping(value = "quiryOneInfo")
+	public String quiryOneInfo(QuiryVO vo, Model model){
+		model.addAttribute("adminQnOne", quiryService.quirySelOne(vo.getIqNo()));
+		
+		List<AnswerVO> answerVoList = answerService.answerList(vo.getIqNo());
+		model.addAttribute("answerList", answerVoList);
+		
+		return "/amdin/quiryOneInfo";
+	}
+	
+	// 상품 문의 답변 추가
+	@RequestMapping(value = "/answerInsert")
+	public String answerInsert(AnswerVO vo) {
+		answerService.answerInsert(vo);
+		
+		return "redirect:/admin/quiryOneInfo";
+	}
+	
+	// 상품 문의 답변 추가 화면
+	@RequestMapping(value = "/answerInsertView")
+	public String answerInsertView() {
+		
+		return "/admin/answerInsertView";
+	}
+	
+	// 상품 문의 답변 수정
+	@RequestMapping(value = "/answerUpdate")
+	public String answerUpdate(AnswerVO vo) {
+		answerService.answerUpdate(vo);
+		
+		return "redirect:/admin/quiryOneInfo";
+	}
+	
+	// 상품 문의 답변 수정 화면
+	@RequestMapping(value = "/answerUpdateView")
+	public String answerUpdateView(AnswerVO vo) {
+		
+		return "redirect:/admin/answerUpdateView";
+	}
 	
 	
 	

@@ -10,6 +10,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<a href="/admin/storeList"> 판매점 관리</a>
+	
 	<a href="/admin/productList"> 상품 관리</a>
+	
 </body>
 </html>

@@ -11,9 +11,9 @@ public interface StoreService {
 
 	long storeUpdate(StoreVO vo);
 
-	long storeDeleteOne(String stlBrandName);
+	long storeDeleteOne(Long stlNo);
 
-	StoreVO storeSelectOne(String stlBrandName);
+	StoreVO storeSelectOne(Long stlNo);
 
 	PagingVO getStorePageInfo(int currPage);
 

@@ -11,9 +11,9 @@ public interface StoreDAO {
 
 	long storeUpdate(StoreVO vo);
 
-	long storeDeleteOne(String stlBrandName);
+	long storeDeleteOne(Long stlNo);
 
-	StoreVO storeSelectOne(String stlBrandName);
+	StoreVO storeSelectOne(Long stlNo);
 
 	int getStoreCount();
 

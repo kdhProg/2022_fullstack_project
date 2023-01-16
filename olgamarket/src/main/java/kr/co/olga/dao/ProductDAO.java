@@ -11,9 +11,9 @@ public interface ProductDAO {
 
 	long productUpdate(ProductVO vo);
 
-	long productDelete(long pdId);
+	long productDelete(Long pdId);
 
-	ProductVO productSelectOne(long pdId);
+	ProductVO productSelectOne(Long pdId);
 	
 // 메인
 	List<ProductVO> mainProductSeasonFruitSelect(ProductVO vo);

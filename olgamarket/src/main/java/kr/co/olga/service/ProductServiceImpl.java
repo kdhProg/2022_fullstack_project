@@ -27,12 +27,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public long productDelete(long pdId) {
+	public long productDelete(Long pdId) {
 		return dao.productDelete(pdId);
 	}
 
 	@Override
-	public ProductVO productSelectOne(long pdId) {
+	public ProductVO productSelectOne(Long pdId) {
 		return dao.productSelectOne(pdId);
 	}
 	

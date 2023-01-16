@@ -1,10 +1,13 @@
 package kr.co.olga.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.olga.dao.AnswerDAO;
 import kr.co.olga.vo.AnswerVO;
+import lombok.NonNull;
 
 
 
@@ -34,6 +37,11 @@ public class AnswerServiceImpl implements AnswerService {
 	@Override
 	public AnswerVO answerSelOne(long iaiqNo) {
 		return dao.answerSelOne(iaiqNo);
+	}
+
+	@Override
+	public List<AnswerVO> answerList(@NonNull Long iqNo) {
+		return dao.answerList(iqNo);
 	}
 
 

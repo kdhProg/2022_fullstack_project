@@ -26,6 +26,11 @@
 	<select id="answerSelOne" parameterType="Long" resultType="AnswerVO">
 	 select * from iqAnswers where iaiqNo=#{iaiqNo}
 	</select>
+	
+	<!-- 상품 문의 답변 목록 가져오기 -->
+	<select id="answerList" resultType="AnswerVO">
+		select * from iqAnswers where iaiqNo=#{iaiqNo}
+	</select>
 
 	
 

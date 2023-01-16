@@ -1,6 +1,9 @@
 package kr.co.olga.dao;
 
+import java.util.List;
+
 import kr.co.olga.vo.AnswerVO;
+import lombok.NonNull;
 
 public interface AnswerDAO {
 
@@ -11,5 +14,7 @@ public interface AnswerDAO {
 	long answerUpdate(AnswerVO vo);
 
 	AnswerVO answerSelOne(long iaiqNo);
+
+	List<AnswerVO> answerList(@NonNull Long iqNo);
 
 }

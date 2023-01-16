@@ -15,21 +15,21 @@
 <!-- 판매점 정보 수정 -->
 	<update id="storeUpdate" parameterType="StoreVO">
 		update storeLists set
-			stlBrandName = #{stlBrandName}, stlInfo = #{stlInfo}, 
-			stlPhone = #{stlPhone}, stlEmail = #{stlEmail}
+			 stlInfo = #{stlInfo}, 
+			stlPhone = #{stlPhone}, stlEmail = #{stlEmail}, stlUpdDate = sysdate
 				where stlNo = #{stlNo}
 	</update>
 
 <!-- 판매점 삭제 -->
-	<delete id="storeDeleteOne" parameterType="String">
+	<delete id="storeDeleteOne" parameterType="Long">
 		delete from storeLists
-			where stlBrandName = #{stlBrandName}
+			where stlNo = #{stlNo}
 	</delete>
 
 <!-- 판매점 하나 조회  -->	
-	<select id="storeSelectOne" parameterType="String" resultType="StoreVO">
+	<select id="storeSelectOne" parameterType="Long" resultType="StoreVO">
 		select * from storeLists 
-			where stlBrandName = #{stlBrandName}
+			where stlNo = #{stlNo}
 	</select>
 
 <!-- 판매점 모두 조회  -->	
@@ -39,10 +39,10 @@
 	
 	
 <!-- 관리자 판매점 관리 페이징 -->	
-	<select id="getStorePageList" parameterType="PagingVO" resultType="NoticeVO">
+	<select id="getStorePageList" parameterType="PagingVO" resultType="StoreVO">
 		select * from
 			(select stlNo, stlBrandName, stlInfo, stlPhone, stlEmail, 
-			stlMarketUniqueNo, stlSelRegiNo, stlRegiDate, stlUpdDate, row_number OVER(order by stlNo desc) as Rnum 
+			stlMarketUniqueNo, stlSelRegiNo, stlRegiDate, stlUpdDate, row_number() OVER(order by stlNo desc) as Rnum 
 				from storeLists) mp
 					where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
 	      				order by stlNo desc

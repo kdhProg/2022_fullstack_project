@@ -26,12 +26,12 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public long productDelete(long pdId) {
+	public long productDelete(Long pdId) {
 		return session.delete("productMapper.productDelete", pdId);
 	}
 
 	@Override
-	public ProductVO productSelectOne(long pdId) {
+	public ProductVO productSelectOne(Long pdId) {
 		return session.selectOne("productMapper.productSelectOne", pdId);
 	}
 	

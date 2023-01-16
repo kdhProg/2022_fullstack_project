@@ -26,13 +26,13 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public long storeDeleteOne(String stlBrandName) {
-		return dao.storeDeleteOne(stlBrandName);
+	public long storeDeleteOne(Long stlNo) {
+		return dao.storeDeleteOne(stlNo);
 	}
 
 	@Override
-	public StoreVO storeSelectOne(String stlBrandName) {
-		return dao.storeSelectOne(stlBrandName);
+	public StoreVO storeSelectOne(Long stlNo) {
+		return dao.storeSelectOne(stlNo);
 	}
 
 // 관리자 판매점 관리 페이징	
