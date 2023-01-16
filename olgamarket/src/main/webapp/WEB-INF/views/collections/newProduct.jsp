@@ -121,7 +121,7 @@ function newPdList(pageNo,sortNo,finalCateList) {
 				newPdContentTag += "<td>"+value.pdId+"</td>";
 				newPdContentTag += "<td><a href='/goods/detailView?pdId="+value.pdId+"'>"+value.pdName+"</a></td>";
 				newPdContentTag += "<td>"+value.pdMainCategory+"</td>";
-				newPdContentTag += "<td>"+value.pdSale+"</td>";
+				newPdContentTag += "<td>"+value.pdSalesVolume+"</td>";
 				newPdContentTag += "<td>"+value.pdPrice+"</td>";
 				newPdContentTag += "<td>"+value.pdRegiDate+"</td>";
 				newPdContentTag += "</tr>";                
@@ -155,6 +155,7 @@ function newPdList(pageNo,sortNo,finalCateList) {
 // 정렬함수
 function sortList(inputsort){
 	sortType = inputsort;
+	newPdList(1,sortType,finalCateList);
 }
 
 //정렬 A태그 디자인 관련

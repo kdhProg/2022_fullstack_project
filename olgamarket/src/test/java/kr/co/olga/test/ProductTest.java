@@ -2,8 +2,10 @@ package kr.co.olga.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import kr.co.olga.service.ProductService;
+import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ProductVO;
 
 @WebAppConfiguration
@@ -23,6 +26,34 @@ public class ProductTest {
 	private ProductService service;
 	
 	@Test
+	@Ignore
+	public void brandNCateListTest() {
+		String kw = "파랑";
+		System.out.println(service.getSearchBrandList(kw));
+		System.out.println(service.getSearchCateList(kw));
+		
+	}
+	
+	@Test
+	@Ignore
+	public void productSearchTest() {
+		String searchKeyWord = "파랑";
+		PagingVO vo = new PagingVO();
+		vo.setSearchKeyWord(searchKeyWord);
+		vo.setSort(1);
+		vo.setContEnd(10);
+		vo.setContStart(1);
+		List<ProductVO> testList = service.getSearchPdList(vo);
+		PagingVO vo2 = service.getSearchPdPageInfo(1,1,searchKeyWord,new ArrayList<String>());
+		for(int i = 0; i<testList.size() ; i++) {
+			System.out.println(testList.get(i).getPdName());
+		}
+		
+		System.out.println(vo2);
+	}
+	
+	@Test
+	@Ignore
 	public void productInsertTest() {
 		ProductVO vo = new ProductVO();
 		
@@ -62,6 +93,7 @@ public class ProductTest {
 	}
 	
 	@Test
+	@Ignore
 	public void productUpdateTest() {
 		ProductVO vo = new ProductVO();
 		
@@ -82,6 +114,7 @@ public class ProductTest {
 	}
 	
 	@Test
+	@Ignore
 	public void productDeleteTest() {
 		long pdId = 2L;
 		
@@ -89,6 +122,7 @@ public class ProductTest {
 	}
 	
 	@Test
+	@Ignore
 	public void productSelectOneTest() {
 		long pdId = 1L;
 		

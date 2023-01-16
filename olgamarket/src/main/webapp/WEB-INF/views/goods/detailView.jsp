@@ -130,6 +130,7 @@ function reviewList(pageNo, sortNo) {
 // 정렬을 결정하는 함수임
 function sortList(inputsort){
 	sortType = inputsort;
+	reviewList(1, sortType);
 }
 
 // 정렬 A태그 디자인 관련

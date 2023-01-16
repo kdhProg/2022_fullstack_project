@@ -15,15 +15,29 @@
 	}
 </style>
 <body>
+	
+	<form action="/search/productList">
+		<input type="text" placeholder="검색어 입력" name="searchKeyWord"/>
+		<input type="submit" value="검색"/>
+	</form>
 
 	<a href="/member/Join">회원가입하기</a>
-
+	<hr />
+	<h2>카테고리 리스트</h2>
+	<a href="/collections/mainPageCategory?cateName=과일">[과일]</a>&nbsp;<a href="/collections/mainPageCategory?cateName=채소">[채소]</a>&nbsp;
+	<a href="/collections/mainPageCategory?cateName=쌀/잡곡">[쌀/잡곡]</a>&nbsp;<a href="/collections/mainPageCategory?cateName=수산물">[수산물]</a>&nbsp;
+	<a href="/collections/mainPageCategory?cateName=축산/계란">[축산/계란]</a>&nbsp;<a href="/collections/mainPageCategory?cateName=냉동/냉장/간편식">[냉동/냉장/간편식]</a>
+	<hr />
 	<a href="/collections/newProduct">신상품</a>
-
+	<hr />
+	<a href="/collections/best">베스트</a>
+	<hr />
+	<a href="/collections/nowOnSale">할인/특가</a>
+	<hr />
 	<a href="/board/noticeList">고객센터-공지사항</a>
-
+	<hr />
 	<a href="/board/faqList">고객센터-FAQ</a>
-	
+	<hr />   
 	<div class="fruitPd">
 		<table>
 			<c:forEach var="list" items="${fruitPd}">
