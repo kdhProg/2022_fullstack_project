@@ -149,9 +149,25 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	
-
+	@Override
+	public List<ProductVO> getSearchPdList(PagingVO vo) {
+		return session.selectList("productMapper.getSearchPdList", vo);
+	}
 	
-
+	@Override
+	public int getSearchPdCount(String searchKeyWord) {
+		return session.selectOne("productMapper.getSearchPdCount", searchKeyWord);
+	}
+	
+	@Override
+	public List<String> getSearchCateList(String searchKeyWord) {
+		return session.selectList("productMapper.getSearchCateList", searchKeyWord);
+	}
+	
+	@Override
+	public List<String> getSearchBrandList(String searchKeyWord) {
+		return session.selectList("productMapper.getSearchBrandList", searchKeyWord);
+	}
 	
 	
 	

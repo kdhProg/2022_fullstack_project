@@ -104,10 +104,20 @@
 <!-- 할인 select -->	
 
 <!-- 2023-01-11 김동훈 추가 -->
+<!-- 신상품/베스트/할인특가 동적쿼리 시작 -->
 <select id="getCateList" parameterType="String" resultType="String">
-	select distinct pdmaincategory from productDatas
+	select distinct pdmaincategory from productDatas where
 	<if test="_parameter == 'newProduct'">
-    	where pdregidate >= TO_CHAR(SYSDATE-14,'YYYYMMDD')
+    	pdregidate >= TO_CHAR(SYSDATE-14,'YYYYMMDD')
+    </if>
+    <if test="_parameter == 'best'">
+    	pdSalesVolume >= 5000
+    </if>
+    <if test="_parameter == 'nowOnSale'">
+    	pdSale > 0
+    </if>
+    <if test="_parameter != 'newProduct' and _parameter != 'best' and _parameter != 'nowOnSale'">
+    	pdmaincategory = #{pgName}
     </if>
 </select>
 
@@ -115,9 +125,18 @@
 <!-- 문자열 인자 하나 넘길때 오류발생시 _parameter로 해보기 -->
 <!-- 20230115 김동훈 수정 -->
 <select id="getProdCount" parameterType="PagingVO" resultType="Integer">
-	select count(*) from productDatas
+	select count(*) from productDatas where
 	<if test="pgName == 'newProduct'">
-    	where pdregidate >= TO_CHAR(SYSDATE-14,'YYYYMMDD')
+    	pdregidate >= TO_CHAR(SYSDATE-14,'YYYYMMDD')
+    </if>
+    <if test="pgName == 'best'">
+    	pdSalesVolume >= 5000
+    </if>
+    <if test="pgName == 'nowOnSale'">
+    	pdSale > 0
+    </if>
+    <if test="pgName != 'newProduct' and pgName != 'best' and pgName != 'nowOnSale'">
+    	pdmaincategory = #{pgName}
     </if>
     <if test="categories!=null and categories.size!=0">
 	    <foreach collection="categories" item="cate" open="" close="" separator=" or ">
@@ -130,7 +149,19 @@
 <select id="getProdPageList" parameterType="PagingVO" resultType="ProductVO">
 		select * from 
 			(select rownum rnum, temp.* from
-				(select * from productDatas where pdregidate <![CDATA[>=]]> TO_CHAR(SYSDATE-14,'YYYYMMDD') 
+				(select * from productDatas where 
+				<if test="pgName == 'newProduct'">
+    				pdregidate <![CDATA[>=]]> TO_CHAR(SYSDATE-14,'YYYYMMDD')
+   				</if>
+   				<if test="pgName == 'best'">
+    				pdSalesVolume >= 5000
+    			</if>
+    			<if test="pgName == 'nowOnSale'">
+    				pdSale > 0
+   				</if>
+   				<if test="pgName != 'newProduct' and pgName != 'best' and pgName != 'nowOnSale'">
+    				pdmaincategory = #{pgName}
+    			</if>
 				<if test="categories!=null and categories.size!=0">
 					<foreach collection="categories" item="cate" open=" and (" close=")" separator=" or ">
 						pdMainCategory = #{cate}
@@ -155,11 +186,21 @@
 </select>
 
 <select id="getBrandList" parameterType="String" resultType="String">
-	select distinct pdstlbrandname from productDatas
+	select distinct pdstlbrandname from productDatas where
 	<if test="_parameter == 'newProduct'">
-    	where pdregidate >= TO_CHAR(SYSDATE-14,'YYYYMMDD')
+    	pdregidate >= TO_CHAR(SYSDATE-14,'YYYYMMDD')
+    </if>
+    <if test="_parameter == 'best'">
+    	pdSalesVolume >= 5000
+    </if>
+    <if test="_parameter == 'nowOnSale'">
+    	pdSale > 0
+    </if>
+    <if test="_parameter != 'newProduct' and _parameter != 'best' and _parameter != 'nowOnSale'">
+    	pdmaincategory = #{pgName}
     </if>
 </select>
+<!-- 신상품/베스트/할인특가 동적쿼리 끝 -->
 
 <!-- 판매자 페이지 상품 목록 조회 동적쿼리 -->
 	<select id="getPdList" resultType="ProductVO" parameterType="ProductVO">
@@ -182,10 +223,45 @@
 	</select>
 
 
+<!-- 2023 01 16 검색 쿼리문 -->
+<select id="getSearchPdList" parameterType="PagingVO" resultType="ProductVO">
+		select * from 
+			(select rownum rnum, temp.* from
+				(select * from productDatas where pdname LIKE '%' || #{searchKeyWord} || '%'
+				<if test="categories!=null and categories.size!=0">
+					<foreach collection="categories" item="cate" open=" and (" close=")" separator=" or ">
+						pdMainCategory = #{cate}
+					</foreach>
+				</if>
+				order by 
+				<if test='sort == 1'>
+    				pdRegidate desc
+   				</if>
+   				<if test='sort == 2'>
+    				pdSalesVolume desc
+   				</if>
+   				<if test='sort == 3'>
+    				pdPrice asc
+   				</if>
+   				<if test='sort == 4'>
+    				pdPrice desc
+   				</if>
+				) 
+			temp) 
+		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+</select>
 
+<select id="getSearchPdCount" parameterType="String" resultType="Integer">
+	select count(*) from productDatas where pdname LIKE '%' || #{searchKeyWord} || '%'
+</select>
 
+<select id="getSearchCateList" parameterType="String" resultType="String">
+	select distinct pdmaincategory from productDatas where pdname LIKE '%' || #{searchKeyWord} || '%'
+</select>
 
-
+<select id="getSearchBrandList" parameterType="String" resultType="String">
+	select distinct pdstlBrandName from productDatas where pdname LIKE '%' || #{searchKeyWord} || '%'
+</select>
 
 </mapper>
 

@@ -62,6 +62,16 @@ public interface ProductService {
 	List<ProductVO> getProductPageList(PagingVO vo);
 
 	
+//	2023 01 16 김동훈 검색 메서드 -PagingVO 객체의 searchKeyWord를 이름에 갖고있는 상품레코드 리스트 반환
+	List<ProductVO> getSearchPdList(PagingVO vo);
+
+	PagingVO getSearchPdPageInfo(int currPage, int sortType,String searchKeyWord,ArrayList<String> finalCateList);
+
+	List<String> getSearchCateList(String searchKeyWord);
+
+	List<String> getSearchBrandList(String searchKeyWord);
+
+	
 
 
 	

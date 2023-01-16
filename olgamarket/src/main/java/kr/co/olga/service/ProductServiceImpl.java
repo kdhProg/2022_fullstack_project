@@ -230,8 +230,64 @@ public class ProductServiceImpl implements ProductService {
 		return dao.getProductPageList(vo);
 	}
 
+	@Override
+	public List<ProductVO> getSearchPdList(PagingVO vo) {
+		return dao.getSearchPdList(vo);
+	}
 	
 	
+	@Override
+	public PagingVO getSearchPdPageInfo(int currPage, int sortType,String searchKeyWord,ArrayList<String> finalCateList) {
+		PagingVO vo = new PagingVO();
+		int setTotalRecordCount = dao.getSearchPdCount(searchKeyWord);
+		int recordCountPerPage = 40;
+                        
+		int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
+		//int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
+		int firstPageNoOnPageList = lastPageNoOnPageList - 9;
+		//int firstPageNoOnPageList = lastPageNoOnPageList - 9;
+		
+		int realEnd = (int)(Math.ceil((dao.getSearchPdCount(searchKeyWord) * 1.0) / 40));
+		if(realEnd < lastPageNoOnPageList) {
+			lastPageNoOnPageList = realEnd;
+		}
+		
+		int firstRecordIndex = (currPage - 1) * recordCountPerPage;
+		boolean xprev= firstPageNoOnPageList > 1;
+		boolean xnext = lastPageNoOnPageList < realEnd;
+		
+		int contEnd = currPage*40;
+		int contStart = contEnd-39;
+		if(contEnd > setTotalRecordCount) {
+			contEnd = setTotalRecordCount;
+		}
+		
+		vo.setCurrentpageno(currPage);
+		vo.setFirstPageNoOnPageList(firstPageNoOnPageList);
+		vo.setFirstRecordIndex(firstRecordIndex);
+		vo.setLastPageNoOnPageList(lastPageNoOnPageList);
+		vo.setRealEnd(realEnd);
+		vo.setRecordCountPerPage(recordCountPerPage);
+		vo.setTotalRecordCount(setTotalRecordCount);
+		vo.setXnext(xnext);
+		vo.setXprev(xprev);
+		vo.setContEnd(contEnd);
+		vo.setContStart(contStart);
+		vo.setSearchKeyWord(searchKeyWord);
+		vo.setCategories(finalCateList);
+		vo.setSort(sortType);
+		
+		return vo;
+	}
 	
+	@Override
+	public List<String> getSearchCateList(String searchKeyWord) {
+		return dao.getSearchCateList(searchKeyWord);
+	}
+	
+	@Override
+	public List<String> getSearchBrandList(String searchKeyWord) {
+		return dao.getSearchBrandList(searchKeyWord);
+	}
 	
 }
