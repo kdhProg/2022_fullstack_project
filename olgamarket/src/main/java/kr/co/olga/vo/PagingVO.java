@@ -26,5 +26,6 @@ public class PagingVO {
 	int contStart;  // Rnum용도
 	ArrayList<String> categories = new ArrayList<String>(); // 카테고리 용도
 	int sort; // 1: 등록순   2: 판매량순   3: 가격-오름차순  4:가격-내림차순
+	int pdId; //2023 01 14 추가 + 1 : 등록순  2 : 추천순 
 	
 }

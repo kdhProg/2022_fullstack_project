@@ -1,17 +1,15 @@
 package kr.co.olga.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.olga.service.ProductService;
 import kr.co.olga.vo.PagingVO;
@@ -25,41 +23,17 @@ public class CollectionsController {
 	private ProductService service;
 	
 	@RequestMapping(value="/newProduct")
-	public String newProduct(Model model,Integer showPage,Integer sort) {
-		int currPage;
-		if(showPage == null) {
-			currPage = 1;
-		}else {
-			currPage = showPage;
-		}
-		
-		int sortType;
-		if(sort == null) {
-			sortType = 1;
-		}else {
-			sortType = sort;
-		}
-		
-		String pgName = "newProduct"; //어떤 페이지인지 명시
-		ArrayList<String> finalCateList = new ArrayList<String>();
-		PagingVO vo = service.getProdPageInfo(currPage,pgName,sortType /*,finalCateList */); //페이징에 필요한 정보 계산
-		List<ProductVO> pageList =  service.getProdPageList(vo);
-		List<String> cateList = service.getCateList(pgName);
-		List<String> brandList = service.getBrandList(pgName);
-		
-		model.addAttribute("ProdList",pageList);  //상품목록
-		model.addAttribute("pageInfo",vo);  //페이징정보
-		model.addAttribute("currPage",currPage); //현재페이지
-		model.addAttribute("sortType",sortType);  //정렬정보
-		model.addAttribute("cateList",cateList);  //카테고리목록
-		model.addAttribute("brandList",brandList); //브랜드목록
-		
+	public String newProduct() {
 		return "collections/newProduct";
 	}
 	
 	// AJAX 전용
 	@RequestMapping(value="/newProductCate")
-	public ModelAndView newProductCate(Model model,Integer showPage,Integer sort,@RequestParam(value="finalCateList[]") ArrayList<String> finalCateList) {
+	@ResponseBody
+	public Map<String, Object> newProductCate(Integer showPage,Integer sort,@RequestParam(value="finalCateList[]",required=false) ArrayList<String> finalCateList) {
+
+		Map<String, Object> result = new HashMap<String, Object>();
+		
 		int currPage;
 		if(showPage == null) {
 			currPage = 1;
@@ -74,29 +48,27 @@ public class CollectionsController {
 			sortType = sort;
 		}
 		
+		// cateList가 빈 배열인 경우 null로 처리함
+		
 		String pgName = "newProduct"; //어떤 페이지인지 명시
 		
-		PagingVO vo = service.getProdPageInfo(currPage,pgName,sortType /* ,finalCateList */); //페이징에 필요한 정보 계산
+		PagingVO vo = service.getProdPageInfo(currPage,pgName,sortType,finalCateList); //페이징에 필요한 정보 계산
 		List<ProductVO> pageList =  service.getProdPageList(vo);
 		List<String> cateList = service.getCateList(pgName);
 		List<String> brandList = service.getBrandList(pgName);
 		
-		ModelAndView ajaxList = new ModelAndView();
+		result.put("ProdList",pageList);  //상품목록
+		result.put("pageInfo",vo);  //페이징정보
+		result.put("currPage",currPage); //현재페이지
+		result.put("sortType",sortType);  //정렬정보
+		result.put("cateList",cateList);  //카테고리목록
+		result.put("brandList",brandList); //브랜드목록
 		
-		ajaxList.addObject("ProdList",pageList);  //상품목록
-		ajaxList.addObject("pageInfo",vo);  //페이징정보
-		ajaxList.addObject("currPage",currPage); //현재페이지
-		ajaxList.addObject("sortType",sortType);  //정렬정보
-		ajaxList.addObject("cateList",cateList);  //카테고리목록
-		ajaxList.addObject("brandList",brandList); //브랜드목록
-		
-//		System.out.println("요청왔음");
-//		
 //		for(int i=0;i<pageList.size();i++) {
 //			System.out.println(pageList.get(i).getPdMainCategory()+"    "+i);
 //		}
 		
-		return ajaxList;
+		return result;
 	}
 
 }

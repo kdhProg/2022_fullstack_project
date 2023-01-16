@@ -2,6 +2,7 @@ package kr.co.olga.dao;
 
 import java.util.List;
 
+import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ReviewVO;
 
 public interface ReviewDAO {
@@ -17,5 +18,9 @@ public interface ReviewDAO {
 	long reviewRptUp(long rvNo);
 
 	ReviewVO reviewSelOne(long rvNo);
+
+	int getRvCount(int getPdId);
+
+	List<ReviewVO> getRvPageList(PagingVO vo);
 
 }

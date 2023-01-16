@@ -113,18 +113,30 @@
 
 <!-- 해당 페이지의 레코드 조회 -->
 <!-- 문자열 인자 하나 넘길때 오류발생시 _parameter로 해보기 -->
-<select id="getProdCount" parameterType="String" resultType="Integer">
+<!-- 20230115 김동훈 수정 -->
+<select id="getProdCount" parameterType="PagingVO" resultType="Integer">
 	select count(*) from productDatas
-	<if test="_parameter == 'newProduct'">
+	<if test="pgName == 'newProduct'">
     	where pdregidate >= TO_CHAR(SYSDATE-14,'YYYYMMDD')
     </if>
+    <if test="categories!=null and categories.size!=0">
+	    <foreach collection="categories" item="cate" open="" close="" separator=" or ">
+			pdMainCategory = #{cate}
+		</foreach>
+	</if>
 </select>
 
 
 <select id="getProdPageList" parameterType="PagingVO" resultType="ProductVO">
 		select * from 
 			(select rownum rnum, temp.* from
-				(select * from productDatas where pdregidate <![CDATA[>=]]> TO_CHAR(SYSDATE-14,'YYYYMMDD') order by 
+				(select * from productDatas where pdregidate <![CDATA[>=]]> TO_CHAR(SYSDATE-14,'YYYYMMDD') 
+				<if test="categories!=null and categories.size!=0">
+					<foreach collection="categories" item="cate" open=" and (" close=")" separator=" or ">
+						pdMainCategory = #{cate}
+					</foreach>
+				</if>
+				order by 
 				<if test='sort == 1'>
     				pdRegidate desc
    				</if>

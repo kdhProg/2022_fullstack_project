@@ -117,8 +117,8 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 	
 	@Override
-	public int getProdCount(String pgName) {
-		return session.selectOne("productMapper.getProdCount",pgName);
+	public int getProdCount(PagingVO temp_vo) {
+		return session.selectOne("productMapper.getProdCount",temp_vo); //20230115 김동훈 수정
 	}
 	
 	@Override

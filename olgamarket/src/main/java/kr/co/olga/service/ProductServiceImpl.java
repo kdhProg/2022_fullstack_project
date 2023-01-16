@@ -1,5 +1,6 @@
 package kr.co.olga.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,9 +118,15 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public PagingVO getProdPageInfo(int currPage,String pgName,int sortType) {
+	public PagingVO getProdPageInfo(int currPage,String pgName,int sortType,ArrayList<String> finalCateList) {
 		PagingVO vo = new PagingVO();
-		int setTotalRecordCount = dao.getProdCount(pgName);
+		
+		//count전용 임시VO
+		PagingVO temp_vo = new PagingVO();
+		temp_vo.setPgName(pgName);
+		temp_vo.setCategories(finalCateList);
+		
+		int setTotalRecordCount = dao.getProdCount(temp_vo);
 		int recordCountPerPage = 40;
                         
 		int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
@@ -127,7 +134,7 @@ public class ProductServiceImpl implements ProductService {
 		int firstPageNoOnPageList = lastPageNoOnPageList - 9;
 		//int firstPageNoOnPageList = lastPageNoOnPageList - 9;
 		
-		int realEnd = (int)(Math.ceil((dao.getProdCount(pgName) * 1.0) / 40));
+		int realEnd = (int)(Math.ceil((dao.getProdCount(temp_vo) * 1.0) / 40));
 		if(realEnd < lastPageNoOnPageList) {
 			lastPageNoOnPageList = realEnd;
 		}
@@ -155,6 +162,7 @@ public class ProductServiceImpl implements ProductService {
 		vo.setContStart(contStart);
 		vo.setPgName(pgName);
 		vo.setSort(sortType);
+		vo.setCategories(finalCateList);
 		
 		return vo;
 	}

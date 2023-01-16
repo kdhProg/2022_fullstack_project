@@ -1,5 +1,6 @@
 package kr.co.olga.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kr.co.olga.vo.PagingVO;
@@ -42,10 +43,11 @@ public interface ProductService {
 	List<ProductVO> productDateSelectList(ProductVO vo);
 
 // 2023-01-11 김동훈 추가
+// 2023-01-15 getProdPageInfo메서드 수정
 	
 	List<String> getCateList(String pgName);  //페이지이름(신상품/베스트 등)을 문자열로 주면 해당 카테고리를 모아옴
 
-	PagingVO getProdPageInfo(int currPage,String pgName,int sortType);
+	PagingVO getProdPageInfo(int currPage,String pgName,int sortType,ArrayList<String> finalCateList);
 
 	List<ProductVO> getProdPageList(PagingVO vo);
 

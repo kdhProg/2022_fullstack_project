@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ReviewVO;
 
 @Repository
@@ -42,6 +43,16 @@ public class ReviewDAOImpl implements ReviewDAO {
 	@Override
 	public ReviewVO reviewSelOne(long rvNo) {
 		return session.selectOne("reviewMapper.reviewSelOne",rvNo);
+	}
+	
+	@Override
+	public int getRvCount(int getPdId) {
+		return session.selectOne("reviewMapper.reviewCountPerPdId",getPdId);
+	}
+	
+	@Override
+	public List<ReviewVO> getRvPageList(PagingVO vo) {
+		return session.selectList("reviewMapper.reviewGetPdList",vo);
 	}
 	
 }

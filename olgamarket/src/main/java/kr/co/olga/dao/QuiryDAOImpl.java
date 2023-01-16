@@ -1,9 +1,12 @@
 package kr.co.olga.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.QuiryVO;
 
 @Repository
@@ -30,5 +33,15 @@ public class QuiryDAOImpl implements QuiryDAO {
 	@Override
 	public QuiryVO quirySelOne(long iqNo) {
 		return session.selectOne("quiryMapper.quirySelOne",iqNo);
+	}
+	
+	@Override
+	public int getQrCount(int getPdId) {
+		return session.selectOne("quiryMapper.quiryCountPdId",getPdId);
+	}
+	
+	@Override
+	public List<QuiryVO> getRvPageList(PagingVO vo) {
+		return session.selectList("quiryMapper.quiryGetPdList",vo);
 	}
 }

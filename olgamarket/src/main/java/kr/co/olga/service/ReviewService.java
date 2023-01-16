@@ -2,6 +2,8 @@ package kr.co.olga.service;
 
 import java.util.List;
 
+import kr.co.olga.vo.FAQVO;
+import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ReviewVO;
 
 public interface ReviewService {
@@ -23,6 +25,10 @@ public interface ReviewService {
 
 	//rvNo에 해당하는 레코드 가져옴
 	ReviewVO reviewSelOne(long rvNo);
+
+	PagingVO getRvPageInfo(int currPage, int sortType, int getPdId);
+
+	List<ReviewVO> getRvPageList(PagingVO vo);
 
 
 }

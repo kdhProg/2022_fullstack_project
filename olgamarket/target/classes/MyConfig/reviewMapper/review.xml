@@ -34,4 +34,25 @@
 		select * from reviews where rvNo=#{rvNo}
 	</select>
 	
+	<!-- 정렬정보와 PdId에 해당하는 레코드 개수반환 -->
+	<select id="reviewCountPerPdId" parameterType="Integer" resultType="Integer">
+		select count(*) from reviews where rvpdId = #{getPdId}
+	</select>
+	
+	<!-- 페이징 값 -->
+	<select id="reviewGetPdList" parameterType="PagingVO" resultType="ReviewVO">
+		select * from 
+			(select rownum rnum, temp.* from
+				(select * from reviews where rvpdId = #{pdId} order by 
+				<if test='sort == 1'>
+    				rvRegiDate desc
+   				</if>
+   				<if test='sort == 2'>
+    				rvNice desc
+   				</if>
+				) 
+			temp) 
+		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+	</select>
+	
 </mapper>

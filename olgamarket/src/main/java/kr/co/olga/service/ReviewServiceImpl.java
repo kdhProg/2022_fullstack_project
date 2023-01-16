@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.olga.dao.ReviewDAO;
+import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ReviewVO;
 
 @Service
@@ -42,6 +43,54 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public ReviewVO reviewSelOne(long rvNo) {
 		return dao.reviewSelOne(rvNo);
+	}
+	
+	@Override
+	public PagingVO getRvPageInfo(int currPage, int sortType,int getPdId) {
+		
+		int setTotalRecordCount = dao.getRvCount(getPdId);
+		int recordCountPerPage = 10;
+                        
+		int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
+		//int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
+		int firstPageNoOnPageList = lastPageNoOnPageList - 9;
+		//int firstPageNoOnPageList = lastPageNoOnPageList - 9;
+		
+		int realEnd = (int)(Math.ceil((dao.getRvCount(getPdId) * 1.0) / 10));
+		if(realEnd < lastPageNoOnPageList) {
+			lastPageNoOnPageList = realEnd;
+		}
+		
+		int firstRecordIndex = (currPage - 1) * recordCountPerPage;
+		boolean xprev= firstPageNoOnPageList > 1;
+		boolean xnext = lastPageNoOnPageList < realEnd;
+		
+		int contEnd = currPage*10;
+		int contStart = contEnd-9;
+		if(contEnd > setTotalRecordCount) {
+			contEnd = setTotalRecordCount;
+		}
+		PagingVO vo = new PagingVO();
+		vo.setCurrentpageno(currPage);
+		vo.setFirstPageNoOnPageList(firstPageNoOnPageList);
+		vo.setFirstRecordIndex(firstRecordIndex);
+		vo.setLastPageNoOnPageList(lastPageNoOnPageList);
+		vo.setRealEnd(realEnd);
+		vo.setRecordCountPerPage(recordCountPerPage);
+		vo.setTotalRecordCount(setTotalRecordCount);
+		vo.setXnext(xnext);
+		vo.setXprev(xprev);
+		vo.setContEnd(contEnd);
+		vo.setContStart(contStart);
+		vo.setSort(sortType);
+		vo.setPdId(getPdId);
+		
+		return vo;
+	}
+	
+	@Override
+	public List<ReviewVO> getRvPageList(PagingVO vo) {
+		return dao.getRvPageList(vo);
 	}
 	
 }

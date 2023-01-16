@@ -1,5 +1,8 @@
 package kr.co.olga.service;
 
+import java.util.List;
+
+import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.QuiryVO;
 
 public interface QuiryService {
@@ -15,5 +18,9 @@ public interface QuiryService {
 
 	// iqNo에 해당하는 레코드 가져옴
 	QuiryVO quirySelOne(long iqNo);
+
+	PagingVO getRvPageInfo(int currPage, int getPdId);
+
+	List<QuiryVO> getRvPageList(PagingVO vo);
 
 }
