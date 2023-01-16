@@ -28,5 +28,35 @@
 		select * from oneToOneQs where otqNo = #{otqNo}
 	</select>
 	
+<!-- 페이징 -->	
+	<select id="getQnPageList" parameterType="PagingVO" resultType="QnVO">
+	      select * from 
+	      	(select otqNo, otqMainCategory, otqSubCategory, otqTitle, otqContent, otqmemId,
+	      	otqState, otqRegiDate, otqUpdDate, row_number() OVER(order by otqNo desc) as Rnum 
+	      		from oneToOneQs) mp
+	      			where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+	      			
+	      				order by otqNo desc
+	</select>	
+	
+	<select id="getQnCount" parameterType="int" resultType="Integer">
+		select count(*) from oneToOneQs
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 	
 </mapper>

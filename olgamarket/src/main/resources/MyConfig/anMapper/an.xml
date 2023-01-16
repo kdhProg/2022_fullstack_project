@@ -27,9 +27,35 @@
 	
 	<!-- 상품문의 1개행 가져오기-->
 	<select id="anSelOne" parameterType="Long" resultType="AnVO">
-		select* from oneToOneAs
-		where otaotqNo = #{otaotqNo}
+			select* from oneToOneAs	 
+				where otaotqNo = #{otaotqNo}
 	</select>
+	
+	<!--  -->
+	<select id="anList"  resultType="AnVO">
+		select * from oneToOneAs 
+			where otaotqNo = #{otaotqNo}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 		
 	
 </mapper>

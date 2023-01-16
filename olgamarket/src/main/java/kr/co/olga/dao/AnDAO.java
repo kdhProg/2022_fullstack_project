@@ -1,5 +1,7 @@
 package kr.co.olga.dao;
 
+import java.util.List;
+
 import kr.co.olga.vo.AnVO;
 
 public interface AnDAO {
@@ -10,6 +12,9 @@ public interface AnDAO {
 
 	long anDelete(long otaotqNo);
 
-	AnVO anSelOne(long otaotqNo);
+	AnVO anSelOne(Long otaotqNo);
+
+	List<AnVO> anList(Long otqNo);
+
 
 }

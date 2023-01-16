@@ -1,9 +1,12 @@
 package kr.co.olga.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.QnVO;
 
 @Repository
@@ -13,7 +16,7 @@ public class QnDAOImpl implements QnDAO {
 	private SqlSession session;
 
 	@Override
-	public long Qn(QnVO vo) {
+	public long qnInsert(QnVO vo) {
 		return session.insert("qnMapper.qnInsert", vo);
 	}
 
@@ -30,5 +33,15 @@ public class QnDAOImpl implements QnDAO {
 	@Override
 	public QnVO qnSelOne(long otqNo) {
 		return session.selectOne("qnMapper.qnSelOne", otqNo);
+	}
+
+	@Override
+	public int getQnCount() {
+		return session.selectOne("qnMapper.getQnCount");
+	}
+
+	@Override
+	public List<QnVO> getQnPageList(PagingVO vo) {
+		return session.selectList("qnMapper.getQnPageList", vo);
 	}
 }

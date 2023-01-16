@@ -1,5 +1,7 @@
 package kr.co.olga.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,7 +30,13 @@ public class AnDAOImpl implements AnDAO {
 	}
 
 	@Override
-	public AnVO anSelOne(long otaotqNo) {
+	public AnVO anSelOne(Long otaotqNo) {
 		return session.selectOne("anMapper.anSelOne", otaotqNo);
 	}
+
+	@Override
+	public List<AnVO> anList(Long otqNo) {
+		return session.selectList("anMapper.anList", otqNo);
+	}
+
 }

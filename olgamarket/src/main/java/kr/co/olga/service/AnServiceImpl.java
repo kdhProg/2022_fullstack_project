@@ -1,5 +1,7 @@
 package kr.co.olga.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +32,13 @@ public class AnServiceImpl implements AnService {
 	}
 
 	@Override
-	public AnVO anSelOne(long otaotqNo) {
+	public AnVO anSelOne(Long otaotqNo) {
 		return dao.anSelOne(otaotqNo);
 	}
+
+	@Override
+	public List<AnVO> anList(Long otqNo) {
+		return dao.anList(otqNo);
+	}
+
 }

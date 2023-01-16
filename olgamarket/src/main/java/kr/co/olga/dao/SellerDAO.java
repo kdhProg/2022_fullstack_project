@@ -30,6 +30,9 @@ public interface SellerDAO {
 	int getSellerCount();
 
 	List<NoticeVO> getSellerPageList(PagingVO vo);
+
+// 판매자 권한 회수		
+	long sellerGrantUpdate(SellerVO vo);
 	
 	
 
