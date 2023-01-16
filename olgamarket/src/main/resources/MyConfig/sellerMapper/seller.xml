@@ -67,7 +67,10 @@
 		select count(*) from sellers
 	</select>
 	
-	
+<!-- 판매자 권한 회수 -->	
+	<update id="sellerGrantUpdate" parameterType="SellerVO">
+		update sellers set selTypeGrade = #{selTypeGrade} where selId = #{selId}
+	</update>
 	
 	
 	

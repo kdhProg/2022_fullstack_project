@@ -107,4 +107,10 @@ public class SellerServiceImpl implements SellerService {
 	public List<NoticeVO> getSellerPageList(PagingVO vo) {
 		return dao.getSellerPageList(vo);
 	}
+
+// 판매자 권한 회수	
+	@Override
+	public long sellerGrantUpdate(SellerVO vo) {
+		return dao.sellerGrantUpdate(vo);
+	}
 }

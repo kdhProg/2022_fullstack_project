@@ -34,7 +34,7 @@ public class QnTest {
 		vo.setOtqmemId("mem_id_1");
 		vo.setOtqState(0L);
 
-		assertEquals(service.qninsert(vo), 1);
+		assertEquals(service.qnInsert(vo), 1);
 	}
 
 //1대1문의수정

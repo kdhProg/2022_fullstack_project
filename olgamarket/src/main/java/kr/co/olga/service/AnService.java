@@ -1,5 +1,7 @@
 package kr.co.olga.service;
 
+import java.util.List;
+
 import kr.co.olga.vo.AnVO;
 
 public interface AnService {
@@ -10,6 +12,9 @@ public interface AnService {
 
 	long anDelete(long otaotqNo);
 
-	AnVO anSelOne(long otaotqNo);
+	AnVO anSelOne(Long otaotqNo);
+
+	List<AnVO> anList(Long otqNo);
+
 	
 }

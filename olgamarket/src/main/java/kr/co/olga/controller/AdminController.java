@@ -12,18 +12,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.olga.service.AdminService;
+import kr.co.olga.service.AnService;
 import kr.co.olga.service.FAQService;
 import kr.co.olga.service.MemberService;
 import kr.co.olga.service.NoticeService;
 import kr.co.olga.service.ProductService;
+import kr.co.olga.service.QnService;
 import kr.co.olga.service.SellerService;
 import kr.co.olga.service.StoreService;
 import kr.co.olga.vo.AdminVO;
+import kr.co.olga.vo.AnVO;
 import kr.co.olga.vo.FAQVO;
 import kr.co.olga.vo.MemberVO;
 import kr.co.olga.vo.NoticeVO;
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ProductVO;
+import kr.co.olga.vo.QnVO;
 import kr.co.olga.vo.SellerVO;
 import kr.co.olga.vo.StoreVO;
 
@@ -130,9 +134,9 @@ public class AdminController {
 
 	// 판매점 삭제
 	@RequestMapping(value = "/storeDelete")
-	public String storeDelete(String stlBrandName) {
+	public String storeDelete(StoreVO vo) {
 
-		storeService.storeDeleteOne(stlBrandName);
+		storeService.storeDeleteOne(vo.getStlBrandName());
 
 		return "redirect:/admin/storeList";
 	}
@@ -172,6 +176,22 @@ public class AdminController {
 		model.addAttribute("selOne", sellerService.sellerSelOne(vo.getSelId()));
 
 		return "/adimn/sellerOne";
+	}
+	
+	// 판매자 권한 회수
+	@RequestMapping(value = "/sellerGrant")
+	public String sellerGrant(SellerVO vo)	{
+		
+		sellerService.sellerGrantUpdate(vo);
+		
+		return "redirect:/admin/sellerManage";
+	}
+	
+	// 판매자 권한 회수하는 화면
+	@RequestMapping(value = "/sellerGrantView")
+	public String sellerGrantView()	{
+		
+		return "admin/sellerGrantView";
 	}
 
 /************ 상품 관리 ************************************************************************************************************************/
@@ -242,9 +262,9 @@ public class AdminController {
 
 	// 상품 삭제
 	@RequestMapping(value = "/productDelete")
-	public String productDelete(long pdId) {
+	public String productDelete(ProductVO vo) {
 
-		productService.productDelete(pdId);
+		productService.productDelete(vo.getPdId());
 
 		return "redirect:/admin/productDelete";
 	}
@@ -276,18 +296,18 @@ public class AdminController {
 
 	// 공지사항 하나 조회
 	@RequestMapping(value = "/noticeOne")
-	public String noticeOne(NoticeVO noticeVO, Model model) throws Exception {
+	public String noticeOne(NoticeVO vo, Model model) throws Exception {
 
-		model.addAttribute("noticeRead", noticeService.noticeSelectOne(noticeVO.getNtNo()));
+		model.addAttribute("noticeRead", noticeService.noticeSelectOne(vo.getNtNo()));
 
 		return "/admin/noticeOne";
 	}
 
 	// 공지사항 글 추가
 	@RequestMapping(value = "/noticeWrite")
-	public String noticeWrite(NoticeVO noticeVO) throws Exception {
+	public String noticeWrite(NoticeVO vo) throws Exception {
 
-		noticeService.noticeInsert(noticeVO);
+		noticeService.noticeInsert(vo);
 
 		return "redirect:/";
 	}
@@ -301,24 +321,23 @@ public class AdminController {
 
 	// 공지사항 수정
 	@RequestMapping(value = "/noticeUpdate")
-	public String noticeUpdate(NoticeVO noticeVO) throws Exception {
-		noticeService.noticeUpdate(noticeVO);
+	public String noticeUpdate(NoticeVO vo) throws Exception {
+		noticeService.noticeUpdate(vo);
 
 		return "redirect:/admin/noticeList";
 	}
 
 	// 공지사항 수정 화면
 	@RequestMapping(value = "/noticeUpdateView")
-	public String noticeUpdateView(NoticeVO noticeVO, Model model) throws Exception {
-		model.addAttribute("noticeUpdate", noticeService.noticeSelectOne(noticeVO.getNtNo()));
+	public String noticeUpdateView() throws Exception {
 
 		return "/admin/noticeUpdateView";
 	}	
 	
 	// 공지사항 삭제
 	@RequestMapping(value = "/noticeDelete")
-	public String noticeDelete(NoticeVO noticeVO) throws Exception {
-		noticeService.noticeDeleteOne(noticeVO.getNtNo());
+	public String noticeDelete(NoticeVO vo) throws Exception {
+		noticeService.noticeDeleteOne(vo.getNtNo());
 
 		return "redirect:/admin/noticeList";
 	}
@@ -385,7 +404,6 @@ public class AdminController {
 	// FAQ 수정 화면
 	@RequestMapping(value = "/faqUpdateView")
 	public String faqUpdateView(FAQVO vo, Model model) throws Exception {
-		model.addAttribute("faqUpdate", faqService.faqSelectOne(vo.getFaqNo()));
 
 		return "/admin/faqUpdateView";
 	}	
@@ -424,7 +442,7 @@ public class AdminController {
 	}
 	
 	// 회원 정지 (업데이트)
-	@RequestMapping(value = "memRepot")
+	@RequestMapping(value = "/memRepot")
 	public String memRepot(MemberVO vo) {
 		memberService.memRepot(vo);
 		
@@ -439,6 +457,78 @@ public class AdminController {
 		return "";
 	}
 	*/
+	
+/************ 1:1 문의 관리 ************************************************************************************************************************/		
+	
+	// 1:1 문의 회원
+	@Autowired
+	private QnService qnService;
+	
+	// 1:1 문의 관리자
+	@Autowired
+	private AnService anService;
+	
+	// 모든 1:1 문의 띄우기
+	@RequestMapping(value = "/adminQnListView")
+	public String adminQnListView(Integer showPage, Model model) {
+		int currPage;
+		if(showPage == null) {
+			currPage = 1;
+		}else {
+			currPage = showPage;
+		}
+		
+		PagingVO vo = qnService.getQnPageInfo(currPage); //페이징에 필요한 정보 계산
+		List<QnVO> pageList =  qnService.getQnPageList(vo);
+		
+		model.addAttribute("adminQnList",pageList);  // 1:1 목록
+		model.addAttribute("pageInfo",vo);  //페이징정보
+		model.addAttribute("currPage",currPage); //현재페이지
+		
+		return "/admin/adminQnListView";
+	}
+	
+	// 문의글 하나 조회 + 댓글 보기 기능 
+	@RequestMapping(value = "/adminQnOneView")
+	public String adminQnOneView(QnVO vo, Model model, Long otaotqNo) {
+		model.addAttribute("adminQnOne", qnService.qnSelOne(vo.getOtqNo()));
+		
+		List<AnVO> anList = anService.anList(vo.getOtqNo());
+		model.addAttribute("adminQnList", anList);
+		
+		return "/admin/adminQnOneView";
+	}
+	
+	// 답변 달기
+	@RequestMapping(value = "/anInsert")
+	public String anInsert(AnVO vo) {
+		anService.anInsert(vo);
+		
+		return "redirect:/admin/adminQnOneView";
+	}
+	
+	// 답변 달기 화면
+	@RequestMapping(value = "/anInsertView")
+	public String anInsertView() {
+		
+		return "/admin/anInsertView";
+	}
+	
+	// 답변 수정
+	@RequestMapping(value = "/anUpdate")
+	public String anUpdate(AnVO vo) {
+		anService.anUpdate(vo);
+		
+		return "redirect:/admin/anOne";
+	}
+	
+	// 답변 수정 화면
+	@RequestMapping(value = "/anUpdateView")
+	public String anUpdateView() {
+		
+		return "/admin/anUpdateView";
+	}
+	
 	
 	
 	

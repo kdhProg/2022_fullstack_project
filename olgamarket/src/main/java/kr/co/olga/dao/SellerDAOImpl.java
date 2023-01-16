@@ -73,4 +73,10 @@ public class SellerDAOImpl implements SellerDAO {
 		return session.selectList("sellerMapper.getSellerPageList", vo);
 	}
 
+// 판매자 권한 회수	
+	@Override
+	public long sellerGrantUpdate(SellerVO vo) {
+		return session.update("sellerMapper.sellerGrantUpdate", vo);
+	}
+
 }
