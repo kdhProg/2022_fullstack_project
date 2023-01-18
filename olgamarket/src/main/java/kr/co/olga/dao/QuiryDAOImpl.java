@@ -31,7 +31,7 @@ public class QuiryDAOImpl implements QuiryDAO {
 	}
 	
 	@Override
-	public QuiryVO quirySelOne(long iqNo) {
+	public QuiryVO quirySelOne(Long iqNo) {
 		return session.selectOne("quiryMapper.quirySelOne",iqNo);
 	}
 	
@@ -43,5 +43,21 @@ public class QuiryDAOImpl implements QuiryDAO {
 	@Override
 	public List<QuiryVO> getRvPageList(PagingVO vo) {
 		return session.selectList("quiryMapper.quiryGetPdList",vo);
+	}
+
+	@Override
+	public int getQuiryAdminCount() {
+		return session.selectOne("quiryMapper.getQuiryAdminCount");
+	}
+
+	@Override
+	public List<QuiryVO> getQuiryAdminPageList(PagingVO vo) {
+		return session.selectList("quiryMapper.getQuiryAdminPageList", vo);
+	}
+
+// 관리자 전용(답변 상태 업데이트)	
+	@Override
+	public long quiryStateUpdate(QuiryVO quVo) {
+		return session.update("quiryMapper.quiryStateUpdate", quVo);
 	}
 }

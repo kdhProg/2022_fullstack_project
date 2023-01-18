@@ -26,12 +26,12 @@ public class QnDAOImpl implements QnDAO {
 	}
 
 	@Override
-	public long qnDelete(long otqNo) {
+	public long qnDelete(Long otqNo) {
 		return session.delete("qnMapper.qnDelete", otqNo);
 	}
 
 	@Override
-	public QnVO qnSelOne(long otqNo) {
+	public QnVO qnSelOne(Long otqNo) {
 		return session.selectOne("qnMapper.qnSelOne", otqNo);
 	}
 
@@ -44,4 +44,17 @@ public class QnDAOImpl implements QnDAO {
 	public List<QnVO> getQnPageList(PagingVO vo) {
 		return session.selectList("qnMapper.getQnPageList", vo);
 	}
+
+	@Override
+	public List<QnVO> getQnAdminPageList(PagingVO vo) {
+		return session.selectList("qnMapper.getQnAdminPageList", vo);
+	}
+
+// 관리자 전용(답변 상태 업데이트)	
+	@Override
+	public long qnStateUpdate(QnVO qnVo) {
+		return session.update("qnMapper.qnStateUpdate", qnVo);
+	}
+
+	
 }

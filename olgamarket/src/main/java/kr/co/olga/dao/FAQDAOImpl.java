@@ -52,4 +52,14 @@ public class FAQDAOImpl implements FAQDAO {
 	public List<FAQVO> getFaqPageList(PagingVO vo) {
 		return session.selectList("faqMapper.getFaqPageList",vo);
 	}
+// 관리자 FAQ
+	@Override
+	public int getFaqAdminCount() {
+		return session.selectOne("faqMapper.getFaqAdminCount");
+	}
+
+	@Override
+	public List<FAQVO> getFaqAdminPageList(PagingVO vo) {
+		return session.selectList("faqMapper.getFaqAdminPageList", vo);
+	}
 }

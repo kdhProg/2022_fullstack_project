@@ -18,7 +18,7 @@ public class AnServiceImpl implements AnService {
 
 	@Override
 	public long anInsert(AnVO vo) {
-		return dao.An(vo);
+		return dao.anInsert(vo);
 	}
 
 	@Override

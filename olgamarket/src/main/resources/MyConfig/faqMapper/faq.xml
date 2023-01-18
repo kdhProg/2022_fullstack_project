@@ -71,5 +71,28 @@
 			temp) 
 		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
 </select>
+
+<!-- 관리자 FAQ -->
+	<select id="getFaqAdminCount" parameterType="int" resultType="Integer">
+		select count(*) from FAQS
+	</select>
+	
+	<select id="getFaqAdminPageList" parameterType="PagingVO" resultType="FAQVO">
+		select * from 
+			(select faqNo, faqadmId, faqCategory, faqTitle, faqContent
+   				faqRegiDate, faqUpdDate, row_number() OVER(order by faqNo desc) as Rnum
+   				from FAQS) mp
+	      			where Rnum <![CDATA[>=]]> #{contStart} and Rnum <![CDATA[<=]]> #{contEnd}
+	      				order by faqNo desc
+			
+	</select>
+
+
+
+
+
+
+
+
 	
 </mapper>

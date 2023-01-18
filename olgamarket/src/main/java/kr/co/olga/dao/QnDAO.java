@@ -11,12 +11,18 @@ public interface QnDAO {
 
 	long qnUpdate(QnVO vo);
 
-	long qnDelete(long otqNo);
+	long qnDelete(Long otqNo);
 
-	QnVO qnSelOne(long otqNo);
+	QnVO qnSelOne(Long otqNo);
 
 	int getQnCount();
 
 	List<QnVO> getQnPageList(PagingVO vo);
+
+	List<QnVO> getQnAdminPageList(PagingVO vo);
+	
+// 관리자 전용(답변 상태 업데이트)	
+	long qnStateUpdate(QnVO qnVo);
+	
 
 }
