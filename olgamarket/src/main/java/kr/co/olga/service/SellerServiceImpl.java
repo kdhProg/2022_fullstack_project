@@ -104,7 +104,7 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<NoticeVO> getSellerPageList(PagingVO vo) {
+	public List<SellerVO> getSellerPageList(PagingVO vo) {
 		return dao.getSellerPageList(vo);
 	}
 

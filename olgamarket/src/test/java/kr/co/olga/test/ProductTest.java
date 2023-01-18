@@ -12,10 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.olga.service.ProductService;
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ProductVO;
+import kr.co.olga.vo.SellerVO;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -221,6 +224,15 @@ public class ProductTest {
 		
 	}
 	*/
+	
+	
+	@Test
+	public void sellerOne( ) {
+		 String sam = "판매점2";
+			List<ProductVO> pdList = service.getSelectList(sam);
+			
+			System.out.println(pdList);
+		}
 }
 
 

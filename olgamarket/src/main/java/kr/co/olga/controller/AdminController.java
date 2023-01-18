@@ -1,6 +1,5 @@
 package kr.co.olga.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -25,6 +23,8 @@ import kr.co.olga.service.NoticeService;
 import kr.co.olga.service.ProductService;
 import kr.co.olga.service.QnService;
 import kr.co.olga.service.QuiryService;
+import kr.co.olga.service.SelAnswerService;
+import kr.co.olga.service.SelQuiryService;
 import kr.co.olga.service.SellerService;
 import kr.co.olga.service.StoreService;
 import kr.co.olga.vo.AdminVO;
@@ -37,6 +37,8 @@ import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ProductVO;
 import kr.co.olga.vo.QnVO;
 import kr.co.olga.vo.QuiryVO;
+import kr.co.olga.vo.SelAnswerVO;
+import kr.co.olga.vo.SelQuiryVO;
 import kr.co.olga.vo.SellerVO;
 import kr.co.olga.vo.StoreVO;
 
@@ -156,37 +158,46 @@ public class AdminController {
 
 	@Autowired
 	private SellerService sellerService;
+	
+	@RequestMapping(value="/seller")
+	public String seller() {
+		return "/admin/seller";
+	}
 
 	// 모든 판매자 목록
-	@RequestMapping(value = "/sellerManage")
-	public String sellerManage(Model model, Integer showPage) {
+	@RequestMapping(value = "/sellerList")
+	@ResponseBody
+	public Map<String, Object> sellerList(String showPage) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		int stShowPage = Integer.parseInt(showPage);
+		
 		int currPage;
 		if(showPage == null) {
 			currPage = 1;
 		}else {
-			currPage = showPage;
+			currPage = stShowPage;
 		}
 		
 		PagingVO vo = sellerService.getSellerPageInfo(currPage); //페이징에 필요한 정보 계산
-		List<NoticeVO> pageList =  sellerService.getSellerPageList(vo);
+		List<SellerVO> sellerList = sellerService.getSellerPageList(vo);
 		
-		model.addAttribute("sellerList",pageList);  //게시판목록
-		model.addAttribute("pageInfo",vo);  //페이징정보
-		model.addAttribute("currPage",currPage); //현재페이지
+		result.put("selList",sellerList);  
+		result.put("pageInfo",vo);  //페이징정보
+		result.put("currPage",currPage); //현재페이지
 
-		List<SellerVO> slVo = sellerService.sellerSelAll();
-		model.addAttribute("slList", slVo);
-
-		return "/admin/sellerManage";
+		return result;
 	}
 
 	// 판매자 조회(판매상품도 같이 조회)
 	@RequestMapping(value = "/sellerOne")
-	public String sellerOne(Model model, SellerVO vo) {
-
-		model.addAttribute("selOne", sellerService.sellerSelOne(vo.getSelId()));
-
-		return "/adimn/sellerOne";
+	public String sellerOne(Model model, SellerVO selVo) {
+		model.addAttribute("selOne", sellerService.sellerSelOne(selVo.getSelId()));
+		
+		List<ProductVO> pdList = productService.getSelectList(selVo.getSelstlBrandName());
+		model.addAttribute("pdList", pdList);
+		System.out.println(pdList);
+		return "/admin/sellerOne";
 	}
 	
 	// 판매자 권한 회수
@@ -195,14 +206,96 @@ public class AdminController {
 		
 		sellerService.sellerGrantUpdate(vo);
 		
-		return "redirect:/admin/sellerManage";
+		return "redirect:/admin/seller";
 	}
 	
 	// 판매자 권한 회수하는 화면
 	@RequestMapping(value = "/sellerGrantView")
-	public String sellerGrantView()	{
+	public String sellerGrantView(SellerVO vo, Model model)	{
+		model.addAttribute("selUp", sellerService.sellerSelOne(vo.getSelId()));
 		
 		return "admin/sellerGrantView";
+	}
+	
+/************ 판매자 문의 관리 ************************************************************************************************************************/
+
+	@Autowired
+	private SelQuiryService selquiryService;
+	
+	@Autowired
+	private SelAnswerService selanswerService;
+	
+	// 판매자 문의 목록 + 페이징
+	@RequestMapping(value = "/selQuiryList")
+	@ResponseBody
+	public Map<String, Object> selQuiryList(String showPage) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		int stShowPage = Integer.parseInt(showPage);
+		
+		int currPage;
+		if(showPage == null) {
+			currPage = 1;
+		}else {
+			currPage = stShowPage;
+		}
+		
+		PagingVO vo = selquiryService.getSelQuiryPageInfo(currPage); //페이징에 필요한 정보 계산
+		List<SelQuiryVO> sqList = selquiryService.getSelQuiryPageList(vo);
+		
+		result.put("sqList",sqList);  
+		result.put("pageInfo",vo);  //페이징정보
+		result.put("currPage",currPage); //현재페이지
+
+		return result;
+	}
+	
+	// 판매자 문의 조회
+	@RequestMapping(value = "/selQuiryOne")
+	public String selQuiryOne(Model model, SelQuiryVO vo)	{
+		model.addAttribute("selQuiryOne", selquiryService.getSelectOne(vo.getSqNo()));
+		
+		List<SelAnswerVO> selAnList = selanswerService.selAnswerList(vo.getSqNo());
+		model.addAttribute("selAnList", selAnList);
+		
+		return "/admin/selQuiryOne";
+	}
+	
+	// 답글 등록
+	@RequestMapping(value ="/selAnswerInsert")
+	public String selAnswerInsert(SelAnswerVO vo) {
+		selanswerService.selAnswerInsert(vo);
+		
+		SelQuiryVO sqVo = new SelQuiryVO();
+		sqVo.setSqNo(vo.getSasqNo());
+		sqVo.setSqState(1L);
+		selquiryService.selQuiryStateUpdate(sqVo);
+		
+		return "redirect:/admin/seller";
+	}
+	
+	// 답글 등록 화면
+	@RequestMapping(value ="/selAnswerInsertView")
+	public String selAnswerInsertView(SelQuiryVO vo, Model model) {
+		model.addAttribute("selAnswerIn", selquiryService.getSelectOne(vo.getSqNo()));
+		
+		return "/admin/selAnswerInsertView";
+	}
+	
+	// 답글 수정
+	@RequestMapping(value ="/selAnswerUpdate")
+	public String selAnswerUpdate(SelAnswerVO vo) {
+		selanswerService.selAnswerUpdate(vo);
+		
+		return "redirect:/admin/seller";
+	}
+	
+	// 답글 수정 화면
+	@RequestMapping(value ="/selAnswerUpdateView")
+	public String selAnswerUpdateView(Model model, SelQuiryVO vo) {
+		model.addAttribute("selAnswerUp", selquiryService.getSelectOne(vo.getSqNo()));
+		
+		return "/admin/selAnswerUpdateView";
 	}
 
 /************ 상품 관리 ************************************************************************************************************************/

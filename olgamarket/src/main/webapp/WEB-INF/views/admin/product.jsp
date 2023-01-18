@@ -158,7 +158,7 @@ function pdQnList(pageNo) {
 				
 			}
 			if(pageInfo.xnext){
-				pdQuiryContentTag+="<a href='#' onclick='pdQnList("+(pageInfo.lastPageNoOnPageList+1)+ ");return false;'>[next]</a>&nbsp;&nbsp;&nbsp;";
+				pdQuiryPagingTag+="<a href='#' onclick='pdQnList("+(pageInfo.lastPageNoOnPageList+1)+ ");return false;'>[next]</a>&nbsp;&nbsp;&nbsp;";
 			}
 			
 			$("#pdQuiryResultPagingNo").html(pdQuiryPagingTag); //페이징 적용

@@ -37,7 +37,7 @@ public interface SellerService {
 // 관리자 판매자 관리 + 페이징
 	public PagingVO getSellerPageInfo(int currPage);
 
-	public List<NoticeVO> getSellerPageList(PagingVO vo);
+	public List<SellerVO> getSellerPageList(PagingVO vo);
 
 // 판매자 권한 회수	
 	public long sellerGrantUpdate(SellerVO vo);

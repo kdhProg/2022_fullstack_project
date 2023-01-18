@@ -12,7 +12,7 @@
 <body>
 	<a href="/admin/storeList">판매점 관리</a><br />
 	
-	<a href="/admin/sellerList">판매자 관리</a><br />
+	<a href="/admin/seller">판매자 관리</a><br />
 	
 	<a href="/admin/product">상품 관리</a><br />
 	

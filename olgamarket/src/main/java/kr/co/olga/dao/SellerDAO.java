@@ -29,7 +29,7 @@ public interface SellerDAO {
 // 관리자 판매자 관리 + 페이징	
 	int getSellerCount();
 
-	List<NoticeVO> getSellerPageList(PagingVO vo);
+	List<SellerVO> getSellerPageList(PagingVO vo);
 
 // 판매자 권한 회수		
 	long sellerGrantUpdate(SellerVO vo);

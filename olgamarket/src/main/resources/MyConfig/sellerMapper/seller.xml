@@ -53,14 +53,15 @@
 	</select>
 	
 <!-- 관리자 판매자 관리 + 페이징 -->
-	<select id="getSellerPageList" parameterType="PagingVO" resultType="NoticeVO">
+	<select id="getSellerPageList" parameterType="PagingVO" resultType="SellerVO">
 		select * from
 			(select selId, selPwd, selName, selstlBrandName, selEmail, selPhone, selAddress,
 			selGender, selGrade, selMarketUniqueNo, selSelRegiNo, selChoice, selTypeGrade,
-			selRegiDate, selUpdDate ruw_number() OVER(order by selstlBrandName desc) as Rnum
+			selRegiDate, selUpdDate, row_number() OVER(order by selstlBrandName desc) as Rnum
 				from sellers) mp
 					where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
-	      				order by selstlBrandName desc
+	      				and selTypeGrade = 1
+	      					order by selstlBrandName desc
 	</select>	
 	
 	<select id="getSellerCount" parameterType="int" resultType="Integer">
@@ -69,7 +70,7 @@
 	
 <!-- 판매자 권한 회수 -->	
 	<update id="sellerGrantUpdate" parameterType="SellerVO">
-		update sellers set selTypeGrade = #{selTypeGrade} where selId = #{selId}
+		update sellers set selTypeGrade = 0 where selId = #{selId}
 	</update>
 	
 	

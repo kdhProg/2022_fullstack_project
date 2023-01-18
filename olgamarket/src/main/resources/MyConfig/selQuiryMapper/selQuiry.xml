@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="selQuiryMapper">
+
+<!-- 관리자 판매자 페이징 -->
+	<select id="getSelQuiryCount" parameterType="int" resultType="Integer">
+		select count(*) from sellerQuirys
+	</select>
+	
+	<select id="getSelQuiryPageList" parameterType="PagingVO" resultType="SelQuiryVO">
+		select * from 
+	      	(select sqNo, sqselId, sqpdId, sqTitle, sqContent, 
+	      	sqState, sqRegiDate, sqUpdDate, row_number() OVER(order by sqNo desc) as Rnum 
+	      		from sellerQuirys) mp
+	      			where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+	      				and sqState = 0
+	      					order by sqNo desc
+	
+	</select>
+	
+<!-- 조회 -->	
+	<select id="getSelectOne" resultType="SelQuiryVO" parameterType="Long">
+		select * from sellerQuirys where sqNo = #{sqNo}
+	</select>
+	
+<!-- 답변 작성 시 답변 상태 업데이트 -->	
+	<update id="selQuiryStateUpdate" parameterType="SelQuiryVO">
+		update sellerQuirys set sqState = #{sqState} where sqNo = #{sqNo} 
+	</update>
+
+</mapper>
