@@ -187,5 +187,36 @@ public class MemberController {
 		}
 		
 		
+		/* 아이디 찾기 이동*/
+		@RequestMapping(value = "/findId", method = RequestMethod.GET)
+		public String memberFindId() {
+			return "/member/findId";
+		}
+		
+		/* 아이디 찾기 AJAX*/
+		@RequestMapping(value = "/findIdAct", method = RequestMethod.GET)
+		@ResponseBody
+		public String memberFindIdAct(String memName,String memPhone) {
+			MemberVO vo = new MemberVO();
+			vo.setMemName(memName);
+			vo.setMemPhone(memPhone);
+			MemberVO result = memberservice.memIdFindSelect(vo);
+			if(result != null) {
+				// 이름과 전화번호에 해당하는 아이디 찾음
+				return result.getMemId();
+			}else {
+				// 해당하는 아이디 없음
+				return "failed";
+			}
+		}
+		
+		/* 비밀번호 찾기 이동 */
+		@RequestMapping(value = "/findPwd", method = RequestMethod.GET)
+		public String memberFindPwd() {
+			return "/member/findPwd";
+		}
+		
+		
+		
 	
 }
