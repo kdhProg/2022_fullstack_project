@@ -81,4 +81,9 @@ public class StoreServiceImpl implements StoreService {
 	public List<StoreVO> getStorePageList(PagingVO vo) {
 		return dao.getStorePageList(vo);
 	}
+	
+	@Override
+	public StoreVO storeSelectByMarketUniqueNo(String stlMarketUniqueNo) {
+		return dao.storeSelectByMarketUniqueNo(stlMarketUniqueNo);
+	}
 }

@@ -21,6 +21,14 @@ public class StoreTest {
 
 	@Autowired
 	private StoreService service;
+	
+	// 2023 01 18 김동훈 작성
+	@Test
+	public void getStoreByBrandName() {
+		String stlMarketUniqueNo = "945636436";
+		System.out.println(service.storeSelectByMarketUniqueNo(stlMarketUniqueNo));
+		
+	}
 
 	@Test
 	public void storeInsertTest() {

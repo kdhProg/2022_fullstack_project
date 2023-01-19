@@ -105,6 +105,12 @@ public class MemberTest {
 		}
 	*/	
 	}
+	
+	@Test
+	public void memEmailDuplTest() {
+		String testEmail = "abcsdse@aaa.com";
+		System.out.println(service.emailCheck(testEmail));
+	}
 
 }
 

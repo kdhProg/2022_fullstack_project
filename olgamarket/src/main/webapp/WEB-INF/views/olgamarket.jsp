@@ -21,7 +21,8 @@
 		<input type="submit" value="검색"/>
 	</form>
 
-	<a href="/member/Join">회원가입하기</a>
+	<a href="/member/join">회원가입하기</a><br />
+	<a href="/member/login">로그인</a>
 	<hr />
 	<h2>카테고리 리스트</h2>
 	<a href="/collections/mainPageCategory?cateName=과일">[과일]</a>&nbsp;<a href="/collections/mainPageCategory?cateName=채소">[채소]</a>&nbsp;

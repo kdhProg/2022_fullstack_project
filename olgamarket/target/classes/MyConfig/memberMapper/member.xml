@@ -75,6 +75,12 @@
 	</update>	
 	
 	
+	
+	<!-- 2023 01 17 김동훈 추가 -->
+	<select id="emailCheck" resultType="Long" parameterType="String">
+	 	select count(*) from members where memEmail = #{memEmail}
+	 </select>	
+	
 </mapper>
 
 
