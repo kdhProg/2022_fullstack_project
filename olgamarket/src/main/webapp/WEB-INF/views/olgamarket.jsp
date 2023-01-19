@@ -35,10 +35,9 @@
 	<hr />
 	<a href="/collections/nowOnSale">할인/특가</a>
 	<hr />
-	<a href="/board/noticeList">고객센터-공지사항</a>
+	<a href="/board/client">고객센터</a>
 	<hr />
-	<a href="/board/faqList">고객센터-FAQ</a>
-	<hr />   
+	   
 	<div class="fruitPd">
 		<table>
 			<c:forEach var="list" items="${fruitPd}">

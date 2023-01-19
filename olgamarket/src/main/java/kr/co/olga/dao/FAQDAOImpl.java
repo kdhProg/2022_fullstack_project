@@ -44,7 +44,6 @@ public class FAQDAOImpl implements FAQDAO {
 	
 	@Override
 	public int getFaqCount(String category) {
-		System.out.println(category);
 		return session.selectOne("faqMapper.getFaqCount",category);
 	}
 	

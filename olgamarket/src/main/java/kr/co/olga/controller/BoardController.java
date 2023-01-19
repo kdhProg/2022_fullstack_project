@@ -1,11 +1,14 @@
 package kr.co.olga.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.olga.service.AnService;
 import kr.co.olga.service.FAQService;
@@ -25,33 +28,43 @@ public class BoardController {
 	@Autowired
 	private NoticeService noticeService;
 	
+	@RequestMapping(value="/client")
+	public String client() {
+		return "/board/client";
+	}
+	
 	// 공지사항 목록 조회
-	@RequestMapping(value = "/noticeList")
-	public String noticeList(Model model, Integer showPage) throws Exception{
+	@RequestMapping(value="/noticeList")
+	@ResponseBody
+	public Map<String, Object> noticeList(String showPage) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		int stShowPage = Integer.parseInt(showPage);
+		
 		int currPage;
 		if(showPage == null) {
 			currPage = 1;
 		}else {
-			currPage = showPage;
+			currPage = stShowPage;
 		}
 		
 		PagingVO vo = noticeService.getNoticePageInfo(currPage); //페이징에 필요한 정보 계산
-		List<NoticeVO> pageList =  noticeService.getNoticePageList(vo);
+		List<NoticeVO> noticeList =  noticeService.getNoticePageList(vo);
 		
-		model.addAttribute("NoticeList",pageList);  //게시판목록
-		model.addAttribute("pageInfo",vo);  //페이징정보
-		model.addAttribute("currPage",currPage); //현재페이지
-		
-		return "/board/noticeList";
+		result.put("noticeList",noticeList);  
+		result.put("pageInfo",vo);  //페이징정보
+		result.put("currPage",currPage); //현재페이지
+
+		return result;
 	}
 		
 	// 공지사항 하나 조회
-	@RequestMapping(value = "/noticeView")
-	public String read(NoticeVO noticeVO, Model model) throws Exception{
+	@RequestMapping(value = "/noticeOne")
+	public String noticeOne(NoticeVO noticeVO, Model model) throws Exception{
 		
-		model.addAttribute("noticeRead", noticeService.noticeSelectOne(noticeVO.getNtNo()));
+		model.addAttribute("noticeOne", noticeService.noticeSelectOne(noticeVO.getNtNo()));
 		
-		return "/board/noticeView";
+		return "/board/noticeOne";
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////	
@@ -61,30 +74,35 @@ public class BoardController {
 	private FAQService faqService;
 	
 	@RequestMapping(value="/faqList")
-	public String newProduct(Model model,Integer showPage,String category) {
+	@ResponseBody
+	public Map<String, Object> faqList(String showPage, String category) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		int stShowPage = Integer.parseInt(showPage);
+		
 		int currPage;
 		if(showPage == null) {
 			currPage = 1;
 		}else {
-			currPage = showPage;
+			currPage = stShowPage;
 		}
 		
-		PagingVO vo = faqService.getFaqPageInfo(currPage,category); //페이징에 필요한 정보 계산
-		List<FAQVO> pageList =  faqService.getFaqPageList(vo);
+		PagingVO vo = faqService.getFaqPageInfo(currPage, category); //페이징에 필요한 정보 계산
+		List<FAQVO> faqList =  faqService.getFaqPageList(vo);
 		
-		model.addAttribute("FaqList",pageList);  //게시판목록
-		model.addAttribute("pageInfo",vo);  //페이징정보
-		model.addAttribute("currPage",currPage); //현재페이지
-		model.addAttribute("category",category);
+		result.put("faqList",faqList);  
+		result.put("pageInfo",vo);  //페이징정보
+		result.put("currPage",currPage); //현재페이지
+		result.put("category", category);
 		
-		return "/board/faqList";
+		return result;
 	}
 	
 	// FAQ 하나 조회
 	@RequestMapping(value = "/faqOne")
 	public String faqOne(FAQVO vo, Model model) throws Exception {
 
-		model.addAttribute("faqRead", faqService.faqSelectOne(vo.getFaqNo()));
+		model.addAttribute("faqOne", faqService.faqSelectOne(vo.getFaqNo()));
 
 		return "/board/faqOne";
 	}
@@ -97,74 +115,87 @@ public class BoardController {
 	@Autowired
 	private AnService anService;
 	
-	// 목록 (memId에 해당 하는 것 만 띄우기)
-	@RequestMapping(value = "memQnListView")
-	public String memQnListView(Integer showPage, Model model) {
+	// 모든 1:1 문의 띄우기
+	@RequestMapping(value="/boardQnList")
+	@ResponseBody
+	public Map<String, Object> adminQnList(String showPage, Integer sort) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		int stShowPage = Integer.parseInt(showPage);
+		
 		int currPage;
 		if(showPage == null) {
 			currPage = 1;
 		}else {
-			currPage = showPage;
+			currPage = stShowPage;
 		}
 		
-		PagingVO vo = qnService.getQnPageInfo(currPage); //페이징에 필요한 정보 계산
-		List<QnVO> pageList =  qnService.getQnPageList(vo);
+		int sortType;
+		if(sort == null) {
+			sortType = 1;
+		}else {
+			sortType = sort;
+		}
 		
-		model.addAttribute("memQnList",pageList);  // 1:1 목록
-		model.addAttribute("pageInfo",vo);  //페이징정보
-		model.addAttribute("currPage",currPage); //현재페이지
+		PagingVO vo = qnService.getQnAdminPageList(currPage, sortType); //페이징에 필요한 정보 계산
+		List<QnVO> otoList =  qnService.getQnAdminPageList(vo);
 		
-		return "/board/memQnListView";
+		result.put("otoList",otoList);  
+		result.put("pageInfo",vo);  //페이징정보
+		result.put("currPage",currPage); //현재페이지
+
+		return result;
 	}
 	
-	// 문의 조회
-	@RequestMapping(value = "memQnOneView")
-	public String memQnOneView(QnVO vo, Model model, Long otaotqNo) {
-		model.addAttribute("memQnOne", qnService.qnSelOne(vo.getOtqNo()));
+	// 문의글 하나 조회  
+	@RequestMapping(value = "/boardQnOne")
+	public String boardQnOne(QnVO vo, Model model) {
+		model.addAttribute("boardQnOne", qnService.qnSelOne(vo.getOtqNo()));
 		
-		List<AnVO> anList = anService.anList(vo.getOtqNo());
-		model.addAttribute("memAnList", anList);
+		List<AnVO> boardAnList = anService.anList(vo.getOtqNo());
+		model.addAttribute("boardAnList", boardAnList);
 		
-		return "/board/memQnOneView";
+		return "/board/boardQnOne";
 	}
 	
 	// 문의 작성
-	@RequestMapping(value = "qnInsert")
+	@RequestMapping(value = "otqInsert")
 	public String qnInsert(QnVO vo) {
 		qnService.qnInsert(vo);
 		
-		return "redirect:/board/memQnListView";
+		return "redirect:/board/client";
 	}
 	
 	// 문의 작성 화면
-	@RequestMapping(value = "qnInsertView")
+	@RequestMapping(value = "/otqInsertView")
 	public String qnInsertView() {
 		
-		return "/board/qnInsertView";
+		return "/board/otqInsertView";
 	}
 	
 	// 문의 수정
-	@RequestMapping(value = "qnUpdate")
+	@RequestMapping(value = "/otqUpdate")
 	public String qnUpdate(QnVO vo) {
 		qnService.qnUpdate(vo);
 		
-		return "redirect:/board/memQnListView";
+		return "redirect:/board/client";
 	}
 	
 	// 문의 수정 화면
-	@RequestMapping(value = "qnUpdateView")
-	public String qnUpdateView() {
+	@RequestMapping(value = "/otqUpdateView")
+	public String qnUpdateView(QnVO vo, Model model) {
+		model.addAttribute("otqUp", qnService.qnSelOne(vo.getOtqNo()));
 		
-		return "/board/qnUpdateView";
+		return "/board/otqUpdateView";
 	}
 	
 	// 문의 삭제
-	@RequestMapping(value = "qnDelete")
+	@RequestMapping(value = "/otqDelete")
 	public String qnDelete(QnVO vo) {
 		
 		qnService.qnDelete(vo.getOtqNo());
 		
-		return "redirect:/board/memQnListView";
+		return "redirect:/board/client";
 	}
 	
 	

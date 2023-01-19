@@ -8,13 +8,13 @@
 	<insert id="qnInsert" parameterType="QnVO">
 		insert into oneToOneQs
 		values((select NVL(MAX(otqNo) + 1, 1) from oneToOneQs),
-		#{otqMainCategory}, #{otqSubCategory},#{otqTitle},#{otqContent},#{otqmemId},#{otqState},sysdate, sysdate)
+		#{otqMainCategory}, #{otqSubCategory},#{otqTitle},#{otqContent},#{otqmemId},0,sysdate, sysdate)
 	</insert>
 	
 	<!-- 1대1문의수정 -->
 	<update id="qnUpdate" parameterType="QnVO">
 		update oneToOneQs set otqMainCategory=#{otqMainCategory}, otqSubCategory=#{otqSubCategory}, otqTitle=#{otqTitle},
-		otqContent=#{otqContent}, otqState=#{otqState}, otqUpdDate=sysdate where otqNo = #{otqNo}
+		otqContent=#{otqContent}, otqUpdDate=sysdate where otqNo = #{otqNo}
 	</update>
 	
 	<!-- 1대1문의삭제 -->
