@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.olga.vo.NewPdQuiryVO;
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.SelQuiryVO;
 
@@ -25,5 +26,35 @@ public class NewPdQuiryDAOImpl implements NewPdQuiryDAO {
 	@Override
 	public List<SelQuiryVO> getNewPdQuiryPageList(PagingVO vo) {
 		return session.selectList("newPdQuiryMapper.getNewPdQuiryPageList", vo);
+	}
+
+// 조회
+	@Override
+	public NewPdQuiryVO newPdQuirySelectOne(Long npqNo) {
+		return session.selectOne("newPdQuiryMapper.newPdQuirySelectOne", npqNo);
+	}
+
+// 글 등록
+	@Override
+	public long newPdQuiryInsert(NewPdQuiryVO vo) {
+		return session.insert("newPdQuiryMapper.newPdQuiryInsert", vo);
+	}
+
+// 글 수정	
+	@Override
+	public long newPdQuiryUpdate(NewPdQuiryVO vo) {
+		return session.update("newPdQuiryMapper.newPdQuiryUpdate", vo);
+	}
+
+// 글 삭제	
+	@Override
+	public long newPdQuiryDelete(Long npqNo) {
+		return session.delete("newPdQuiryMapper.newPdQuiryDelete", npqNo);
+	}
+
+// 답글 입력 시 답변 상태 업데이트		
+	@Override
+	public long newPdQuiryStateUpdate(NewPdQuiryVO npqVo) {
+		return session.update("newPdQuiryMapper.newPdQuiryStateUpdate", npqVo);
 	}
 }
