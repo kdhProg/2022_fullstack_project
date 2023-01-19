@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page session="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +24,7 @@
 	<hr />
 
 <!-- 신상품 등록 문의 -->
-<form name="insertForm" method="post" action="/seller/newPdQuiryInsertView?selId=${sessionScope.htsession.selId}">
+<form name="insertForm" method="post" action="/seller/newPdQuiryInsertView?selId=${selId}">
 	
 	<div id="npqDiv" style="display : none;">
 		<a href="#" onclick="sortList1(1);return false;" id="sortBtn1">답변 대기</a>

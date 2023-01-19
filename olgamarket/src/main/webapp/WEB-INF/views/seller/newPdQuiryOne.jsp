@@ -46,7 +46,7 @@
 		    <c:forEach items="${newPdAnList}" var="newPdAnList">
 		      <li>
 		        <p>
-		        답변 내용 : ${newPdAnList.npaContents}<br />
+		        답변 내용 : ${newPdAnList.npaContent}<br />
 		        작성 날짜 : 
 		        	<fmt:parseDate value="${newPdAnList.npaUpdDate}" var="npaUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/> 
 		        	<fmt:formatDate value="${npaUpdDate}" pattern="yyyy-MM-dd" />

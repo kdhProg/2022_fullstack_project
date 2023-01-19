@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,13 +46,7 @@ public class SellerController {
 	}
 	
 	@RequestMapping(value = "/dedicated")
-	public String dedicated(HttpSession htsession) {
-		
-	// 세션	
-		SellerVO selVo = new SellerVO();
-		selVo.setSelId("sel1");
-		
-		htsession.setAttribute("htsession", selVo);
+	public String dedicated() {
 		return "/seller/dedicated";
 	}
 	
