@@ -63,7 +63,7 @@ public class SellerServiceImpl implements SellerService {
 
 // 관리자 판매자 관리 + 페이징	
 	@Override
-	public PagingVO getSellerPageInfo(int currPage) {
+	public PagingVO getSellerPageInfo(int currPage, int sortType) {
 		PagingVO vo = new PagingVO();
 		int setTotalRecordCount = dao.getSellerCount();
 		int recordCountPerPage = 20;
@@ -99,6 +99,7 @@ public class SellerServiceImpl implements SellerService {
 		vo.setXprev(xprev);
 		vo.setContEnd(contEnd);
 		vo.setContStart(contStart);
+		vo.setSort(sortType);
 		
 		return vo;
 	}

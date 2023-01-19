@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="newPdQuiryMapper">
+
+<!-- 신상품 등록 문의 페이징 -->
+	<select id="getNewPdQuiryCount" parameterType="int" resultType="Integer">
+		select count(*) from newPdQuirys
+	</select>
+
+	<select id="getNewPdQuiryPageList" parameterType="PagingVO" resultType="NewPdQuiryVO">
+	      select * from 
+	      	(select npqNo, npqselId, npqTitle, npqContent, npqImg, npqState,
+	      	npqRegiDate, npqUpdDate, row_number() OVER(order by npqNo desc) as Rnum 
+	      		from newPdQuirys
+	      			where
+      					<if test='sort == 1'>
+		    				npqState = 0
+		   				</if>
+		   				<if test='sort == 2'>
+		    				npqState = 1
+		   				</if>
+		 				) mp
+	      			where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+	      				order by npqNo desc		
+	</select>
+
+
+
+
+
+</mapper>

@@ -21,5 +21,7 @@
   	<typeAlias type="kr.co.olga.vo.AdminVO" alias="AdminVO"/>
   	<typeAlias type="kr.co.olga.vo.SelQuiryVO" alias="SelQuiryVO"/>
   	<typeAlias type="kr.co.olga.vo.SelAnswerVO" alias="SelAnswerVO"/>
+  	<typeAlias type="kr.co.olga.vo.NewPdQuiryVO" alias="NewPdQuiryVO"/>
+  	<typeAlias type="kr.co.olga.vo.NewPdAnswerVO" alias="NewPdAnswerVO"/>
   </typeAliases>
 </configuration>
