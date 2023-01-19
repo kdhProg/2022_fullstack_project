@@ -62,7 +62,7 @@
 
 <!-- 관리자 전용(답변 상태 업데이트) -->
 	<update id="qnStateUpdate" parameterType="QnVO">
-		update oneToOneQs set otqState = #{otqState} where otqNo = #{otqNo}
+		update oneToOneQs set otqState = 1 where otqNo = #{otqNo}
 	</update>
 
 

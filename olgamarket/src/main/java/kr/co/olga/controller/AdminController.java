@@ -19,6 +19,8 @@ import kr.co.olga.service.AnService;
 import kr.co.olga.service.AnswerService;
 import kr.co.olga.service.FAQService;
 import kr.co.olga.service.MemberService;
+import kr.co.olga.service.NewPdAnswerService;
+import kr.co.olga.service.NewPdQuiryService;
 import kr.co.olga.service.NoticeService;
 import kr.co.olga.service.ProductService;
 import kr.co.olga.service.QnService;
@@ -32,6 +34,8 @@ import kr.co.olga.vo.AnVO;
 import kr.co.olga.vo.AnswerVO;
 import kr.co.olga.vo.FAQVO;
 import kr.co.olga.vo.MemberVO;
+import kr.co.olga.vo.NewPdAnswerVO;
+import kr.co.olga.vo.NewPdQuiryVO;
 import kr.co.olga.vo.NoticeVO;
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ProductVO;
@@ -223,6 +227,95 @@ public class AdminController {
 		
 		return "admin/sellerGrantView";
 	}
+/************ 신상품 문의 답변 ************************************************************************************************************************/
+
+	@Autowired
+	private NewPdQuiryService newPdQuiryService;
+	
+	@Autowired
+	private NewPdAnswerService newPdAnswerService;
+	
+	// 신상품 등록 문의 리스트
+	@RequestMapping(value = "newPdQuiryList")
+	@ResponseBody
+	public Map<String, Object> newPdQuiryList(String showPage, Integer sort) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		int stShowPage = Integer.parseInt(showPage);
+		
+		int currPage;
+		if(showPage == null) {
+			currPage = 1;
+		}else {
+			currPage = stShowPage;
+		}
+		
+		int sortType;
+		if(sort == null) {
+			sortType = 1;
+		}else {
+			sortType = sort;
+		}
+		
+		
+		PagingVO vo = newPdQuiryService.getNewPdQuiryPageInfo(currPage, sortType); //페이징에 필요한 정보 계산
+		List<SelQuiryVO> npqList = newPdQuiryService.getNewPdQuiryPageList(vo);
+		
+		result.put("npqList",npqList);  
+		result.put("pageInfo",vo);  //페이징정보
+		result.put("currPage",currPage); //현재페이지
+
+		return result;
+	}
+	
+	// 신상품 등록 문의 조회 + 답글
+	@RequestMapping(value = "/newPdQuiryOne")
+	public String newPdQuiryOne(NewPdQuiryVO vo, Model model) {
+		model.addAttribute("newPdQuiryOne", newPdQuiryService.newPdQuirySelectOne(vo.getNpqNo()));
+		
+		List<NewPdAnswerVO> newPdAnList = newPdAnswerService.newPdAnswerSelectOne(vo.getNpqNo());
+		model.addAttribute("newPdAnList", newPdAnList);
+		
+		return "/admin/newPdQuiryOne";
+	}
+	
+	// 문의 답글 등록
+	@RequestMapping(value ="newPdAnswerInsert")
+	public String newPdAnswerInsert(NewPdAnswerVO vo) {
+		newPdAnswerService.newPdAnswerInsert(vo);
+		
+		NewPdQuiryVO npqVo = new NewPdQuiryVO();
+		npqVo.setNpqNo(vo.getNpanpqNo());
+		npqVo.setNpqState(1L);
+		newPdQuiryService.newPdQuiryStateUpdate(npqVo);
+		
+		return "redirect:/admin/seller";
+	}
+	
+	// 문의 답글 등록 화면 
+	@RequestMapping(value = "newPdAnswerInsertView")
+	public String newPdAnswerInsertView(NewPdQuiryVO vo, Model model) {
+		model.addAttribute("npaIn", newPdQuiryService.newPdQuirySelectOne(vo.getNpqNo()));
+		
+		return "/admin/newPdAnswerInsertView";
+	}
+	
+	// 문의 답글 수정
+	@RequestMapping(value = "newPdAnswerUpdate")
+	public String newPdAnswerUpdate(NewPdAnswerVO vo) {
+		newPdAnswerService.newPdAnswerUpdate(vo);
+		
+		return "redirect:/admin/seller";
+	}
+	
+	// 문의 답글 수정 화면
+	@RequestMapping(value = "newPdAnswerUpdateView")
+	public String newPdAnswerUpdateView(NewPdQuiryVO vo, Model model) {
+		model.addAttribute("npaUp", newPdQuiryService.newPdQuirySelectOne(vo.getNpqNo()));
+		
+		return "/admin/newPdAnswerUpdateView";
+	}
+	
 	
 /************ 판매자 문의 관리 ************************************************************************************************************************/
 
@@ -398,7 +491,7 @@ public class AdminController {
 
 		return "redirect:/admin/product";
 	}
-	
+
 /************ 상품 문의 답변 ************************************************************************************************************************/
 	
 	// 상품 문의 

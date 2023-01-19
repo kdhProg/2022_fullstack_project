@@ -15,7 +15,6 @@ public class NewPdAnswerVO {
 	private Long npanpqNo;
 	@NonNull
 	private String npaContent;
-	private Long npaState;
 	private String npaRegiDate;
 	private String npaUpdDate;
 }

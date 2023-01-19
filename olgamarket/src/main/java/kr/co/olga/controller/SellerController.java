@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +18,14 @@ import kr.co.olga.service.NewPdQuiryService;
 import kr.co.olga.service.ProductService;
 import kr.co.olga.service.SelAnswerService;
 import kr.co.olga.service.SelQuiryService;
+import kr.co.olga.service.SellerService;
+import kr.co.olga.vo.NewPdAnswerVO;
+import kr.co.olga.vo.NewPdQuiryVO;
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ProductVO;
 import kr.co.olga.vo.SelAnswerVO;
 import kr.co.olga.vo.SelQuiryVO;
+import kr.co.olga.vo.SellerVO;
 
 @Controller
 @RequestMapping(value = "/seller/")
@@ -38,8 +45,13 @@ public class SellerController {
 	}
 	
 	@RequestMapping(value = "/dedicated")
-	public String dedicated() {
+	public String dedicated(HttpSession htsession) {
 		
+	// 세션	
+		SellerVO selVo = new SellerVO();
+		selVo.setSelId("sel1");
+		
+		htsession.setAttribute("htsession", selVo);
 		return "/seller/dedicated";
 	}
 	
@@ -51,6 +63,10 @@ public class SellerController {
 	@Autowired
 	private NewPdAnswerService newPdAnswerService;
 	
+	@Autowired
+	private SellerService sellerService;
+	
+	// 신상품 등록 문의 리스트
 	@RequestMapping(value = "newPdQuiryList")
 	@ResponseBody
 	public Map<String, Object> newPdQuiryList(String showPage, Integer sort) {
@@ -72,6 +88,7 @@ public class SellerController {
 			sortType = sort;
 		}
 		
+		
 		PagingVO vo = newPdQuiryService.getNewPdQuiryPageInfo(currPage, sortType); //페이징에 필요한 정보 계산
 		List<SelQuiryVO> npqList = newPdQuiryService.getNewPdQuiryPageList(vo);
 		
@@ -81,6 +98,61 @@ public class SellerController {
 
 		return result;
 	}
+	
+	// 신상품 등록 문의 조회 + 답글
+	@RequestMapping(value = "/newPdQuiryOne")
+	public String newPdQuiryOne(NewPdQuiryVO vo, Model model) {
+		model.addAttribute("newPdQuiryOne", newPdQuiryService.newPdQuirySelectOne(vo.getNpqNo()));
+		
+		List<NewPdAnswerVO> newPdAnList = newPdAnswerService.newPdAnswerSelectOne(vo.getNpqNo());
+		model.addAttribute("newPdAnList", newPdAnList);
+		
+		return "/seller/newPdQuiryOne";
+	}
+	
+	// 신상품 등록 문의 등록 
+	@RequestMapping(value = "newPdQuiryInsert")
+	public String newPdQuiryInsert(NewPdQuiryVO vo) {
+		newPdQuiryService.newPdQuiryInsert(vo);
+		
+		return "redirect:/seller/dedicated";
+	}
+	
+	
+	// 신상품 등록 문의 등록 화면
+	@RequestMapping(value = "newPdQuiryInsertView")
+	public String newPdQuiryInsertView(SellerVO vo, Model model) {	
+		model.addAttribute("npqIn", sellerService.sellerSelOne(vo.getSelId()));
+		
+		return "/seller/newPdQuiryInsertView";
+	}
+	
+	// 신산풍 등록 문의 수정
+	@RequestMapping(value = "newPdQuiryUpdate")
+	public String newPdQuiryUpdate(NewPdQuiryVO vo) {
+		newPdQuiryService.newPdQuiryUpdate(vo);
+		
+		return "redirect:/seller/dedicated";
+	}
+	
+	// 신산풍 등록 문의 수정 화면 
+	@RequestMapping(value = "newPdQuiryUpdateView")
+	public String newPdQuiryUpdateView(NewPdQuiryVO vo, Model model) {
+		model.addAttribute("npqUp", newPdQuiryService.newPdQuirySelectOne(vo.getNpqNo()));
+		
+		
+		return "/seller/newPdQuiryUpdateView";
+	}
+	
+	// 신산풍 등록 문의 삭제
+		@RequestMapping(value = "newPdQuiryDelete")
+		public String newPdQuiryDelete(NewPdQuiryVO vo) {
+			newPdQuiryService.newPdQuiryDelete(vo.getNpqNo());
+			
+			return "redirect:/seller/dedicated";
+		}
+	
+	
 	
 	
 /***************** 등록된 상품 문의 ****************************************************************************************/	
@@ -136,7 +208,9 @@ public class SellerController {
 	
 	// 판매자 문의 등록
 	
+	
 	// 판매자 문의 등록 화면 
+	
 	
 	// 판매자 문의 수정
 	

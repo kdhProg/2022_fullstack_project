@@ -24,22 +24,32 @@
 	
 	<hr />
 
-<!-- 신상품 등록 문의 -->	
+<!-- 신상품 등록 문의 -->
+<form name="insertForm" method="post" action="/seller/newPdQuiryInsertView?selId=${sessionScope.htsession.selId}">
+	
 	<div id="npqDiv" style="display : none;">
 		<a href="#" onclick="sortList1(1);return false;" id="sortBtn1">답변 대기</a>
 		<a href="#" onclick="sortList1(2);return false;" id="sortBtn2">답변 완료</a>
 		<div id="newPdQuiryResultList"></div>
 		<div id="newPdQuiryResultPagingNo"></div>
+		<div>
+			<button type="submit" class="npqInsert_btn">등록 문의하기</button>
+		</div>
 	</div>
+</form>	
 
 <!-- 등록된 상품 문의 -->	
+<form name="insertForm" method="post" action="/seller/selQuiryInsertView ">
 	<div id="sqDiv" style="display : none;">
 		<a href="#" onclick="sortList(1);return false;" id="sortBtn1">답변 대기</a>
 		<a href="#" onclick="sortList(2);return false;" id="sortBtn2">답변 완료</a>
 		<div id="sqResultList"></div>
 		<div id="sqResultPagingNo"></div>
-		
+		<div>
+			<button type="submit" class="sqInsert_btn">등록 문의하기</button>
+		</div>
 	</div>
+</form>		
 </body>
 <script>
 /********************* 신상품 등록 문의 목록 *******************************************************************/
@@ -64,7 +74,7 @@ function npqList(pageNo, sortNo) {
 			
 			$.each(npqPageList, function(key, value) {
 				npqContentTag += "<tr>";
-				npqContentTag += "<td><a href='/seller/newPdQuiryOne?selId="+value.npqNo+"'>"+value.npqNo+"</a></td>";
+				npqContentTag += "<td><a href='/seller/newPdQuiryOne?npqNo="+value.npqNo+"'>"+value.npqNo+"</a></td>";
 				npqContentTag += "<td>"+value.npqselId+"</td>";
 				npqContentTag += "<td>"+value.npqTitle+"</td>";
 				npqContentTag += "<td>"+value.npqContent+"</td>";
@@ -126,7 +136,7 @@ function sqList(pageNo, sortNo) {
             
 			$.each(selQuiryPageList, function(key, value) {
 				selQuiryContentTag += "<tr>";
-				selQuiryContentTag += "<td><a href='/board/selQuiryOne?sqNo="+value.sqNo+"'>"+value.sqNo+"</a></td>";
+				selQuiryContentTag += "<td><a href='/seller/selQuiryOne?sqNo="+value.sqNo+"'>"+value.sqNo+"</a></td>";
 				selQuiryContentTag += "<td>"+value.sqpdId+"</td>";
 				selQuiryContentTag += "<td>"+value.sqTitle+"</td>";
 				selQuiryContentTag += "<td>"+value.sqContent+"</td>";

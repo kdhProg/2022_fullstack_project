@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.olga.dao.NewPdQuiryDAO;
+import kr.co.olga.vo.NewPdQuiryVO;
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.SelQuiryVO;
 
@@ -61,5 +62,35 @@ public class NewPdQuiryServiceImpl implements NewPdQuiryService {
 	@Override
 	public List<SelQuiryVO> getNewPdQuiryPageList(PagingVO vo) {
 		return dao.getNewPdQuiryPageList(vo);
+	}
+
+// 조회 	
+	@Override
+	public NewPdQuiryVO newPdQuirySelectOne(Long npqNo) {
+		return dao.newPdQuirySelectOne(npqNo);
+	}
+
+// 글 등록
+	@Override
+	public long newPdQuiryInsert(NewPdQuiryVO vo) {
+		return dao.newPdQuiryInsert(vo);
+	}
+
+// 글 수정	
+	@Override
+	public long newPdQuiryUpdate(NewPdQuiryVO vo) {
+		return dao.newPdQuiryUpdate(vo);
+	}
+
+// 글 삭제	
+	@Override
+	public long newPdQuiryDelete(Long npqNo) {
+		return dao.newPdQuiryDelete(npqNo);
+	}
+
+// 답글 입력 시 답변 상태 업데이트	
+	@Override
+	public long newPdQuiryStateUpdate(NewPdQuiryVO npqVo) {
+		return dao.newPdQuiryStateUpdate(npqVo);
 	}
 }

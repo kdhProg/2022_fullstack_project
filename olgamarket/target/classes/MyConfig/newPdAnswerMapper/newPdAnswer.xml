@@ -4,5 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="newPdAnswerMapper">
 
+<!-- 조회 -->
+	<select id="newPdAnswerSelectOne" resultType="NewPdAnswerVO">
+		select * from newPdAnswers where npanpqNo = #{npanpqNo}
+	</select>
+
+<!-- 답글 등록 -->
+	<insert id="newPdAnswerInsert" parameterType="NewPdAnswerVO">
+		insert into newPdAnswers
+			values((select NVL(MAX(npanpqNo) +1, 1) from newPdAnswers), 
+					#{npaContent}, sysdate, sysdate)
+	</insert>
+
+<!-- 답글 수정 -->
+	<update id="newPdAnswerUpdate" parameterType="NewPdAnswerVO">
+		update newPdAnswers 
+			set npaContent = #{npaContent} where npanpqNo = #{npanpqNo}
+	</update>
 
 </mapper>

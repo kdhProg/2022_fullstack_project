@@ -11,8 +11,8 @@
 </head>
 <body>
 <section id="container">
-	<form role="form" method="post" action="/admin/selAnswerInsert">
-		<input type="text" value="${npaIn.npqNo}" id="npqNo" name="npanpqNo" />
+	<form role="form" method="post" action="/admin/newPdAnswerInsert">
+		<input type="hidden" value="${npaIn.npqNo}" id="npqNo" name="npanpqNo" />
 		<table>
 			<tbody>
 				<tr>
@@ -23,9 +23,9 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="npaUpdDate">등록날짜 : </label>
-						<fmt:parseDate value="${npaIn.npaUpdDate}" var="npaUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${npaUpdDate}" pattern="yyyy.MM.dd"/>
+						<label for="npqUpdDate">등록날짜 : </label>
+						<fmt:parseDate value="${npaIn.npqUpdDate}" var="npqUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${npqUpdDate}" pattern="yyyy.MM.dd"/>
 					</td>
 				</tr>
 				<tr>

@@ -26,6 +26,49 @@
 	      				order by npqNo desc		
 	</select>
 
+<!-- 조회 -->
+	<select id="newPdQuirySelectOne" resultType="NewPdQuiryVO">
+		select * from newPdQuirys where npqNo = #{npqNo}
+	</select>
+	
+<!-- 글 등록 -->	
+	<insert id="newPdQuiryInsert" parameterType="NewPdQuiryVO">
+		insert into newPdQuirys 
+			values((select NVL(MAX(npqNo) +1, 1) from newPdQuirys), #{npqselId}, #{npqTitle}, 
+					#{npqContent}, #{npqImg}, 0, sysdate, sysdate)
+	</insert>
+
+<!-- 글 수정 -->
+	<update id="newPdQuiryUpdate" parameterType="NewPdQuiryVO">
+		update newPdQuirys 
+			set npqTitle = #{npqTitle}, npqContent = #{npqContent},
+				npqImg = #{npqImg}, npqUpdDate = sysdate where npqNo = #{npqNo}	
+	</update>
+
+<!-- 글 삭제 -->
+	<delete id="newPdQuiryDelete" parameterType="Long">
+		delete from newPdQuirys where npqNo = #{npqNo} 
+	</delete>
+
+<!--  -->
+	<update id="newPdQuiryStateUpdate" parameterType="NewPdQuiryVO">
+		update newPdQuirys 
+			set npqState = 1 where npqNo = #{npqNo}
+	</update>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
