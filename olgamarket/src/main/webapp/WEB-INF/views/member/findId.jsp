@@ -9,6 +9,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <style>
+/* 사업자 등록번호는 처음에는 안보임 */
+.form_selRegiNum{
+	display: none;
+}
+
 /* 회원/판매자 토글 시작*/
 .typeSelect_btn_wrap {
     padding: 15px 10px;
@@ -40,13 +45,17 @@
 <body>
 <div class="entire_wrap">
 	<div class="form_wrap">
-		<form action="/member/findIdAct">
+		<form action="">
 			<div class="typeSelect_btn_wrap">
 				<input type="radio" id="typeSel1" name="typeSelRadio" value="normalMem" checked="checked"><label for="typeSel1">일반회원</label>
 				<input type="radio" id="typeSel2" name="typeSelRadio" value="sellerMem" ><label for="typeSel2">판매자</label>
 			</div>
-			<label for=""><input class="form_name" type="text" placeholder="이름입력" maxLength="5"/></label>
-			<label for=""><input class="form_phone" type="text" oninput="autoHyphen(this)" placeholder="전화번호 입력" maxLength="13"/></label>
+			<label for=""><input class="form_name" name="memName" type="text" placeholder="이름입력" maxLength="5"/></label>
+			<label for=""><input class="form_phone" name="memPhone" type="text" oninput="autoHyphen(this)" placeholder="전화번호 입력" maxLength="13"/></label>
+			<div class="selRegiNum_wrap">
+				<label for=""><input class="form_selRegiNum" name="selRegiNum" type="text" placeholder="사업자등록번호 입력" 
+				maxLength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/></label>
+			</div>
 		</form>
 		<button class="find_btn">찾기</button>
 	</div>
@@ -56,25 +65,42 @@
 <a href="/member/login">로그인</a>&nbsp;&nbsp;<a href="/member/findPwd">비밀번호찾기</a>
 </body>
 <script>
-
+let sellerSelected = false;
 $(".find_btn").click(function(){
-	if($(".form_name").val().length==0){$('.warn_msg').css('display','block');$(".warn_msg").html("<p style='color: red'>아이디를 입력하세요.</p>");return false;}
+	if($(".form_name").val().length==0){$('.warn_msg').css('display','block');$(".warn_msg").html("<p style='color: red'>이름을 입력하세요.</p>");return false;}
 	if($(".form_phone").val().length==0){$('.warn_msg').css('display','block');$(".warn_msg").html("<p style='color: red'>전화번호를 입력하세요.</p>");return false;}
+	if(sellerSelected){
+		if($(".form_selRegiNum").val().length==0){$('.warn_msg').css('display','block');$(".warn_msg").html("<p style='color: red'>사업자등록번호를 입력하세요.</p>");return false;}
+	}
 	// 모든 입력칸 입력됨
 	let memName = $(".form_name").val();
 	let memPhone = $(".form_phone").val();
+	let selSelRegiNo;
+	if(sellerSelected){
+		//판매자면 값 담기
+		selSelRegiNo = $(".form_selRegiNum").val();
+	}else{
+		//일반회원의 경우
+		selSelRegiNo = "defaultMember";
+	}
 	$.ajax({
 		type : "get",
 		url : "/member/findIdAct",
 		data : {
 			memName : memName,
-			memPhone : memPhone
+			memPhone : memPhone,
+			selSelRegiNo : selSelRegiNo
 		},
 		success : function(result){
 			if(result != "failed"){
+				// 찾기 성공
 				$('.warn_msg').css('display','block');
-				$('.warn_msg').html("<span style='color: green'>아이디를 찾았습니다: "+result+"</span>");	
+				$('.result_wrap').html("<span style='color: green'>아이디를 찾았습니다: "+result+"</span>");	
+				// 찾으면 입력폼 / 경고메시지 none
+				$('.form_wrap').css('display','none');
+				$('.warn_msg').css('display','none');
 			}else{
+				// 찾기 실패
 				$('.warn_msg').css('display','block');
 				$('.warn_msg').html("<span style='color: red'>아이디가 존재하지 않습니다</span>");	
 			}
@@ -85,7 +111,7 @@ $(".find_btn").click(function(){
 $(".form_name").keyup(function(){
 	if($(".form_name").val()==""){
 		$('.warn_msg').css('display','block');
-		$(".warn_msg").html("<p style='color: red'>아이디를 입력하세요.</p>");
+		$(".warn_msg").html("<p style='color: red'>이름을 입력하세요.</p>");
 	}else{
 		$('.warn_msg').css('display','none');
 	}
@@ -100,12 +126,40 @@ $(".form_phone").keyup(function(){
 	}
 });
 
+$(".form_selRegiNum").keyup(function(){
+	if(sellerSelected){
+		if($(".form_selRegiNum").val()==""){
+			$('.warn_msg').css('display','block');
+			$(".warn_msg").html("<p style='color: red'>사업자등록번호를 입력하세요.</p>");
+		}else{
+			$('.warn_msg').css('display','none');
+		}
+	}
+});
+
 //전화번호 오토하이픈
 function autoHyphen(target){
 	return target.value = target.value.replace(/[^0-9]/g, '')
 	.replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
 	.replace(/(\-{1,2})$/g, "");
 }
+
+
+/* 판매자 회원 버튼 토글 */
+
+//판매자 모드
+$("#typeSel2").click(function(){
+	$(".form_selRegiNum").css('display','block');
+	$('.warn_msg').css('display','none');
+	sellerSelected = true;
+});
+
+//일반 모드
+$("#typeSel1").click(function(){
+	$(".form_selRegiNum").css('display','none');
+	$('.warn_msg').css('display','none');
+	sellerSelected = false;
+});
 
 </script>
 </html>

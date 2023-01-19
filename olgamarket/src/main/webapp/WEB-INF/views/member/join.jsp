@@ -421,10 +421,9 @@ var sellerUniqueNo;  //판매자 고유번호 작성여부
 					&& nameFormatCheck  && emailFormatCheck  && emailDuplCheck  && phoneFormatCheck  && birthYearFormatCheck 
 					&& birthMonthFormatCheck  && birthDateFormatCheck && adequateYearCheck && sellerMarketUniqueNoCheck
 					){
-						console.log("판매자 모두 성립");
 						$("#join_form").attr("action", "/member/joinAct");
 						$("#join_form").submit();
-					}console.log("판매자 안 성립");
+					}
 		}else{
 			//일반회원의 경우
 			if(idCheck && pwCheck && pwckCheck && nameCheck  && emailCheck && phoneCheck 
@@ -434,23 +433,13 @@ var sellerUniqueNo;  //판매자 고유번호 작성여부
 					&& nameFormatCheck  && emailFormatCheck  && emailDuplCheck  && phoneFormatCheck  && birthYearFormatCheck 
 					&& birthMonthFormatCheck  && birthDateFormatCheck && adequateYearCheck
 					){
-						console.log("일반회원 모두 성립");
 						$("#join_form").attr("action", "/member/joinAct");
 						$("#join_form").submit();
-					}console.log("일반회원 안 성립");
+					}
 		}
 		
 		return false;
 	}); // 클릭함수 끝
-
-
-/* 빈칸인지아닌지 실시간 검사 + 값 바꿈 */
-
-// $('.id_input').keyup(){
-// 	if()
-// }
-
-
 
 /* 아이디 형식 검사 */
 
