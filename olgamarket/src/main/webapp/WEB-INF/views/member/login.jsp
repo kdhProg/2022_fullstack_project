@@ -73,15 +73,16 @@
 <body>
 <h1>로그인</h1>
 <!-- 일반회원/판매자 토글 버튼 : 컨트롤러에서 value를 보고 판단하도록 한다. -->
-<div class="typeSelect_btn_wrap">
-	<input type="radio" id="typeSel1" name="typeSelRadio" value="normalMem" checked="checked"><label for="typeSel1">일반회원 로그인</label>
-	<input type="radio" id="typeSel2" name="typeSelRadio" value="sellerMem" ><label for="typeSel2">판매자 로그인</label>
-</div>
+
 <div id="formWrapper">
-	<form id="loginForn" action="/member/login" method="post">
+	<form id="loginForm" action="/member/login" method="post">
+		<div class="typeSelect_btn_wrap">
+			<input type="radio" id="typeSel1" name="typeSelRadio" value="normalMem" checked="checked"><label for="typeSel1">일반회원 로그인</label>
+			<input type="radio" id="typeSel2" name="typeSelRadio" value="sellerMem" ><label for="typeSel2">판매자 로그인</label>
+		</div>
 		<input type="text" id="memIdInputBox" placeholder="아이디 입력" name="memId"/>
-		<input type="text" id="memPwdInputBox" placeholder="비밀번호 입력" name="memPwd"/>
-		<button id="loginForm">로그인</button>
+		<input type="password" id="memPwdInputBox" placeholder="비밀번호 입력" name="memPwd"/>
+		<button id="loginFormBtn">로그인</button>
 	</form>
 </div>
 <div id="preLoginWarn"></div>
@@ -104,14 +105,32 @@
 </div>
 <script>
 $(document).ready(function(){
-	$("#loginForm").click(function(){
-		if($("#memIdInputBox").val().length==0){$("#preLoginWarn").html("<p style='color: red'>아이디를 입력하세요.</p>");return false;}
-		if($("#memPwdInputBox").val().length==0){$("#preLoginWarn").html("<p style='color: red'>비밀번호를 입력하세요.</p>");return false;}
+	$("#loginFormBtn").click(function(){
+		if($("#memIdInputBox").val().length==0){$('#preLoginWarn').css('display','block');$("#preLoginWarn").html("<p style='color: red'>아이디를 입력하세요.</p>");return false;}
+		if($("#memPwdInputBox").val().length==0){$('#preLoginWarn').css('display','block');$("#preLoginWarn").html("<p style='color: red'>비밀번호를 입력하세요.</p>");return false;}
 	});
 });
 
+$("#memIdInputBox").keyup(function(){
+	if($("#memIdInputBox").val() ==""){
+		$('#preLoginWarn').css('display','block');
+		$("#preLoginWarn").html("<p style='color: red'>아이디를 입력하세요.</p>");
+	}else{
+		$('#preLoginWarn').css('display','none');
+	}
+})
+
+$("#memPwdInputBox").keyup(function(){
+	if($("#memPwdInputBox").val()==""){
+		$('#preLoginWarn').css('display','block');
+		$("#preLoginWarn").html("<p style='color: red'>비밀번호를 입력하세요.</p>");
+	}else{
+		$('#preLoginWarn').css('display','none');
+	}
+})
+
 let loginRst = $("#loginErrorMsg").text();
-console.log("loginRst"+loginRst);
+// console.log("loginRst"+loginRst);
 
 $(function(){ 
 	

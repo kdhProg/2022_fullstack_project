@@ -23,6 +23,29 @@ public class SellerTest {
 	
 	@Test
 	@Ignore
+	public void sellerIdDupltest() {
+		String selId = "ua52699kl";
+		System.out.println(service.sellerIdcheck(selId));
+	}
+	
+	@Test
+	@Ignore
+	public void sellerEmailDuplTest() {
+		String selEmail = "sdf@asd2ggg44";
+		System.out.println(service.sellerEmailCheck(selEmail));
+	}
+	
+	@Test
+	@Ignore
+	public void sellerLoginTest() {
+		SellerVO vo = new SellerVO();
+		vo.setSelId("ua52699kl");
+		vo.setSelPwd("dfgdfgdgfgY#");
+		System.out.println(service.sellerLogin(vo));
+	}
+	
+	@Test
+	@Ignore
 	public void sellerJoinTest() {
 		SellerVO vo = new SellerVO();
 		

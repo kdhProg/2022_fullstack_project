@@ -113,4 +113,14 @@ public class SellerServiceImpl implements SellerService {
 	public long sellerGrantUpdate(SellerVO vo) {
 		return dao.sellerGrantUpdate(vo);
 	}
+	
+	@Override
+	public SellerVO sellerLogin(SellerVO vo) {
+		return dao.sellerLogin(vo);
+	}
+	
+	@Override
+	public int sellerEmailCheck(String selEmail) {
+		return dao.sellerEmailCheck(selEmail);
+	}
 }

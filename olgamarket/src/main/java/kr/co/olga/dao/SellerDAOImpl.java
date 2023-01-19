@@ -78,5 +78,15 @@ public class SellerDAOImpl implements SellerDAO {
 	public long sellerGrantUpdate(SellerVO vo) {
 		return session.update("sellerMapper.sellerGrantUpdate", vo);
 	}
+	
+	@Override
+	public SellerVO sellerLogin(SellerVO vo) {
+		return session.selectOne("sellerMapper.sellerLogin", vo);
+	}
+	
+	@Override
+	public int sellerEmailCheck(String selEmail) {
+		return session.selectOne("sellerMapper.sellerEmailCheck", selEmail);
+	}
 
 }

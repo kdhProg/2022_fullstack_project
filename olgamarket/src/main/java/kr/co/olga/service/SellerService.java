@@ -42,4 +42,9 @@ public interface SellerService {
 // 판매자 권한 회수	
 	public long sellerGrantUpdate(SellerVO vo);
 	
+// 판매자 로그인 ( 비밀번호와 아이디에 해당하는 레코드가 있는지 테스트 없으면 null 반환 )
+	public SellerVO sellerLogin(SellerVO vo);
+
+	public int sellerEmailCheck(String selEmail);
+
 }
