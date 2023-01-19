@@ -35,7 +35,24 @@
 	      	otqState, otqRegiDate, otqUpdDate, row_number() OVER(order by otqNo desc) as Rnum 
 	      		from oneToOneQs) mp
 	      			where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
-	      			
+	      				order by otqNo desc
+	</select>	
+	
+<!-- 관리자용 에이젝스 페이징 -->
+	<select id="getQnAdminPageList" parameterType="PagingVO" resultType="QnVO">
+	      select * from 
+	      	(select otqNo, otqMainCategory, otqSubCategory, otqTitle, otqContent, otqmemId,
+	      	otqState, otqRegiDate, otqUpdDate, row_number() OVER(order by otqNo desc) as Rnum 
+	      		from oneToOneQs
+	      			where
+      					<if test='sort == 1'>
+		    				otqState = 0
+		   				</if>
+		   				<if test='sort == 2'>
+		    				otqState = 1
+		   				</if>
+		 				) mp
+	      			where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
 	      				order by otqNo desc
 	</select>	
 	
@@ -43,6 +60,10 @@
 		select count(*) from oneToOneQs
 	</select>
 
+<!-- 관리자 전용(답변 상태 업데이트) -->
+	<update id="qnStateUpdate" parameterType="QnVO">
+		update oneToOneQs set otqState = #{otqState} where otqNo = #{otqNo}
+	</update>
 
 
 

@@ -13,10 +13,17 @@ public interface QuiryDAO {
 
 	long quiryUpd(QuiryVO vo);
 
-	QuiryVO quirySelOne(long iqNo);
+	QuiryVO quirySelOne(Long iqNo);
 
 	int getQrCount(int getPdId);
 
 	List<QuiryVO> getRvPageList(PagingVO vo);
+
+	int getQuiryAdminCount();
+
+	List<QuiryVO> getQuiryAdminPageList(PagingVO vo);
+
+// 관리자 전용(답변 상태 업데이트)	
+	long quiryStateUpdate(QuiryVO quVo);
 
 }

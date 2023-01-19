@@ -6,7 +6,7 @@ import kr.co.olga.vo.AnVO;
 
 public interface AnDAO {
 
-	long An(AnVO vo);
+	long anInsert(AnVO vo);
 
 	long anUpdate(AnVO vo);
 

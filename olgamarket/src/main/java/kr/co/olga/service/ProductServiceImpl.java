@@ -289,5 +289,11 @@ public class ProductServiceImpl implements ProductService {
 	public List<String> getSearchBrandList(String searchKeyWord) {
 		return dao.getSearchBrandList(searchKeyWord);
 	}
+
+// 판매자 관리페이지에 띄우는 판매자 별 판매 중인 상품 목록
+	@Override
+	public List<ProductVO> getSelectList(String selstlBrandName) {
+		return dao.getSelectList(selstlBrandName);
+	}
 	
 }

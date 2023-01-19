@@ -17,10 +17,18 @@ public interface QuiryService {
 	long quiryUpd(QuiryVO vo);
 
 	// iqNo에 해당하는 레코드 가져옴
-	QuiryVO quirySelOne(long iqNo);
+	QuiryVO quirySelOne(Long iqNo);
 
 	PagingVO getRvPageInfo(int currPage, int getPdId);
 
 	List<QuiryVO> getRvPageList(PagingVO vo);
+
+	PagingVO getQuiryAdminPageInfo(int currPage, int sortType);
+
+	List<QuiryVO> getQuiryAdminPageList(PagingVO vo);
+
+// 관리자 전용(답변 상태 업데이트)	
+	long quiryStateUpdate(QuiryVO quVo);
+
 
 }

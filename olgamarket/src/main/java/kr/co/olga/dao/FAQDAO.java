@@ -21,4 +21,8 @@ public interface FAQDAO {
 
 	List<FAQVO> getFaqPageList(PagingVO vo);
 
+	int getFaqAdminCount();
+
+	List<FAQVO> getFaqAdminPageList(PagingVO vo);
+
 }

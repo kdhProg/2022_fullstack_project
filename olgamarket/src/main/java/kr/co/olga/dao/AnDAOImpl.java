@@ -15,7 +15,7 @@ public class AnDAOImpl implements AnDAO {
 	private SqlSession session;
 
 	@Override
-	public long An(AnVO vo) {
+	public long anInsert(AnVO vo) {
 		return session.insert("anMapper.anInsert", vo);
 	}
 

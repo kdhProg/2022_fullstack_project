@@ -69,7 +69,7 @@ public class SellerDAOImpl implements SellerDAO {
 	}
 
 	@Override
-	public List<NoticeVO> getSellerPageList(PagingVO vo) {
+	public List<SellerVO> getSellerPageList(PagingVO vo) {
 		return session.selectList("sellerMapper.getSellerPageList", vo);
 	}
 

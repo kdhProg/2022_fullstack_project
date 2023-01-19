@@ -71,6 +71,10 @@ public interface ProductService {
 
 	List<String> getSearchBrandList(String searchKeyWord);
 
+// 판매자 관리페이지에 띄우는 판매자 별 판매 중인 상품 목록 	
+	List<ProductVO> getSelectList(String selstlBrandName);
+
+
 	
 
 

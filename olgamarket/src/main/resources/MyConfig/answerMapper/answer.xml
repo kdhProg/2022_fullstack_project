@@ -7,7 +7,7 @@
 	<!-- 상품문의답변등록 -->
 	<insert id="answerInsert" parameterType="AnswerVO">
 		insert into iqAnswers
-		values((select NVL(MAX(iaiqNo) + 1, 1) from iqAnswers),
+		values ( #{iaiqNo},
 		#{iaContents}, sysdate, sysdate)
 	</insert>
 	

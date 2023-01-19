@@ -1,6 +1,8 @@
 package kr.co.olga.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.olga.service.AdminService;
@@ -20,6 +23,8 @@ import kr.co.olga.service.NoticeService;
 import kr.co.olga.service.ProductService;
 import kr.co.olga.service.QnService;
 import kr.co.olga.service.QuiryService;
+import kr.co.olga.service.SelAnswerService;
+import kr.co.olga.service.SelQuiryService;
 import kr.co.olga.service.SellerService;
 import kr.co.olga.service.StoreService;
 import kr.co.olga.vo.AdminVO;
@@ -32,6 +37,8 @@ import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ProductVO;
 import kr.co.olga.vo.QnVO;
 import kr.co.olga.vo.QuiryVO;
+import kr.co.olga.vo.SelAnswerVO;
+import kr.co.olga.vo.SelQuiryVO;
 import kr.co.olga.vo.SellerVO;
 import kr.co.olga.vo.StoreVO;
 
@@ -151,37 +158,46 @@ public class AdminController {
 
 	@Autowired
 	private SellerService sellerService;
+	
+	@RequestMapping(value="/seller")
+	public String seller() {
+		return "/admin/seller";
+	}
 
 	// 모든 판매자 목록
-	@RequestMapping(value = "/sellerManage")
-	public String sellerManage(Model model, Integer showPage) {
+	@RequestMapping(value = "/sellerList")
+	@ResponseBody
+	public Map<String, Object> sellerList(String showPage) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		int stShowPage = Integer.parseInt(showPage);
+		
 		int currPage;
 		if(showPage == null) {
 			currPage = 1;
 		}else {
-			currPage = showPage;
+			currPage = stShowPage;
 		}
 		
 		PagingVO vo = sellerService.getSellerPageInfo(currPage); //페이징에 필요한 정보 계산
-		List<NoticeVO> pageList =  sellerService.getSellerPageList(vo);
+		List<SellerVO> sellerList = sellerService.getSellerPageList(vo);
 		
-		model.addAttribute("sellerList",pageList);  //게시판목록
-		model.addAttribute("pageInfo",vo);  //페이징정보
-		model.addAttribute("currPage",currPage); //현재페이지
+		result.put("selList",sellerList);  
+		result.put("pageInfo",vo);  //페이징정보
+		result.put("currPage",currPage); //현재페이지
 
-		List<SellerVO> slVo = sellerService.sellerSelAll();
-		model.addAttribute("slList", slVo);
-
-		return "/admin/sellerManage";
+		return result;
 	}
 
 	// 판매자 조회(판매상품도 같이 조회)
 	@RequestMapping(value = "/sellerOne")
-	public String sellerOne(Model model, SellerVO vo) {
-
-		model.addAttribute("selOne", sellerService.sellerSelOne(vo.getSelId()));
-
-		return "/adimn/sellerOne";
+	public String sellerOne(Model model, SellerVO selVo) {
+		model.addAttribute("selOne", sellerService.sellerSelOne(selVo.getSelId()));
+		
+		List<ProductVO> pdList = productService.getSelectList(selVo.getSelstlBrandName());
+		model.addAttribute("pdList", pdList);
+		System.out.println(pdList);
+		return "/admin/sellerOne";
 	}
 	
 	// 판매자 권한 회수
@@ -190,39 +206,138 @@ public class AdminController {
 		
 		sellerService.sellerGrantUpdate(vo);
 		
-		return "redirect:/admin/sellerManage";
+		return "redirect:/admin/seller";
 	}
 	
 	// 판매자 권한 회수하는 화면
 	@RequestMapping(value = "/sellerGrantView")
-	public String sellerGrantView()	{
+	public String sellerGrantView(SellerVO vo, Model model)	{
+		model.addAttribute("selUp", sellerService.sellerSelOne(vo.getSelId()));
 		
 		return "admin/sellerGrantView";
+	}
+	
+/************ 판매자 문의 관리 ************************************************************************************************************************/
+
+	@Autowired
+	private SelQuiryService selquiryService;
+	
+	@Autowired
+	private SelAnswerService selanswerService;
+	
+	// 판매자 문의 목록 + 페이징
+	@RequestMapping(value = "/selQuiryList")
+	@ResponseBody
+	public Map<String, Object> selQuiryList(String showPage, Integer sort) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		int stShowPage = Integer.parseInt(showPage);
+		
+		int currPage;
+		if(showPage == null) {
+			currPage = 1;
+		}else {
+			currPage = stShowPage;
+		}
+		
+		int sortType;
+		if(sort == null) {
+			sortType = 1;
+		}else {
+			sortType = sort;
+		}
+		
+		PagingVO vo = selquiryService.getSelQuiryPageInfo(currPage, sortType); //페이징에 필요한 정보 계산
+		List<SelQuiryVO> sqList = selquiryService.getSelQuiryPageList(vo);
+		
+		result.put("sqList",sqList);  
+		result.put("pageInfo",vo);  //페이징정보
+		result.put("currPage",currPage); //현재페이지
+
+		return result;
+	}
+	
+	// 판매자 문의 조회
+	@RequestMapping(value = "/selQuiryOne")
+	public String selQuiryOne(Model model, SelQuiryVO vo)	{
+		model.addAttribute("selQuiryOne", selquiryService.getSelectOne(vo.getSqNo()));
+		
+		List<SelAnswerVO> selAnList = selanswerService.selAnswerList(vo.getSqNo());
+		model.addAttribute("selAnList", selAnList);
+		
+		return "/admin/selQuiryOne";
+	}
+	
+	// 답글 등록
+	@RequestMapping(value ="/selAnswerInsert")
+	public String selAnswerInsert(SelAnswerVO vo) {
+		selanswerService.selAnswerInsert(vo);
+		
+		SelQuiryVO sqVo = new SelQuiryVO();
+		sqVo.setSqNo(vo.getSasqNo());
+		sqVo.setSqState(1L);
+		selquiryService.selQuiryStateUpdate(sqVo);
+		
+		return "redirect:/admin/seller";
+	}
+	
+	// 답글 등록 화면
+	@RequestMapping(value ="/selAnswerInsertView")
+	public String selAnswerInsertView(SelQuiryVO vo, Model model) {
+		model.addAttribute("selAnswerIn", selquiryService.getSelectOne(vo.getSqNo()));
+		
+		return "/admin/selAnswerInsertView";
+	}
+	
+	// 답글 수정
+	@RequestMapping(value ="/selAnswerUpdate")
+	public String selAnswerUpdate(SelAnswerVO vo) {
+		selanswerService.selAnswerUpdate(vo);
+		
+		return "redirect:/admin/seller";
+	}
+	
+	// 답글 수정 화면
+	@RequestMapping(value ="/selAnswerUpdateView")
+	public String selAnswerUpdateView(Model model, SelQuiryVO vo) {
+		model.addAttribute("selAnswerUp", selquiryService.getSelectOne(vo.getSqNo()));
+		
+		return "/admin/selAnswerUpdateView";
 	}
 
 /************ 상품 관리 ************************************************************************************************************************/
 
 	@Autowired
 	private ProductService productService;
+	
+	@RequestMapping(value="/product")
+	public String product() {
+		return "/admin/product";
+	}
 
 	// 모든 상품 목록
 	@RequestMapping(value = "/productList")
-	public String productList(Model model, Integer showPage) {
+	@ResponseBody
+	public Map<String, Object> productList(String showPage) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		int stShowPage = Integer.parseInt(showPage);
+		
 		int currPage;
-		if (showPage == null) {
+		if(showPage == null) {
 			currPage = 1;
-		} else {
-			currPage = showPage;
+		}else {
+			currPage = stShowPage;
 		}
 		
-		PagingVO vo = productService.getProductPageInfo(currPage);
-		List<ProductVO> pageList = productService.getProductPageList(vo);
+		PagingVO vo = productService.getProductPageInfo(currPage); //페이징에 필요한 정보 계산
+		List<ProductVO> productList =  productService.getProductPageList(vo);
 		
-		model.addAttribute("productList", pageList); // 상품목록
-		model.addAttribute("pageInfo", vo); // 페이징정보
-		model.addAttribute("currPage", currPage); // 현재페이지
-		
-		return "/admin/productList";
+		result.put("pdList",productList);  
+		result.put("pageInfo",vo);  //페이징정보
+		result.put("currPage",currPage); //현재페이지
+
+		return result;
 	}
 
 	// 상품 하나 조회
@@ -240,7 +355,7 @@ public class AdminController {
 
 		productService.productInsert(vo);
 
-		return "redirect:/admin/productList";
+		return "redirect:/admin/product";
 	}
 
 	// 상품 추가 화면
@@ -256,7 +371,7 @@ public class AdminController {
 
 		productService.productUpdate(vo);
 
-		return "redirect:/admin/productList";
+		return "redirect:/admin/product";
 	}
 
 	// 상품 수정 화면
@@ -274,57 +389,159 @@ public class AdminController {
 
 		productService.productDelete(vo.getPdId());
 
-		return "redirect:/admin/productList";
+		return "redirect:/admin/product";
 	}
+	
+/************ 상품 문의 답변 ************************************************************************************************************************/
+	
+	// 상품 문의 
+	@Autowired
+	private QuiryService quiryService;
+	
+	// 상품 문의 답변 
+	@Autowired
+	private AnswerService answerService;
+	
+	// 상품 문의 목록
+	@RequestMapping(value = "/quiryAdmin")
+	@ResponseBody
+	public Map<String, Object> quiryAdmin(String showPage, Integer sort) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		int stShowPage = Integer.parseInt(showPage);
+		
+		int currPage;
+		if(showPage == null) {
+			currPage = 1;
+		}else {
+			currPage = stShowPage;
+		}
+		
+		int sortType;
+		if(sort == null) {
+			sortType = 1;
+		}else {
+			sortType = sort;
+		}
+		
+		PagingVO vo = quiryService.getQuiryAdminPageInfo(currPage, sortType);
+		List<QuiryVO> pdQnPageList =  quiryService.getQuiryAdminPageList(vo);
+		
+		result.put("pdQuiryList",pdQnPageList);  
+		result.put("pageInfo",vo);  //페이징정보
+		result.put("currPage",currPage); //현재페이지
+
+		return result;
+	}
+	
+	// 상품 문의 조회 + 답변
+	@RequestMapping(value = "adminQuiryOne")
+	public String adminQuiryOne(QuiryVO vo, Model model){
+		model.addAttribute("adminQuiryOne", quiryService.quirySelOne(vo.getIqNo()));
+		
+		List<AnswerVO> answerList = answerService.answerList(vo.getIqNo());
+		model.addAttribute("answerList", answerList);
+		
+		return "/admin/adminQuiryOne";
+	}
+	
+	// 상품 문의 답변 추가
+	@RequestMapping(value = "/answerInsert")
+	public String answerInsert(AnswerVO vo ) {
+		
+		answerService.answerInsert(vo);
+		
+		QuiryVO quVo = new QuiryVO();
+
+		quVo.setIqNo(vo.getIaiqNo());
+		quVo.setIqState(1L);
+		quiryService.quiryStateUpdate(quVo);
+		
+		return "redirect:/admin/product";
+	}
+	
+	// 상품 문의 답변 추가 화면
+	@RequestMapping(value = "/answerInsertView")
+	public String answerInsertView(QuiryVO vo, Model model) {
+		model.addAttribute("quiryIn", quiryService.quirySelOne(vo.getIqNo()));
+		
+		return "/admin/answerInsertView";
+	}
+	
+	// 상품 문의 답변 수정
+	@RequestMapping(value = "/answerUpdate")
+	public String answerUpdate(AnswerVO vo) {
+		answerService.answerUpdate(vo);
+		
+		return "redirect:/admin/product";
+	}
+	
+	// 상품 문의 답변 수정 화면
+	@RequestMapping(value = "/answerUpdateView")
+	public String answerUpdateView(QuiryVO vo, Model model) {
+		model.addAttribute("quiryUp", quiryService.quirySelOne(vo.getIqNo()));
+		
+		return "/admin/answerUpdateView";
+	}	
 
 /************ 공지사항 관리 ************************************************************************************************************************/
 
 	@Autowired
 	private NoticeService noticeService;
 
+	@RequestMapping(value="/clientList")
+	public String client() {
+		return "/admin/clientList";
+	}
+	
 	// 공지사항 목록 조회
-	@RequestMapping(value = "/noticeList")
-	public String noticeList(Model model, Integer showPage) throws Exception {
+	@RequestMapping(value="/noticeList")
+	@ResponseBody
+	public Map<String, Object> noticeList(String showPage) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		int stShowPage = Integer.parseInt(showPage);
+		
 		int currPage;
-		if (showPage == null) {
+		if(showPage == null) {
 			currPage = 1;
-		} else {
-			currPage = showPage;
+		}else {
+			currPage = stShowPage;
 		}
+		
+		PagingVO vo = noticeService.getNoticePageInfo(currPage); //페이징에 필요한 정보 계산
+		List<NoticeVO> noticeList =  noticeService.getNoticePageList(vo);
+		
+		result.put("noticeList",noticeList);  
+		result.put("pageInfo",vo);  //페이징정보
+		result.put("currPage",currPage); //현재페이지
 
-		PagingVO vo = noticeService.getNoticePageInfo(currPage); // 페이징에 필요한 정보 계산
-		List<NoticeVO> pageList = noticeService.getNoticePageList(vo);
-
-		model.addAttribute("NoticeList", pageList); // 게시판목록
-		model.addAttribute("pageInfo", vo); // 페이징정보
-		model.addAttribute("currPage", currPage); // 현재페이지
-
-		return "/admin/noticeList";
+		return result;
 	}
 
 	// 공지사항 하나 조회
 	@RequestMapping(value = "/noticeOne")
 	public String noticeOne(NoticeVO vo, Model model) throws Exception {
 
-		model.addAttribute("noticeRead", noticeService.noticeSelectOne(vo.getNtNo()));
+		model.addAttribute("noticeOne", noticeService.noticeSelectOne(vo.getNtNo()));
 
 		return "/admin/noticeOne";
 	}
 
 	// 공지사항 글 추가
-	@RequestMapping(value = "/noticeWrite")
-	public String noticeWrite(NoticeVO vo) throws Exception {
+	@RequestMapping(value = "/noticeInsert")
+	public String noticeInsert(NoticeVO vo) throws Exception {
 
 		noticeService.noticeInsert(vo);
 
-		return "redirect:/";
+		return "redirect:/admin/clientList";
 	}
 	
 	// 공지사항 글 추가 화면
-	@RequestMapping(value = "/noticeWriteView")
-	public String noticeWriteView() throws Exception {
+	@RequestMapping(value = "/noticeInsertView")
+	public String noticeInsertView() throws Exception {
 
-		return "/admin/noticeWriteView";
+		return "/admin/noticeInsertView";
 	}
 
 	// 공지사항 수정
@@ -332,12 +549,14 @@ public class AdminController {
 	public String noticeUpdate(NoticeVO vo) throws Exception {
 		noticeService.noticeUpdate(vo);
 
-		return "redirect:/admin/noticeList";
+		return "redirect:/admin/clientList";
 	}
 
 	// 공지사항 수정 화면
 	@RequestMapping(value = "/noticeUpdateView")
-	public String noticeUpdateView() throws Exception {
+	public String noticeUpdateView(NoticeVO vo, Model model) throws Exception {
+		
+		model.addAttribute("update", noticeService.noticeSelectOne(vo.getNtNo()));
 
 		return "/admin/noticeUpdateView";
 	}	
@@ -347,7 +566,7 @@ public class AdminController {
 	public String noticeDelete(NoticeVO vo) throws Exception {
 		noticeService.noticeDeleteOne(vo.getNtNo());
 
-		return "redirect:/admin/noticeList";
+		return "redirect:/admin/clientList";
 	}
 
 /************ FAQ 관리 ************************************************************************************************************************/	
@@ -357,48 +576,52 @@ public class AdminController {
 	
 	// FAQ 목록
 	@RequestMapping(value="/faqList")
-	public String faqList(Model model,Integer showPage,String category) {
+	@ResponseBody
+	public Map<String, Object> faqList(String showPage) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		int stShowPage = Integer.parseInt(showPage);
+		
 		int currPage;
 		if(showPage == null) {
 			currPage = 1;
 		}else {
-			currPage = showPage;
+			currPage = stShowPage;
 		}
 		
-		PagingVO vo = faqService.getFaqPageInfo(currPage,category); //페이징에 필요한 정보 계산
-		List<FAQVO> pageList =  faqService.getFaqPageList(vo);
+		PagingVO vo = faqService.getFaqAdminPageInfo(currPage); //페이징에 필요한 정보 계산
+		List<FAQVO> faqList =  faqService.getFaqAdminPageList(vo);
 		
-		model.addAttribute("FaqList",pageList);  //게시판목록
-		model.addAttribute("pageInfo",vo);  //페이징정보
-		model.addAttribute("currPage",currPage); //현재페이지
-		model.addAttribute("category",category);
-		
-		return "/admin/faqList";
+		result.put("faqList",faqList);  
+		result.put("pageInfo",vo);  //페이징정보
+		result.put("currPage",currPage); //현재페이지
+
+		return result;
 	}
 	
 	// FAQ 하나 조회
 	@RequestMapping(value = "/faqOne")
 	public String faqOne(FAQVO vo, Model model) throws Exception {
 
-		model.addAttribute("faqRead", faqService.faqSelectOne(vo.getFaqNo()));
+		model.addAttribute("faqOne", faqService.faqSelectOne(vo.getFaqNo()));
 
 		return "/admin/faqOne";
 	}
 
 	// FAQ 글 추가
-	@RequestMapping(value = "/faqWrite")
-	public String faqWrite(FAQVO vo) throws Exception {
+	@RequestMapping(value = "/faqInsert")
+	public String faqInsert(FAQVO vo) throws Exception {
 
 		faqService.faqInsert(vo);
 
-		return "redirect:/admin/faqList";
+		return "redirect:/admin/clientList";
 	}
 	
 	// FAQ 글 추가 화면
-	@RequestMapping(value = "/faqWriteView")
-	public String faqWriteView() throws Exception {
+	@RequestMapping(value = "/faqInsertView")
+	public String faqInsertView() throws Exception {
 
-		return "/admin/faqWriteView";
+		return "/admin/faqInsertView";
 	}
 
 	// FAQ 수정
@@ -406,12 +629,14 @@ public class AdminController {
 	public String faqUpdate(FAQVO vo) throws Exception {
 		faqService.faqUpdate(vo);
 
-		return "redirect:/admin/faqList";
+		return "redirect:/admin/clientList";
 	}
 
 	// FAQ 수정 화면
 	@RequestMapping(value = "/faqUpdateView")
 	public String faqUpdateView(FAQVO vo, Model model) throws Exception {
+		
+		model.addAttribute("update", faqService.faqSelectOne(vo.getFaqNo()));
 
 		return "/admin/faqUpdateView";
 	}	
@@ -419,9 +644,9 @@ public class AdminController {
 	// FAQ 삭제
 	@RequestMapping(value = "/faqDelete")
 	public String faqDelete(FAQVO vo) throws Exception {
-		noticeService.noticeDeleteOne(vo.getFaqNo());
+		faqService.faqDeleteOne(vo.getFaqNo());
 
-		return "redirect:/admin/faqList";
+		return "redirect:/admin/clientList";
 	}	
 	
 /************ 회원 관리 ************************************************************************************************************************/		
@@ -478,47 +703,67 @@ public class AdminController {
 	private AnService anService;
 	
 	// 모든 1:1 문의 띄우기
-	@RequestMapping(value = "/adminQnListView")
-	public String adminQnListView(Integer showPage, Model model) {
+	@RequestMapping(value="/adminQnList")
+	@ResponseBody
+	public Map<String, Object> adminQnList(String showPage, Integer sort) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		int stShowPage = Integer.parseInt(showPage);
+		
 		int currPage;
 		if(showPage == null) {
 			currPage = 1;
 		}else {
-			currPage = showPage;
+			currPage = stShowPage;
 		}
 		
-		PagingVO vo = qnService.getQnPageInfo(currPage); //페이징에 필요한 정보 계산
-		List<QnVO> pageList =  qnService.getQnPageList(vo);
+		int sortType;
+		if(sort == null) {
+			sortType = 1;
+		}else {
+			sortType = sort;
+		}
 		
-		model.addAttribute("adminQnList",pageList);  // 1:1 목록
-		model.addAttribute("pageInfo",vo);  //페이징정보
-		model.addAttribute("currPage",currPage); //현재페이지
+		PagingVO vo = qnService.getQnAdminPageList(currPage, sortType); //페이징에 필요한 정보 계산
+		List<QnVO> otoList =  qnService.getQnAdminPageList(vo);
 		
-		return "/admin/adminQnListView";
+		result.put("otoList",otoList);  
+		result.put("pageInfo",vo);  //페이징정보
+		result.put("currPage",currPage); //현재페이지
+
+		return result;
 	}
 	
-	// 문의글 하나 조회 + 댓글 보기 기능 
-	@RequestMapping(value = "/adminQnOneView")
-	public String adminQnOneView(QnVO vo, Model model, Long otaotqNo) {
+	// 문의글 하나 조회  
+	@RequestMapping(value = "/adminQnOne")
+	public String adminQnOne(QnVO vo, Model model) {
 		model.addAttribute("adminQnOne", qnService.qnSelOne(vo.getOtqNo()));
 		
-		List<AnVO> anList = anService.anList(vo.getOtqNo());
-		model.addAttribute("adminQnList", anList);
+		List<AnVO> adminAnList = anService.anList(vo.getOtqNo());
+		model.addAttribute("adminAnList", adminAnList);
 		
-		return "/admin/adminQnOneView";
+		return "/admin/adminQnOne";
 	}
 	
 	// 답변 달기
 	@RequestMapping(value = "/anInsert")
 	public String anInsert(AnVO vo) {
+		
 		anService.anInsert(vo);
 		
-		return "redirect:/admin/adminQnOneView";
+		QnVO qnVo = new QnVO();
+		
+		qnVo.setOtqNo(vo.getOtaotqNo());
+		qnVo.setOtqState(1L);
+		qnService.qnStateUpdate(qnVo);
+		
+		return "redirect:/admin/clientList";
 	}
 	
 	// 답변 달기 화면
 	@RequestMapping(value = "/anInsertView")
-	public String anInsertView() {
+	public String anInsertView(QnVO vo,Model model) {
+		model.addAttribute("anIn", qnService.qnSelOne(vo.getOtqNo()));
 		
 		return "/admin/anInsertView";
 	}
@@ -528,88 +773,18 @@ public class AdminController {
 	public String anUpdate(AnVO vo) {
 		anService.anUpdate(vo);
 		
-		return "redirect:/admin/anOne";
+		return "redirect:/admin/clientList";
 	}
 	
 	// 답변 수정 화면
 	@RequestMapping(value = "/anUpdateView")
-	public String anUpdateView() {
+	public String anUpdateView(QnVO vo, Model model) {
+		model.addAttribute("anUp", qnService.qnSelOne(vo.getOtqNo()));
 		
 		return "/admin/anUpdateView";
 	}
 	
-/************ 상품 문의 답변 ************************************************************************************************************************/
-	
-	// 상품 문의 
-	@Autowired
-	private QuiryService quiryService;
-	
-	// 상품 문의 답변 
-	@Autowired
-	private AnswerService answerService;
-	
-	// 상품 문의 목록
-	@RequestMapping(value = "/quiryPageInitInfos")
-	public String getQuiryPagingDatas(String showPage,String pdId, Model model) {
-		int currPage;
-		if(showPage == null) {
-			currPage = 1;
-		}else {
-			currPage = Integer.parseInt(showPage);
-		}
 
-		int getPdId = Integer.parseInt(pdId);
-		
-		PagingVO vo = quiryService.getRvPageInfo(currPage,getPdId);
-		List<QuiryVO> rvPageList =  quiryService.getRvPageList(vo);
-		
-		model.addAttribute("qrPageList",rvPageList);  //게시판목록
-		model.addAttribute("pageInfo",vo);  //페이징정보
-		model.addAttribute("currPage",currPage); //현재페이지
-		
-		return "/admin/quiryPageInitInfos";
-	}
-	
-	// 상품 문의 조회 + 답변
-	@RequestMapping(value = "quiryOneInfo")
-	public String quiryOneInfo(QuiryVO vo, Model model){
-		model.addAttribute("adminQnOne", quiryService.quirySelOne(vo.getIqNo()));
-		
-		List<AnswerVO> answerVoList = answerService.answerList(vo.getIqNo());
-		model.addAttribute("answerList", answerVoList);
-		
-		return "/amdin/quiryOneInfo";
-	}
-	
-	// 상품 문의 답변 추가
-	@RequestMapping(value = "/answerInsert")
-	public String answerInsert(AnswerVO vo) {
-		answerService.answerInsert(vo);
-		
-		return "redirect:/admin/quiryOneInfo";
-	}
-	
-	// 상품 문의 답변 추가 화면
-	@RequestMapping(value = "/answerInsertView")
-	public String answerInsertView() {
-		
-		return "/admin/answerInsertView";
-	}
-	
-	// 상품 문의 답변 수정
-	@RequestMapping(value = "/answerUpdate")
-	public String answerUpdate(AnswerVO vo) {
-		answerService.answerUpdate(vo);
-		
-		return "redirect:/admin/quiryOneInfo";
-	}
-	
-	// 상품 문의 답변 수정 화면
-	@RequestMapping(value = "/answerUpdateView")
-	public String answerUpdateView(AnswerVO vo) {
-		
-		return "redirect:/admin/answerUpdateView";
-	}
 	
 	
 	

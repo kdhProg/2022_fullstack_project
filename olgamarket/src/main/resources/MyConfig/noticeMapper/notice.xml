@@ -39,7 +39,7 @@
 	</select>	
 	
 	<select id="getNoticeCount" parameterType="int" resultType="Integer">
-		select count(*) from notices
+		select count(*) from notices 
 	</select>
 	
 

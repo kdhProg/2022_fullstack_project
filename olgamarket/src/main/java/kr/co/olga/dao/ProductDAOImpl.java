@@ -168,6 +168,13 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<String> getSearchBrandList(String searchKeyWord) {
 		return session.selectList("productMapper.getSearchBrandList", searchKeyWord);
 	}
+
+// 판매자 관리페이지에 띄우는 판매자 별 판매 중인 상품 목록	
+	@Override
+	public List<ProductVO> getSelectList(String selstlBrandName) {
+		System.out.println(selstlBrandName);
+		return session.selectList("productMapper.getSelectList", selstlBrandName);
+	}
 	
 	
 	

@@ -19,5 +19,7 @@
   	<typeAlias type="kr.co.olga.vo.AnVO" alias="AnVO"/>
   	<typeAlias type="kr.co.olga.vo.PagingVO" alias="PagingVO"/>
   	<typeAlias type="kr.co.olga.vo.AdminVO" alias="AdminVO"/>
+  	<typeAlias type="kr.co.olga.vo.SelQuiryVO" alias="SelQuiryVO"/>
+  	<typeAlias type="kr.co.olga.vo.SelAnswerVO" alias="SelAnswerVO"/>
   </typeAliases>
 </configuration>

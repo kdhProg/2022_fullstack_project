@@ -20,7 +20,7 @@
 	</update>
 	
 	<!-- iqNo에 해당하는 레코드 가져옴 -->
-	<select id="quirySelOne" parameterType="long" resultType="QuiryVO">
+	<select id="quirySelOne" parameterType="Long" resultType="QuiryVO">
 		select * from inquirys where iqNo = #{iqNo}
 	</select>
 	
@@ -37,6 +37,43 @@
 			temp) 
 		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
 	</select>
+<!-- 관리자 전용 -->
+	<select id="getQuiryAdminCount" resultType="Integer" parameterType="int">
+		select count(*) from inquirys
+	</select>
+	
+	<select id="getQuiryAdminPageList" parameterType="PagingVO" resultType="QuiryVO">
+		select * from
+			(select iqNo, iqmemId, iqpdId, iqTitle, iqContent, iqPrivate, 
+				iqState, iqRegiDate, iqUpdDate, row_number() OVER(order by iqNo desc) as Rnum
+				from inquirys
+					where
+      					<if test='sort == 1'>
+		    				iqState = 0
+		   				</if>
+		   				<if test='sort == 2'>
+		    				iqState = 1
+		   				</if>
+		   				) mp
+					where Rnum <![CDATA[>=]]> #{contStart} and Rnum <![CDATA[<=]]> #{contEnd}
+							order by iqNo desc
+	</select>
+	
+<!-- 관리자 전용(답변 상태 업데이트) -->
+	<update id="quiryStateUpdate" parameterType="QuiryVO">
+		update inquirys set iqState = #{iqState} where iqNo = #{iqNo}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 </mapper>

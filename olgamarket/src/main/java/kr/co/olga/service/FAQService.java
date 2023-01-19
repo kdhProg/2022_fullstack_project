@@ -20,6 +20,10 @@ public interface FAQService {
 	PagingVO getFaqPageInfo(int currPage,String category);
 
 	List<FAQVO> getFaqPageList(PagingVO vo);
+
+	PagingVO getFaqAdminPageInfo(int currPage);
+
+	List<FAQVO> getFaqAdminPageList(PagingVO vo);
 	
 
 }
