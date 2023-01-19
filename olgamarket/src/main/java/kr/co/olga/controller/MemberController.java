@@ -41,31 +41,40 @@ public class MemberController {
 			return "/member/login";
 		}
 
-	// 로그인
+	// 로그인 => 성공시 일반회원/판매자회원 모두 session에 member라는 이름으로 VO객체 저장
+	// 로그인 성공 => 메인화면으로 리다이렉트    실패 => 로그인창으로 복귀 ( 확인하라는 모달 창 뜰거임 )
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginPOST(MemberVO vo,String typeSelRadio,HttpServletRequest request,Model model) throws Exception {
+	public String loginPOST(String memId,String memPwd,String typeSelRadio,HttpServletRequest request,Model model) throws Exception {
 		// vo로 로그인 구현
 		HttpSession session = request.getSession();
-		if(typeSelRadio =="normalMem") {
+		if(typeSelRadio.equals("normalMem")) {
 			//일반회원의 경우
-			MemberVO login = memberservice.memberLogin(vo);
-			
-			if(login == null) {
+			MemberVO memvo = new MemberVO();
+			memvo.setMemId(memId);
+			memvo.setMemPwd(memPwd);
+			MemberVO memlogin = memberservice.memberLogin(memvo);
+			if(memlogin == null) {
+				//일반 로그인 실패
 				model.addAttribute("loginResult", "failed");
 				return "member/login";
 			}else {
-				session.setAttribute("member", login);
+				//일반 로그인 성공
+				session.setAttribute("member", memlogin);
 				return "redirect:/";
 			}
 		}else {
 			// 판매자 회원의 경우
-			MemberVO login = memberservice.memberLogin(vo);
-			
-			if(login == null) {
+			SellerVO selvo = new SellerVO();
+			selvo.setSelId(memId);
+			selvo.setSelPwd(memPwd);
+			SellerVO sellogin = sellerservice.sellerLogin(selvo);
+			if(sellogin == null) {
+				//판매자 로그인 실패
 				model.addAttribute("loginResult", "failed");
 				return "member/login";
 			}else {
-				session.setAttribute("member", login);
+				//판매자 로그인 성공
+				session.setAttribute("member", sellogin);
 				return "redirect:/";
 			}
 		}
@@ -83,14 +92,15 @@ public class MemberController {
 	}
 	
 
-	// 아이디 중복 검사
+	// 아이디 중복 검사 - 입력받은 아이디를 일반회원 / 판매자회원 2개의 테이블에서 중복여부 검사
 	@RequestMapping(value = "/memIdCheck", method = RequestMethod.POST)
 	@ResponseBody
 	public String memberIdChkPOST(String memId) throws Exception {
 
-		long result = memberservice.idCheck(memId);
+		long memResult = memberservice.idCheck(memId);
+		long selResult = sellerservice.sellerIdcheck(memId);
 
-		if (result != 0) {
+		if (memResult != 0 || selResult != 0) {
 			return "fail"; // 중복 아이디가 존재
 		} else {
 			return "success"; // 중복 아이디 x
@@ -98,14 +108,15 @@ public class MemberController {
 
 	}
 	
-	// 이메일 중복 검사
+	// 이메일 중복 검사 - 입력받은 이메일을 일반회원 / 판매자회원 2개의 테이블에서 중복여부 검사
 		@RequestMapping(value = "/memEmailCheck", method = RequestMethod.POST)
 		@ResponseBody
 		public String memberEmailChkPOST(String memEmail) throws Exception {
 
-			long result = memberservice.emailCheck(memEmail);
+			long memResult = memberservice.emailCheck(memEmail);
+			long selResult = sellerservice.sellerEmailCheck(memEmail);
 
-			if (result != 0) {
+			if (memResult != 0 || selResult != 0) {
 				return "fail"; // 중복 아이디가 존재
 			} else {
 				return "success"; // 중복 아이디 x
@@ -152,45 +163,11 @@ public class MemberController {
 				// choice의 경우는 차례대로 가중치가 1 / 10 / 100 임 따라서 111이면 3개체크, 11이면 2개체크임
 				String memAddress = mainPostcode + " " + mainAddress + " " + mainDetailAddress;
 				String memGrade = "friend"; //기본값은 friend
-				Long memChoice;
+				Long memChoice = 0L;
 				//아래IF문 => 리팩토링 예정
-				if(choiceSelectBoxOne == null) {
-					if(choiceSelectBoxTwo==null) {
-						if(choiceSelectBoxThree == null) {
-							// 1X 2X 3X
-							memChoice = 0L;
-						}else {
-							// 1X 2X 3O
-							memChoice = 1L;
-						}
-					}else {
-						if(choiceSelectBoxThree == null) {
-							// 1X 2O 3X
-							memChoice = 10L;
-						}else {
-							// 1X 2O 3O
-							memChoice = 11L;
-						}
-					}
-				}else {
-					if(choiceSelectBoxTwo==null) {
-						if(choiceSelectBoxThree == null) {
-							// 1O 2X 3X
-							memChoice = 111L;
-						}else {
-							// 1O 2X 3O
-							memChoice = 101L;
-						}
-					}else {
-						if(choiceSelectBoxThree == null) {
-							// 1O 2O 3X
-							memChoice = 110L;
-						}else {
-							// 1O 2O 3O
-							memChoice = 111L;
-						}
-					}
-				}
+				if(choiceSelectBoxOne != null) {memChoice += 1L;}
+				if(choiceSelectBoxTwo != null) {memChoice += 10L;}
+				if(choiceSelectBoxThree != null) {memChoice += 100L;}
 				MemberVO vo = new MemberVO(memId, memPwd, memName, memEmail, memPhone, memAddress, memGender, memGrade, null, null, memChoice);
 				memberservice.memberJoin(vo);
 				return "redirect:/member/login";
@@ -199,44 +176,10 @@ public class MemberController {
 				String selAddress = mainPostcode + " " + mainAddress + " " + mainDetailAddress;
 				String memGrade = "friend"; //기본값은 friend
 				Long selTypeGrade = 1L; //기본값은 1
-				Long memChoice;
-				if(choiceSelectBoxOne == null) {
-					if(choiceSelectBoxTwo==null) {
-						if(choiceSelectBoxThree == null) {
-							// 1X 2X 3X
-							memChoice = 0L;
-						}else {
-							// 1X 2X 3O
-							memChoice = 1L;
-						}
-					}else {
-						if(choiceSelectBoxThree == null) {
-							// 1X 2O 3X
-							memChoice = 10L;
-						}else {
-							// 1X 2O 3O
-							memChoice = 11L;
-						}
-					}
-				}else {
-					if(choiceSelectBoxTwo==null) {
-						if(choiceSelectBoxThree == null) {
-							// 1O 2X 3X
-							memChoice = 111L;
-						}else {
-							// 1O 2X 3O
-							memChoice = 101L;
-						}
-					}else {
-						if(choiceSelectBoxThree == null) {
-							// 1O 2O 3X
-							memChoice = 110L;
-						}else {
-							// 1O 2O 3O
-							memChoice = 111L;
-						}
-					}
-				}
+				Long memChoice = 0L;
+				if(choiceSelectBoxOne != null) {memChoice += 1L;}
+				if(choiceSelectBoxTwo != null) {memChoice += 10L;}
+				if(choiceSelectBoxThree != null) {memChoice += 100L;}
 				SellerVO vo = new SellerVO(memId, memPwd, memName, selstlBrandName, memEmail, memPhone, selAddress, memGender,memGrade,selMarketUniqueNo,selSelRegiNo,memChoice,selTypeGrade,null,null);
 				sellerservice.selJoin(vo);
 				return "redirect:/member/login";

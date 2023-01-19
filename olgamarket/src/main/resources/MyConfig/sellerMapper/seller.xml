@@ -74,10 +74,15 @@
 	</update>
 	
 	
+<!-- 판매자 로그인 -->	
+	<select id="sellerLogin" parameterType="SellerVO" resultType="SellerVO">
+		select * from sellers where selId = #{selId} and selPwd = #{selPwd}
+	</select>
 	
-	
-	
-	
+<!-- 판매자 이메일 중복검사 -->
+	<select id="sellerEmailCheck" resultType="Int" parameterType="String">
+	 	select count(*) from sellers where selEmail = #{selEmail}
+	</select>	
 	
 	
 	

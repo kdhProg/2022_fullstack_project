@@ -518,7 +518,7 @@ $('.id_input').keyup( function() {
 $('.pw_input').keyup( function() {
 	if(!pwdFormatChk($('.pw_input').val())){
 		$('.pwd_alert_box').css('display','block');
-		$('.pwd_alert_box').html("<span style='color: red'>영문, 숫자, 특수문자 중 2가지 이상 조합하여 8~20자리</span>");
+		$('.pwd_alert_box').html("<span style='color: red'>숫자+영문자+특수문자 조합으로 8~25자리 이상 사용해야 합니다</span>");
 		pwdFormatCheck = false;
 		if(pwdChekerFormatCheck){
 		// 비밀번호 + 비밀번호 확인 모두 통과했는데 비밀번호만 바꿔서 형식 틀릴경우	
@@ -543,7 +543,8 @@ $('.pw_input').keyup( function() {
 });
 
 function pwdFormatChk(value) {
-	const pattern = new RegExp("^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,20}$");
+// 	const pattern = new RegExp("^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,20}$");
+	const pattern = new RegExp("^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$");
 	return pattern.test(value);
 }
 
