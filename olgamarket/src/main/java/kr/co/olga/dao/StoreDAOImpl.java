@@ -45,5 +45,9 @@ public class StoreDAOImpl implements StoreDAO {
 		return session.selectList("storeMapper.getStorePageList",vo);
 	}
 	
+	@Override
+	public StoreVO storeSelectByMarketUniqueNo(String stlMarketUniqueNo) {
+		return session.selectOne("storeMapper.storeSelectByMarketUniqueNo",stlMarketUniqueNo);
+	}
 	
 }

@@ -52,10 +52,10 @@
 		select count(*) from storeLists
 	</select>
 
-
-
-
-
+<!-- 2023 01 18 김동훈 추가 -->
+	<select id="storeSelectByMarketUniqueNo" parameterType="String" resultType="StoreVO">
+		select * from storeLists where STLMARKETUNIQUENO = #{value}
+	</select>
 	
 </mapper>
 

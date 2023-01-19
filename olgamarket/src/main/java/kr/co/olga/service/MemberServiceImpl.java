@@ -121,6 +121,10 @@ public class MemberServiceImpl implements MemberService {
 		return dao.memRepot(vo);
 	}
 	
+	@Override
+	public long emailCheck(String memEmail) {
+		return dao.emailCheck(memEmail);
+	}
 
 	
 }

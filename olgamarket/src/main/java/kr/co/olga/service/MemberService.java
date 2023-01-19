@@ -39,6 +39,9 @@ public interface MemberService {
 	// 회원 정지
 	long memRepot(MemberVO vo);
 
+	//2023 01 17 16:08 김동훈 추가
+	long emailCheck(String memEmail);
+
 	
 
 

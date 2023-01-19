@@ -18,5 +18,7 @@ public interface StoreDAO {
 	int getStoreCount();
 
 	List<StoreVO> getStorePageList(PagingVO vo);
+	
+	StoreVO storeSelectByMarketUniqueNo(String stlMarketUniqueNo);
 
 }

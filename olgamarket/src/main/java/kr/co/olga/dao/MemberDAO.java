@@ -39,5 +39,7 @@ public interface MemberDAO {
 	// 회원 정지
 	long memRepot(MemberVO vo);
 
+	long emailCheck(String memEmail);
+
 
 }

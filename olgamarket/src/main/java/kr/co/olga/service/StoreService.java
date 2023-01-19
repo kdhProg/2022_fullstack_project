@@ -19,4 +19,7 @@ public interface StoreService {
 
 	List<StoreVO> getStorePageList(PagingVO vo);
 
+	//2023 01 18 김동훈 추가
+	StoreVO storeSelectByMarketUniqueNo(String stlMarketUniqueNo);
+
 }
