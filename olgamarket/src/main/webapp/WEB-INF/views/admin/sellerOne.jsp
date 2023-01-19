@@ -108,24 +108,6 @@
 </body>
 
 <script type="text/javascript">
-	// 권한 회수
-		$(document).ready(function(){
-			var formObj = $("form[name='readForm']");
-			$(".selUpdate_btn").on("click", function(){
-				formObj.attr("action", "/admin/sellerGrantView");
-				formObj.attr("method", "get");
-				formObj.submit();				
-			});
-		})
-		
-		// 목록
-		$(document).ready(function(){
-			var formObj = $("form[name='listForm']");
-			$(".list_btn").on("click", function(){
-				location.href = "/admin/seller";
-			})
-		})
-		
-		
+	
 </script>
 </html>

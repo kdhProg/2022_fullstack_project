@@ -167,7 +167,7 @@ public class AdminController {
 	// 모든 판매자 목록
 	@RequestMapping(value = "/sellerList")
 	@ResponseBody
-	public Map<String, Object> sellerList(String showPage) {
+	public Map<String, Object> sellerList(String showPage, Integer sort) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		int stShowPage = Integer.parseInt(showPage);
@@ -179,7 +179,14 @@ public class AdminController {
 			currPage = stShowPage;
 		}
 		
-		PagingVO vo = sellerService.getSellerPageInfo(currPage); //페이징에 필요한 정보 계산
+		int sortType;
+		if(sort == null) {
+			sortType = 1;
+		}else {
+			sortType = sort;
+		}
+		
+		PagingVO vo = sellerService.getSellerPageInfo(currPage, sortType); //페이징에 필요한 정보 계산
 		List<SellerVO> sellerList = sellerService.getSellerPageList(vo);
 		
 		result.put("selList",sellerList);  
@@ -196,7 +203,6 @@ public class AdminController {
 		
 		List<ProductVO> pdList = productService.getSelectList(selVo.getSelstlBrandName());
 		model.addAttribute("pdList", pdList);
-		System.out.println(pdList);
 		return "/admin/sellerOne";
 	}
 	
@@ -212,6 +218,7 @@ public class AdminController {
 	// 판매자 권한 회수하는 화면
 	@RequestMapping(value = "/sellerGrantView")
 	public String sellerGrantView(SellerVO vo, Model model)	{
+	
 		model.addAttribute("selUp", sellerService.sellerSelOne(vo.getSelId()));
 		
 		return "admin/sellerGrantView";

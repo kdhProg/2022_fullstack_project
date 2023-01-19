@@ -35,7 +35,7 @@ public interface SellerService {
 	public SellerVO sellerPwdFind(SellerVO vo);
 	
 // 관리자 판매자 관리 + 페이징
-	public PagingVO getSellerPageInfo(int currPage);
+	public PagingVO getSellerPageInfo(int currPage, int sortType);
 
 	public List<SellerVO> getSellerPageList(PagingVO vo);
 
@@ -46,5 +46,6 @@ public interface SellerService {
 	public SellerVO sellerLogin(SellerVO vo);
 
 	public int sellerEmailCheck(String selEmail);
+
 
 }

@@ -58,9 +58,16 @@
 			(select selId, selPwd, selName, selstlBrandName, selEmail, selPhone, selAddress,
 			selGender, selGrade, selMarketUniqueNo, selSelRegiNo, selChoice, selTypeGrade,
 			selRegiDate, selUpdDate, row_number() OVER(order by selstlBrandName desc) as Rnum
-				from sellers) mp
+				from sellers
+				where 
+					<if test='sort == 1'>
+	    				selTypeGrade = 1
+	   				</if>
+	   				<if test='sort == 2'>
+	    				selTypeGrade = 0
+	   				</if>
+				) mp
 					where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
-	      				and selTypeGrade = 1
 	      					order by selstlBrandName desc
 	</select>	
 	
