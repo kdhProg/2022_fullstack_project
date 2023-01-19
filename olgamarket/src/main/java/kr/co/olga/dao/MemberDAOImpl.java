@@ -55,6 +55,7 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public MemberVO memIdFindSelect(MemberVO vo) {
+		System.out.println("DAOIMPL : "+vo);
 		return session.selectOne("memberMapper.memIdFindSelect", vo);
 	}
 

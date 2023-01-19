@@ -20,11 +20,13 @@
 	</select>
 
 <!-- 아이디 찾기 DB에 등록된 이름과 핸드폰 번호 검사 -->	
-	<select id="memIdFindSelect" resultType="MemberVO">
-		select * from members where memName = #{memName} and memPhone = #{memPhone)
+<!-- 20230119 김동훈 수정 -->
+	<select id="memIdFindSelect" resultType="MemberVO" parameterType="MemberVO">
+		select * from members where memName = #{memName} and memPhone = #{memPhone}
 	</select>
 <!-- 비밀번호 찾기 DB에 등록된 이름, 아이디, 핸드폰 번호 검사-->	
-	<select id="memPwdFindSelect" resultType="MemberVO">
+<!-- 20230119 김동훈 수정 -->
+	<select id="memPwdFindSelect" resultType="MemberVO" parameterType="MemberVO">
 		select * from members where memName = #{memName} and memId = #{memId} and memPhone = #{memPhone)
 	</select>
 <!-- 비밀번호 수정 -->

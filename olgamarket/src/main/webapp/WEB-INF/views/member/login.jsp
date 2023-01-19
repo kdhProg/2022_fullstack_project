@@ -90,7 +90,7 @@
 <!-- 아래의 loginErrorMsg는 로그인 결과 체크용 -->
 <div id="loginErrorMsg">${loginResult}</div>
 
-<a href="/member/join">회원가입하기</a>&nbsp;&nbsp;&nbsp;<a href="">아이디찾기</a>&nbsp;&nbsp;&nbsp;<a href="">비밀번호찾기</a>
+<a href="/member/join">회원가입하기</a>&nbsp;&nbsp;&nbsp;<a href="/member/findId">아이디찾기</a>&nbsp;&nbsp;&nbsp;<a href="/member/findPwd">비밀번호찾기</a>
 
 <div class="modal">
   <div class="modal_content">
@@ -118,7 +118,7 @@ $("#memIdInputBox").keyup(function(){
 	}else{
 		$('#preLoginWarn').css('display','none');
 	}
-})
+});
 
 $("#memPwdInputBox").keyup(function(){
 	if($("#memPwdInputBox").val()==""){
@@ -127,7 +127,7 @@ $("#memPwdInputBox").keyup(function(){
 	}else{
 		$('#preLoginWarn').css('display','none');
 	}
-})
+});
 
 let loginRst = $("#loginErrorMsg").text();
 // console.log("loginRst"+loginRst);
