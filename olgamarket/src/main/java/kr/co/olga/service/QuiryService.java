@@ -23,7 +23,7 @@ public interface QuiryService {
 
 	List<QuiryVO> getRvPageList(PagingVO vo);
 
-	PagingVO getQuiryAdminPageInfo(int currPage);
+	PagingVO getQuiryAdminPageInfo(int currPage, int sortType);
 
 	List<QuiryVO> getQuiryAdminPageList(PagingVO vo);
 

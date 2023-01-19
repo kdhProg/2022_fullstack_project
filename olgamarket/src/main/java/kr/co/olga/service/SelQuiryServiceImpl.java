@@ -17,7 +17,7 @@ public class SelQuiryServiceImpl implements SelQuiryService {
 	
 // 관리자 판매자 페이징 	
 	@Override
-	public PagingVO getSelQuiryPageInfo(int currPage) {
+	public PagingVO getSelQuiryPageInfo(int currPage, int sortType) {
 		PagingVO vo = new PagingVO();
 		int setTotalRecordCount = dao.getSelQuiryCount();
 		int recordCountPerPage = 20;
@@ -53,6 +53,7 @@ public class SelQuiryServiceImpl implements SelQuiryService {
 		vo.setXprev(xprev);
 		vo.setContEnd(contEnd);
 		vo.setContStart(contStart);
+		vo.setSort(sortType);
 		
 		return vo;
 	}

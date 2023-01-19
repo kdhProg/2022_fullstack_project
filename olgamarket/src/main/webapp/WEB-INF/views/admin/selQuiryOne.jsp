@@ -29,7 +29,7 @@
 			</tr>
 			<tr>
 				<td>${selQuiryOne.sqNo}</td>
-				<td>${selQuiryOne.sqselId}</td>
+				<td><a href="/admin/productOne?pdId=${selQuiryOne.sqpdId}">${selQuiryOne.sqpdId}</a></td>
 				<td>${selQuiryOne.sqTitle}</td>
 				<td>${selQuiryOne.sqContent}</td>
 				<td>${selQuiryOne.sqState}</td>

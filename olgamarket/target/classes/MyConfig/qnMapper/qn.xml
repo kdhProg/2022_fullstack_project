@@ -43,10 +43,17 @@
 	      select * from 
 	      	(select otqNo, otqMainCategory, otqSubCategory, otqTitle, otqContent, otqmemId,
 	      	otqState, otqRegiDate, otqUpdDate, row_number() OVER(order by otqNo desc) as Rnum 
-	      		from oneToOneQs) mp
+	      		from oneToOneQs
+	      			where
+      					<if test='sort == 1'>
+		    				otqState = 0
+		   				</if>
+		   				<if test='sort == 2'>
+		    				otqState = 1
+		   				</if>
+		 				) mp
 	      			where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
-	      				and otqState = 0 
-	      					order by otqNo desc
+	      				order by otqNo desc
 	</select>	
 	
 	<select id="getQnCount" parameterType="int" resultType="Integer">

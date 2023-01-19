@@ -32,6 +32,8 @@
 
 <!-- 판매자 문의 -->	
 	<div id="sqDiv" style="display : none;">
+		<a href="#" onclick="sortList(1);return false;" id="sortBtn1">답변 대기</a>
+		<a href="#" onclick="sortList(2);return false;" id="sortBtn2">답변 완료</a>
 		<div id="sqResultList"></div>
 		<div id="sqResultPagingNo"></div>
 		
@@ -97,13 +99,14 @@ function selList(pageNo) {
 }// function end
 
 /********************* 판매자 문의 *******************************************************************/ 
-$(document).ready(sqList(1));
-function sqList(pageNo) {
+$(document).ready(sqList(1), 1);
+function sqList(pageNo, sortNo) {
 	$.ajax({
         url : "/admin/selQuiryList",
         type : "get",
         data : {
-        	showPage : pageNo
+        	showPage : pageNo,
+        	sort : sortNo
         },
         success : function(data){
         	
@@ -129,18 +132,18 @@ function sqList(pageNo) {
 			$("#sqResultList").html(selQuiryContentTag); //메인 컨텐츠 적용
 			
 			if(pageInfo.xprev){
-				selQuiryPagingTag+="<a href='#' onclick='sqList("+(pageInfo.firstPageNoOnPageList-1)+ ");return false;'>[prev]</a>&nbsp;&nbsp;&nbsp;";
+				selQuiryPagingTag+="<a href='#' onclick='sqList("+(pageInfo.firstPageNoOnPageList-1)+ ", " + sortType +");return false;'>[prev]</a>&nbsp;&nbsp;&nbsp;";
 			}
 			for(var i = pageInfo.firstPageNoOnPageList; i< pageInfo.lastPageNoOnPageList+1;i++){
 				if(i == currPage){
 					selQuiryPagingTag+="<span>["+i+"]&nbsp;&nbsp;&nbsp;</span>";
 				}else{
-					selQuiryPagingTag+="<a href='#' onclick='sqList(" + i + ");return false;'>["+i+"]</a>&nbsp;&nbsp;&nbsp;";
+					selQuiryPagingTag+="<a href='#' onclick='sqList(" + i + ", " + sortType +");return false;'>["+i+"]</a>&nbsp;&nbsp;&nbsp;";
 				}
 				
 			}
 			if(pageInfo.xnext){
-				selQuiryPagingTag+="<a href='#' onclick='sqList("+(pageInfo.lastPageNoOnPageList+1)+ ");return false;'>[next]</a>&nbsp;&nbsp;&nbsp;";
+				selQuiryPagingTag+="<a href='#' onclick='sqList("+(pageInfo.lastPageNoOnPageList+1)+ ", " + sortType +");return false;'>[next]</a>&nbsp;&nbsp;&nbsp;";
 			}
 			
 			$("#sqResultPagingNo").html(selQuiryPagingTag); //페이징 적용
@@ -150,6 +153,12 @@ function sqList(pageNo) {
         }//error
     });//ajax
 }// function end
+
+//정렬함수
+function sortList(inputsort){
+	sortType = inputsort;
+	sqList(1,sortType);
+}
 
 $("#selListBt").on("click", function() {
 	$(this).css('font-weight', 'bold');
@@ -165,5 +174,14 @@ $("#sqListBt").on("click", function() {
 	$('#selDiv').css('display', 'none');
 });
 
+//정렬 A태그 디자인 관련
+$("#sortBtn1").on("click", function() {
+	$(this).css('font-weight', 'bold');
+	$("#sortBtn2").css('font-weight', 'normal');
+});
+$("#sortBtn2").on("click", function() {
+	$(this).css('font-weight', 'bold');
+	$("#sortBtn1").css('font-weight', 'normal');
+});
 </script>
 </html>

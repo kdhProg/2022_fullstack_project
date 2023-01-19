@@ -84,7 +84,7 @@ public class QnServiceImpl implements QnService {
 	}
 
 	@Override
-	public PagingVO getQnAdminPageList(int currPage) {
+	public PagingVO getQnAdminPageList(int currPage, int sortType) {
 		PagingVO vo = new PagingVO();
 		int setTotalRecordCount = dao.getQnCount();
 		int recordCountPerPage = 20;
@@ -120,6 +120,7 @@ public class QnServiceImpl implements QnService {
 		vo.setXprev(xprev);
 		vo.setContEnd(contEnd);
 		vo.setContStart(contStart);
+		vo.setSort(sortType);
 		
 		return vo;
 	}

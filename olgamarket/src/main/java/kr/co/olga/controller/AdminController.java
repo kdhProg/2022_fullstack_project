@@ -228,7 +228,7 @@ public class AdminController {
 	// 판매자 문의 목록 + 페이징
 	@RequestMapping(value = "/selQuiryList")
 	@ResponseBody
-	public Map<String, Object> selQuiryList(String showPage) {
+	public Map<String, Object> selQuiryList(String showPage, Integer sort) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		int stShowPage = Integer.parseInt(showPage);
@@ -240,7 +240,14 @@ public class AdminController {
 			currPage = stShowPage;
 		}
 		
-		PagingVO vo = selquiryService.getSelQuiryPageInfo(currPage); //페이징에 필요한 정보 계산
+		int sortType;
+		if(sort == null) {
+			sortType = 1;
+		}else {
+			sortType = sort;
+		}
+		
+		PagingVO vo = selquiryService.getSelQuiryPageInfo(currPage, sortType); //페이징에 필요한 정보 계산
 		List<SelQuiryVO> sqList = selquiryService.getSelQuiryPageList(vo);
 		
 		result.put("sqList",sqList);  
@@ -384,6 +391,98 @@ public class AdminController {
 
 		return "redirect:/admin/product";
 	}
+	
+/************ 상품 문의 답변 ************************************************************************************************************************/
+	
+	// 상품 문의 
+	@Autowired
+	private QuiryService quiryService;
+	
+	// 상품 문의 답변 
+	@Autowired
+	private AnswerService answerService;
+	
+	// 상품 문의 목록
+	@RequestMapping(value = "/quiryAdmin")
+	@ResponseBody
+	public Map<String, Object> quiryAdmin(String showPage, Integer sort) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		int stShowPage = Integer.parseInt(showPage);
+		
+		int currPage;
+		if(showPage == null) {
+			currPage = 1;
+		}else {
+			currPage = stShowPage;
+		}
+		
+		int sortType;
+		if(sort == null) {
+			sortType = 1;
+		}else {
+			sortType = sort;
+		}
+		
+		PagingVO vo = quiryService.getQuiryAdminPageInfo(currPage, sortType);
+		List<QuiryVO> pdQnPageList =  quiryService.getQuiryAdminPageList(vo);
+		
+		result.put("pdQuiryList",pdQnPageList);  
+		result.put("pageInfo",vo);  //페이징정보
+		result.put("currPage",currPage); //현재페이지
+
+		return result;
+	}
+	
+	// 상품 문의 조회 + 답변
+	@RequestMapping(value = "adminQuiryOne")
+	public String adminQuiryOne(QuiryVO vo, Model model){
+		model.addAttribute("adminQuiryOne", quiryService.quirySelOne(vo.getIqNo()));
+		
+		List<AnswerVO> answerList = answerService.answerList(vo.getIqNo());
+		model.addAttribute("answerList", answerList);
+		
+		return "/admin/adminQuiryOne";
+	}
+	
+	// 상품 문의 답변 추가
+	@RequestMapping(value = "/answerInsert")
+	public String answerInsert(AnswerVO vo ) {
+		
+		answerService.answerInsert(vo);
+		
+		QuiryVO quVo = new QuiryVO();
+
+		quVo.setIqNo(vo.getIaiqNo());
+		quVo.setIqState(1L);
+		quiryService.quiryStateUpdate(quVo);
+		
+		return "redirect:/admin/product";
+	}
+	
+	// 상품 문의 답변 추가 화면
+	@RequestMapping(value = "/answerInsertView")
+	public String answerInsertView(QuiryVO vo, Model model) {
+		model.addAttribute("quiryIn", quiryService.quirySelOne(vo.getIqNo()));
+		
+		return "/admin/answerInsertView";
+	}
+	
+	// 상품 문의 답변 수정
+	@RequestMapping(value = "/answerUpdate")
+	public String answerUpdate(AnswerVO vo) {
+		answerService.answerUpdate(vo);
+		
+		return "redirect:/admin/product";
+	}
+	
+	// 상품 문의 답변 수정 화면
+	@RequestMapping(value = "/answerUpdateView")
+	public String answerUpdateView(QuiryVO vo, Model model) {
+		model.addAttribute("quiryUp", quiryService.quirySelOne(vo.getIqNo()));
+		
+		return "/admin/answerUpdateView";
+	}	
 
 /************ 공지사항 관리 ************************************************************************************************************************/
 
@@ -606,7 +705,7 @@ public class AdminController {
 	// 모든 1:1 문의 띄우기
 	@RequestMapping(value="/adminQnList")
 	@ResponseBody
-	public Map<String, Object> adminQnList(String showPage) {
+	public Map<String, Object> adminQnList(String showPage, Integer sort) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		int stShowPage = Integer.parseInt(showPage);
@@ -618,7 +717,14 @@ public class AdminController {
 			currPage = stShowPage;
 		}
 		
-		PagingVO vo = qnService.getQnAdminPageList(currPage); //페이징에 필요한 정보 계산
+		int sortType;
+		if(sort == null) {
+			sortType = 1;
+		}else {
+			sortType = sort;
+		}
+		
+		PagingVO vo = qnService.getQnAdminPageList(currPage, sortType); //페이징에 필요한 정보 계산
 		List<QnVO> otoList =  qnService.getQnAdminPageList(vo);
 		
 		result.put("otoList",otoList);  
@@ -678,90 +784,7 @@ public class AdminController {
 		return "/admin/anUpdateView";
 	}
 	
-/************ 상품 문의 답변 ************************************************************************************************************************/
-	
-	// 상품 문의 
-	@Autowired
-	private QuiryService quiryService;
-	
-	// 상품 문의 답변 
-	@Autowired
-	private AnswerService answerService;
-	
-	// 상품 문의 목록
-	@RequestMapping(value = "/quiryAdmin")
-	@ResponseBody
-	public Map<String, Object> quiryAdmin(String showPage) {
-		Map<String, Object> result = new HashMap<String, Object>();
-		
-		int stShowPage = Integer.parseInt(showPage);
-		
-		int currPage;
-		if(showPage == null) {
-			currPage = 1;
-		}else {
-			currPage = stShowPage;
-		}
-		
-		PagingVO vo = quiryService.getQuiryAdminPageInfo(currPage);
-		List<QuiryVO> pdQnPageList =  quiryService.getQuiryAdminPageList(vo);
-		
-		result.put("pdQuiryList",pdQnPageList);  
-		result.put("pageInfo",vo);  //페이징정보
-		result.put("currPage",currPage); //현재페이지
 
-		return result;
-	}
-	
-	// 상품 문의 조회 + 답변
-	@RequestMapping(value = "adminQuiryOne")
-	public String adminQuiryOne(QuiryVO vo, Model model){
-		model.addAttribute("adminQuiryOne", quiryService.quirySelOne(vo.getIqNo()));
-		
-		List<AnswerVO> answerList = answerService.answerList(vo.getIqNo());
-		model.addAttribute("answerList", answerList);
-		
-		return "/admin/adminQuiryOne";
-	}
-	
-	// 상품 문의 답변 추가
-	@RequestMapping(value = "/answerInsert")
-	public String answerInsert(AnswerVO vo ) {
-		
-		answerService.answerInsert(vo);
-		
-		QuiryVO quVo = new QuiryVO();
-
-		quVo.setIqNo(vo.getIaiqNo());
-		quVo.setIqState(1L);
-		quiryService.quiryStateUpdate(quVo);
-		
-		return "redirect:/admin/product";
-	}
-	
-	// 상품 문의 답변 추가 화면
-	@RequestMapping(value = "/answerInsertView")
-	public String answerInsertView(QuiryVO vo, Model model) {
-		model.addAttribute("quiryIn", quiryService.quirySelOne(vo.getIqNo()));
-		
-		return "/admin/answerInsertView";
-	}
-	
-	// 상품 문의 답변 수정
-	@RequestMapping(value = "/answerUpdate")
-	public String answerUpdate(AnswerVO vo) {
-		answerService.answerUpdate(vo);
-		
-		return "redirect:/admin/product";
-	}
-	
-	// 상품 문의 답변 수정 화면
-	@RequestMapping(value = "/answerUpdateView")
-	public String answerUpdateView(QuiryVO vo, Model model) {
-		model.addAttribute("quiryUp", quiryService.quirySelOne(vo.getIqNo()));
-		
-		return "/admin/answerUpdateView";
-	}
 	
 	
 	

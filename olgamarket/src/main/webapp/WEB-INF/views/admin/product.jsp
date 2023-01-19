@@ -48,6 +48,8 @@
 <!-- 상품 문의 -->	
 
 	<div id="pdQnDiv" style="display : none;">
+		<a href="#" onclick="sortList(1);return false;" id="sortBtn1">답변 대기</a>
+		<a href="#" onclick="sortList(2);return false;" id="sortBtn2">답변 완료</a>
 		<div id="pdQuiryResultList"></div>
 		<div id="pdQuiryResultPagingNo"></div>
 		
@@ -115,13 +117,14 @@ function pdList(pageNo) {
 }// function end
 
 /********************* 상품 문의 *******************************************************************/ 
-$(document).ready(pdQnList(1));
-function pdQnList(pageNo) {
+$(document).ready(pdQnList(1), 1);
+function pdQnList(pageNo, sortNo) {
 	$.ajax({
         url : "/admin/quiryAdmin",
         type : "get",
         data : {
-        	showPage : pageNo
+        	showPage : pageNo,
+        	sort : sortNo
         },
         success : function(data){
         	
@@ -147,18 +150,18 @@ function pdQnList(pageNo) {
 			$("#pdQuiryResultList").html(pdQuiryContentTag); //메인 컨텐츠 적용
 			
 			if(pageInfo.xprev){
-				pdQuiryPagingTag+="<a href='#' onclick='pdQnList("+(pageInfo.firstPageNoOnPageList-1)+ ");return false;'>[prev]</a>&nbsp;&nbsp;&nbsp;";
+				pdQuiryPagingTag+="<a href='#' onclick='pdQnList("+(pageInfo.firstPageNoOnPageList-1)+ ", " + sortType +");return false;'>[prev]</a>&nbsp;&nbsp;&nbsp;";
 			}
 			for(var i = pageInfo.firstPageNoOnPageList; i< pageInfo.lastPageNoOnPageList+1;i++){
 				if(i == currPage){
 					pdQuiryPagingTag+="<span>["+i+"]&nbsp;&nbsp;&nbsp;</span>";
 				}else{
-					pdQuiryPagingTag+="<a href='#' onclick='pdQnList(" + i + ");return false;'>["+i+"]</a>&nbsp;&nbsp;&nbsp;";
+					pdQuiryPagingTag+="<a href='#' onclick='pdQnList(" + i + ", " + sortType +");return false;'>["+i+"]</a>&nbsp;&nbsp;&nbsp;";
 				}
 				
 			}
 			if(pageInfo.xnext){
-				pdQuiryPagingTag+="<a href='#' onclick='pdQnList("+(pageInfo.lastPageNoOnPageList+1)+ ");return false;'>[next]</a>&nbsp;&nbsp;&nbsp;";
+				pdQuiryPagingTag+="<a href='#' onclick='pdQnList("+(pageInfo.lastPageNoOnPageList+1)+ ", " + sortType +");return false;'>[next]</a>&nbsp;&nbsp;&nbsp;";
 			}
 			
 			$("#pdQuiryResultPagingNo").html(pdQuiryPagingTag); //페이징 적용
@@ -168,6 +171,12 @@ function pdQnList(pageNo) {
         }//error
     });//ajax
 }// function end
+
+//정렬함수
+function sortList(inputsort){
+	sortType = inputsort;
+	pdQnList(1,sortType);
+}
 
 $("#pdListBt").on("click", function() {
 	$(this).css('font-weight', 'bold');
@@ -183,5 +192,14 @@ $("#pdQnListBt").on("click", function() {
 	$('#pdDiv').css('display', 'none');
 });
 
+//정렬 A태그 디자인 관련
+$("#sortBtn1").on("click", function() {
+	$(this).css('font-weight', 'bold');
+	$("#sortBtn2").css('font-weight', 'normal');
+});
+$("#sortBtn2").on("click", function() {
+	$(this).css('font-weight', 'bold');
+	$("#sortBtn1").css('font-weight', 'normal');
+});
 </script>
 </html>

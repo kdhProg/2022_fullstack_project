@@ -46,9 +46,16 @@
 		select * from
 			(select iqNo, iqmemId, iqpdId, iqTitle, iqContent, iqPrivate, 
 				iqState, iqRegiDate, iqUpdDate, row_number() OVER(order by iqNo desc) as Rnum
-				from inquirys) mp
+				from inquirys
+					where
+      					<if test='sort == 1'>
+		    				iqState = 0
+		   				</if>
+		   				<if test='sort == 2'>
+		    				iqState = 1
+		   				</if>
+		   				) mp
 					where Rnum <![CDATA[>=]]> #{contStart} and Rnum <![CDATA[<=]]> #{contEnd}
-						and iqState = 0 
 							order by iqNo desc
 	</select>
 	

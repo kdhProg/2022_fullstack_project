@@ -19,7 +19,7 @@ public interface QnService {
 
 	List<QnVO> getQnPageList(PagingVO vo);
 
-	PagingVO getQnAdminPageList(int currPage);
+	PagingVO getQnAdminPageList(int currPage, int sortType);
 
 	List<QnVO> getQnAdminPageList(PagingVO vo);
 

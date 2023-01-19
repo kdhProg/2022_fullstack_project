@@ -13,9 +13,15 @@
 		select * from 
 	      	(select sqNo, sqselId, sqpdId, sqTitle, sqContent, 
 	      	sqState, sqRegiDate, sqUpdDate, row_number() OVER(order by sqNo desc) as Rnum 
-	      		from sellerQuirys) mp
+	      		from sellerQuirys
+	      			where
+      					<if test='sort == 1'>
+		    				sqState = 0
+		   				</if>
+		   				<if test='sort == 2'>
+		    				sqState = 1
+		   				</if>) mp
 	      			where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
-	      				and sqState = 0
 	      					order by sqNo desc
 	
 	</select>

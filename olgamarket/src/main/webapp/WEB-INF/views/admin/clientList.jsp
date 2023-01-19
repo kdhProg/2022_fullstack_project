@@ -61,8 +61,10 @@
 	</div>
 </form>	
 <!-- 1대1 문의 -->	
-
+	
 	<div id="otoDiv" style="display : none;">
+	<a href="#" onclick="sortList(1);return false;" id="sortBtn1">답변 대기</a>
+	<a href="#" onclick="sortList(2);return false;" id="sortBtn2">답변 완료</a>
 		<div id="otoResultList"></div>
 		<div id="otoResultPagingNo"></div>
 		
@@ -176,13 +178,14 @@ function faqList(pageNo) {
 }// function end
 
 /********************* 1대1 문의 *******************************************************************/ 
-$(document).ready(otList(1));
-function otList(pageNo) {
+$(document).ready(otList(1), 1);
+function otList(pageNo, sortNo) {
 	$.ajax({
         url : "/admin/adminQnList",
         type : "get",
         data : {
-        	showPage : pageNo
+        	showPage : pageNo,
+        	sort : sortNo
         },
         success : function(data){
         	
@@ -208,18 +211,18 @@ function otList(pageNo) {
 			$("#otoResultList").html(otContentTag); //메인 컨텐츠 적용
 			
 			if(pageInfo.xprev){
-				otPagingTag+="<a href='#' onclick='otList("+(pageInfo.firstPageNoOnPageList-1)+ ");return false;'>[prev]</a>&nbsp;&nbsp;&nbsp;";
+				otPagingTag+="<a href='#' onclick='otList("+(pageInfo.firstPageNoOnPageList-1)+ ", " + sortType +");return false;'>[prev]</a>&nbsp;&nbsp;&nbsp;";
 			}
 			for(var i = pageInfo.firstPageNoOnPageList; i< pageInfo.lastPageNoOnPageList+1;i++){
 				if(i == currPage){
 					otPagingTag+="<span>["+i+"]&nbsp;&nbsp;&nbsp;</span>";
 				}else{
-					otPagingTag+="<a href='#' onclick='otList(" + i + ");return false;'>["+i+"]</a>&nbsp;&nbsp;&nbsp;";
+					otPagingTag+="<a href='#' onclick='otList(" + i + ", " + sortType +");return false;'>["+i+"]</a>&nbsp;&nbsp;&nbsp;";
 				}
 				
 			}
 			if(pageInfo.xnext){
-				otPagingTag+="<a href='#' onclick='otList("+(pageInfo.lastPageNoOnPageList+1)+ ");return false;'>[next]</a>&nbsp;&nbsp;&nbsp;";
+				otPagingTag+="<a href='#' onclick='otList("+(pageInfo.lastPageNoOnPageList+1)+ ", " + sortType +");return false;'>[next]</a>&nbsp;&nbsp;&nbsp;";
 			}
 			
 			$("#otoResultPagingNo").html(otPagingTag); //페이징 적용
@@ -229,6 +232,12 @@ function otList(pageNo) {
         }//error
     });//ajax
 }// function end
+
+//정렬함수
+function sortList(inputsort){
+	sortType = inputsort;
+	otList(1,sortType);
+}
 
 $("#noticeBt").on("click", function() {
 	$(this).css('font-weight', 'bold');
@@ -254,6 +263,17 @@ $("#onetooneBt").on("click", function() {
 	$('#faqDiv').css('display', 'none');
 	$('#noticeDiv').css('display', 'none');
 });
+
+//정렬 A태그 디자인 관련
+$("#sortBtn1").on("click", function() {
+	$(this).css('font-weight', 'bold');
+	$("#sortBtn2").css('font-weight', 'normal');
+});
+$("#sortBtn2").on("click", function() {
+	$(this).css('font-weight', 'bold');
+	$("#sortBtn1").css('font-weight', 'normal');
+});
+
 </script>
 
 </html>

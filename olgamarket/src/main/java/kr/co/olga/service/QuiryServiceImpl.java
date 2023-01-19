@@ -82,7 +82,7 @@ public class QuiryServiceImpl implements QuiryService {
 	}
 
 	@Override
-	public PagingVO getQuiryAdminPageInfo(int currPage) {
+	public PagingVO getQuiryAdminPageInfo(int currPage, int sortType) {
 		PagingVO vo = new PagingVO();
 		int setTotalRecordCount = dao.getQuiryAdminCount();
 		int recordCountPerPage = 20;
@@ -118,6 +118,7 @@ public class QuiryServiceImpl implements QuiryService {
 		vo.setXprev(xprev);
 		vo.setContEnd(contEnd);
 		vo.setContStart(contStart);
+		vo.setSort(sortType);
 		
 		return vo;
 	}
