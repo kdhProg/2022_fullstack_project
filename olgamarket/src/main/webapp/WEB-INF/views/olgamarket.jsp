@@ -14,6 +14,7 @@
 	}
 </style>
 <body>
+
 	<form action="/search/productList">
 		<input type="text" placeholder="검색어 입력" name="searchKeyWord"/>
 		<input type="submit" value="검색"/>
