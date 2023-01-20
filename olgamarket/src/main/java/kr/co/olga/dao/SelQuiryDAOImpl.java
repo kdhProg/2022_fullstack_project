@@ -50,4 +50,16 @@ public class SelQuiryDAOImpl implements SelQuiryDAO {
 	public List<SelQuiryVO> getSelectList(@NonNull Long pdId) {
 		return session.selectList("selQuiryMapper.getSelectList", pdId);
 	}
+
+// 삭제	
+	@Override
+	public long selQuiryUpdate(SelQuiryVO vo) {
+		return session.update("selQuiryMapper.selQuiryUpdate", vo);
+	}
+
+// 수정	
+	@Override
+	public long selQuiryDelete(Long sqNo) {
+		return session.delete("selQuiryMapper.selQuiryDelete", sqNo);
+	}
 }

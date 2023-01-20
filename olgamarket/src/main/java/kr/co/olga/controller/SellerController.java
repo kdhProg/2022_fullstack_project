@@ -224,18 +224,6 @@ public class SellerController {
 		return result;
 	}
 	
-	// 판매자 문의 조회
-	@RequestMapping(value = "/selQuiryOne")
-	public String selQuiryOne(Model model, SelQuiryVO vo)	{
-		model.addAttribute("selQuiryOne", selquiryService.getSelectOne(vo.getSqNo()));
-		
-		
-		List<SelAnswerVO> selAnList = selanswerService.selAnswerList(vo.getSqNo());
-		model.addAttribute("selAnList", selAnList);
-		
-		return "/seller/selQuiryOne";
-	}
-	
 	// 판매자 문의 등록
 	@RequestMapping(value = "/selQuiryInsert")
 	public String selQuiryInsert(SelQuiryVO vo) {
@@ -256,13 +244,41 @@ public class SellerController {
 	
 	
 	// 판매자 문의 수정
+	@RequestMapping(value = "/sqlQuiryUpdate")
+	public String sqlQuiryUpdate(SelQuiryVO vo) {
+		selquiryService.selQuiryUpdate(vo);
+		
+		return "redirect:/seller/dedicated";
+	}
 	
 	// 판매자 문의 수정 화면 
+	@RequestMapping(value = "/sqlQuiryUpdateView")
+	public String sqlQuiryUpdateView(SelQuiryVO vo, Model model) {
+		model.addAttribute("selQuiryUp", selquiryService.getSelectOne(vo.getSqNo()));
+		
+		return "/seller/sqlQuiryUpdateView";
+	}
 	
 	// 판매자 문의 삭제
+	@RequestMapping(value = "/sqlQuiryDelete")
+	public String sqlQuiryDelete(SelQuiryVO vo) {
+		selquiryService.selQuiryDelete(vo.getSqNo());
+		
+		return "redirect:/seller/dedicated";
+	}
 	
-	
-	
+	// 판매자 문의 조회
+	@RequestMapping(value = "/selQuiryOne")
+	public String selQuiryOne(Model model, SelQuiryVO vo)	{
+		model.addAttribute("selQuiryOne", selquiryService.getSelectOne(vo.getSqNo()));
+		
+		
+		List<SelAnswerVO> selAnList = selanswerService.selAnswerList(vo.getSqNo());
+		model.addAttribute("selAnList", selAnList);
+		
+		return "/seller/selQuiryOne";
+	}
+
 	
 	
 	

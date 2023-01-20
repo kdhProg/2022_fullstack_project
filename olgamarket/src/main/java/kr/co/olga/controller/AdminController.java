@@ -51,25 +51,35 @@ import kr.co.olga.vo.StoreVO;
 public class AdminController {
 
 /************ 로그인 ************************************************************************************************************************/
-
+	
 	@Autowired
 	private AdminService adminService;
+	
+	@RequestMapping(value = "/enterAdminMain")
+	public String adminMain() {
+		return "/adminMain";
+	}
 
 	// 로그인
 	@RequestMapping(value = "/adminLogin")
-	public String adminLogin(AdminVO vo, HttpServletRequest request, RedirectAttributes rttr) {
-
+	public String adminLogin(String admId, String admPwd, HttpServletRequest request, RedirectAttributes rttr, Model model) {
+		// vo로 로그인 구현
 		HttpSession session = request.getSession();
-		AdminVO login = adminService.adminLogin(vo);
-
-		if (login == null) {
-			session.setAttribute("admin", null);
-			rttr.addAttribute("admin", false);
-		} else {
-			session.setAttribute("admin", login);
+		
+		AdminVO vo = new AdminVO();
+		vo.setAdmId(admId);
+		vo.setAdmPwd(admPwd);
+		AdminVO adminLo = adminService.adminLogin(vo);
+		if(adminLo == null) {
+			// 로그인 실패
+			model.addAttribute("loginResult", "failed");
+			return "/admin/adminLogin";
+		}else {
+			//일반 로그인 성공
+			session.setAttribute("admin", adminLo);
+			return "redirect:/admin/enterAdminMain";
 		}
-
-		return "redirect:/";
+		
 	}
 
 	// 로그아웃
@@ -78,7 +88,7 @@ public class AdminController {
 
 		session.invalidate();
 
-		return "redirect:/";
+		return "redirect:/master";
 	}
 
 /************ 판매점 관리 ************************************************************************************************************************/
