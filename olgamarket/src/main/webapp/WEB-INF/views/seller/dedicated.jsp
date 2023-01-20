@@ -19,12 +19,12 @@
 <body>
 	<h1>판매자 / 문의 관리</h1>
 	<a href="#" onclick="npqList(1);return false;" id="npqListBt">신상품 등록 문의</a>
-	<a href="#" onclick="sqList(1);return false;" id="sqListBt">등록된 상품 문의</a>
+	<a href="#" onclick="pdList(1);return false;" id="pdListBt">등록된 상품 목록</a>
 	
 	<hr />
 
 <!-- 신상품 등록 문의 -->
-<form name="insertForm" method="post" action="/seller/newPdQuiryInsertView?selId=${selId}">
+<form name="insertForm" method="post" action="/seller/newPdQuiryInsertView?selId=${member.getSelId()}">
 	
 	<div id="npqDiv" style="display : none;">
 		<a href="#" onclick="sortList1(1);return false;" id="sortBtn1">답변 대기</a>
@@ -37,18 +37,11 @@
 	</div>
 </form>	
 
-<!-- 등록된 상품 문의 -->	
-<form name="insertForm" method="post" action="/seller/selQuiryInsertView ">
-	<div id="sqDiv" style="display : none;">
-		<a href="#" onclick="sortList(1);return false;" id="sortBtn1">답변 대기</a>
-		<a href="#" onclick="sortList(2);return false;" id="sortBtn2">답변 완료</a>
-		<div id="sqResultList"></div>
-		<div id="sqResultPagingNo"></div>
-		<div>
-			<button type="submit" class="sqInsert_btn">등록 문의하기</button>
-		</div>
+<!-- 등록된 상품 목록 -->	
+	<div id="pdDiv" style="display : none;">
+		<div id="pdResultList"></div>
+		<div id="pdResultPagingNo"></div>
 	</div>
-</form>		
 </body>
 <script>
 /********************* 신상품 등록 문의 목록 *******************************************************************/
@@ -113,79 +106,75 @@ function sortList1(inputsort){
 	sortType1 = inputsort;
 	npqList(1,sortType1);
 }
-/********************* 판매자 문의 *******************************************************************/ 
-var sortType2 = 1;
-$(document).ready(sqList(1), 1);
-function sqList(pageNo, sortNo) {
+/********************* 판매자 등록 상품 문의 *******************************************************************/ 
+$(document).ready(pdList(1));
+function pdList(pageNo) {
 	$.ajax({
-        url : "/seller/selQuiryList",
+        url : "/seller/productList",
         type : "get",
         data : {
-        	showPage : pageNo,
-        	sort : sortNo
+        	showPage : pageNo
         },
         success : function(data){
         	
         	var pageInfo = data.pageInfo;
 			var currPage = data.currPage;
-            var selQuiryPageList = data.sqList; // model 처럼
-            
-            var selQuiryContentTag = "<table><tr><th>No</th><th>상품 아이디</th><th>제목</th><th>내용</th><th>답변 상태</th><th>작성자</th><th>등록일</th></tr>";
-            var selQuiryPagingTag = "";
-            
-			$.each(selQuiryPageList, function(key, value) {
-				selQuiryContentTag += "<tr>";
-				selQuiryContentTag += "<td><a href='/seller/selQuiryOne?sqNo="+value.sqNo+"'>"+value.sqNo+"</a></td>";
-				selQuiryContentTag += "<td>"+value.sqpdId+"</td>";
-				selQuiryContentTag += "<td>"+value.sqTitle+"</td>";
-				selQuiryContentTag += "<td>"+value.sqContent+"</td>";
-				selQuiryContentTag += "<td>"+value.sqState+"</td>";
-				selQuiryContentTag += "<td>"+value.sqselId+"</td>";
-				selQuiryContentTag += "<td>"+value.sqRegiDate+"</td>";
-				selQuiryContentTag += "</tr>";                
+            var pdPageList = data.pdList; // model 처럼
+        	
+            var pdContentTag = "<table><tr><th>Id</th><th>썸네일 이미지</th><th>상품 이름</th><th>카테고리</th><th>브랜드</th><th>가격</th><th>할인</th><th>재고</th><th>판매량</th><th>등록일</th></tr>";
+            var pdPagingTag = "";
+
+			$.each(pdPageList, function(key, value) {
+				pdContentTag += "<tr>";
+				pdContentTag += "<td><a href='/seller/productOne?pdId="+value.pdId+"&pdstlBrandName="+value.pdstlBrandName+"'>"+value.pdId+"</a></td>";
+				pdContentTag += "<td>"+value.pdThumbImg+"</td>";
+				pdContentTag += "<td>"+value.pdName+"</td>";
+				pdContentTag += "<td>"+value.pdMainCategory+"</td>";
+				pdContentTag += "<td>"+value.pdstlBrandName+"</td>";
+				pdContentTag += "<td>"+value.pdPrice+"</td>";
+				pdContentTag += "<td>"+value.pdSale+"</td>";
+				pdContentTag += "<td>"+value.pdStock+"</td>";
+				pdContentTag += "<td>"+value.pdSalesVolume+"</td>";
+				pdContentTag += "<td>"+value.pdUpdDate+"</td>";
+				pdContentTag += "</tr>";                
              });
-			selQuiryContentTag += "</table>";
-			$("#sqResultList").html(selQuiryContentTag); //메인 컨텐츠 적용
+			pdContentTag += "</table>";
+			$("#pdResultList").html(pdContentTag); //메인 컨텐츠 적용
 			
 			if(pageInfo.xprev){
-				selQuiryPagingTag+="<a href='#' onclick='sqList("+(pageInfo.firstPageNoOnPageList-1)+ ", " + sortType2 +");return false;'>[prev]</a>&nbsp;&nbsp;&nbsp;";
+				pdPagingTag+="<a href='#' onclick='pdList("+(pageInfo.firstPageNoOnPageList-1)+ ");return false;'>[prev]</a>&nbsp;&nbsp;&nbsp;";
 			}
 			for(var i = pageInfo.firstPageNoOnPageList; i< pageInfo.lastPageNoOnPageList+1;i++){
 				if(i == currPage){
-					selQuiryPagingTag+="<span>["+i+"]&nbsp;&nbsp;&nbsp;</span>";
+					pdPagingTag+="<span>["+i+"]&nbsp;&nbsp;&nbsp;</span>";
 				}else{
-					selQuiryPagingTag+="<a href='#' onclick='sqList(" + i + ", " + sortType2 +");return false;'>["+i+"]</a>&nbsp;&nbsp;&nbsp;";
+					pdPagingTag+="<a href='#' onclick='pdList(" + i + ");return false;'>["+i+"]</a>&nbsp;&nbsp;&nbsp;";
 				}
 				
 			}
 			if(pageInfo.xnext){
-				selQuiryPagingTag+="<a href='#' onclick='sqList("+(pageInfo.lastPageNoOnPageList+1)+ ", " + sortType2 +");return false;'>[next]</a>&nbsp;&nbsp;&nbsp;";
+				pdPagingTag+="<a href='#' onclick='pdList("+(pageInfo.lastPageNoOnPageList+1)+ ");return false;'>[next]</a>&nbsp;&nbsp;&nbsp;";
 			}
 			
-			$("#sqResultPagingNo").html(selQuiryPagingTag); //페이징 적용
+			$("#pdResultPagingNo").html(pdPagingTag); //페이징 적용
         },
         error : function(){
-             alert('error - sqList');
+             alert('error - pdList');
         }//error
     });//ajax
 }// function end
 
-//정렬함수
-function sortList(inputsort){
-	sortType2 = inputsort;
-	sqList(1,sortType2);
-}
 
 $("#npqListBt").on("click", function() {
 	$(this).css('font-weight', 'bold');
 	$('#npqDiv').css('display', 'block');
-	$("#sqListBt").css('font-weight', 'normal');
-	$('#sqDiv').css('display', 'none');
+	$("#pdListBt").css('font-weight', 'normal');
+	$('#pdDiv').css('display', 'none');
 });
 
-$("#sqListBt").on("click", function() {
+$("#pdListBt").on("click", function() {
 	$(this).css('font-weight', 'bold');
-	$('#sqDiv').css('display', 'block');
+	$('#pdDiv').css('display', 'block');
 	$("#npqListBt").css('font-weight', 'normal');
 	$('#npqDiv').css('display', 'none');
 });

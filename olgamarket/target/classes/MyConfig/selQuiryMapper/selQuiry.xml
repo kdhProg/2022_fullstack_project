@@ -36,4 +36,22 @@
 		update sellerQuirys set sqState = #{sqState} where sqNo = #{sqNo} 
 	</update>
 
+<!-- 문의글 작성 -->
+	<insert id="selQuiryInsert" parameterType="SelQuiryVO">
+		insert into sellerQuirys
+			values((select NVL(MAX(sqNo) + 1, 1) from sellerQuirys), #{sqselId}, #{sqpdId}, 
+					#{sqTitle}, #{sqContent}, 0, sysdate, sysdate);
+	</insert>
+
+<!-- 판매자 페이지 -->
+	<select id="getSelectList" resultType="SelQuiryVO">
+		select * from sellerQuirys where sqpdId = ${sqpdId}
+	</select>
+
+
+
+
+
+
+
 </mapper>

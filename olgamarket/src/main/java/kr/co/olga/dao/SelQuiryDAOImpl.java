@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.SelQuiryVO;
+import lombok.NonNull;
 
 @Repository
 public class SelQuiryDAOImpl implements SelQuiryDAO {
@@ -36,5 +37,17 @@ public class SelQuiryDAOImpl implements SelQuiryDAO {
 	@Override
 	public long selQuiryStateUpdate(SelQuiryVO sqVo) {
 		return session.update("selQuiryMapper.selQuiryStateUpdate", sqVo);
+	}
+
+// 문의글 작성		
+	@Override
+	public long selQuiryInsert(SelQuiryVO vo) {
+		return session.insert("selQuiryMapper.selQuiryInsert", vo);
+	}
+
+// 판매자 페이지
+	@Override
+	public List<SelQuiryVO> getSelectList(@NonNull Long pdId) {
+		return session.selectList("selQuiryMapper.getSelectList", pdId);
 	}
 }

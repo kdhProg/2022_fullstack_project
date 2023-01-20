@@ -12,7 +12,7 @@
 <body>
 <section id="container">
 	<form role="form" method="post" action="/seller/newPdQuiryInsert">
-		<input type="text" value="${npqIn.selId}" id="selId" name="selId" />  
+		<input type="hidden" value="${npqIn.selId}" id="npqselId" name="npqselId" />  
 		<table>
 			<tbody>
 				<tr>
@@ -35,15 +35,8 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="npqselId">작성자 : ${npqIn.npqselId}</label>
-						<input type="text" id="npqselId" name="npqselId" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="saUpdDate">등록날짜 : ${npqIn.npqUpdDate}</label>
-						<fmt:parseDate value="${npqIn.npqUpdDate}" var="npqUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${npqUpdDate}" pattern="yyyy.MM.dd"/>
+						<fmt:parseDate value="${npqIn.selUpdDate}" var="selUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${selUpdDate}" pattern="yyyy.MM.dd"/>
 					</td>
 				</tr>
 				<tr>

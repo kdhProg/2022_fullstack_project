@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.co.olga.dao.SelQuiryDAO;
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.SelQuiryVO;
+import lombok.NonNull;
 
 @Service
 public class SelQuiryServiceImpl implements SelQuiryService {
@@ -72,5 +73,17 @@ public class SelQuiryServiceImpl implements SelQuiryService {
 	@Override
 	public long selQuiryStateUpdate(SelQuiryVO sqVo) {
 		return dao.selQuiryStateUpdate(sqVo);
+	}
+
+// 문의글 작성	
+	@Override
+	public long selQuiryInsert(SelQuiryVO vo) {
+		return dao.selQuiryInsert(vo);
+	}
+
+// 판매자 페이지
+	@Override
+	public List<SelQuiryVO> getSelectList(@NonNull Long pdId) {
+		return dao.getSelectList(pdId);
 	}
 }
