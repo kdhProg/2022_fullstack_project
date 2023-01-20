@@ -32,12 +32,8 @@
 	<div id="newPdBrandList"></div>
 	<div id="newPdPriceList"></div>
 </body>
-<button class="god">god</button>
 <script>
-$(".god").click(function(){
-	console.log("priceBtnList   "+priceBtnList);
-	console.log("finalpriceList   "+finalpriceList);
-});
+
 var sortType=1;  //정렬 기본값
 
 var cateLength; // 카테고리 - 배열길이 전역변수
