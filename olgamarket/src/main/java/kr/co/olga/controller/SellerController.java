@@ -246,8 +246,10 @@ public class SellerController {
 	
 	// 판매자 문의 등록 화면 
 	@RequestMapping(value = "/selQuiryInsertView")
-	public String selQuiryInsertView(SellerVO vo, Model model) {
+	public String selQuiryInsertView(SellerVO vo, Model model, ProductVO pdVo) {
 		model.addAttribute("selQuiryIn", sellerService.sellerSelOne(vo.getSelId()));
+		
+		model.addAttribute("sqlQuiryPdIn", productService.productSelectOne(pdVo.getPdId()));
 		
 		return "/seller/selQuiryInsertView";
 	}

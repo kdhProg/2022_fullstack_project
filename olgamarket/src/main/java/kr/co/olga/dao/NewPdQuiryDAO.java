@@ -28,4 +28,12 @@ public interface NewPdQuiryDAO {
 // 답글 입력 시 답변 상태 업데이트	
 	long newPdQuiryStateUpdate(NewPdQuiryVO npqVo);
 
+// 신상품 등록 문의 페이징 (관리자)		
+	int getNewPdQuiryAdminCount();
+	
+	List<SelQuiryVO> getNewPdQuiryAdminPageList(PagingVO vo);
+	
+
+	
+
 }

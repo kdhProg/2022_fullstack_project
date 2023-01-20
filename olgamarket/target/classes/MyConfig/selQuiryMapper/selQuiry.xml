@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="selQuiryMapper">
 
-<!-- 관리자 판매자 페이징 -->
+<!-- 판매자 페이징 -->
 	<select id="getSelQuiryCount" parameterType="int" resultType="Integer">
 		select count(*) from sellerQuirys
 	</select>
@@ -40,14 +40,13 @@
 	<insert id="selQuiryInsert" parameterType="SelQuiryVO">
 		insert into sellerQuirys
 			values((select NVL(MAX(sqNo) + 1, 1) from sellerQuirys), #{sqselId}, #{sqpdId}, 
-					#{sqTitle}, #{sqContent}, 0, sysdate, sysdate);
+					#{sqTitle}, #{sqContent}, 0, sysdate, sysdate)
 	</insert>
 
 <!-- 판매자 페이지 -->
 	<select id="getSelectList" resultType="SelQuiryVO">
 		select * from sellerQuirys where sqpdId = ${sqpdId}
 	</select>
-
 
 
 

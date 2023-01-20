@@ -86,9 +86,12 @@
 		</c:forEach>
 		</table>
 		
-		<form name="insertForm" action="/seller/selQuiryInsertView?selId=${slId.selId}">
+		<form name="insertForm" action="/seller/selQuiryInsertView">
+			<input type="hidden" id="selId" name="selId" value="${slId.selId}" />
+			<input type="hidden" id="pdId" name="pdId" value="${productOne.pdId}" />
 			<div>
 				<button type="submit" class="insert_btn">문의 글 작성</button>
+
 			</div>
 		</form>
 		<form name="listForm" action="/seller/dedicated">

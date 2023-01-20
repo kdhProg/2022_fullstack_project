@@ -12,6 +12,7 @@
 <section id="container">
 	<form role="form" method="post" action="/seller/selQuiryInsert">
 		<input type="hidden" value="${selQuiryIn.selId}" id="sqselId" name="sqselId" />  
+		<input type="hidden" value="${sqlQuiryPdIn.pdId}" id="sqpdId" name="sqpdId" />  
 		<table>
 			<tbody>
 				<tr>

@@ -56,7 +56,28 @@
 		update newPdQuirys 
 			set npqState = 1 where npqNo = #{npqNo}
 	</update>
-
+	
+<!-- 관리자 페이징 -->
+	<select id="getNewPdQuiryAdminPageList" resultType="NewPdQuiryVO" parameterType="PagingVO">
+		select * from 
+	      	(select npqNo, npqselId, npqTitle, npqContent, npqImg, npqState,
+	      	npqRegiDate, npqUpdDate, row_number() OVER(order by npqNo desc) as Rnum 
+	      		from newPdQuirys
+	      			where
+      					<if test='sort == 1'>
+		    				npqState = 0
+		   				</if>
+		   				<if test='sort == 2'>
+		    				npqState = 1
+		   				</if>
+		 				) mp
+	      			where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+	      					order by npqNo desc		
+	</select>
+	
+	<select id="getNewPdQuiryAdminCount" resultType="Integer" parameterType="int">
+		select count(*) from newPdQuirys
+	</select>
 
 
 

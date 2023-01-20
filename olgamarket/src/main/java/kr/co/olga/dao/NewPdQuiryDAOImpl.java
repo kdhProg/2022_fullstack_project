@@ -57,4 +57,17 @@ public class NewPdQuiryDAOImpl implements NewPdQuiryDAO {
 	public long newPdQuiryStateUpdate(NewPdQuiryVO npqVo) {
 		return session.update("newPdQuiryMapper.newPdQuiryStateUpdate", npqVo);
 	}
+
+// 신상품 등록 문의 페이징 (관리자)		
+	@Override
+	public int getNewPdQuiryAdminCount() {
+		return session.selectOne("newPdQuiryMapper.getNewPdQuiryAdminCount");
+	}
+	
+	@Override
+	public List<SelQuiryVO> getNewPdQuiryAdminPageList(PagingVO vo) {
+		return session.selectList("newPdQuiryMapper.getNewPdQuiryAdminPageList", vo);
+	}
+
+	
 }

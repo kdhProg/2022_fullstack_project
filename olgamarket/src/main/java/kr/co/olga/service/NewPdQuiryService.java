@@ -8,7 +8,7 @@ import kr.co.olga.vo.SelQuiryVO;
 
 public interface NewPdQuiryService {
 	
-// 신상품 등록 문의 페이징
+// 신상품 등록 문의 페이징 (판매자)
 	PagingVO getNewPdQuiryPageInfo(int currPage, int sortType, String npqselId);
 
 	List<SelQuiryVO> getNewPdQuiryPageList(PagingVO vo);
@@ -27,6 +27,11 @@ public interface NewPdQuiryService {
 
 // 답글 입력 시 답변 상태 업데이트	
 	long newPdQuiryStateUpdate(NewPdQuiryVO npqVo);
+
+// 신상품 등록 문의 페이징 (관리자)	
+	PagingVO getNewPdQuiryAdminPageInfo(int currPage, int sortType);
+
+	List<SelQuiryVO> getNewPdQuiryAdminPageList(PagingVO vo);
 
 
 }
