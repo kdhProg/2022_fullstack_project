@@ -143,6 +143,24 @@
 			pdmaincategory = #{cate}
 		</foreach>
 	</if>
+	<if test="brandNames!=null and brandNames.size!=0">
+	    <foreach collection="brandNames" item="cate" open=" and (" close=")" separator=" or ">
+			pdstlBrandName = #{cate}
+		</foreach>
+	</if>
+	<if test="priceLists!=null and priceLists.size!=0">
+	    <foreach collection="priceLists" item="cate" open=" and (" close=")" separator=" or ">
+			<if test='cate == "1"'>
+				pdPrice <![CDATA[<=]]> 10000
+			</if>
+			<if test='cate == "2"'>
+				(10000 <![CDATA[<]]> pdPrice and pdPrice <![CDATA[<=]]> 30000)
+			</if>
+			<if test='cate == "3"'>
+				30000 <![CDATA[<=]]> pdPrice
+			</if>
+		</foreach>
+	</if>
 </select>
 
 
@@ -165,6 +183,24 @@
 				<if test="categories!=null and categories.size!=0">
 					<foreach collection="categories" item="cate" open=" and (" close=")" separator=" or ">
 						pdmaincategory = #{cate}
+					</foreach>
+				</if>
+				<if test="brandNames!=null and brandNames.size!=0">
+				    <foreach collection="brandNames" item="cate" open=" and (" close=")" separator=" or ">
+						pdstlBrandName = #{cate}
+					</foreach>
+				</if>
+				<if test="priceLists!=null and priceLists.size!=0">
+				    <foreach collection="priceLists" item="cate" open=" and (" close=")" separator=" or ">
+						<if test='cate == "1"'>
+							pdPrice <![CDATA[<=]]> 10000
+						</if>
+						<if test='cate == "2"'>
+							(10000 <![CDATA[<]]> pdPrice and pdPrice <![CDATA[<=]]> 30000)
+						</if>
+						<if test='cate == "3"'>
+							30000 <![CDATA[<=]]> pdPrice
+						</if>
 					</foreach>
 				</if>
 				order by 
