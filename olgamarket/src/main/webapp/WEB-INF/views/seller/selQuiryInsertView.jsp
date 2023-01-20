@@ -10,31 +10,25 @@
 </head>
 <body>
 <section id="container">
-	<form role="form" method="post" action="/seller/newPdQuiryInsert">
-		<input type="hidden" value="${npqIn.selId}" id="npqselId" name="npqselId" />  
+	<form role="form" method="post" action="/seller/selQuiryInsert">
+		<input type="hidden" value="${selQuiryIn.selId}" id="sqselId" name="sqselId" />  
 		<table>
 			<tbody>
 				<tr>
 					<td>
-						<label for="npqTitle">제목 : </label>
-						<input type="text" id="npqTitle" name="npqTitle" />
+						<label for="sqTitle">제목 : </label>
+						<input type="text" id="sqTitle" name="sqTitle" />
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<label for="npqContent">내용 : </label>
-						<textarea id="npqContent" name="npqContent"></textarea>
+						<label for="sqContent">내용 : </label>
+						<textarea id="sqContent" name="sqContent"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<label for="npqImg">이미지 : </label>
-						<input type="text" id="npqImg" name="npqImg" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<fmt:parseDate value="${npqIn.selUpdDate}" var="selUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:parseDate value="${selQuiryIn.selUpdDate}" var="selUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
 						<fmt:formatDate value="${selUpdDate}" pattern="yyyy.MM.dd"/>
 					</td>
 				</tr>

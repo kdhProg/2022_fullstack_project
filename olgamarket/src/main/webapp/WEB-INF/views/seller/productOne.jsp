@@ -9,31 +9,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <title>Insert title here</title>
 </head>
-<script type="text/javascript">
-		$(document).ready(function(){
-			var formObj = $("form[name='readForm']");
-			
-			// 문의 글 작성
-			$(".insert_btn").on("click", function(){
-				formObj.attr("action", "/seller/sqlQuiryInsertView");
-				formObj.attr("method", "get");
-				formObj.submit();				
-			})
-			
-			// 문의 글 조회
-			$(".update_btn").on("click", function(){
-				formObj.attr("action", "/seller/sqlQuiryUpdateView");
-				formObj.attr("method", "post");
-				formObj.submit();
-			})
-			
-			// 취소
-			$(".list_btn").on("click", function(){
-				
-				location.href = "/seller/dedicated";
-			})
-		})
-	</script>
 <body>
 <section id="container">
 	<div>
@@ -94,6 +69,7 @@
 		</table>
 		<table>
 			<tr>
+				<th>상품 Id</th>
 				<th>No</th>
 				<th>제목</th>
 				<th>답변 상태</th>
@@ -101,6 +77,7 @@
 			</tr>
 			<c:forEach var="list" items="${selQnList}">
 			<tr>
+				<td>${list.getSqpdId()}</td>
 				<td><a href="/seller/selQuiryOne?sqNo=${list.getSqNo()}">${list.getSqNo()}</a></td>
 				<td>${list.getSqTitle()}</td>
 				<td>${list.getSqState()}</td>
@@ -108,11 +85,18 @@
 			</tr>
 		</c:forEach>
 		</table>
-		<div>
-			<button type="submit" class="insert_btn">문의 글 작성</button>
-			<button type="submit" class="update_btn">문의 글 조회</button>
-			<button type="submit" class="list_btn">목록</button>
-		</div>
+		
+		<form name="insertForm" action="/seller/selQuiryInsertView?selId=${slId.selId}">
+			<div>
+				<button type="submit" class="insert_btn">문의 글 작성</button>
+			</div>
+		</form>
+		<form name="listForm" action="/seller/dedicated">
+			<div>
+				<button type="submit" class="list_btn">목록</button>
+			</div>
+		</form>	
+		
 	</div>
 </section>
 </body>

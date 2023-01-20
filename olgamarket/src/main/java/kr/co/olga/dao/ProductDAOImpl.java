@@ -172,8 +172,12 @@ public class ProductDAOImpl implements ProductDAO {
 // 판매자 관리페이지에 띄우는 판매자 별 판매 중인 상품 목록	
 	@Override
 	public List<ProductVO> getSelectList(String selstlBrandName) {
-		System.out.println(selstlBrandName);
 		return session.selectList("productMapper.getSelectList", selstlBrandName);
+	}
+
+	@Override
+	public int getProductSellerCount(PagingVO countVo) {
+		return session.selectOne("productMapper.getProductSellerCount", countVo);
 	}
 	
 	

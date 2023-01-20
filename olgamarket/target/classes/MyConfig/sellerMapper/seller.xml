@@ -24,7 +24,7 @@
 	
 	<!-- selId에 해당하는 레코드 반환 -->
 	<select id="sellerSelOne" parameterType="String" resultType="SellerVO">
-		select * from sellers where selId = #{selId}
+		select * from sellers where selId = #{value}
 	</select>
 	
 	<!-- 모든 레코드 반환 -->

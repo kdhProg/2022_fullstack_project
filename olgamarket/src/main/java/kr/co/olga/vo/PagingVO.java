@@ -31,5 +31,7 @@ public class PagingVO {
 	int pdId; //2023 01 14 추가 + 1 : 등록순  2 : 추천순 
 	String searchKeyWord; // 2023 01 16 추가 [검색어]
 	String npqselId; // 판매자 전용 페이지에 사용
+	String pdstlBrandName; // 판매자 전용 페이지에 사용
+	String selId; // 판매자 전용 페이지에 사용
 	
 }

@@ -418,7 +418,7 @@ public class AdminController {
 	// 모든 상품 목록
 	@RequestMapping(value = "/productList")
 	@ResponseBody
-	public Map<String, Object> productList(String showPage) {
+	public Map<String, Object> productList(String showPage, String brandName, String selId) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		int stShowPage = Integer.parseInt(showPage);
@@ -430,7 +430,7 @@ public class AdminController {
 			currPage = stShowPage;
 		}
 		
-		PagingVO vo = productService.getProductPageInfo(currPage); //페이징에 필요한 정보 계산
+		PagingVO vo = productService.getProductPageInfo(currPage, brandName, selId); //페이징에 필요한 정보 계산
 		List<ProductVO> productList =  productService.getProductPageList(vo);
 		
 		result.put("pdList",productList);  

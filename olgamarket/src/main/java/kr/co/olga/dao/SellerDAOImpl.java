@@ -34,6 +34,7 @@ public class SellerDAOImpl implements SellerDAO {
 	
 	@Override
 	public SellerVO sellerSelOne(String selId) {
+		System.out.println(selId + "==================================");
 		return session.selectOne("sellerMapper.sellerSelOne",selId);
 	}
 	

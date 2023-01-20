@@ -57,7 +57,7 @@ public interface ProductService {
 	List<ProductVO> getPdList(ProductVO vo);
 
 // 관리자용 모든 상품 조회	
-	PagingVO getProductPageInfo(int currPage);
+	PagingVO getProductPageInfo(int currPage, String brandName, String selId);
 	
 	List<ProductVO> getProductPageList(PagingVO vo);
 

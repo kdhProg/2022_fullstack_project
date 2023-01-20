@@ -185,9 +185,14 @@ public class ProductServiceImpl implements ProductService {
 
 // 관리자용 모든 상품 조회	
 	@Override
-	public PagingVO getProductPageInfo(int currPage) {
+	public PagingVO getProductPageInfo(int currPage, String brandName, String selId) {
 		PagingVO vo = new PagingVO();
-		int setTotalRecordCount = dao.getProductCount();
+		
+		PagingVO countVo = new PagingVO();
+		countVo.setPdstlBrandName(brandName);
+		countVo.setSelId(selId);
+		
+		int setTotalRecordCount = dao.getProductSellerCount(countVo);
 		int recordCountPerPage = 20;
                         
 		int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
@@ -195,7 +200,7 @@ public class ProductServiceImpl implements ProductService {
 		int firstPageNoOnPageList = lastPageNoOnPageList - 9;
 		//int firstPageNoOnPageList = lastPageNoOnPageList - 9;
 		
-		int realEnd = (int)(Math.ceil((dao.getProductCount() * 1.0) / 20));
+		int realEnd = (int)(Math.ceil((dao.getProductSellerCount(countVo) * 1.0) / 20));
 		if(realEnd < lastPageNoOnPageList) {
 			lastPageNoOnPageList = realEnd;
 		}
@@ -221,6 +226,8 @@ public class ProductServiceImpl implements ProductService {
 		vo.setXprev(xprev);
 		vo.setContEnd(contEnd);
 		vo.setContStart(contStart);
+		vo.setPdstlBrandName(brandName);
+		vo.setSelId(selId);
 		
 		return vo;
 	}

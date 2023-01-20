@@ -157,7 +157,7 @@ public class SellerController {
 	// 세션으로 가져온 판매자 상품 목록
 	@RequestMapping(value = "/productList")
 	@ResponseBody
-	public Map<String, Object> productList(String showPage) {
+	public Map<String, Object> productList(String showPage, String brandName, String selId) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		int stShowPage = Integer.parseInt(showPage);
@@ -169,21 +169,23 @@ public class SellerController {
 			currPage = stShowPage;
 		}
 		
-		PagingVO vo = productService.getProductPageInfo(currPage); //페이징에 필요한 정보 계산
+		PagingVO vo = productService.getProductPageInfo(currPage, brandName, selId); //페이징에 필요한 정보 계산
 		List<ProductVO> productList =  productService.getProductPageList(vo);
 		
 		result.put("pdList",productList);  
 		result.put("pageInfo",vo);  //페이징정보
 		result.put("currPage",currPage); //현재페이지
+		result.put("selId", selId);
 
 		return result;
 	}
 	
 	// 상품 하나 조회 + 문의글 조회
 	@RequestMapping(value = "/productOne")
-	public String productOne(Model model, ProductVO vo) {
+	public String productOne(Model model, ProductVO vo, String selId) {
 		model.addAttribute("productOne", productService.productSelectOne(vo.getPdId()));
-
+		model.addAttribute("slId", sellerService.sellerSelOne(selId));
+		
 		List<SelQuiryVO> selQnList = selquiryService.getSelectList(vo.getPdId());
 		model.addAttribute("selQnList", selQnList);
 		
@@ -227,6 +229,7 @@ public class SellerController {
 	public String selQuiryOne(Model model, SelQuiryVO vo)	{
 		model.addAttribute("selQuiryOne", selquiryService.getSelectOne(vo.getSqNo()));
 		
+		
 		List<SelAnswerVO> selAnList = selanswerService.selAnswerList(vo.getSqNo());
 		model.addAttribute("selAnList", selAnList);
 		
@@ -243,9 +246,8 @@ public class SellerController {
 	
 	// 판매자 문의 등록 화면 
 	@RequestMapping(value = "/selQuiryInsertView")
-	public String selQuiryInsertView(SellerVO selVo, ProductVO pdVo,Model model ) {
-		model.addAttribute("selQuirySelIn", sellerService.sellerSelOne(selVo.getSelId()));
-		model.addAttribute("selQuiryPdIn", productService.productSelectOne(pdVo.getPdId()));
+	public String selQuiryInsertView(SellerVO vo, Model model) {
+		model.addAttribute("selQuiryIn", sellerService.sellerSelOne(vo.getSelId()));
 		
 		return "/seller/selQuiryInsertView";
 	}
