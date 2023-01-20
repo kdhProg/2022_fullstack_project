@@ -23,14 +23,14 @@
 
 <body>
 	<h1>판매자 / 문의 관리</h1>
-	<a href="#" onclick="npqList(1, 1, '${member.getSelId()}');return false;" id="npqListBt">신상품 등록 문의</a>
-	<a href="#" onclick="pdList(1, '${member.getSelstlBrandName()}', '${member.getSelId()}');return false;" id="pdListBt">등록된 상품 목록</a>
+	<a href="#" onclick="npqList(1, 1, '${seller.getSelId()}');return false;" id="npqListBt">신상품 등록 문의</a>
+	<a href="#" onclick="pdList(1, '${seller.getSelstlBrandName()}', '${seller.getSelId()}');return false;" id="pdListBt">등록된 상품 목록</a>
 	
 	<hr />
 
 <!-- 신상품 등록 문의 -->
-<form name="insertForm" method="post" action="/seller/newPdQuiryInsertView?selId=${member.getSelId()}">
-	<span class="sessionSelId">${member.getSelId()}</span>
+<form name="insertForm" method="post" action="/seller/newPdQuiryInsertView?selId=${seller.getSelId()}">
+	<span class="sessionSelId">${seller.getSelId()}</span>
 	<div id="npqDiv" style="display : none;">
 		<a href="#" onclick="sortList1(1);return false;" id="sortBtn1">답변 대기</a>
 		<a href="#" onclick="sortList1(2);return false;" id="sortBtn2">답변 완료</a>
@@ -44,8 +44,8 @@
 
 <!-- 등록된 상품 목록 -->	
 	<div id="pdDiv" style="display : none;">
-	<span class="sessionBrandName">${member.getSelstlBrandName()}</span>
-	<span class="sessionpdSelId">${member.getSelId()}</span>
+	<span class="sessionBrandName">${seller.getSelstlBrandName()}</span>
+	<span class="sessionpdSelId">${seller.getSelId()}</span>
 		<div id="pdResultList"></div>
 		<div id="pdResultPagingNo"></div>
 	</div>

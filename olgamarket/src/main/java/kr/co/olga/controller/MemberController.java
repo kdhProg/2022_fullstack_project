@@ -74,7 +74,7 @@ public class MemberController {
 				return "member/login";
 			}else {
 				//판매자 로그인 성공
-				session.setAttribute("member", sellogin);
+				session.setAttribute("seller", sellogin);
 				return "redirect:/";
 			}
 		}
