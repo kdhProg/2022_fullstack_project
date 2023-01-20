@@ -13,19 +13,22 @@
 #selListBt, #sqListBt{
 	text-decoration: none;
 }
+.sessionSelId{
+	display: none;
+}
 
 </style>
 
 <body>
 	<h1>판매자 / 문의 관리</h1>
-	<a href="#" onclick="npqList(1);return false;" id="npqListBt">신상품 등록 문의</a>
+	<a href="#" onclick="npqList(1, 1, '${member.getSelId()}');return false;" id="npqListBt">신상품 등록 문의</a>
 	<a href="#" onclick="pdList(1);return false;" id="pdListBt">등록된 상품 목록</a>
 	
 	<hr />
 
 <!-- 신상품 등록 문의 -->
 <form name="insertForm" method="post" action="/seller/newPdQuiryInsertView?selId=${member.getSelId()}">
-	
+	<span class="sessionSelId">${member.getSelId()}</span>
 	<div id="npqDiv" style="display : none;">
 		<a href="#" onclick="sortList1(1);return false;" id="sortBtn1">답변 대기</a>
 		<a href="#" onclick="sortList1(2);return false;" id="sortBtn2">답변 완료</a>
@@ -46,15 +49,18 @@
 <script>
 /********************* 신상품 등록 문의 목록 *******************************************************************/
 var sortType1 = 1; 
-$(document).ready(npqList(1), 1);
-function npqList(pageNo, sortNo) {
+let selIdType = $(".sessionSelId").text();
+$(document).ready(npqList(1, 1, selIdType));
+function npqList(pageNo, sortNo, npqselId) {
+	
 	$.ajax({
         url : "/seller/newPdQuiryList",
         type : "get",
         data : {
         	showPage : pageNo,
-        	sort : sortNo
-        },
+        	sort : sortNo,
+        	npqselId : npqselId
+        }, 
         success : function(data){
         	
         	var pageInfo = data.pageInfo;
@@ -79,18 +85,18 @@ function npqList(pageNo, sortNo) {
 			$("#newPdQuiryResultList").html(npqContentTag); //메인 컨텐츠 적용
 			
 			if(pageInfo.xprev){
-				npqPagingTag+="<a href='#' onclick='npqList("+(pageInfo.firstPageNoOnPageList-1)+ ", " + sortType1 +");return false;'>[prev]</a>&nbsp;&nbsp;&nbsp;";
+				npqPagingTag+="<a href='#' onclick='npqList("+(pageInfo.firstPageNoOnPageList-1)+ ", " + sortType1 +" , \""+ selIdType +"\");return false;'>[prev]</a>&nbsp;&nbsp;&nbsp;";
 			}
 			for(var i = pageInfo.firstPageNoOnPageList; i< pageInfo.lastPageNoOnPageList+1;i++){
 				if(i == currPage){
 					npqPagingTag+="<span>["+i+"]&nbsp;&nbsp;&nbsp;</span>";
 				}else{
-					npqPagingTag+="<a href='#' onclick='npqList(" + i + ", " + sortType1 +");return false;'>["+i+"]</a>&nbsp;&nbsp;&nbsp;";
+					npqPagingTag+="<a href='#' onclick='npqList(" + i + ", " + sortType1 +" , \""+ selIdType +"\");return false;'>["+i+"]</a>&nbsp;&nbsp;&nbsp;";
 				}
 				
 			}
 			if(pageInfo.xnext){
-				npqPagingTag+="<a href='#' onclick='npqList("+(pageInfo.lastPageNoOnPageList+1)+ ", " + sortType1 +");return false;'>[next]</a>&nbsp;&nbsp;&nbsp;";
+				npqPagingTag+="<a href='#' onclick='npqList("+(pageInfo.lastPageNoOnPageList+1)+ ", " + sortType1 +" , \""+ selIdType +"\");return false;'>[next]</a>&nbsp;&nbsp;&nbsp;";
 			}
 			
 			$("#newPdQuiryResultPagingNo").html(npqPagingTag); //페이징 적용
@@ -104,7 +110,7 @@ function npqList(pageNo, sortNo) {
 //정렬함수
 function sortList1(inputsort){
 	sortType1 = inputsort;
-	npqList(1,sortType1);
+	npqList(1,sortType1, selIdType);
 }
 /********************* 판매자 등록 상품 문의 *******************************************************************/ 
 $(document).ready(pdList(1));

@@ -23,7 +23,8 @@
 		   				</if>
 		 				) mp
 	      			where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
-	      				order by npqNo desc		
+	      				and npqselId = #{npqselId}
+	      					order by npqNo desc		
 	</select>
 
 <!-- 조회 -->

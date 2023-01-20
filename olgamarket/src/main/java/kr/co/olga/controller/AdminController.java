@@ -238,7 +238,7 @@ public class AdminController {
 	// 신상품 등록 문의 리스트
 	@RequestMapping(value = "newPdQuiryList")
 	@ResponseBody
-	public Map<String, Object> newPdQuiryList(String showPage, Integer sort) {
+	public Map<String, Object> newPdQuiryList(String showPage, Integer sort, String npqselId) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		int stShowPage = Integer.parseInt(showPage);
@@ -258,7 +258,7 @@ public class AdminController {
 		}
 		
 		
-		PagingVO vo = newPdQuiryService.getNewPdQuiryPageInfo(currPage, sortType); //페이징에 필요한 정보 계산
+		PagingVO vo = newPdQuiryService.getNewPdQuiryPageInfo(currPage, sortType, npqselId); //페이징에 필요한 정보 계산
 		List<SelQuiryVO> npqList = newPdQuiryService.getNewPdQuiryPageList(vo);
 		
 		result.put("npqList",npqList);  

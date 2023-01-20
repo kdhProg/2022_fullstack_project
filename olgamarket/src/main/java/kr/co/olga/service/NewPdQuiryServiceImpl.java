@@ -18,7 +18,7 @@ public class NewPdQuiryServiceImpl implements NewPdQuiryService {
 
 // 신상품 등록 문의 페이징	
 	@Override
-	public PagingVO getNewPdQuiryPageInfo(int currPage, int sortType) {
+	public PagingVO getNewPdQuiryPageInfo(int currPage, int sortType, String npqselId) {
 		PagingVO vo = new PagingVO();
 		int setTotalRecordCount = dao.getNewPdQuiryCount();
 		int recordCountPerPage = 20;
@@ -55,6 +55,7 @@ public class NewPdQuiryServiceImpl implements NewPdQuiryService {
 		vo.setContEnd(contEnd);
 		vo.setContStart(contStart);
 		vo.setSort(sortType);
+		vo.setNpqselId(npqselId);
 		
 		return vo;
 	}
