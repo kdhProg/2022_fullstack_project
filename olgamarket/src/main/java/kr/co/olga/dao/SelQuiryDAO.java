@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.SelQuiryVO;
+import lombok.NonNull;
 
 public interface SelQuiryDAO {
 
@@ -16,5 +17,11 @@ public interface SelQuiryDAO {
 
 // 답변 작성 시 답변 상태 업데이트
 	long selQuiryStateUpdate(SelQuiryVO sqVo);
+
+// 문의글 작성		
+	long selQuiryInsert(SelQuiryVO vo);
+
+// 판매자 페이지
+	List<SelQuiryVO> getSelectList(@NonNull Long pdId);
 
 }

@@ -4,10 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -130,7 +126,7 @@ public class SellerController {
 		return "redirect:/seller/dedicated";
 	}
 	
-	// 신산풍 등록 문의 수정 화면 
+	// 신상품 등록 문의 수정 화면 
 	@RequestMapping(value = "newPdQuiryUpdateView")
 	public String newPdQuiryUpdateView(NewPdQuiryVO vo, Model model) {
 		model.addAttribute("npqUp", newPdQuiryService.newPdQuirySelectOne(vo.getNpqNo()));
@@ -139,14 +135,14 @@ public class SellerController {
 		return "/seller/newPdQuiryUpdateView";
 	}
 	
-	// 신산풍 등록 문의 삭제
-		@RequestMapping(value = "newPdQuiryDelete")
-		public String newPdQuiryDelete(NewPdQuiryVO vo) {
-			newPdQuiryService.newPdQuiryDelete(vo.getNpqNo());
-			
-			return "redirect:/seller/dedicated";
-		}
-	
+	// 신상품 등록 문의 삭제
+	@RequestMapping(value = "newPdQuiryDelete")
+	public String newPdQuiryDelete(NewPdQuiryVO vo) {
+		newPdQuiryService.newPdQuiryDelete(vo.getNpqNo());
+		
+		return "redirect:/seller/dedicated";
+	}
+
 	
 	
 	
@@ -157,6 +153,42 @@ public class SellerController {
 	
 	@Autowired
 	private SelAnswerService selanswerService;
+	
+	// 세션으로 가져온 판매자 상품 목록
+	@RequestMapping(value = "/productList")
+	@ResponseBody
+	public Map<String, Object> productList(String showPage) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		int stShowPage = Integer.parseInt(showPage);
+		
+		int currPage;
+		if(showPage == null) {
+			currPage = 1;
+		}else {
+			currPage = stShowPage;
+		}
+		
+		PagingVO vo = productService.getProductPageInfo(currPage); //페이징에 필요한 정보 계산
+		List<ProductVO> productList =  productService.getProductPageList(vo);
+		
+		result.put("pdList",productList);  
+		result.put("pageInfo",vo);  //페이징정보
+		result.put("currPage",currPage); //현재페이지
+
+		return result;
+	}
+	
+	// 상품 하나 조회 + 문의글 조회
+	@RequestMapping(value = "/productOne")
+	public String productOne(Model model, ProductVO vo) {
+		model.addAttribute("productOne", productService.productSelectOne(vo.getPdId()));
+
+		List<SelQuiryVO> selQnList = selquiryService.getSelectList(vo.getPdId());
+		model.addAttribute("selQnList", selQnList);
+		
+		return "/seller/productOne";
+	}
 	
 	// 판매자 문의 목록 + 페이징
 	@RequestMapping(value = "/selQuiryList")
@@ -202,9 +234,21 @@ public class SellerController {
 	}
 	
 	// 판매자 문의 등록
-	
+	@RequestMapping(value = "/selQuiryInsert")
+	public String selQuiryInsert(SelQuiryVO vo) {
+		selquiryService.selQuiryInsert(vo);
+		
+		return "redirect:/seller/dedicated";
+	}
 	
 	// 판매자 문의 등록 화면 
+	@RequestMapping(value = "/selQuiryInsertView")
+	public String selQuiryInsertView(SellerVO selVo, ProductVO pdVo,Model model ) {
+		model.addAttribute("selQuirySelIn", sellerService.sellerSelOne(selVo.getSelId()));
+		model.addAttribute("selQuiryPdIn", productService.productSelectOne(pdVo.getPdId()));
+		
+		return "/seller/selQuiryInsertView";
+	}
 	
 	
 	// 판매자 문의 수정
