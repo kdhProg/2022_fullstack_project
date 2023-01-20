@@ -47,7 +47,8 @@ public interface ProductService {
 	
 	List<String> getCateList(String pgName);  //페이지이름(신상품/베스트 등)을 문자열로 주면 해당 카테고리를 모아옴
 
-	PagingVO getProdPageInfo(int currPage,String pgName,int sortType,ArrayList<String> finalCateList);
+	PagingVO getProdPageInfo(int currPage,String pgName,int sortType,ArrayList<String> finalCateList
+			,ArrayList<String> finalBrandList,ArrayList<String> finalpriceList);
 
 	List<ProductVO> getProdPageList(PagingVO vo);
 

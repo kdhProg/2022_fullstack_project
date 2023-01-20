@@ -118,13 +118,17 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public PagingVO getProdPageInfo(int currPage,String pgName,int sortType,ArrayList<String> finalCateList) {
+	public PagingVO getProdPageInfo(int currPage,String pgName,int sortType,
+			ArrayList<String> finalCateList,ArrayList<String> finalBrandList
+			,ArrayList<String> finalpriceList) {
 		PagingVO vo = new PagingVO();
 		
 		//count전용 임시VO
 		PagingVO temp_vo = new PagingVO();
 		temp_vo.setPgName(pgName);
 		temp_vo.setCategories(finalCateList);
+		temp_vo.setBrandNames(finalBrandList);
+		temp_vo.setPriceLists(finalpriceList);
 		
 		int setTotalRecordCount = dao.getProdCount(temp_vo);
 		int recordCountPerPage = 40;
@@ -162,7 +166,10 @@ public class ProductServiceImpl implements ProductService {
 		vo.setContStart(contStart);
 		vo.setPgName(pgName);
 		vo.setSort(sortType);
-		vo.setCategories(finalCateList);
+		
+		vo.setCategories(finalCateList);  // 카테고리정보
+		vo.setBrandNames(finalBrandList);  // 브랜드 정보
+		vo.setPriceLists(finalpriceList);  // 가격정보
 		
 		return vo;
 	}
