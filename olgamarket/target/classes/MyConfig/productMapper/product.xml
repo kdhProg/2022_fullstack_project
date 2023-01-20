@@ -123,7 +123,7 @@
 
 <!-- 해당 페이지의 레코드 조회 -->
 <!-- 문자열 인자 하나 넘길때 오류발생시 _parameter로 해보기 -->
-<!-- 20230115 김동훈 수정 -->
+<!-- 20230120 김동훈 수정 -->
 <select id="getProdCount" parameterType="PagingVO" resultType="Integer">
 	select count(*) from productDatas where
 	<if test="pgName == 'newProduct'">
@@ -139,8 +139,8 @@
     	pdmaincategory = #{pgName}
     </if>
     <if test="categories!=null and categories.size!=0">
-	    <foreach collection="categories" item="cate" open="" close="" separator=" or ">
-			pdMainCategory = #{cate}
+	    <foreach collection="categories" item="cate" open=" and (" close=")" separator=" or ">
+			pdmaincategory = #{cate}
 		</foreach>
 	</if>
 </select>
@@ -164,7 +164,7 @@
     			</if>
 				<if test="categories!=null and categories.size!=0">
 					<foreach collection="categories" item="cate" open=" and (" close=")" separator=" or ">
-						pdMainCategory = #{cate}
+						pdmaincategory = #{cate}
 					</foreach>
 				</if>
 				order by 

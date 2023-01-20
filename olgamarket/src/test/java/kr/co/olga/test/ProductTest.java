@@ -15,6 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.olga.dao.ProductDAO;
 import kr.co.olga.service.ProductService;
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ProductVO;
@@ -27,6 +28,25 @@ public class ProductTest {
 
 	@Autowired
 	private ProductService service;
+	
+	/* 테스트용 DAO */
+	@Autowired
+	private ProductDAO dao;
+	
+	@Test
+	public void productCateTest() {
+		//깡통배열
+		ArrayList<String> list = new ArrayList<String>();
+		list.add("수산물");
+		System.out.println(list.isEmpty());
+		
+		PagingVO vo = new PagingVO();
+		vo.setPgName("newProduct");
+		vo.setCategories(list);
+		
+		System.out.println(dao.getProdCount(vo));
+	}
+	//count전용 임시VO
 	
 	@Test
 	@Ignore
