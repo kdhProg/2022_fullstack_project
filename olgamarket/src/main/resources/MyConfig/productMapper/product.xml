@@ -243,7 +243,7 @@
 		select * from productDatas where pdstlBrandName = '판매점1'
 	</select>
 
-<!-- 관리자용 모든 상품 조회 -->
+<!-- 판매자용 모든 상품 조회 -->
 	<select id="getProductPageList" parameterType="PagingVO" resultType="ProductVO">
 		select * from 
 			(select pdId, pdThumbImg, pdName, pdMainCategory, pdSubCategory, pdstlBrandName,  
@@ -315,6 +315,24 @@
 			where pd.pdstlBrandName = #{pdstlBrandName}
 			and sel.selId = #{selId}
 	</select> 
+	
+	
+	
+	
+<!-- 관리자 페이지 상품 관리에 모든 상품 목록 띄우기 + 페이징 -->
+	<select id="getProductAdminCount" resultType="Integer">
+		select count(*) from productDatas
+	</select>
+	
+	<select id="getProductAdminPageList" parameterType="PagingVO" resultType="ProductVO">
+		select * from 
+			(select pdId, pdThumbImg, pdName, pdMainCategory, pdSubCategory, pdstlBrandName,  
+			pdStorageType, pdUnit, pdWeight, pdCountry, pdBBE, pdRegiDate, pdUpdDate, pdDesInfoImg,
+			pdSeason, pdHits, pdSalesVolume, pdPrice, pdSale, pdStock, row_number() OVER(order by pdId desc) as Rnum
+				from productDatas) mp
+					where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+	      				order by pdId desc
+	</select>
  
 </mapper>
 

@@ -179,6 +179,17 @@ public class ProductDAOImpl implements ProductDAO {
 	public int getProductSellerCount(PagingVO countVo) {
 		return session.selectOne("productMapper.getProductSellerCount", countVo);
 	}
+
+// 관리자 페이지 상품 관리에 모든 상품 목록 띄우기 + 페이징
+	@Override
+	public int getProductAdminCount() {
+		return session.selectOne("productMapper.getProductAdminCount");
+	}
+
+	@Override
+	public List<ProductVO> getProductAdminPageList(PagingVO vo) {
+		return session.selectList("productMapper.getProductAdminPageList", vo);
+	}
 	
 	
 	

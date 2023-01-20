@@ -75,6 +75,11 @@ public interface ProductService {
 // 판매자 관리페이지에 띄우는 판매자 별 판매 중인 상품 목록 	
 	List<ProductVO> getSelectList(String selstlBrandName);
 
+// 관리자 페이지 상품 관리에 모든 상품 목록 띄우기 + 페이징	
+	PagingVO getProductAdminPageInfo(int currPage);
+
+	List<ProductVO> getProductAdminPageList(PagingVO vo);
+
 
 	
 

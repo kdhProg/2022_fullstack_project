@@ -309,5 +309,53 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVO> getSelectList(String selstlBrandName) {
 		return dao.getSelectList(selstlBrandName);
 	}
+
+// 관리자 페이지 상품 관리에 모든 상품 목록 띄우기 + 페이징	
+	@Override
+	public PagingVO getProductAdminPageInfo(int currPage) {
+		PagingVO vo = new PagingVO();
+		
+		int setTotalRecordCount = dao.getProductAdminCount();
+		int recordCountPerPage = 20;
+                        
+		int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
+		//int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
+		int firstPageNoOnPageList = lastPageNoOnPageList - 9;
+		//int firstPageNoOnPageList = lastPageNoOnPageList - 9;
+		
+		int realEnd = (int)(Math.ceil((dao.getProductAdminCount() * 1.0) / 20));
+		if(realEnd < lastPageNoOnPageList) {
+			lastPageNoOnPageList = realEnd;
+		}
+		
+		int firstRecordIndex = (currPage - 1) * recordCountPerPage;
+		boolean xprev= firstPageNoOnPageList > 1;
+		boolean xnext = lastPageNoOnPageList < realEnd;
+		
+		int contEnd = currPage*20;
+		int contStart = contEnd-19;
+		if(contEnd > setTotalRecordCount) {
+			contEnd = setTotalRecordCount;
+		}
+		
+		vo.setCurrentpageno(currPage);
+		vo.setFirstPageNoOnPageList(firstPageNoOnPageList);
+		vo.setFirstRecordIndex(firstRecordIndex);
+		vo.setLastPageNoOnPageList(lastPageNoOnPageList);
+		vo.setRealEnd(realEnd);
+		vo.setRecordCountPerPage(recordCountPerPage);
+		vo.setTotalRecordCount(setTotalRecordCount);
+		vo.setXnext(xnext);
+		vo.setXprev(xprev);
+		vo.setContEnd(contEnd);
+		vo.setContStart(contStart);
+		
+		return vo;
+	}
+
+	@Override
+	public List<ProductVO> getProductAdminPageList(PagingVO vo) {
+		return dao.getProductAdminPageList(vo);
+	}
 	
 }

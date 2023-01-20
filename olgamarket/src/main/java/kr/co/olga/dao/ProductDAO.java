@@ -72,6 +72,11 @@ public interface ProductDAO {
 
 	int getProductSellerCount(PagingVO countVo);
 
+// 관리자 페이지 상품 관리에 모든 상품 목록 띄우기 + 페이징
+	int getProductAdminCount();
+
+	List<ProductVO> getProductAdminPageList(PagingVO vo);
+
 	
 
 	
