@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page session="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,20 +11,19 @@
 <body>
 <section id="container">
 	<form role="form" method="post" action="/admin/selAnswerInsert">
-		<input type="text" value="${npaIn.npqNo}" id="npqNo" name="npanpqNo" />
+		<input type="hidden" value="${selAnswerIn.sqNo}" id="sasqNo" name="sasqNo" />
 		<table>
 			<tbody>
 				<tr>
 					<td>
-						<label for="npaContent">내용 : </label>
-						<textarea id="npaContent" name="npaContent"></textarea>
+						<label for="saContents">내용 : </label>
+						<textarea id="saContents" name="saContents"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<label for="npaUpdDate">등록날짜 : </label>
-						<fmt:parseDate value="${npaIn.npaUpdDate}" var="npaUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${npaUpdDate}" pattern="yyyy.MM.dd"/>
+						<fmt:parseDate value="${selAnswerIn.sqUpdDate}" var="sqUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${sqUpdDate}" pattern="yyyy.MM.dd"/>
 					</td>
 				</tr>
 				<tr>

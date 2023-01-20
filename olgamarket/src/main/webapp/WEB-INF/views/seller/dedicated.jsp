@@ -13,9 +13,10 @@
 #selListBt, #sqListBt{
 	text-decoration: none;
 }
-.sessionSelId, .sessionBrandName .sessionpdSelId{
+.sessionSelId, .sessionBrandName, .sessionpdSelId{
 	display: none;
 }
+
 
 
 </style>
@@ -113,7 +114,7 @@ function npqList(pageNo, sortNo, npqselId) {
 //정렬함수
 function sortList1(inputsort){
 	sortType1 = inputsort;
-	npqList(1,sortType1);
+	npqList(1, sortType1, selIdType);
 }
 /********************* 판매자 등록 상품 문의 *******************************************************************/ 
 let brandNameType = $(".sessionBrandName").text();

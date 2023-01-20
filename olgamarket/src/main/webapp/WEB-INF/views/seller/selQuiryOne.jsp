@@ -29,7 +29,7 @@
 			</tr>
 			<tr>
 				<td>${selQuiryOne.sqNo}</td>
-				<td><a href="/admin/productOne?pdId=${selQuiryOne.sqpdId}">${selQuiryOne.sqpdId}</a></td>
+				<td>${selQuiryOne.sqpdId}</td>
 				<td>${selQuiryOne.sqTitle}</td>
 				<td>${selQuiryOne.sqContent}</td>
 				<td>${selQuiryOne.sqState}</td>
@@ -56,6 +56,18 @@
 		    </c:forEach>   
 		  </ol>
 		</div>
+		<form name="updateForm" method="post" action="/seller/sqlQuiryUpdateView">
+		<input type="hidden" name="sqNo" value="${selQuiryOne.sqNo}" />
+			<div>
+				<button type="submit" class="insert_btn">수정</button>
+			</div>
+		</form>	
+		<form name="deleteForm" method="post" action="/seller/sqlQuiryDelete">
+		<input type="hidden" name="sqNo" value="${selQuiryOne.sqNo}" />
+			<div>
+				<button type="submit" class="delete_btn">삭제</button>
+			</div>
+		</form>
 		<form name="listForm" method="post" action="/seller/dedicated">
 			<div>
 				<button type="submit" class="list_btn">목록</button>

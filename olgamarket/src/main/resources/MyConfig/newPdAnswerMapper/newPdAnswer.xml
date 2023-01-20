@@ -12,7 +12,7 @@
 <!-- 답글 등록 -->
 	<insert id="newPdAnswerInsert" parameterType="NewPdAnswerVO">
 		insert into newPdAnswers
-			values((select NVL(MAX(npanpqNo) +1, 1) from newPdAnswers), 
+			values(#{npanpqNo}, 
 					#{npaContent}, sysdate, sysdate)
 	</insert>
 

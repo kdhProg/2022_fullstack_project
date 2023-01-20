@@ -10,21 +10,26 @@
 </head>
 <body>
 <section id="container">
-	<form role="form" method="post" action="/admin/answerInsert">
-		<input type="hidden" value="${quiryIn.iqNo}" id="iqNo" name="iaiqNo" />
+	<form role="form" method="post"  action="/seller/sqlQuiryUpdate">
+		<input type="hidden" value="${selQuiryUp.sqNo}" id="sqNo" name="sqNo" />
 		<table>
 			<tbody>
 				<tr>
 					<td>
-						<label for="iaContents">내용 : </label>
-						<textarea id="iaContents" name="iaContents"></textarea>
+						<label for="sqTitle">제목 : </label>
+						<input type="text" id="sqTitle" name="sqTitle" />
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<label for="iqUpdDate">등록날짜 : </label>
-						<fmt:parseDate value="${quiryIn.iqUpdDate}" var="iqUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${iqUpdDate}" pattern="yyyy.MM.dd"/>
+						<label for="sqContent">내용 : </label>
+						<textarea id="sqContent" name="sqContent"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<fmt:parseDate value="${selQuiryUp.sqUpdDate}" var="sqUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${sqUpdDate}" pattern="yyyy.MM.dd"/>
 					</td>
 				</tr>
 				<tr>

@@ -51,7 +51,7 @@
 		delete from newPdQuirys where npqNo = #{npqNo} 
 	</delete>
 
-<!--  -->
+<!-- 답글 등록 시 답변 상태 업데이트 -->
 	<update id="newPdQuiryStateUpdate" parameterType="NewPdQuiryVO">
 		update newPdQuirys 
 			set npqState = 1 where npqNo = #{npqNo}

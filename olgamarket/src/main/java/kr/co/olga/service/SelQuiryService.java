@@ -25,5 +25,11 @@ public interface SelQuiryService {
 // 판매자 페이지	
 	List<SelQuiryVO> getSelectList(@NonNull Long pdId);
 
+// 수정	
+	long selQuiryUpdate(SelQuiryVO vo);
+
+// 삭제	
+	long selQuiryDelete(Long sqNo);
+
 
 }

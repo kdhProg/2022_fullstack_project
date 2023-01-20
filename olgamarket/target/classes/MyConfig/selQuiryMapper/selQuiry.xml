@@ -48,7 +48,16 @@
 		select * from sellerQuirys where sqpdId = ${sqpdId}
 	</select>
 
+<!-- 수정 -->
+	<update id="selQuiryUpdate" parameterType="SelQuiryVO">
+		update sellerQuirys 
+			set sqTitle = #{sqTitle}, sqContent = #{sqContent}, sqUpdDate = sysdate where sqNo = #{sqNo}
+	</update>
 
+<!-- 삭제 -->
+	<delete id="selQuiryDelete" parameterType="SelQuiryVO">
+		delete from sellerQuirys where sqNo = #{sqNo}
+	</delete>
 
 
 

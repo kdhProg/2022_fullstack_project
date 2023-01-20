@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page session="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +11,7 @@
 <body>
 <section id="container">
 	<form role="form" method="post"  action="/admin/newPdAnswerUpdate">
-		<input type="text" value="${npaUp.npqNo}" id="npqNo" name="npanpqNo" />
+		<input type="hidden" value="${npaUp.npqNo}" id="npqNo" name="npanpqNo" />
 		<table>
 			<tbody>
 				<tr>

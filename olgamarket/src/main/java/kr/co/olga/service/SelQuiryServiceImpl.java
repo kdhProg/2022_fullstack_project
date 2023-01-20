@@ -86,4 +86,16 @@ public class SelQuiryServiceImpl implements SelQuiryService {
 	public List<SelQuiryVO> getSelectList(@NonNull Long pdId) {
 		return dao.getSelectList(pdId);
 	}
+
+// 수정	
+	@Override
+	public long selQuiryUpdate(SelQuiryVO vo) {
+		return dao.selQuiryUpdate(vo);
+	}
+
+// 삭제	
+	@Override
+	public long selQuiryDelete(Long sqNo) {
+		return dao.selQuiryDelete(sqNo);
+	}
 }
