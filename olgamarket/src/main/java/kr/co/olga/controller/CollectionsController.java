@@ -34,7 +34,6 @@ public class CollectionsController {
 	@RequestMapping(value="/newProductCate")
 	@ResponseBody
 	public Map<String, Object> newProductCate(Integer showPage,Integer sort,@RequestParam(value="finalCateList[]",required=false) ArrayList<String> finalCateList) {
-
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		int currPage;
@@ -65,7 +64,9 @@ public class CollectionsController {
 		result.put("currPage",currPage); //현재페이지
 		result.put("sortType",sortType);  //정렬정보
 		result.put("cateList",cateList);  //카테고리목록
-		result.put("brandList",brandList); //브랜드목록
+		result.put("brandList",brandList); //브랜드목록(전체)
+		result.put("activeCateList",finalCateList); //가변브랜드목록(버튼누를때마다 인자로 넘어오는것)
+		
 		
 //		for(int i=0;i<pageList.size();i++) {
 //			System.out.println(pageList.get(i).getPdMainCategory()+"    "+i);
@@ -86,7 +87,6 @@ public class CollectionsController {
 	@RequestMapping(value="/bestProductList")
 	@ResponseBody
 	public Map<String, Object> bestProductList(Integer showPage,Integer sort,@RequestParam(value="finalCateList[]",required=false) ArrayList<String> finalCateList) {
-
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		int currPage;
@@ -117,7 +117,7 @@ public class CollectionsController {
 		result.put("currPage",currPage); //현재페이지
 		result.put("sortType",sortType);  //정렬정보
 		result.put("cateList",cateList);  //카테고리목록
-		result.put("brandList",brandList); //브랜드목록
+		result.put("brandList",brandList); //브랜드목록(전체)
 		
 		return result;
 	}
