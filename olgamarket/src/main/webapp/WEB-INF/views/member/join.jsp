@@ -9,16 +9,25 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <style>
+* {
+	/* 초기화 */
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    letter-spacing: 0;
+    word-spacing: 0;
+}
 /* 주소는 API로 넣기 전까지는 보이지 않음 */
 .daum_address_wrapper{
 	display: none;
 }
 
-/* 판매자폼은 선택하기 전까지는 보이지 않음 */
-.seller_entire_form{
+/* 판매자폼은 선택하기 전까지는 보이지 않음*/
+.seller_entire_form{	
 	display: none;
 }
 
+/* 판매자/일반회원 선택버튼 -- 시작 */
 .typeSelect_btn_wrap {
     padding: 15px 10px;
 }
@@ -44,7 +53,9 @@
     background-color: rgb(234, 44, 0);
     color: #fff;
 }
+/* 판매자/일반회원 선택버튼 -- 끝 */
 
+/* 조인버튼 */
 .join_button{
 	display: inline-block;
 	background-color: rgb(234, 44, 0);
@@ -59,170 +70,207 @@
     font-size:13px;
 }
 
+/* 20230120 */
+
+.form_and_checkList_wrapper{
+	width: 70%;
+	border: 3px solid green;
+}
+.form_wrapper{
+	width: 70%;
+	border: 1px solid red;
+}
+.checkList_wrap{
+	width: 20%;
+	border: 1px solid blue;
+}
+
+.checkList_wrap {position:absolute;width:200px;top:50%;margin-top:-50px;right:300px;background:#fff;}
+.checkList_wrap ul {position:relative;float:left;width:100%;display:inline-block;*display:inline;border:1px solid #ddd;}
+.checkList_wrap ul li {float:left;width:100%;border-bottom:1px solid #ddd;text-align:center;display:inline-block;*display:inline;}
+.checkList_wrap ul li input {position:relative;float:left;width:30%;height:30px;line-height:30px;text-align:center;color:#999;font-size:9.5pt;}
+.checkList_wrap ul li label {position:relative;float:left;width:65%;height:30px;line-height:30px;text-align:center;color:#999;font-size:9.5pt;}
+.checkList_wrap ul li input:hover {color:#000;}
+.checkList_wrap ul li:last-child {border-bottom:0;}
+
+
 </style>
 <body>
-<div class="form_wrapper">
-	<form id="join_form" method="get">
-	<div class="wrap">
-		<div class="subjecet">
-			<span>회원가입</span>
-		</div>
-		<!-- 아이디 -->
-		<div class="id_wrap">
-			<div class="id_name">아이디</div>
-			<div class="id_input_box">
-				<input class="id_input" name="memId" maxlength="16">
+<div class="form_and_checkList_wrapper">
+	<div class="form_wrapper">
+		<form id="join_form" method="get">
+		<div class="wrap">
+			<div class="subjecet">
+				<span>회원가입</span>
 			</div>
-			<button type="button" class="id_duplicate_check">아이디 중복검사</button>
-			<span class="id_alert_box"></span>
-			<span class="id_role_msg"></span>
-		</div>
-		
-		<!-- 비밀번호 -->
-		<div class="pw_wrap">
-			<div class="pw_name">비밀번호</div>
-			<div class="pw_input_box">
-				<input type="password" class="pw_input" name="memPwd" maxlength="20">
-			</div>
-			<span class="pwd_alert_box"></span>			
-		</div>
-		
-		<!-- 비밀번호확인 -->
-		<div class="pwck_wrap">
-			<div class="pwck_name">비밀번호확인</div>
-			<div class="pwck_input_box">
-				<input type="password" class="pwck_input" name="memPwdck" maxlength="20">
-			</div>
-			<span class="pwck_alert_box"></span>			
-		</div>
-		
-		<!-- 이름 -->
-		<div class="nameBox_wrap">
-			<div class="nameBox_name">성명</div>
-			<div class="nameBox_input_box">
-				<input class="nameBox_input" name="memName" maxlength="5">
-			</div>
-			<span class="nameBox_alert_box"></span>			
-		</div>
-		
-		<!-- 이메일 -->
-		<div class="email_wrap">
-			<div class="email_name">이메일</div>
-			<div class="email_input_box">
-				<input class="email_input" name="memEmail" placeholder="예시: abcde@olga.com">
-			</div>
-			<button type="button" class="email_duplicate_check">이메일 중복검사</button>
-			<span class="email_alert_box"></span>			
-		</div>
-		
-		<!-- 전화번호 -->
-		<div class="phone_wrap">
-			<div class="phone_name">전화번호</div>
-			<div class="phone_input_box">
-				<input class="phone_input" name="memPhone" maxlength="13" oninput="autoHypen(this)">
-			</div>
-			<input type="button" value="인증번호받기(구현X)"/>
-			<span class="phone_alert_box"></span>			
-		</div>
-		
-		<!-- 주소 -->
-		<div class="address_wrap">
-			<div class="address_name">주소</div>
-			<div class="address_input_box">
-				<div class="daum_address_wrapper">
-					<input type="text" id="main_postcode" placeholder="우편번호" readonly="readonly" name="mainPostcode"><br />
-					<input type="text" id="main_address" placeholder="주소" readonly="readonly" name="mainAddress"><br>
-					<input type="text" class="address_input" id="main_detailAddress" placeholder="상세주소" name="mainDetailAddress"><br />
-				</div>
-				<input class="daum_address_btn" type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-			</div>
-			<span class="address_alert_box"></span>			
-		</div>
-		
-		<!-- 생년월일 -->
-		<div class="birth_wrap">
-			<div class="birth_name">생일</div>
-			<div class="birth_input_box">
-				<input type="text" class="birth_input_year" name="memBirthYear" maxlength="4">/
-				<input type="text" class="birth_input_month" name="memBirthMonth" maxlength="2" disabled="disabled">/
-				<input type="text" class="birth_input_date" name="memBirthDate" maxlength="2" disabled="disabled">
-			</div>
-			<span class="birth_alert_box"></span>		
-			<span class="birth_alert_box_adeYear"></span>	
-		</div>
-		
-		<!-- 성별 -->
-		<div class="gender_wrap">
-			<div class="gender_name">성별</div>
-			<div class="gender_input_box">
-				<input type="radio" id="select" name="memGender" value="남성" checked="checked"><label for="select">남성</label>
-   				<input type="radio" id="select2" name="memGender" value="여성"><label for="select2">여성</label>
-			</div>		
-		</div>
-		
-		<!-- 일반회원/판매자 토글 버튼 : 컨트롤러에서 value를 보고 판단하도록 한다. -->
-		<div class="typeSelect_btn_wrap">
-			<input type="radio" id="typeSel1" name="typeSelRadio" value="normalMem" checked="checked"><label for="typeSel1">일반회원</label>
-			<input type="radio" id="typeSel2" name="typeSelRadio" value="sellerMem" ><label for="typeSel2">판매자회원</label>
-		</div>
-		
-		<!-- ***************************판매자전용 추가 탭*************************** -->
-		<!-- 판매자-고유번호 -->
-		<div class="seller_entire_form">
-			<div class="seller_marketUniqueNo_wrap">
-				<div class="seller_marketUniqueNo_name">판매자-발급고유번호</div>
-				<div class="seller_marketUniqueNo_input_box">
-					<input type="text" class="seller_marketUniqueNo_input" name="selMarketUniqueNo" maxlength="10">
-				</div>
-				<span class="seller_entire_alert_box"></span>
-				<button type="button" class="seller_marketUniqueNo_check">번호검사</button>
+			<!-- 일반회원/판매자 토글 버튼 : 컨트롤러에서 value를 보고 판단하도록 한다. -->
+			<div class="typeSelect_btn_wrap">
+				<input type="radio" id="typeSel1" name="typeSelRadio" value="normalMem" checked="checked"><label for="typeSel1">일반회원</label>
+				<input type="radio" id="typeSel2" name="typeSelRadio" value="sellerMem" ><label for="typeSel2">판매자회원</label>
 			</div>
 			
-			<!-- 판매자-판매자명>고유번호 통과 시 자동입력 -->
-			<div class="seller_brandName_wrap">
-				<div class="seller_brandName_name">판매자-판매점명</div>
-				<div class="seller_brandName_input_box">
-					<input class="seller_brandName_input" name="selstlBrandName" readonly="readonly">
+			<!-- 아이디 -->
+			<div class="id_wrap">
+				<div class="id_name">아이디</div>
+				<div class="id_input_box">
+					<input class="id_input" name="memId" maxlength="16">
+				</div>
+				<button type="button" class="id_duplicate_check">아이디 중복검사</button>
+				<span class="id_alert_box"></span>
+				<span class="id_role_msg"></span>
+			</div>
+			
+			<!-- 비밀번호 -->
+			<div class="pw_wrap">
+				<div class="pw_name">비밀번호</div>
+				<div class="pw_input_box">
+					<input type="password" class="pw_input" name="memPwd" maxlength="20">
+				</div>
+				<span class="pwd_alert_box"></span>			
+			</div>
+			
+			<!-- 비밀번호확인 -->
+			<div class="pwck_wrap">
+				<div class="pwck_name">비밀번호확인</div>
+				<div class="pwck_input_box">
+					<input type="password" class="pwck_input" name="memPwdck" maxlength="20">
+				</div>
+				<span class="pwck_alert_box"></span>			
+			</div>
+			
+			<!-- 이름 -->
+			<div class="nameBox_wrap">
+				<div class="nameBox_name">성명</div>
+				<div class="nameBox_input_box">
+					<input class="nameBox_input" name="memName" maxlength="5">
+				</div>
+				<span class="nameBox_alert_box"></span>			
+			</div>
+			
+			<!-- 이메일 -->
+			<div class="email_wrap">
+				<div class="email_name">이메일</div>
+				<div class="email_input_box">
+					<input class="email_input" name="memEmail" placeholder="예시: abcde@olga.com">
+				</div>
+				<button type="button" class="email_duplicate_check">이메일 중복검사</button>
+				<span class="email_alert_box"></span>			
+			</div>
+			
+			<!-- 전화번호 -->
+			<div class="phone_wrap">
+				<div class="phone_name">전화번호</div>
+				<div class="phone_input_box">
+					<input class="phone_input" name="memPhone" maxlength="13" oninput="autoHypen(this)">
+				</div>
+				<input type="button" value="인증번호받기(구현X)"/>
+				<span class="phone_alert_box"></span>			
+			</div>
+			
+			<!-- 주소 -->
+			<div class="address_wrap">
+				<div class="address_name">주소</div>
+				<div class="address_input_box">
+					<div class="daum_address_wrapper">
+						<input type="text" id="main_postcode" placeholder="우편번호" readonly="readonly" name="mainPostcode"><br />
+						<input type="text" id="main_address" placeholder="주소" readonly="readonly" name="mainAddress"><br>
+						<input type="text" class="address_input" id="main_detailAddress" placeholder="상세주소" name="mainDetailAddress"><br />
+					</div>
+					<input class="daum_address_btn" type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+				</div>
+				<span class="address_alert_box"></span>			
+			</div>
+			
+			<!-- 생년월일 -->
+			<div class="birth_wrap">
+				<div class="birth_name">생일</div>
+				<div class="birth_input_box">
+					<input type="text" class="birth_input_year" name="memBirthYear" maxlength="4">/
+					<input type="text" class="birth_input_month" name="memBirthMonth" maxlength="2" disabled="disabled">/
+					<input type="text" class="birth_input_date" name="memBirthDate" maxlength="2" disabled="disabled">
+				</div>
+				<span class="birth_alert_box"></span>		
+				<span class="birth_alert_box_adeYear"></span>	
+			</div>
+			
+			<!-- 성별 -->
+			<div class="gender_wrap">
+				<div class="gender_name">성별</div>
+				<div class="gender_input_box">
+					<input type="radio" id="select" name="memGender" value="남성" checked="checked"><label for="select">남성</label>
+	   				<input type="radio" id="select2" name="memGender" value="여성"><label for="select2">여성</label>
 				</div>		
 			</div>
 			
-			<!-- 판매자-사업자등록번호>고유번호 통과 시 자동입력 -->
-			<div class="seller_selRegiNo_wrap">
-				<div class="seller_selRegiNo_name">판매자-사업자등록번호</div>
-				<div class="seller_selRegiNo_input_box">
-					<input class="seller_selRegiNo_input" name="selSelRegiNo" maxlength="10" readonly="readonly">
+			<!-- ***************************판매자전용 추가 탭*************************** -->
+			<!-- 판매자-고유번호 -->
+			<div class="seller_entire_form">
+				<div class="seller_marketUniqueNo_wrap">
+					<div class="seller_marketUniqueNo_name">판매자-발급고유번호</div>
+					<div class="seller_marketUniqueNo_input_box">
+						<input type="text" class="seller_marketUniqueNo_input" name="selMarketUniqueNo" maxlength="10">
+					</div>
+					<span class="seller_entire_alert_box"></span>
+					<button type="button" class="seller_marketUniqueNo_check">번호검사</button>
+				</div>
+				
+				<!-- 판매자-판매자명>고유번호 통과 시 자동입력 -->
+				<div class="seller_brandName_wrap">
+					<div class="seller_brandName_name">판매자-판매점명</div>
+					<div class="seller_brandName_input_box">
+						<input class="seller_brandName_input" name="selstlBrandName" readonly="readonly">
+					</div>		
+				</div>
+				
+				<!-- 판매자-사업자등록번호>고유번호 통과 시 자동입력 -->
+				<div class="seller_selRegiNo_wrap">
+					<div class="seller_selRegiNo_name">판매자-사업자등록번호</div>
+					<div class="seller_selRegiNo_input_box">
+						<input class="seller_selRegiNo_input" name="selSelRegiNo" maxlength="10" readonly="readonly">
+					</div>		
+				</div>
+			</div>
+			<!-- ***************************판매자전용 추가 탭 끝*************************** -->
+			
+			<label>전체선택</label><input class="allCk" type="checkbox"/>
+			<!-- 필수약관 -->
+			<div class="essential_wrap">
+				<div class="essential_name">필수약관</div>
+				<div class="essential_select_box">
+					<input class="essentialOne termsCheckBox" type="checkbox"><label>이용약관 동의(필수)</label><br />
+	      			<input class="essentialTwo termsCheckBox" type="checkbox"><label>개인정보 수집 및 이용동의(필수)</label>
+				</div>
+				<span class="essential_alert_box"></span>			
+			</div>
+			
+			<!-- 선택약관 -->
+			<div class="choice_wrap">
+				<div class="choice_name">선택약관</div>
+				<div class="choice_select_box">
+					<input class="choiceOne termsCheckBox" type="checkbox" name="choiceSelectBoxOne" value=1><label>정보수신 이용동의(선택)</label><br />
+	      			<input class="choiceTwo termsCheckBox" type="checkbox" name="choiceSelectBoxTwo" value=10><label>추가 개인정보 수집 및 이용동의(선택)</label><br />
+	      			<input class="choiceThree termsCheckBox" type="checkbox" name="choiceSelectBoxThree" value=100><label>기타 서비스 이용 동의(선택)</label>
 				</div>		
 			</div>
-		</div>
-		<!-- ***************************판매자전용 추가 탭 끝*************************** -->
-		
-		<fieldset>
-		<label>전체선택</label><input class="allCk" type="checkbox"/>
-		<!-- 필수약관 -->
-		<div class="essential_wrap">
-			<div class="essential_name">필수약관</div>
-			<div class="essential_select_box">
-				<input class="essentialOne" type="checkbox"><label>이용약관 동의(필수)</label><br />
-      			<input class="essentialTwo" type="checkbox"><label>개인정보 수집 및 이용동의(필수)</label>
-			</div>
-			<span class="essential_alert_box"></span>			
-		</div>
-		
-		<!-- 선택약관 -->
-		<div class="choice_wrap">
-			<div class="choice_name">선택약관</div>
-			<div class="choice_select_box">
-				<input class="choiceOne" type="checkbox" name="choiceSelectBoxOne" value=1><label>정보수신 이용동의(선택)</label><br />
-      			<input class="choiceTwo" type="checkbox" name="choiceSelectBoxTwo" value=10><label>추가 개인정보 수집 및 이용동의(선택)</label><br />
-      			<input class="choiceThree" type="checkbox" name="choiceSelectBoxThree" value=100><label>기타 서비스 이용 동의(선택)</label>
-			</div>		
-		</div>
-		</fieldset>
-		
 			
+				
+		</div>
+		<input type="button" class="join_button" value="가입하기">
+		</form>
 	</div>
-	<input type="button" class="join_button" value="가입하기">
-	</form>
+	<div class="checkList_wrap">
+	  <ul>
+	    <li><label for="">아이디 중복검사</label><input class="chkList_idDupl" type="checkbox" disabled="disabled"><br /></li>
+	    <li><label for="">비밀번호 동일성체크</label><input class="chkList_pwdEqChk" type="checkbox" disabled="disabled"><br /></li>
+	    <li><label for="">이름 입력</label><input class="chkList_nameChk" type="checkbox" disabled="disabled"><br /></li>
+	    <li><label for="">이메일 중복검사</label><input class="chkList_emailDupl" type="checkbox" disabled="disabled"><br /></li>
+	    <li><label for="">전화번호 입력</label><input class="chkList_phoneChk" type="checkbox" disabled="disabled"><br /></li>
+	    <li><label for="">상세주소 입력</label><input class="chkList_detailAddressChk" type="checkbox" disabled="disabled"><br /></li>
+	    <li><label for="">생일입력</label><input class="chkList_birthChk" type="checkbox" disabled="disabled"><br /></li>
+	    <li><label for="">필수약관 체크</label><input class="chkList_essentialChk" type="checkbox" disabled="disabled"><br /></li>
+	    <li class="chkList_selUniqueNo"><label for="" >[판매자]고유번호 체크</label><input class="chkList_selUniqueNo" type="checkbox" disabled="disabled"><br /></li>
+	  </ul>
+	</div>
 </div>
 <script>
  /* 기본 유효성 검사(입력여부/체크여부) 통과유무 변수 */
@@ -476,10 +524,12 @@ $('.id_duplicate_check').click(function(){
 			if(result != 'fail'){
 				$('.id_alert_box').css('display','block');
 				$('.id_alert_box').html("<span style='color: green'>사용가능한 아이디 입니다</span>");
+				$('.chkList_idDupl').prop('checked',true);
 				idDuplCheck = true;
 			} else {
 				$('.id_alert_box').css('display','block');
 				$('.id_alert_box').html("<span style='color: red'>이미 사용중인 아이디입니다</span>");
+				$('.chkList_idDupl').prop('checked',false);
 				idDuplCheck = false;
 			}	
 		}// success 종료
@@ -487,6 +537,7 @@ $('.id_duplicate_check').click(function(){
 	}else{
 		$('.id_alert_box').css('display','block');
 		$('.id_alert_box').html("<span style='color: red'>형식을 맞추고 진행해 주세요.</span>");
+		$('.chkList_idDupl').prop('checked',false);
 	}
 });// function 종료
 
@@ -498,6 +549,7 @@ $('.id_input').keyup( function() {
 	if(idDuplCheck){
 		$('.id_alert_box').css('display','block');
 		$('.id_alert_box').html("<span style='color: red'>다시 중복검사 해주세요</span>");
+		$('.chkList_idDupl').prop('checked',false);
 		idDuplCheck = false;
 	}
 });
@@ -514,6 +566,7 @@ $('.pw_input').keyup( function() {
 			$('.pwck_alert_box').css('display','block');
 			$('.pwck_alert_box').html("<span style='color: red'>비밀번호 형식을 확인하세요</span>");
 			$('.pwck_input').val(null);
+			$('.chkList_pwdEqChk').prop('checked',false);
 		}
 	}else{
 		let pwdOrigin_temp = $('.pwck_input').val();
@@ -522,11 +575,13 @@ $('.pw_input').keyup( function() {
 	 		//비밀번호 + 비밀번호 확인 모두 통과하고 비밀번호를 바꿨는데(=비밀번호랑 비밀번호 확인이랑 다른 경우) 형식은 맞은 경우
 			$('.pwck_alert_box').css('display','block');
 			$('.pwck_alert_box').html("<span style='color: red'>비밀번호와 동일하지 않습니다</span>");
+			$('.chkList_pwdEqChk').prop('checked',false);
 			pwdChekerFormatCheck = false;
 	 	}
 // 	 	$('.pwd_alert_box').css('display','none');
 	 	$('.pwd_alert_box').html("<span style='color: green'>비밀번호 형식 검사 완료</span>");
 	 	$('.pwck_input').val(null);
+	 	$('.chkList_pwdEqChk').prop('checked',false);
 	 	pwdFormatCheck = true;
 	}
 });
@@ -545,16 +600,19 @@ $('.pwck_input').keyup( function() {
 	if(pwdOrigin !== pwdChekcer){
 		$('.pwck_alert_box').css('display','block');
 		$('.pwck_alert_box').html("<span style='color: red'>비밀번호와 동일하지 않습니다</span>");
+		$('.chkList_pwdEqChk').prop('checked',false);
 		pwdChekerFormatCheck = false;
 	}else{
 		if(pwdFormatCheck){
 // 	 	$('.pwck_alert_box').css('display','none');
 	 	$('.pwck_alert_box').html("<span style='color: green'>동일성 검사 완료</span>");
+	 	$('.chkList_pwdEqChk').prop('checked',true);
 	 	pwdChekerFormatCheck = true;
 		}else{
 			//이 경우는 동일한데 형식이 안맞는 경우
 			$('.pwck_alert_box').css('display','block');
 			$('.pwck_alert_box').html("<span style='color: red'>비밀번호 형식을 확인하세요</span>");
+			$('.chkList_pwdEqChk').prop('checked',false);
 		}
 	}
 });
@@ -565,10 +623,12 @@ $('.nameBox_input').keyup( function() {
 	if(!nameFormatChk($('.nameBox_input').val())){
 		$('.nameBox_alert_box').css('display','block');
 		$('.nameBox_alert_box').html("<span style='color: red'>2~5자리의 한글</span>");
+		$('.chkList_nameChk').prop('checked',false);
 		nameFormatCheck = false;
 	}else{
 // 	 	$('.nameBox_alert_box').css('display','none');
 	 	$('.nameBox_alert_box').html("<span style='color: green'>이름 형식 검사 완료</span>");
+	 	$('.chkList_nameChk').prop('checked',true);
 	 	nameFormatCheck = true;
 	}
 });
@@ -612,10 +672,12 @@ $('.email_duplicate_check').click(function(){
 			if(result != 'fail'){
 				$('.email_alert_box').css('display','block');
 				$('.email_alert_box').html("<span style='color: green'>사용가능한 이메일 입니다</span>");
+				$('.chkList_emailDupl').prop('checked',true);
 				emailDuplCheck = true;
 			} else {
 				$('.email_alert_box').css('display','block');
 				$('.email_alert_box').html("<span style='color: red'>이미 사용중인 이메일입니다</span>");
+				$('.chkList_emailDupl').prop('checked',false);
 				emailDuplCheck = false;
 			}	
 		}// success 종료
@@ -623,6 +685,7 @@ $('.email_duplicate_check').click(function(){
 	}else{
 		$('.email_alert_box').css('display','block');
 		$('.email_alert_box').html("<span style='color: red'>형식을 맞추고 진행해 주세요.</span>");
+		$('.chkList_emailDupl').prop('checked',false);
 	}
 });// function 종료
 
@@ -634,6 +697,7 @@ $('.email_input').keyup( function() {
 	if(emailDuplCheck){
 		$('.email_alert_box').css('display','block');
 		$('.email_alert_box').html("<span style='color: red'>다시 중복검사 해주세요</span>");
+		$('.chkList_emailDupl').prop('checked',false);
 		emailDuplCheck = false;
 	}
 });
@@ -644,10 +708,12 @@ $('.phone_input').keyup( function() {
 	if(phoneFormatChk($('.phone_input').val())==="fail"){
 		$('.phone_alert_box').css('display','block');
 		$('.phone_alert_box').html("<span style='color: red'>전화번호 형식을 지켜주세요</span>");
+		$('.chkList_phoneChk').prop('checked',false);
 		phoneFormatCheck = false;
 	}else{
 // 	 	$('.phone_alert_box').css('display','none');
 	 	$('.phone_alert_box').html("<span style='color: green'>전화번호 형식 검사 완료</span>");
+	 	$('.chkList_phoneChk').prop('checked',true);
 	 	phoneFormatCheck = true;
 	}
 });
@@ -738,6 +804,7 @@ function execDaumPostcode() {
 			$(".birth_input_date").prop('disabled', true); // 일 비활성화
 			$(".birth_input_month").val(null); // 달 초기화
 			$(".birth_input_date").val(null); // 일 초기화
+			$('.chkList_birthChk').prop('checked',false);
 			birthYearFormatCheck = false;
 		}else{
 // 	 	 	$('.birth_alert_box').css('display','none');
@@ -771,12 +838,14 @@ function execDaumPostcode() {
 			$('.birth_alert_box').html("<span style='color: red'>월을 확인해주세요</span>");
 			$(".birth_input_date").prop('disabled', true); // 일 비활성화
 			$(".birth_input_date").val(null); // 일 초기화
+			$('.chkList_birthChk').prop('checked',false);
 			birthMonthFormatCheck = false;
 		}else{
 // 	 	 	$('.birth_alert_box').css('display','none');
 		 	$('.birth_alert_box').html("<span style='color: green'>월 검사 완료</span>");
 		 	$(".birth_input_date").val(null); // 일 초기화
 		 	$(".birth_input_date").prop('disabled', false); // 일 활성화
+		 	$('.chkList_birthChk').prop('checked',false);
 		 	birthMonthFormatCheck = true;
 		}
 	});
@@ -805,10 +874,12 @@ function execDaumPostcode() {
 		if(!brDateChk($('.birth_input_date').val())){
 			$('.birth_alert_box').css('display','block');
 			$('.birth_alert_box').html("<span style='color: red'>일을 확인해주세요</span>");
+			$('.chkList_birthChk').prop('checked',false);
 			birthDateFormatCheck = false;
 		}else{
 // 	 	 	$('.birth_alert_box').css('display','none');
 		 	$('.birth_alert_box').html("<span style='color: green'>일 검사 완료</span>");
+		 	$('.chkList_birthChk').prop('checked',true);
 		 	birthDateFormatCheck = true;
 		}
 	});
@@ -864,6 +935,7 @@ $('.birth_input_date').keyup( function() {
 			/* 미래에서 왔음 */
 			$('.birth_alert_box').css('display','block');
 			$('.birth_alert_box').html("<span style='color: red'>미래에서 오셨습니다</span>");
+			$('.chkList_birthChk').prop('checked',false);
 			adequateYearCheck = false;
 		}else{
 			/* 최소한 미래에서 오지는 않음 */
@@ -877,10 +949,12 @@ $('.birth_input_date').keyup( function() {
 				//만 14세 미만 => 빠꾸
 				$('.birth_alert_box').css('display','block');
 				$('.birth_alert_box').html("<span style='color: red'>[필수]만14세 이상이어야 합니다</span>");
+				$('.chkList_birthChk').prop('checked',false);
 				adequateYearCheck = false;
 			}else{
 				// 미래인도 아니고 만14세 미만도 아님
 				$('.birth_alert_box').css('display','none');
+				$('.chkList_birthChk').prop('checked',true);
 				adequateYearCheck = true;
 			}
 		}
@@ -895,16 +969,30 @@ $('.birth_input_date').keyup( function() {
 $('.allCk').click(function(){
 	var checked = $('.allCk').is(':checked');
 	if(checked){
-		$('input:checkbox').prop('checked',true);
-	}	
+		$('.termsCheckBox').prop('checked',true);
+		$('.chkList_essentialChk').prop('checked',true);
+		essentialOneCheck = true;
+		essentialTwoCheck = true;
+	}else{
+		if(!essentialOneCheck || !essentialTwoCheck){
+			$('.chkList_essentialChk').prop('checked',false);
+		}
+	}
 });
 
 
 /* 판매자 회원 버튼 토글 */
 
+//시작하자마자는 가리기
+$(document).ready(function(){
+	$(".chkList_selUniqueNo").css('display','none');
+});
+
+
 //판매자 모드
 $("#typeSel2").click(function(){
 	$(".seller_entire_form").css('display','block');
+	$(".chkList_selUniqueNo").css('display','block');
 	sellerSelected = true;
 // 	console.log("판매자회원입니다: "+sellerSelected);
 });
@@ -912,6 +1000,7 @@ $("#typeSel2").click(function(){
 //일반 모드
 $("#typeSel1").click(function(){
 	$(".seller_entire_form").css('display','none');
+	$(".chkList_selUniqueNo").css('display','none');
 	sellerSelected = false;
 // 	console.log("일반회원입니다: "+sellerSelected);
 });
@@ -930,6 +1019,7 @@ $(".seller_marketUniqueNo_check").click(function(){
 			if(result != 'fail'){
 				$('.seller_entire_alert_box').css('display','block');
 				$('.seller_entire_alert_box').html("<span style='color: green'>검증완료</span>");
+				$('.chkList_selUniqueNo').prop('checked',true);
 				sellerMarketUniqueNoCheck = true;
 				var storeVO = data.storeVO;
 				$('.seller_brandName_input').val(storeVO.stlBrandName);
@@ -942,6 +1032,7 @@ $(".seller_marketUniqueNo_check").click(function(){
 			} else {
 				$('.seller_entire_alert_box').css('display','block');
 				$('.seller_entire_alert_box').html("<span style='color: red'>잘못된 번호입니다.</span>");
+				$('.chkList_selUniqueNo').prop('checked',false);
 				sellerMarketUniqueNoCheck = false;
 			}	
 		}// success 종료
@@ -1008,8 +1099,10 @@ $(".seller_marketUniqueNo_check").click(function(){
 	/* 상세주소 */
 	$('.address_input').keyup( function() {
 		if($('.address_input').val() == ""){
+			$('.chkList_detailAddressChk').prop('checked',false);
 			addressDetailWriteCheck = false;
 		}else{
+			$('.chkList_detailAddressChk').prop('checked',true);
 			addressDetailWriteCheck = true;
 		}
 	});
@@ -1035,6 +1128,7 @@ $(".seller_marketUniqueNo_check").click(function(){
 	/* 생일-일 */
 	$('.birth_input_date').keyup( function() {
 		if($('.birth_input_date').val() == ""){
+			$('.chkList_birthChk').prop('checked',false);
 			birthDateCheck = false;
 		}else{
 			birthDateCheck = true;
@@ -1059,6 +1153,27 @@ $(".seller_marketUniqueNo_check").click(function(){
 		}
 	});
 	
+	/* 리모컨 필수약관체크 */
+	$('.essentialOne').change( function() {
+		$('.essentialTwo').change( function() {
+			if(essentialOneCheck && essentialTwoCheck){
+				$('.chkList_essentialChk').prop('checked',true);
+			}else{
+				$('.chkList_essentialChk').prop('checked',false);
+			}
+		});
+	});
+	
+	$('.essentialTwo').change( function() {
+		$('.essentialOne').change( function() {
+			if(essentialOneCheck && essentialTwoCheck){
+				$('.chkList_essentialChk').prop('checked',true);
+			}else{
+				$('.chkList_essentialChk').prop('checked',false);
+			}
+		});
+	});
+	
 	/* 판매자 고유번호 체크 */
 	$('.seller_marketUniqueNo_input').keyup( function() {
 		if($('.seller_marketUniqueNo_input').val() == ""){
@@ -1069,6 +1184,15 @@ $(".seller_marketUniqueNo_check").click(function(){
 	});
 
 	/* 기초 입력값 실시간 감지 - 작성 여부 -끝- */
+	
+	/* 따라오는 체크박스리스트 */
+$(document).ready(function(){
+	let currentPosition = parseInt($(".checkList_wrap").css("top"));
+	$(window).scroll(function() {
+		let position = $(window).scrollTop(); 
+		$(".checkList_wrap").stop().animate({"top":position+currentPosition+"px"},1000);
+	});
+});
 	
 /* 전능한 버튼 => god이라는 클래스명 부여하고 사용하기*/
 // $(".god").click(function(){
