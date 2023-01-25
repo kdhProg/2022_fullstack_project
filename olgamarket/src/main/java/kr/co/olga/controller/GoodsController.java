@@ -180,5 +180,14 @@ public class GoodsController {
 		}
 		session.setAttribute("favor",favorList);
 	}
+	
+	
+	/* ==== 추천,비추천 관련 ==== */
+	/* 추천버튼눌림 + 비추해제 */
+	@RequestMapping(value = "/goodBtnPressed",method = RequestMethod.POST)
+	@ResponseBody
+	public void goodBtnPressed(String pdId) {
+		System.out.println("pdId    "+pdId);
+	}
 
 }
