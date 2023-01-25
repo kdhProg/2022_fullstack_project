@@ -36,11 +36,13 @@ public interface MemberService {
 
 	List<NoticeVO> getMemberPageList(PagingVO vo);
 
-	// 회원 정지
-	long memRepot(MemberVO vo);
-
 	//2023 01 17 16:08 김동훈 추가
 	long emailCheck(String memEmail);
+	
+// 관리자 회원 관리
+	PagingVO getMemAdminPageInfo(int currPage, int sortType);
+
+	List<MemberVO> getMemAdminPageList(PagingVO vo);
 
 	
 

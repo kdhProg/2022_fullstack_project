@@ -58,8 +58,9 @@
 	</select>
 	
 <!-- 관리자 멤버관리 + 페이징 -->
+<!-- 추후 삭제 결정 
 	<select id="getMemberPageList" parameterType="PagingVO" resultType="NoticeVO">
-		select * form
+		select * from
 			(select memId, memPwd, memName, memEmail, memPhone, memAddress, memGender,
 			memGrade, memRegiDate, memUpdDate, memChoice, row_number OVER(order by memName desc) as Rnum
 			from members) mp
@@ -70,19 +71,39 @@
 	<select id="getMemberCount" parameterType="int" resultType="Integer">
 		select count(*) members
 	</select>
-	
-	<!-- 회원 정지(update) *******************************8 -->
-	<update id="memRepot">
-		update members set  where memId = #{memId}
-	</update>	
-	
+-->	
 	
 	
 	<!-- 2023 01 17 김동훈 추가 -->
 	<select id="emailCheck" resultType="Long" parameterType="String">
 	 	select count(*) from members where memEmail = #{memEmail}
 	 </select>	
+
+<!-- 관리자 회원 관리 -->	 
+	<select id="getMemAdminCount" parameterType="int" resultType="Integer">
+		select count(*) from members 
+	</select>
 	
+	<select id="getMemAdminPageList" parameterType="PagingVO" resultType="MemberVO">
+		select * from 
+			(select rownum rnum, temp.* from
+				(select plmemid from (SELECT sum(pltotalprice) as total, plmemid FROM purchaseLists 
+					where (select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -1) PREV_MONTH FROM DUAL)) from dual)
+						= (select EXTRACT(MONTH FROM plDate) AS MONTHS from dual) GROUP BY plmemid)
+						    where 
+						    	<if test='sort == 1'>
+									total <![CDATA[<]]> 200000
+								</if>
+								<if test='sort == 2'>
+									total > 200000 and <![CDATA[<]]> 500000
+								</if>
+								<if test='sort == 3'>
+									total > 500000
+								</if>
+					) 
+			temp) 
+		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}	   				
+	</select>
 </mapper>
 
 

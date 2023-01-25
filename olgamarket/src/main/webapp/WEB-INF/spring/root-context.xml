@@ -47,6 +47,7 @@
 				<value>classpath:MyConfig/selAnswerMapper/selAnswer.xml</value>
 				<value>classpath:MyConfig/newPdQuiryMapper/newPdQuiry.xml</value>
 				<value>classpath:MyConfig/newPdAnswerMapper/newPdAnswer.xml</value>
+				<value>classpath:MyConfig/purchaseMapper/purchase.xml</value>
 			</list>
 		</property>
 	</bean>

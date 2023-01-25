@@ -115,15 +115,58 @@ public class MemberServiceImpl implements MemberService {
 		return dao.getMemberPageList(vo);
 	}
 	
-	// 회원 정지
-	@Override
-	public long memRepot(MemberVO vo) {
-		return dao.memRepot(vo);
-	}
 	
 	@Override
 	public long emailCheck(String memEmail) {
 		return dao.emailCheck(memEmail);
+	}
+	
+// 관리자 회원 관리	
+	@Override
+	public PagingVO getMemAdminPageInfo(int currPage, int sortType) {
+		PagingVO vo = new PagingVO();
+		int setTotalRecordCount = dao.getMemAdminCount();
+		int recordCountPerPage = 20;
+                        
+		int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
+		//int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
+		int firstPageNoOnPageList = lastPageNoOnPageList - 9;
+		//int firstPageNoOnPageList = lastPageNoOnPageList - 9;
+		
+		int realEnd = (int)(Math.ceil((dao.getMemAdminCount() * 1.0) / 20));
+		if(realEnd < lastPageNoOnPageList) {
+			lastPageNoOnPageList = realEnd;
+		}
+		
+		int firstRecordIndex = (currPage - 1) * recordCountPerPage;
+		boolean xprev= firstPageNoOnPageList > 1;
+		boolean xnext = lastPageNoOnPageList < realEnd;
+		
+		int contEnd = currPage*20;
+		int contStart = contEnd-19;
+		if(contEnd > setTotalRecordCount) {
+			contEnd = setTotalRecordCount;
+		}
+		
+		vo.setCurrentpageno(currPage);
+		vo.setFirstPageNoOnPageList(firstPageNoOnPageList);
+		vo.setFirstRecordIndex(firstRecordIndex);
+		vo.setLastPageNoOnPageList(lastPageNoOnPageList);
+		vo.setRealEnd(realEnd);
+		vo.setRecordCountPerPage(recordCountPerPage);
+		vo.setTotalRecordCount(setTotalRecordCount);
+		vo.setXnext(xnext);
+		vo.setXprev(xprev);
+		vo.setContEnd(contEnd);
+		vo.setContStart(contStart);
+		vo.setSort(sortType);
+		
+		return vo;
+	}
+	
+	@Override
+	public List<MemberVO> getMemAdminPageList(PagingVO vo) {
+		return dao.getMemAdminPageList(vo);
 	}
 
 	
