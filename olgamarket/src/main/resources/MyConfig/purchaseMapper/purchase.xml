@@ -29,5 +29,18 @@
 			temp) 
 		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}	   				
 	</select>
+	
+<!-- 마이페이지 주문 내역 페이징 -->
+	<select id="getMemPurchaseCount" parameterType="String" resultType="Integer">
+		select count(*) from purchaseLists where plmemId = #{plmemId}
+	</select>
+	
+	<select id="getMemPurchasePageList" parameterType="PagingVO" resultType="PurchaseVO">
+		select * from 
+			(select rownum rnum, temp.* from
+				(select * from purchaseLists where plmemId = #{plmemId} order by plNo desc) 
+			temp) 
+		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}	   				
+	</select>
 
 </mapper>

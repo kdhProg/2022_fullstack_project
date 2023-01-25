@@ -12,4 +12,9 @@ public interface PurchaseService {
 
 	List<PurchaseVO> getMemPurchaseAdminPageList(PagingVO vo);
 
+// 마이페이지 주문 내역 페이징	
+	PagingVO getMemPurchasePageInfo(int currPage, String plmemId);
+
+	List<PurchaseVO> getMemPurchasePageList(PagingVO vo);
+
 }

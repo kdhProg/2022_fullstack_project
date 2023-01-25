@@ -25,4 +25,15 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 	public List<PurchaseVO> getMemPurchaseAdminPageList(PagingVO vo) {
 		return session.selectList("PurchaseMapper.getMemPurchaseAdminPageList", vo);
 	}
+
+// 마이페이지 주문 내역 페이징	
+	@Override
+	public int getMemPurchaseCount(String plmemId) {
+		return session.selectOne("PurchaseMapper.getMemPurchaseCount", plmemId);
+	}
+
+	@Override
+	public List<PurchaseVO> getMemPurchasePageList(PagingVO vo) {
+		return session.selectList("PurchaseMapper.getMemPurchasePageList", vo);
+	}
 }

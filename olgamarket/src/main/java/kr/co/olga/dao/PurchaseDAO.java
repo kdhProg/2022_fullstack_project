@@ -12,4 +12,9 @@ public interface PurchaseDAO {
 
 	List<PurchaseVO> getMemPurchaseAdminPageList(PagingVO vo);
 
+// 마이페이지 주문 내역 페이징
+	int getMemPurchaseCount(String plmemId);
+
+	List<PurchaseVO> getMemPurchasePageList(PagingVO vo);
+
 }

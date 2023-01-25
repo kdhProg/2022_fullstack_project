@@ -24,6 +24,7 @@
 		<!-- 일반회원 -->
 			<p>일반회원: ${member.getMemName()}님</p>
 			<a href="/member/logout">로그아웃</a>
+			<a href="/myPage/myPageList?memId=${member.getMemId()}">마이페이지</a>
 		</c:when> 
 		<c:when test="${not empty seller}">
 		<!-- 판매자회원 -->
@@ -56,6 +57,7 @@
 	<hr />
 	<a href="/board/client">고객센터</a>
 	<hr />
+	
 	   
 	<div class="fruitPd">
 		<table>
