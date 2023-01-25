@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class InquiryRecoReportVO {
 	
 	private Long irrNo;

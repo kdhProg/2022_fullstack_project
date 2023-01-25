@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="inquiryRecoReportMapper">
+	<!-- 인서트 -->
+	<insert id="insertIrr" parameterType="InquiryRecoReportVO">
+		insert into INQUIRYRECOREPORT values((select NVL(MAX(irrNo) + 1, 1) from INQUIRYRECOREPORT),#{irrBno},#{irrmemId},#{irrGood},#{irrBad})
+	</insert>
+	
+	<!-- memId와 보드넘버에 해당하는 컬럼세기 - 1개이거나 0개이어야 함 -->
+	<select id="existCheckMemIdBno" parameterType="InquiryRecoReportVO" resultType="int">
+		select count(*) from INQUIRYRECOREPORT where irrBno = #{irrBno} and irrmemId = #{irrmemId}
+	</select>
+	
+	<!-- 통합업데이트 -->
+	<update id="irrUpdate" parameterType="InquiryRecoReportVO">
+		update INQUIRYRECOREPORT set irrGood = #{irrGood}, irrBad = #{irrBad}  where irrmemId = #{irrmemId} and irrBno = #{irrBno}
+	</update>
+	
+	<!-- memId와 레코드 가져오기 -->
+	<select id="irrGetAllByMemId" parameterType="InquiryRecoReportVO" resultType="InquiryRecoReportVO">
+		select * from INQUIRYRECOREPORT where irrmemId = #{irrmemId}
+	</select>
+</mapper>

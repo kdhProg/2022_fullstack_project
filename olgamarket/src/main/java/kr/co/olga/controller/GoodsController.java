@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.olga.service.AnswerService;
 import kr.co.olga.service.FavorService;
+import kr.co.olga.service.InquiryRecoReportService;
 import kr.co.olga.service.ProductService;
 import kr.co.olga.service.QuiryService;
 import kr.co.olga.service.ReviewService;
 import kr.co.olga.vo.AnswerVO;
 import kr.co.olga.vo.FavorVO;
+import kr.co.olga.vo.InquiryRecoReportVO;
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ProductVO;
 import kr.co.olga.vo.QuiryVO;
@@ -44,6 +46,9 @@ public class GoodsController {
 	
 	@Autowired
 	private FavorService fvService;
+	
+	@Autowired
+	private InquiryRecoReportService irrService;
 	
 	//문자열 상품ID를 줘야함
 	@RequestMapping(value="/detailView")
@@ -186,8 +191,29 @@ public class GoodsController {
 	/* 추천버튼눌림 + 비추해제 */
 	@RequestMapping(value = "/goodBtnPressed",method = RequestMethod.POST)
 	@ResponseBody
-	public void goodBtnPressed(String pdId) {
-		System.out.println("pdId    "+pdId);
+	public void goodBtnPressed(String bno,String currentSession,String good,String bad,HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		String memId = currentSession;
+		long goodPoint = Long.parseLong(good);
+		long badPoint = Long.parseLong(bad);
+		long bnoPoint = Long.parseLong(bno);
+		
+		InquiryRecoReportVO vo = new InquiryRecoReportVO();
+		vo.setIrrmemId(memId);
+		vo.setIrrBno(bnoPoint);
+		vo.setIrrGood(goodPoint);
+		vo.setIrrBad(badPoint);
+		
+		if(irrService.existCheckMemIdBno(vo) == 1) {
+			//이미 행이 존재함
+			irrService.irrUpdate(vo);
+		}else {
+			//행이 존재하지 않음
+			irrService.insertIrr(vo);
+		}
+
 	}
 
 }
