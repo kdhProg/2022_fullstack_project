@@ -23,6 +23,7 @@ import kr.co.olga.service.NewPdAnswerService;
 import kr.co.olga.service.NewPdQuiryService;
 import kr.co.olga.service.NoticeService;
 import kr.co.olga.service.ProductService;
+import kr.co.olga.service.PurchaseService;
 import kr.co.olga.service.QnService;
 import kr.co.olga.service.QuiryService;
 import kr.co.olga.service.SelAnswerService;
@@ -33,12 +34,12 @@ import kr.co.olga.vo.AdminVO;
 import kr.co.olga.vo.AnVO;
 import kr.co.olga.vo.AnswerVO;
 import kr.co.olga.vo.FAQVO;
-import kr.co.olga.vo.MemberVO;
 import kr.co.olga.vo.NewPdAnswerVO;
 import kr.co.olga.vo.NewPdQuiryVO;
 import kr.co.olga.vo.NoticeVO;
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ProductVO;
+import kr.co.olga.vo.PurchaseVO;
 import kr.co.olga.vo.QnVO;
 import kr.co.olga.vo.QuiryVO;
 import kr.co.olga.vo.SelAnswerVO;
@@ -764,41 +765,48 @@ public class AdminController {
 	@Autowired
 	private MemberService memberService;
 	
-	// 회원 목록
-	@RequestMapping(value = "/memberList")
-	public String memberList(Model model, Integer showPage) {
+	@Autowired
+	private PurchaseService purchaseService;
+	
+	@RequestMapping(value="/memberGrade")
+	public String memberGrade() {
+		return "/admin/memberGrade";
+	}
+	
+	// 회원 등급 조정 목록
+	@RequestMapping(value = "/memberGradeList")
+	@ResponseBody
+	public Map<String, Object> memberGradeList(String showPage, Integer sort) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		int stShowPage = Integer.parseInt(showPage);
+		
+		
 		int currPage;
-		if (showPage == null) {
+		if(showPage == null) {
 			currPage = 1;
-		} else {
-			currPage = showPage;
+		}else {
+			currPage = stShowPage;
 		}
+		
+		int sortType;
+		if(sort == null) {
+			sortType = 1;
+		}else {
+			sortType = sort;
+		}
+		
+		PagingVO vo = purchaseService.getMemPurchaseAdminPageInfo(currPage, sortType); //페이징에 필요한 정보 계산
+		List<PurchaseVO> memList =  purchaseService.getMemPurchaseAdminPageList(vo);
+		
+		
+		
+		result.put("memList",memList);  
+		result.put("pageInfo",vo);  //페이징정보
+		result.put("currPage",currPage); //현재페이지
 
-		PagingVO vo = memberService.getMemberPageInfo(currPage); // 페이징에 필요한 정보 계산
-		List<NoticeVO> pageList = memberService.getMemberPageList(vo);
-
-		model.addAttribute("memberList", pageList); // 회원목록
-		model.addAttribute("pageInfo", vo); // 페이징정보
-		model.addAttribute("currPage", currPage); // 현재페이지
+		return result;	
 		
-		return "/admin/memberList";
-	}
-	
-	// 회원 정지 (업데이트)
-	@RequestMapping(value = "/memRepot")
-	public String memRepot(MemberVO vo) {
-		memberService.memRepot(vo);
-		
-		return "redirect:/admin/memberList";
-	}
-	
-	// 회원 등급 조정
-	@RequestMapping(value = "memGrade")
-	public String memGrade(MemberVO vo) {
-	//	memberService.memGrade(vo); // 등급만 조절
-		
-		
-		return "redirect:/admin/memGrade";
 	}
 	
 	

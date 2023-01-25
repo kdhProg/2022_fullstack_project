@@ -23,5 +23,6 @@
   	<typeAlias type="kr.co.olga.vo.SelAnswerVO" alias="SelAnswerVO"/>
   	<typeAlias type="kr.co.olga.vo.NewPdQuiryVO" alias="NewPdQuiryVO"/>
   	<typeAlias type="kr.co.olga.vo.NewPdAnswerVO" alias="NewPdAnswerVO"/>
+  	<typeAlias type="kr.co.olga.vo.PurchaseVO" alias="PurchaseVO"/>
   </typeAliases>
 </configuration>

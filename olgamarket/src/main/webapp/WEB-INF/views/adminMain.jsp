@@ -19,6 +19,8 @@
 	
 	<a href="/admin/clientList">고객센터 관리</a><br />
 	
+	<a href="/admin/memberGrade">회원 등급 관리</a><br />
+	
 	
 	
 </body>

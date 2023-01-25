@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PurchaseMapper">
+
+<!-- 관리자 페이징 -->
+	<select id="getMemPurchaseAdminCount" parameterType="int" resultType="Integer">
+		select count(*) from purchaseLists 
+	</select>
+	
+	<select id="getMemPurchaseAdminPageList" parameterType="PagingVO" resultType="PurchaseVO">
+		select * from 
+			(select rownum rnum, temp.* from
+				(select plmemid from (SELECT sum(pltotalprice) as total, plmemid FROM purchaseLists 
+					where (select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -1) PREV_MONTH FROM DUAL)) from dual)
+						= (select EXTRACT(MONTH FROM plDate) AS MONTHS from dual) GROUP BY plmemid)
+						    where 
+						    	<if test='sort == 1'>
+									total <![CDATA[<]]> 200000
+								</if>
+								<if test='sort == 2'>
+									total > 200000 and <![CDATA[<]]> 500000
+								</if>
+								<if test='sort == 3'>
+									total > 500000
+								</if>
+					) 
+			temp) 
+		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}	   				
+	</select>
+
+</mapper>

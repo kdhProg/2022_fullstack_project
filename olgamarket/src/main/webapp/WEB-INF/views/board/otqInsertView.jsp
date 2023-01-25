@@ -40,7 +40,7 @@
 				<tr>
 					<td>
 						<label for="otqmemId">작성자 : </label>
-						<input type="text" id="otqmemId" name="otqmemId" value="${member.getMemId()}${seller.getSelId()}" readonly="readonly"/>
+						<input type="text" id="otqmemId" name="otqmemId" value="${member.getMemId()}" readonly="readonly"/>
 					</td>
 				</tr>
 				<tr>

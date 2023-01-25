@@ -15,18 +15,6 @@
 }
 
 </style>
-<script type="text/javascript">
-		$(document).ready(function(){
-			var formObj = $("form[name='insertForm']");
-			
-			// 상품 등록
-			$(".pdInsert_btn").on("click", function(){
-				formObj.attr("action", "/admin/productInsertView");
-				formObj.attr("method", "get");
-				formObj.submit();				
-			});
-		});
-</script>
 <body>
 	<h1>상품 / 문의 관리</h1>
 	<a href="#" onclick="pdList(1);return false;" id="pdListBt">상품 목록</a>
@@ -44,8 +32,8 @@
 		</div>
 	</div>
 </form>	
-<!-- 상품 문의 -->	
 
+<!-- 상품 문의 -->	
 	<div id="pdQnDiv" style="display : none;">
 		<a href="#" onclick="sortList(1);return false;" id="sortBtn1">답변 대기</a>
 		<a href="#" onclick="sortList(2);return false;" id="sortBtn2">답변 완료</a>
@@ -116,6 +104,7 @@ function pdList(pageNo) {
 }// function end
 
 /********************* 상품 문의 *******************************************************************/ 
+let sortType = 1;
 $(document).ready(pdQnList(1), 1);
 function pdQnList(pageNo, sortNo) {
 	$.ajax({

@@ -36,10 +36,12 @@ public interface MemberDAO {
 
 	List<NoticeVO> getMemberPageList(PagingVO vo);
 
-	// 회원 정지
-	long memRepot(MemberVO vo);
-
 	long emailCheck(String memEmail);
+
+// 관리자 회원 관리	
+	int getMemAdminCount();
+
+	List<MemberVO> getMemAdminPageList(PagingVO vo);
 
 
 }

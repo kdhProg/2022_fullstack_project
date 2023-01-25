@@ -79,14 +79,20 @@ public class MemberDAOImpl implements MemberDAO {
 		return session.selectList("memberMapper.getMemberPageList", vo);
 	}
 
-	// 회원 정지
-	@Override
-	public long memRepot(MemberVO vo) {
-		return session.update("memberMapper.memRepot", vo);
-	}
 
 	@Override
 	public long emailCheck(String memEmail) {
 		return session.selectOne("memberMapper.emailCheck",memEmail);
+	}
+	
+// 관리자 회원 관리	
+	@Override
+	public int getMemAdminCount() {
+		return session.selectOne("memberMapper.getMemAdminCount");
+	}
+
+	@Override
+	public List<MemberVO> getMemAdminPageList(PagingVO vo) {
+		return session.selectList("memberMapper.getMemAdminPageList", vo);
 	}
 }
