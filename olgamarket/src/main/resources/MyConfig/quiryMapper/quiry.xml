@@ -33,7 +33,7 @@
 	<select id="quiryGetPdList" parameterType="PagingVO" resultType="QuiryVO">
 		select * from 
 			(select rownum rnum, temp.* from
-				(select * from inquirys where iqpdId = #{pdId} order by iqRegiDate) 
+				(select * from inquirys where iqpdId = #{pdId} order by iqRegiDate desc) 
 			temp) 
 		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
 	</select>

@@ -4,15 +4,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.olga.service.AnswerService;
+import kr.co.olga.service.FavorService;
 import kr.co.olga.service.ProductService;
 import kr.co.olga.service.QuiryService;
 import kr.co.olga.service.ReviewService;
+import kr.co.olga.vo.AnswerVO;
+import kr.co.olga.vo.FavorVO;
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ProductVO;
 import kr.co.olga.vo.QuiryVO;
@@ -30,6 +38,12 @@ public class GoodsController {
 	
 	@Autowired
 	private QuiryService qrService;
+	
+	@Autowired
+	private AnswerService asService;
+	
+	@Autowired
+	private FavorService fvService;
 	
 	//문자열 상품ID를 줘야함
 	@RequestMapping(value="/detailView")
@@ -99,5 +113,72 @@ public class GoodsController {
 	}
 	
 	
+	/* 상품문의 등록하기 */
+	@RequestMapping(value = "/quiryRegist",method = RequestMethod.POST)
+	@ResponseBody
+	public String quiryRegist(QuiryVO vo) {
+		vo.setIqState(0L);  //답변이 아직 등록되지 않았으므로 0 지정
+		long insertResult = qrService.quiryInsert(vo);
+		if(insertResult != 0) {
+			// 성공시 1
+			return "success";
+		}else {
+			// 실패시 0
+			return "failed";
+		}
+	}
+	
+	
+	/* 상품문의 답글 띄워주기 */
+	@RequestMapping(value = "/quiryAnswerShow",method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> quiryAnswerShow(int iqNo) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		AnswerVO ansVo = asService.answerSelOne(iqNo);
+		QuiryVO qrVo = qrService.quirySelOne((long)iqNo);
+		result.put("answer", ansVo);
+		result.put("quiry", qrVo);
+		return result;
+	}
+	
+	
+	/* 찜하기 delete */
+	@RequestMapping(value = "/deleteFavors",method = RequestMethod.POST)
+	@ResponseBody
+	public void favorDelete(String currentSession,long pdId,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		FavorVO vo = new FavorVO();
+		vo.setFvmemId(currentSession);
+		vo.setFvpdId(pdId);
+		
+		fvService.favorDeleteByMemIdNPdId(vo);
+		//세션재설정
+		List<FavorVO> list = fvService.favorGetListByMemId(currentSession);
+		String favorList = ""; //리스트에서 pdid만 담을 문자열, 구분자는 /로 한다
+		for(int i=0;i<list.size();i++) {
+			favorList += list.get(i).getFvpdId();
+			if(i < (list.size()-1)) {favorList += "/";}
+		}
+		session.setAttribute("favor",favorList);
+	}
+	
+	/* 찜하기 insert */
+	@RequestMapping(value = "/addFavors",method = RequestMethod.POST)
+	@ResponseBody
+	public void favorInsert(String currentSession,long pdId,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		FavorVO vo = new FavorVO();
+		vo.setFvmemId(currentSession);
+		vo.setFvpdId(pdId);
+		fvService.favorInsert(vo);
+		//세션재설정
+		List<FavorVO> list = fvService.favorGetListByMemId(currentSession);
+		String favorList = ""; //리스트에서 pdid만 담을 문자열, 구분자는 /로 한다
+		for(int i=0;i<list.size();i++) {
+			favorList += list.get(i).getFvpdId();
+			if(i < (list.size()-1)) {favorList += "/";}
+		}
+		session.setAttribute("favor",favorList);
+	}
 
 }

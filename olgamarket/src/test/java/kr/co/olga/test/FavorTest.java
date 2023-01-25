@@ -22,42 +22,53 @@ public class FavorTest {
 
 	@Autowired
 	private FavorService service;
-	
+
 	@Test
 	public void favorInsertTest() {
 		FavorVO vo = new FavorVO();
-		
+
 		vo.setFvmemId("mem_id_1");
 		vo.setFvpdId(3L);
-		
+
 		assertEquals(service.favorInsert(vo), 1);
 	}
+
 	@Test
 	public void favorDelOneTest() {
-		long fvNo = 0L;	
+		long fvNo = 0L;
 		assertEquals(service.favorDelOne(1L), 0);
 	}
-	
+
 	@Test
 	public void favorSelectOneTest() {
 		long fvNo = 1L;
-		
+
 		System.out.println(service.favorSelectOne(fvNo));
 	}
 
 	@Test
 	public void favorSelectListTest() {
 		List<FavorVO> list = service.favorSelectList();
-		
-		for(FavorVO vo : list) {
+
+		for (FavorVO vo : list) {
 			System.out.println("==========================================");
 			System.out.println(vo);
 			System.out.println("==========================================");
-		
-		
+		}
 	}
-
+	
+	@Test
+	public void favorGetListByMemIdTest() {
+		String memId = "mem_id_1";
+		System.out.println(service.favorGetListByMemId(memId));
+	}
+	
+	@Test
+	public void favorDeleteByMemIdNPdIdTest() {
+		FavorVO vo = new FavorVO();
+		vo.setFvmemId("ertert43");
+		vo.setFvpdId(1L);
+		assertEquals(1, service.favorDeleteByMemIdNPdId(vo));
 	}
 
 }
-

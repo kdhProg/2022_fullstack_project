@@ -36,7 +36,10 @@ public class SearchController {
 	
 	@RequestMapping(value = "searchPageInitInfos")
 	@ResponseBody
-	public Map<String, Object> getReviewPagingDatas(String showPage,String sort,String searchKeyWord,@RequestParam(value="finalCateList[]",required=false) ArrayList<String> finalCateList) {
+	public Map<String, Object> getReviewPagingDatas(String showPage,String sort,String searchKeyWord,
+			@RequestParam(value="finalCateList[]",required=false) ArrayList<String> finalCateList,
+			@RequestParam(value="finalBrandList[]",required=false) ArrayList<String> finalBrandList,
+			@RequestParam(value="finalpriceList[]",required=false) ArrayList<String> finalpriceList) {
 
 		Map<String, Object> result = new HashMap<String, Object>();
 
@@ -53,22 +56,23 @@ public class SearchController {
 			sortType = Integer.parseInt(sort);
 		}
 		
-		PagingVO vo = service.getSearchPdPageInfo(currPage,sortType,searchKeyWord,finalCateList);
+		PagingVO vo = service.getSearchPdPageInfo(currPage,sortType,searchKeyWord,finalCateList,finalBrandList,finalpriceList);
 		List<ProductVO> searchPageList =  service.getSearchPdList(vo);
 		List<String> cateList = service.getSearchCateList(searchKeyWord);
 		List<String> brandList = service.getSearchBrandList(searchKeyWord);
 		
-//		for(int i=0; i < searchPageList.size();i++) {
-//			System.out.println(searchPageList.get(i).getPdName());
-//			System.out.println(searchPageList.get(i).getPdId());
-//			System.out.println("========================");
-//		}
-		
 		result.put("searchPageList",searchPageList);  //게시판목록
 		result.put("pageInfo",vo);  //페이징정보
 		result.put("currPage",currPage); //현재페이지
+		
 		result.put("cateList", cateList);
 		result.put("brandList", brandList);
+		
+		result.put("searchKeyWord", searchKeyWord);
+		
+		result.put("activeCateList",finalCateList); //가변카테고리목록(버튼누를때마다 인자로 넘어오는것)
+		result.put("activeBrandList",finalBrandList); //가변브랜드목록(버튼누를때마다 인자로 넘어오는것)
+		result.put("activePriceList",finalpriceList); //가변가격목록(버튼누를때마다 인자로 넘어오는것)
 		
 		return result;
 	}

@@ -6,8 +6,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <style>
 * {
 	/* 초기화 */
@@ -26,66 +28,61 @@
 .seller_entire_form{	
 	display: none;
 }
-
-/* 판매자/일반회원 선택버튼 -- 시작 */
-.typeSelect_btn_wrap {
-    padding: 15px 10px;
+/* 버튼 관련 */
+	/* 판매자/일반회원 선택버튼 => 버튼의 label태그에 붙어있음 */
+	.typebtn{ 
+	      height: 40px;
+	      width: 120px;
+	}
+	
+	/* 검사관련 버튼 */
+	.id_duplicate_check,.phone_btn,.email_duplicate_check,.daum_address_btn,.seller_marketUniqueNo_check{
+		height: 40px;
+	    width: 150px;
+	}
+	
+	/* 최초 주소찾기 버튼 */
+	.address_init_check{
+		width:200px;
+	}
+	
+	/* 조인버튼 */
+	.join_button{ 
+	    height: 60px;
+	    width: 200px;
+	    font-weight:bold;
+	    font-size:25px;
+	}
+/* 폰트 */
+.font_apply{
+	font-weight:bold;
+    font-size:15px;
 }
-.typeSelect_btn_wrap input[type=radio]{
-    display: none;
-}
-.typeSelect_btn_wrap input[type=radio]+label{
-    display: inline-block;
-    cursor: pointer;
-    height: 24px;
-    width: 90px;
-    border: 1px solid #333;
-    line-height: 24px;
-    text-align: center;
-    font-weight:bold;
-    font-size:13px;
-}
-.typeSelect_btn_wrap input[type=radio]+label{
-    background-color: #fff;
-    color: #333;
-}
-.typeSelect_btn_wrap input[type=radio]:checked+label{
-    background-color: rgb(234, 44, 0);
-    color: #fff;
-}
-/* 판매자/일반회원 선택버튼 -- 끝 */
-
-/* 조인버튼 */
-.join_button{
-	display: inline-block;
-	background-color: rgb(234, 44, 0);
-	color: #fff;
-    cursor: pointer;
-    height: 60px;
-    width: 150px;
-    border: 1px solid #333;
-    line-height: 24px;
-    text-align: center;
-    font-weight:bold;
-    font-size:13px;
+.join_title{
+	font-weight:bold;
+    font-size:30px;
 }
 
-/* 20230120 */
-
+/* 전체 폼 관련 */
 .form_and_checkList_wrapper{
-	width: 70%;
-	border: 3px solid green;
+	min-width:800px;
+ 	overflow: hidden;
+ 	margin: 0 100px;
+ 	padding: 0 100px;
+/*  	border: 3px solid green; */
 }
 .form_wrapper{
-	width: 70%;
-	border: 1px solid red;
+  	width: 70%;
+  	min-width:800px;
+	overflow: hidden;
+	padding: 0 auto;
+/*  	border: 3px solid blue; */
 }
 .checkList_wrap{
 	width: 20%;
-	border: 1px solid blue;
 }
 
-.checkList_wrap {position:absolute;width:200px;top:50%;margin-top:-50px;right:300px;background:#fff;}
+.checkList_wrap {position:absolute;width:250px;top:50%;margin-top:-50px;right:100px;background:#fff;}
 .checkList_wrap ul {position:relative;float:left;width:100%;display:inline-block;*display:inline;border:1px solid #ddd;}
 .checkList_wrap ul li {float:left;width:100%;border-bottom:1px solid #ddd;text-align:center;display:inline-block;*display:inline;}
 .checkList_wrap ul li input {position:relative;float:left;width:30%;height:30px;line-height:30px;text-align:center;color:#999;font-size:9.5pt;}
@@ -94,183 +91,551 @@
 .checkList_wrap ul li:last-child {border-bottom:0;}
 
 
+/* 테스트용 보더 */
+.col{	
+/* 	border:1px solid red; */
+}
+
+/* 입력폼감싼 div padding 제거 */
+.col-lg-5{
+	padding: 0px;
+}
+
+/* 생일관련 */
+.birth_input_year, .birth_input_month, .birth_input_date{
+	text-align: center;
+}
+
+.birth_year_div{
+	padding-right: 0px;
+}
+.birth_month_div{
+	padding-left: 6px;
+	padding-right: 6px;
+}
+.birth_date_div{
+	padding-left: 0px;
+}
+
+/* 입력폼 라벨 가운데로 내리기 */
+.text_custom_center{
+	padding-top: 6px;
+}
+
+/* 입력박스 간격 */
+.main_title,.typeSelect_btn_wrap,.id_wrap, .pw_wrap, .pwck_wrap,.nameBox_wrap,.email_wrap,.phone_wrap,.init_address_wrap,.birth_wrap,
+.gender_wrap,.seller_entire_form,.terms_wrap,.address_margin_spec,.sel_margin_spec{
+	margin-bottom:10px;
+	/* address_margin_spec클래스는 주소의 postCode, 기본주소, 상세주소에 적용되어있으며 입력박스 간격을 위해 추가함 */
+	/* sel_margin_spec클래스도 동일한 목적으로 고유번호 / 판매점명에 적용*/
+}
+
+.allCkBox_label_text{
+	font-weight:bold;
+	font-size:15px;
+}
+
 </style>
 <body>
-<div class="form_and_checkList_wrapper">
-	<div class="form_wrapper">
-		<form id="join_form" method="get">
+<div class="form_and_checkList_wrapper container">
+	<div class="form_wrapper container text-center">
+		<form id="join_form" class="form-horizontal" method="get">
 		<div class="wrap">
-			<div class="subjecet">
-				<span>회원가입</span>
-			</div>
+			<div class="main_title row justify-content-center">
+			    <div class="col col-lg-2">
+			    </div>
+			    <div class="col-md-auto">
+			      <span class="join_title h2">회원가입</span>
+			    </div>
+			    <div class="col col-lg-2">
+			    </div>
+		    </div>
 			<!-- 일반회원/판매자 토글 버튼 : 컨트롤러에서 value를 보고 판단하도록 한다. -->
-			<div class="typeSelect_btn_wrap">
-				<input type="radio" id="typeSel1" name="typeSelRadio" value="normalMem" checked="checked"><label for="typeSel1">일반회원</label>
-				<input type="radio" id="typeSel2" name="typeSelRadio" value="sellerMem" ><label for="typeSel2">판매자회원</label>
-			</div>
+			<div class="typeSelect_btn_wrap row justify-content-center">
+			    <div class="col col-lg-3">
+		    		<input type="radio" class="btn-check" name="typeSelRadio" id="typeSel1" value="normalMem" autocomplete="off" checked="checked">
+					<label class="typebtn btn btn-outline-danger" for="typeSel1">일반회원</label>
+			    </div>
+			    <div class="col col-lg-3">
+			   		<input type="radio" class="btn-check" name="typeSelRadio" id="typeSel2" value="sellerMem" autocomplete="off">
+					<label class="typebtn btn btn-outline-danger" for="typeSel2">판매자회원</label>
+			    </div>
+		    </div>
 			
 			<!-- 아이디 -->
-			<div class="id_wrap">
-				<div class="id_name">아이디</div>
-				<div class="id_input_box">
-					<input class="id_input" name="memId" maxlength="16">
-				</div>
-				<button type="button" class="id_duplicate_check">아이디 중복검사</button>
-				<span class="id_alert_box"></span>
+			<div class="id_wrap row justify-content-start">
+				<div class="col col-lg-3 text_custom_center">
+			    	<div class="row justify-content-start">
+			    		<div class="col-2"></div>
+				    	<div class="col-10 text-start">
+				    		<label class="id_name font_apply" for="id_input_input_tag">아이디</label>
+				    	</div>
+			    	</div>
+			    </div>
+			    <div class="id_input_box col col-lg-5">
+			    	<input id="id_input_input_tag" class="id_input form-control" name="memId" maxlength="16">
+			    </div>
+			    <div class="col">
+			      <button type="button" class="id_duplicate_check btn btn-outline-success">아이디 중복검사</button>
+			    </div>
+			    <span class="id_alert_box"></span>
 				<span class="id_role_msg"></span>
 			</div>
 			
 			<!-- 비밀번호 -->
-			<div class="pw_wrap">
-				<div class="pw_name">비밀번호</div>
-				<div class="pw_input_box">
-					<input type="password" class="pw_input" name="memPwd" maxlength="20">
-				</div>
-				<span class="pwd_alert_box"></span>			
+			<div class="pw_wrap row justify-content-start">
+				<div class="col col-lg-3 text_custom_center">
+			    	<div class="row justify-content-start">
+			    		<div class="col-2"></div>
+				    	<div class="col-10 text-start">
+				    		<label class="pwd_name font_apply" for="pwd_input_input_tag">비밀번호</label>
+				    	</div>
+			    	</div>
+			    </div>
+			    <div class="pwd_input_box col col-lg-5">
+			    	<input type="password" id="pwd_input_input_tag" class="pw_input form-control" name="memPwd" maxlength="20">
+			    </div>
+			    <span class="pwd_alert_box"></span>
 			</div>
 			
 			<!-- 비밀번호확인 -->
-			<div class="pwck_wrap">
-				<div class="pwck_name">비밀번호확인</div>
-				<div class="pwck_input_box">
-					<input type="password" class="pwck_input" name="memPwdck" maxlength="20">
-				</div>
-				<span class="pwck_alert_box"></span>			
+			<div class="pwck_wrap row justify-content-start">
+				<div class="col col-lg-3 text_custom_center">
+			    	<div class="row justify-content-start">
+			    		<div class="col-2"></div>
+				    	<div class="col-10 text-start">
+				    		<label class="pwck_name font_apply" for="pwck_input_input_tag">비밀번호확인</label>
+				    	</div>
+			    	</div>
+			    </div>
+			    <div class="pwck_input_box col col-lg-5">
+			    	<input type="password" id="pwck_input_input_tag" class="pwck_input form-control" name="memPwdck" maxlength="20">
+			    </div>
+			    <span class="pwck_alert_box"></span>
 			</div>
 			
 			<!-- 이름 -->
-			<div class="nameBox_wrap">
-				<div class="nameBox_name">성명</div>
-				<div class="nameBox_input_box">
-					<input class="nameBox_input" name="memName" maxlength="5">
-				</div>
-				<span class="nameBox_alert_box"></span>			
+			<div class="nameBox_wrap row justify-content-start">
+				<div class="col col-lg-3 text_custom_center">
+			    	<div class="row justify-content-start">
+			    		<div class="col-2"></div>
+				    	<div class="col-10 text-start">
+				    		<label class="nameBox_name font_apply" for="nameBox_input_input_tag">성명</label>
+				    	</div>
+			    	</div>
+			    </div>
+			    <div class="nameBox_input_box col col-lg-5">
+			    	<input type="text" id="nameBox_input_input_tag" class="nameBox_input form-control" name="memName" maxlength="5">
+			    </div>
+			    <span class="nameBox_alert_box"></span>
 			</div>
 			
 			<!-- 이메일 -->
-			<div class="email_wrap">
-				<div class="email_name">이메일</div>
-				<div class="email_input_box">
-					<input class="email_input" name="memEmail" placeholder="예시: abcde@olga.com">
-				</div>
-				<button type="button" class="email_duplicate_check">이메일 중복검사</button>
-				<span class="email_alert_box"></span>			
+			<div class="email_wrap row justify-content-start">
+				<div class="col col-lg-3 text_custom_center">
+			    	<div class="row justify-content-start">
+			    		<div class="col-2"></div>
+				    	<div class="col-10 text-start">
+				    		<label class="email_name font_apply" for="email_input_input_tag">이메일</label>
+				    	</div>
+			    	</div>
+			    </div>
+			    <div class="email_input_box col col-lg-5">
+			    	<input type="text" id="email_input_input_tag" class="email_input form-control" placeholder="예시: abcde@olga.com" name="memEmail">
+			    </div>
+			    <div class="col">
+			     	<button type="button" class="email_duplicate_check btn btn-outline-success">이메일 중복검사</button>
+			    </div>
+			    <span class="email_alert_box"></span>
 			</div>
 			
 			<!-- 전화번호 -->
-			<div class="phone_wrap">
-				<div class="phone_name">전화번호</div>
-				<div class="phone_input_box">
-					<input class="phone_input" name="memPhone" maxlength="13" oninput="autoHypen(this)">
-				</div>
-				<input type="button" value="인증번호받기(구현X)"/>
-				<span class="phone_alert_box"></span>			
+			<div class="phone_wrap row justify-content-start">
+				<div class="col col-lg-3 text_custom_center">
+			    	<div class="row justify-content-start">
+			    		<div class="col-2"></div>
+				    	<div class="col-10 text-start">
+				    		<label class="phone_name font_apply" for="phone_input_input_tag">전화번호</label>
+				    	</div>
+			    	</div>
+			    </div>
+			    <div class="phone_input_box col col-lg-5">
+			    	<input type="text" id="phone_input_input_tag" class="phone_input form-control" name="memPhone" maxlength="13" oninput="autoHypen(this)">
+			    </div>
+			    <div class="col">
+			      <button type="button" class="phone_btn btn btn-outline-success">인증번호(구현X)</button>
+			    </div>
+			    <span class="phone_alert_box"></span>
 			</div>
 			
 			<!-- 주소 -->
-			<div class="address_wrap">
-				<div class="address_name">주소</div>
-				<div class="address_input_box">
-					<div class="daum_address_wrapper">
-						<input type="text" id="main_postcode" placeholder="우편번호" readonly="readonly" name="mainPostcode"><br />
-						<input type="text" id="main_address" placeholder="주소" readonly="readonly" name="mainAddress"><br>
-						<input type="text" class="address_input" id="main_detailAddress" placeholder="상세주소" name="mainDetailAddress"><br />
+			<div class="init_address_wrap row justify-content-start">
+					<div class="col col-lg-3 text_custom_center">
+						<div class="row justify-content-start">
+				    		<div class="col-2"></div>
+					    	<div class="col-10 text-start">
+					    		<label class="address_name font_apply" for="main_detailAddress">주소</label>
+				    		</div>
+			    		</div>
 					</div>
-					<input class="daum_address_btn" type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-				</div>
-				<span class="address_alert_box"></span>			
+					<div class="col col-lg-5">
+						<button type="button" class="daum_address_btn address_init_check btn btn-outline-success" onclick="execDaumPostcode()">주소 찾기</button>
+					</div>
+					<div class="col">
+					</div>
 			</div>
+
+			<div class="address_entire_wrap">
+				<div class="address_wrap address_margin_spec row justify-content-start">
+					<div class="daum_address_wrapper col col-lg-3 text_custom_center">
+						<div class="row justify-content-start">
+				    		<div class="col-2"></div>
+					    	<div class="col-10 text-start">
+					    		<label class="address_name font_apply" for="main_detailAddress">주소</label>
+				    		</div>
+			    		</div>
+					</div>
+					<div class="daum_address_wrapper col col-lg-5">
+						<input type="text" class="form-control" id="main_postcode" readonly="readonly" name="mainPostcode">
+					</div>
+					<div class="daum_address_wrapper col">
+						<button type="button" class="daum_address_btn btn btn-outline-success" onclick="execDaumPostcode()">재검색</button>
+					</div>
+				</div>
+				<div class="address_wrap address_margin_spec row justify-content-start">
+					<div class="daum_address_wrapper col col-lg-3">
+					</div>
+					<div class="daum_address_wrapper col col-lg-5">
+						<input type="text" class="form-control" id="main_address" readonly="readonly" name="mainAddress">
+					</div>
+					<div class="col">
+					</div>
+				</div>
+				<div class="address_wrap address_margin_spec row justify-content-start">
+					<div class="daum_address_wrapper col col-lg-3">
+					</div>
+					<div class="daum_address_wrapper col col-lg-5">
+						<input type="text" class="address_input form-control" id="main_detailAddress" placeholder="상세주소" name="mainDetailAddress">
+					</div>
+					<div class="col">
+					</div>
+				</div>
+				<span class="address_alert_box"></span>
+			</div>			
+			
 			
 			<!-- 생년월일 -->
-			<div class="birth_wrap">
-				<div class="birth_name">생일</div>
-				<div class="birth_input_box">
-					<input type="text" class="birth_input_year" name="memBirthYear" maxlength="4">/
-					<input type="text" class="birth_input_month" name="memBirthMonth" maxlength="2" disabled="disabled">/
-					<input type="text" class="birth_input_date" name="memBirthDate" maxlength="2" disabled="disabled">
-				</div>
-				<span class="birth_alert_box"></span>		
-				<span class="birth_alert_box_adeYear"></span>	
+			<div class="birth_wrap row justify-content-start">
+				<div class="col col-lg-3 text_custom_center">
+			    	<div class="row justify-content-start">
+			    		<div class="col-2"></div>
+				    	<div class="col-10 text-start">
+				    		<label class="birth_name font_apply" for="birth_input_input_tag">생일</label>
+			    		</div>
+		    		</div>
+			    </div>
+			    <div class="birth_input_box col col-lg-5">
+			    	<div class="birth_input_box_wrap row">
+			    		<div class="birth_data_padding_zero birth_year_div col-sm-4">
+			    			<input type="text" id="birth_input_input_tag" class="birth_input_year form-control" name="memBirthYear" maxlength="4" placeholder="YYYY">
+			    		</div>
+			    		<div class="birth_data_padding_zero birth_month_div col-sm-4">
+			    			<input type="text" class="birth_input_month form-control" name="memBirthMonth" maxlength="2" placeholder="MM" disabled="disabled">
+			    		</div>
+			    		<div class="birth_data_padding_zero birth_date_div col-sm-4">
+			    			<input type="text" class="birth_input_date form-control" name="memBirthDate" maxlength="2" placeholder="DD" disabled="disabled">
+			    		</div>
+			    	</div>
+			    </div>
+			    <div class="col">
+			    </div>
+			    <span class="birth_alert_box"></span>
+			    <span class="birth_alert_box_adeYear"></span>
 			</div>
 			
 			<!-- 성별 -->
-			<div class="gender_wrap">
-				<div class="gender_name">성별</div>
-				<div class="gender_input_box">
-					<input type="radio" id="select" name="memGender" value="남성" checked="checked"><label for="select">남성</label>
-	   				<input type="radio" id="select2" name="memGender" value="여성"><label for="select2">여성</label>
-				</div>		
+			<div class="gender_wrap row justify-content-start">
+				<div class="col col-lg-3 text_custom_center">
+					<div class="row justify-content-start">
+			    		<div class="col-2"></div>
+				    	<div class="col-10 text-start">
+				    		<label class="gender_name font_apply" for="">성별</label>
+			    		</div>
+		    		</div>
+				</div>
+				<div class="gender_input_box col col-lg-5">
+					<div class="row text_custom_center">
+						<div class="col">
+							<input type="radio" class="form-check-input" id="select" name="memGender" value="남성" checked="checked" autocomplete="off">
+							<label class="custom-control-label" for="select">남성</label>
+						</div>
+						<div class="col">
+							<input type="radio" class="form-check-input" id="select2" name="memGender" value="여성" autocomplete="off">
+							<label class="custom-control-label" for="select2">여성</label>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+				
+				</div>
 			</div>
 			
 			<!-- ***************************판매자전용 추가 탭*************************** -->
-			<!-- 판매자-고유번호 -->
 			<div class="seller_entire_form">
-				<div class="seller_marketUniqueNo_wrap">
-					<div class="seller_marketUniqueNo_name">판매자-발급고유번호</div>
-					<div class="seller_marketUniqueNo_input_box">
-						<input type="text" class="seller_marketUniqueNo_input" name="selMarketUniqueNo" maxlength="10">
+				<div class="seller_wrap sel_margin_spec row justify-content-start">
+					<div class="seller_marketUniqueNo_input_box col col-lg-3 text_custom_center">
+						<div class="row justify-content-start">
+				    		<div class="col-2"></div>
+					    	<div class="col-10 text-start">
+					    		<label class="seller_marketUniqueNo_name font_apply" for="selMarketUnique_input_tag">발급고유번호</label>
+			    			</div>
+		    			</div>
 					</div>
-					<span class="seller_entire_alert_box"></span>
-					<button type="button" class="seller_marketUniqueNo_check">번호검사</button>
+					<div class="col col-lg-5">
+						<input type="text" class="seller_marketUniqueNo_input form-control" id="selMarketUnique_input_tag" name="selMarketUniqueNo" maxlength="10">
+					</div>
+					<div class="col">
+						<button type="button" class="seller_marketUniqueNo_check btn btn-outline-success">고유번호 검사</button>
+					</div>
 				</div>
-				
-				<!-- 판매자-판매자명>고유번호 통과 시 자동입력 -->
-				<div class="seller_brandName_wrap">
-					<div class="seller_brandName_name">판매자-판매점명</div>
-					<div class="seller_brandName_input_box">
-						<input class="seller_brandName_input" name="selstlBrandName" readonly="readonly">
-					</div>		
+				<span class="seller_entire_alert_box"></span>
+				<div class="seller_wrap sel_margin_spec row justify-content-start">
+					<div class="col col-lg-3 text_custom_center">
+						<div class="row justify-content-start">
+				    		<div class="col-2"></div>
+					    	<div class="col-10 text-start">
+					    		<label class="seller_brandName_name font_apply" for="">판매점명</label>
+				    		</div>
+		    			</div>
+					</div>
+					<div class="col col-lg-5">
+						<input class="seller_brandName_input form-control" name="selstlBrandName" placeholder="고유번호검사완료시 자동입력됩니다." readonly="readonly">
+					</div>
+					<div class="col">
+					</div>
 				</div>
-				
-				<!-- 판매자-사업자등록번호>고유번호 통과 시 자동입력 -->
-				<div class="seller_selRegiNo_wrap">
-					<div class="seller_selRegiNo_name">판매자-사업자등록번호</div>
-					<div class="seller_selRegiNo_input_box">
-						<input class="seller_selRegiNo_input" name="selSelRegiNo" maxlength="10" readonly="readonly">
-					</div>		
+				<div class="seller_wrap row justify-content-start">
+					<div class="col col-lg-3 text_custom_center">
+						<div class="row justify-content-start">
+				    		<div class="col-2"></div>
+					    	<div class="col-10 text-start">
+					    		<label class="seller_selRegiNo_name font_apply" for="">사업자등록번호</label>
+				    		</div>
+		    			</div>
+					</div>
+					<div class="col col-lg-5">
+						<input class="seller_selRegiNo_input form-control" name="selSelRegiNo" maxlength="10" placeholder="고유번호검사완료시 자동입력됩니다." readonly="readonly">
+					</div>
+					<div class="col">
+					</div>
 				</div>
-			</div>
+			</div>	
 			<!-- ***************************판매자전용 추가 탭 끝*************************** -->
-			
-			<label>전체선택</label><input class="allCk" type="checkbox"/>
-			<!-- 필수약관 -->
-			<div class="essential_wrap">
-				<div class="essential_name">필수약관</div>
-				<div class="essential_select_box">
-					<input class="essentialOne termsCheckBox" type="checkbox"><label>이용약관 동의(필수)</label><br />
-	      			<input class="essentialTwo termsCheckBox" type="checkbox"><label>개인정보 수집 및 이용동의(필수)</label>
+			<hr />
+			<!-- 약관 -->
+			<div class="terms_wrap">		
+				<div class="row justify-content-start">
+					<div class="col col-lg-3 text_custom_center">
+						<div class="row justify-content-start">
+				    		<div class="col-2"></div>
+					    	<div class="col-10 text-start">
+					    		<label class="essential_select_lebel_tag font_apply" for="">이용약관동의</label>
+				    		</div>
+		    			</div>
+				    </div>
+				    <div class="col col-lg-5">
+				    	<div class="row justify-content-start">
+					    	<div class="col-1">
+					    		<input class="allCk form-check-input" id="allCkBox" type="checkbox"/>
+					    	</div>
+					    	<div class="col-md-auto">
+					    		<label for="allCkBox" class="allCkBox_label_text form-check-label">전체동의</label>
+					    	</div>
+				    	</div>
+				    </div>
+				    <div class="col">
+				    </div>
 				</div>
-				<span class="essential_alert_box"></span>			
+				<div class="row justify-content-start">
+					<div class="col col-lg-3">
+				    </div>
+				    <div class="col col-lg-5">
+				    	<div class="row justify-content-start">
+					    	<div class="col-1">
+					    		<input class="essentialOne termsCheckBox form-check-input" id="essentialOneBox" type="checkbox">
+					    	</div>
+					    	<div class="col-md-auto">
+					    		<label for="essentialOneBox" class="form-check-label">이용약관 동의(필수)</label>
+					    	</div>
+				    	</div>
+				    </div>
+				    <div class="col">
+				    	<span class="termShow_ess_btn_1" style="color:#F64848">약관보기＞</span>
+				    </div>
+				</div>
+				<div class="row justify-content-start">
+					<div class="col col-lg-3">
+				    </div>
+				    <div class="col col-lg-5">
+				    	<div class="row justify-content-start">
+					    	<div class="col-1">
+					    		<input class="essentialTwo termsCheckBox form-check-input" id="essentialTwoBox" type="checkbox">
+					    	</div>
+					    	<div class="col-md-auto">
+					    		<label for="essentialTwoBox" class="form-check-label">개인정보 수집 및 이용동의(필수)</label>
+					    	</div>
+				    	</div>
+				    </div>
+				    <div class="col">
+				    	<span class="termShow_ess_btn_1" style="color:#F64848">약관보기＞</span>
+				    </div>
+				    <span class="essential_alert_box"></span>
+				</div>
+				<div class="row justify-content-start">
+					<div class="col col-lg-3">
+				    </div>
+				    <div class="col col-lg-5">
+				    	<div class="row justify-content-start">
+					    	<div class="col-1">
+					    		<input class="choiceOne termsCheckBox form-check-input" id="choiceOneBox" type="checkbox" name="choiceSelectBoxOne" value=1>
+					    	</div>
+					    	<div class="col-md-auto">
+					    		<label for="choiceOneBox" class="form-check-label">정보수신 이용동의(선택)</label>
+					    	</div>
+				    	</div>
+				    </div>
+				    <div class="col">
+				    	<span class="termShow_ess_btn_1" style="color:#F64848">약관보기＞</span>
+				    </div>
+				</div>
+				<div class="row justify-content-start">
+					<div class="col col-lg-3">
+				    </div>
+				    <div class="col col-lg-5">
+				    	<div class="row justify-content-start">
+					    	<div class="col-1">
+					    		<input class="choiceTwo termsCheckBox form-check-input" id="choiceTwoBox" type="checkbox" name="choiceSelectBoxTwo" value=10>
+					    	</div>
+					    	<div class="col-md-auto">
+					    		<label for="choiceTwoBox" class="form-check-label">위치정보 수집 및 이용동의(선택)</label>
+					    	</div>
+				    	</div>
+				    </div>
+				    <div class="col">
+				    	<span class="termShow_ess_btn_1" style="color:#F64848">약관보기＞</span>
+				    </div>
+				</div>
+				<div class="row justify-content-start">
+					<div class="col col-lg-3">
+				    </div>
+				    <div class="col col-lg-5">
+				    	<div class="row justify-content-start">
+					    	<div class="col-1">
+					    		<input class="choiceThree termsCheckBox form-check-input" id="choiceThreeBox" type="checkbox" name="choiceSelectBoxThree" value=100>
+					    	</div>
+					    	<div class="col-md-auto">
+					    		<label for="choiceThreeBox" class="form-check-label">기타 서비스 이용동의(선택)</label>
+					    	</div>
+				    	</div>
+				    </div>
+				    <div class="col">
+				    	<span class="termShow_ess_btn_1" style="color:#F64848">약관보기＞</span>
+				    </div>
+				</div>
 			</div>
 			
-			<!-- 선택약관 -->
-			<div class="choice_wrap">
-				<div class="choice_name">선택약관</div>
-				<div class="choice_select_box">
-					<input class="choiceOne termsCheckBox" type="checkbox" name="choiceSelectBoxOne" value=1><label>정보수신 이용동의(선택)</label><br />
-	      			<input class="choiceTwo termsCheckBox" type="checkbox" name="choiceSelectBoxTwo" value=10><label>추가 개인정보 수집 및 이용동의(선택)</label><br />
-	      			<input class="choiceThree termsCheckBox" type="checkbox" name="choiceSelectBoxThree" value=100><label>기타 서비스 이용 동의(선택)</label>
-				</div>		
-			</div>
-			
-				
 		</div>
-		<input type="button" class="join_button" value="가입하기">
+		<button type="button" class="join_button btn btn-danger">가입하기</button>
 		</form>
 	</div>
-	<div class="checkList_wrap">
-	  <ul>
-	    <li><label for="">아이디 중복검사</label><input class="chkList_idDupl" type="checkbox" disabled="disabled"><br /></li>
-	    <li><label for="">비밀번호 동일성체크</label><input class="chkList_pwdEqChk" type="checkbox" disabled="disabled"><br /></li>
-	    <li><label for="">이름 입력</label><input class="chkList_nameChk" type="checkbox" disabled="disabled"><br /></li>
-	    <li><label for="">이메일 중복검사</label><input class="chkList_emailDupl" type="checkbox" disabled="disabled"><br /></li>
-	    <li><label for="">전화번호 입력</label><input class="chkList_phoneChk" type="checkbox" disabled="disabled"><br /></li>
-	    <li><label for="">상세주소 입력</label><input class="chkList_detailAddressChk" type="checkbox" disabled="disabled"><br /></li>
-	    <li><label for="">생일입력</label><input class="chkList_birthChk" type="checkbox" disabled="disabled"><br /></li>
-	    <li><label for="">필수약관 체크</label><input class="chkList_essentialChk" type="checkbox" disabled="disabled"><br /></li>
-	    <li class="chkList_selUniqueNo"><label for="" >[판매자]고유번호 체크</label><input class="chkList_selUniqueNo" type="checkbox" disabled="disabled"><br /></li>
-	  </ul>
+	
+	<!-- 약관 모달1 -->
+	<div class="modal fade" id="termShow_ess_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">이용약관</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		    <p>
+		      예시 약관 출처:https://www.youtube.com/watch?v=cixW6rogZ48&t=3541s <br />
+			제 1 조 (목적) <br />
+			이 약관은 {COMPANY_NAME}(이하 "사이트"라 합니다)에서 제공하는 인터넷서비스(이하 "서비스"라 합니다)의 이용 조건 및 절차에 관한 기본적인 사항을 규정함을 목적으로 합니다. <br />
+			제 2 조 (약관의 효력 및 변경) <br />
+			① 이 약관은 서비스 화면이나 기타의 방법으로 이용고객에게 공지함으로써 효력을 발생합니다. <br />
+			② 사이트는 이 약관의 내용을 변경할 수 있으며, 변경된 약관은 제1항과 같은 방법으로 공지 또는 통지함으로써 효력을 발생합니다. <br />
+			제 3 조 (용어의 정의) <br />
+			이 약관에서 사용하는 용어의 정의는 다음과 같습니다. <br />
+			① 회원 : 사이트와 서비스 이용계약을 체결하거나 이용자 아이디(ID)를 부여받은 개인 또는 단체를 말합니다. <br />
+			② 신청자 : 회원가입을 신청하는 개인 또는 단체를 말합니다. <br />
+			③ 아이디(ID) : 회원의 식별과 서비스 이용을 위하여 회원이 정하고 사이트가 승인하는 문자와 숫자의 조합을 말합니다. <br />
+			④ 비밀번호 : 회원이 부여 받은 아이디(ID)와 일치된 회원임을 확인하고, 회원 자신의 비밀을 보호하기 위하여 회원이 정한 문자와 숫자의 조합을 말합니다. <br />
+			⑤ 해지 : 사이트 또는 회원이 서비스 이용계약을 취소하는 것을 말합니다. <br />
+			제 2 장 서비스 이용계약 <br />
+			제 4 조 (이용계약의 성립) <br />
+			① 이용약관 하단의 동의 버튼을 누르면 이 약관에 동의하는 것으로 간주됩니다. <br />
+			② 이용계약은 서비스 이용희망자의 이용약관 동의 후 이용 신청에 대하여 사이트가 승낙함으로써 성립합니다. <br />
+			제 5 조 (이용신청) <br />
+			① 신청자가 본 서비스를 이용하기 위해서는 사이트 소정의 가입신청 양식에서 요구하는 이용자 정보를 기록하여 제출해야 합니다. <br />
+			② 가입신청 양식에 기재하는 모든 이용자 정보는 모두 실제 데이터인 것으로 간주됩니다. 실명이나 실제 정보를 입력하지 않은 사용자는 법적인 보호를 받을 수 없으며, 서비스의 제한을 받을 수 있습니다. <br />
+			제 6 조 (이용신청의 승낙) <br />
+			① 사이트는 신청자에 대하여 제2항, 제3항의 경우를 예외로 하여 서비스 이용신청을 승낙합니다. <br />
+			② 사이트는 다음에 해당하는 경우에 그 신청에 대한 승낙 제한사유가 해소될 때까지 승낙을 유보할 수 있습니다. <br />
+			가. 서비스 관련 설비에 여유가 없는 경우 <br />
+			나. 기술상 지장이 있는 경우 <br />
+			다. 기타 사이트가 필요하다고 인정되는 경우 <br />
+			③ 사이트는 신청자가 다음에 해당하는 경우에는 승낙을 거부할 수 있습니다. <br />
+			가. 다른 개인(사이트)의 명의를 사용하여 신청한 경우 <br />
+			나. 이용자 정보를 허위로 기재하여 신청한 경우 <br />
+			다. 사회의 안녕질서 또는 미풍양속을 저해할 목적으로 신청한 경우 <br />
+			라. 기타 사이트 소정의 이용신청요건을 충족하지 못하는 경우 <br />
+			제 7 조 (이용자정보의 변경) <br />
+			회원은 이용 신청시에 기재했던 회원정보가 변경되었을 경우에는, 온라인으로 수정하여야 하며 변경하지 않음으로 인하여 발생되는 모든 문제의 책임은 회원에게 있습니다. <br />
+			제 3 장 계약 당사자의 의무 <br />
+			제 8 조 (사이트의 의무) <br />
+			① 사이트는 회원에게 각 호의 서비스를 제공합니다. <br />
+			가. 신규서비스와 도메인 정보에 대한 뉴스레터 발송 <br />
+			나. 추가 도메인 등록시 개인정보 자동 입력 <br /> 
+			다. 도메인 등록, 관리를 위한 각종 부가서비스 <br />
+			② 사이트는 서비스 제공과 관련하여 취득한 회원의 개인정보를 회원의 동의없이 타인에게 누설, 공개 또는 배포할 수 없으며, 서비스관련 업무 이외의 상업적 목적으로 사용할 수 없습니다. 단, 다음 각 호의 1에 해당하는 경우는 예외입니다. <br />
+			가. 전기통신기본법 등 법률의 규정에 의해 국가기관의 요구가 있는 경우 <br />
+			나. 범죄에 대한 수사상의 목적이 있거나 정보통신윤리 위원회의 요청이 있는 경우 <br />
+			다. 기타 관계법령에서 정한 절차에 따른 요청이 있는 경우 <br />
+			③ 사이트는 이 약관에서 정한 바에 따라 지속적, 안정적으로 서비스를 제공할 의무가 있습니다. <br />
+			제 9 조 (회원의 의무) <br />
+			① 회원은 서비스 이용 시 다음 각 호의 행위를 하지 않아야 합니다. <br />
+			가. 다른 회원의 ID를 부정하게 사용하는 행위 <br />
+			나. 서비스에서 얻은 정보를 사이트의 사전승낙 없이 회원의 이용 이외의 목적으로 복제하거나 이를 변경, 출판 및 방송 등에 사용하거나 타인에게 제공하는 행위 <br />
+			다. 사이트의 저작권, 타인의 저작권 등 기타 권리를 침해하는 행위 <br />
+			라. 공공질서 및 미풍양속에 위반되는 내용의 정보, 문장, 도형 등을 타인에게 유포하는 행위 <br />
+			마. 범죄와 결부된다고 객관적으로 판단되는 행위 <br />
+			바. 기타 관계법령에 위배되는 행위 <br />
+			② 회원은 관계법령, 이 약관에서 규정하는 사항, 서비스 이용 안내 및 주의 사항을 준수하여야 합니다. <br />
+			③ 회원은 내용별로 사이트가 서비스 공지사항에 게시하거나 별도로 공지한 이용 제한 사항을 준수하여야 합니다.	 <br />
+			</p>	      
+			</div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+		      </div>
+		    </div>
+	  	</div>
 	</div>
+	
+	<!-- 리모컨 - 보류 -->
+<!-- 	<div class="checkList_wrap"> -->
+<!-- 	  <ul> -->
+<!-- 	    <li><label for="">아이디 중복검사</label><input class="chkList_idDupl" type="checkbox" disabled="disabled"><br /></li> -->
+<!-- 	    <li><label for="">비밀번호 동일성체크</label><input class="chkList_pwdEqChk" type="checkbox" disabled="disabled"><br /></li> -->
+<!-- 	    <li><label for="">이름 입력</label><input class="chkList_nameChk" type="checkbox" disabled="disabled"><br /></li> -->
+<!-- 	    <li><label for="">이메일 중복검사</label><input class="chkList_emailDupl" type="checkbox" disabled="disabled"><br /></li> -->
+<!-- 	    <li><label for="">전화번호 입력</label><input class="chkList_phoneChk" type="checkbox" disabled="disabled"><br /></li> -->
+<!-- 	    <li><label for="">상세주소 입력</label><input class="chkList_detailAddressChk" type="checkbox" disabled="disabled"><br /></li> -->
+<!-- 	    <li><label for="">생일입력</label><input class="chkList_birthChk" type="checkbox" disabled="disabled"><br /></li> -->
+<!-- 	    <li><label for="">필수약관 체크</label><input class="chkList_essentialChk" type="checkbox" disabled="disabled"><br /></li> -->
+<!-- 	    <li class="chkList_selUniqueNo"><label for="" >[판매자]고유번호 체크</label><input class="chkList_selUniqueNo" type="checkbox" disabled="disabled"><br /></li> -->
+<!-- 	  </ul> -->
+<!-- 	</div> -->
 </div>
 <script>
  /* 기본 유효성 검사(입력여부/체크여부) 통과유무 변수 */
@@ -525,6 +890,7 @@ $('.id_duplicate_check').click(function(){
 				$('.id_alert_box').css('display','block');
 				$('.id_alert_box').html("<span style='color: green'>사용가능한 아이디 입니다</span>");
 				$('.chkList_idDupl').prop('checked',true);
+				$('.id_duplicate_check').prop('disabled',true);
 				idDuplCheck = true;
 			} else {
 				$('.id_alert_box').css('display','block');
@@ -550,6 +916,7 @@ $('.id_input').keyup( function() {
 		$('.id_alert_box').css('display','block');
 		$('.id_alert_box').html("<span style='color: red'>다시 중복검사 해주세요</span>");
 		$('.chkList_idDupl').prop('checked',false);
+		$('.id_duplicate_check').prop('disabled',false);
 		idDuplCheck = false;
 	}
 });
@@ -579,7 +946,7 @@ $('.pw_input').keyup( function() {
 			pwdChekerFormatCheck = false;
 	 	}
 // 	 	$('.pwd_alert_box').css('display','none');
-	 	$('.pwd_alert_box').html("<span style='color: green'>비밀번호 형식 검사 완료</span>");
+	 	$('.pwd_alert_box').html("<span style='color: green'>사용가능한 비밀번호 입니다.</span>");
 	 	$('.pwck_input').val(null);
 	 	$('.chkList_pwdEqChk').prop('checked',false);
 	 	pwdFormatCheck = true;
@@ -604,8 +971,8 @@ $('.pwck_input').keyup( function() {
 		pwdChekerFormatCheck = false;
 	}else{
 		if(pwdFormatCheck){
-// 	 	$('.pwck_alert_box').css('display','none');
-	 	$('.pwck_alert_box').html("<span style='color: green'>동일성 검사 완료</span>");
+	 	$('.pwck_alert_box').css('display','none');
+// 	 	$('.pwck_alert_box').html("<span style='color: green'>동일성 검사 완료</span>");
 	 	$('.chkList_pwdEqChk').prop('checked',true);
 	 	pwdChekerFormatCheck = true;
 		}else{
@@ -622,12 +989,12 @@ $('.pwck_input').keyup( function() {
 $('.nameBox_input').keyup( function() {
 	if(!nameFormatChk($('.nameBox_input').val())){
 		$('.nameBox_alert_box').css('display','block');
-		$('.nameBox_alert_box').html("<span style='color: red'>2~5자리의 한글</span>");
+		$('.nameBox_alert_box').html("<span style='color: red'>2~5자리의 한글을 입력하세요</span>");
 		$('.chkList_nameChk').prop('checked',false);
 		nameFormatCheck = false;
 	}else{
-// 	 	$('.nameBox_alert_box').css('display','none');
-	 	$('.nameBox_alert_box').html("<span style='color: green'>이름 형식 검사 완료</span>");
+	 	$('.nameBox_alert_box').css('display','none');
+// 	 	$('.nameBox_alert_box').html("<span style='color: green'>이름 형식 검사 완료</span>");
 	 	$('.chkList_nameChk').prop('checked',true);
 	 	nameFormatCheck = true;
 	}
@@ -673,6 +1040,7 @@ $('.email_duplicate_check').click(function(){
 				$('.email_alert_box').css('display','block');
 				$('.email_alert_box').html("<span style='color: green'>사용가능한 이메일 입니다</span>");
 				$('.chkList_emailDupl').prop('checked',true);
+				$('.email_duplicate_check').prop('disabled',true);
 				emailDuplCheck = true;
 			} else {
 				$('.email_alert_box').css('display','block');
@@ -698,6 +1066,7 @@ $('.email_input').keyup( function() {
 		$('.email_alert_box').css('display','block');
 		$('.email_alert_box').html("<span style='color: red'>다시 중복검사 해주세요</span>");
 		$('.chkList_emailDupl').prop('checked',false);
+		$('.email_duplicate_check').prop('disabled',false);
 		emailDuplCheck = false;
 	}
 });
@@ -711,8 +1080,8 @@ $('.phone_input').keyup( function() {
 		$('.chkList_phoneChk').prop('checked',false);
 		phoneFormatCheck = false;
 	}else{
-// 	 	$('.phone_alert_box').css('display','none');
-	 	$('.phone_alert_box').html("<span style='color: green'>전화번호 형식 검사 완료</span>");
+	 	$('.phone_alert_box').css('display','none');
+// 	 	$('.phone_alert_box').html("<span style='color: green'>전화번호 형식 검사 완료</span>");
 	 	$('.chkList_phoneChk').prop('checked',true);
 	 	phoneFormatCheck = true;
 	}
@@ -781,8 +1150,10 @@ function execDaumPostcode() {
                 document.getElementById("main_address").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById("main_detailAddress").focus();
+                $('.init_address_wrap').css('display','none');
                 $('.daum_address_wrapper').css('display','block');
-                $('.daum_address_btn').val('재검색');
+                $('.address_input').focus();
+                $('.daum_address_btn').text('재검색');
             }else{
             	// 우편 폼만 열고 X 누른경우임 ( 문자열이 0 )
             }
@@ -807,9 +1178,10 @@ function execDaumPostcode() {
 			$('.chkList_birthChk').prop('checked',false);
 			birthYearFormatCheck = false;
 		}else{
-// 	 	 	$('.birth_alert_box').css('display','none');
-		 	$('.birth_alert_box').html("<span style='color: green'>연도 검사 완료</span>");
+	 	 	$('.birth_alert_box').css('display','none');
+// 		 	$('.birth_alert_box').html("<span style='color: green'>연도 검사 완료</span>");
 		 	$(".birth_input_month").prop('disabled', false); // 달 활성화
+// 		 	$(".birth_input_month").focus(); 포커싱 보류
 		 	birthYearFormatCheck = true;
 		}
 	});
@@ -841,11 +1213,12 @@ function execDaumPostcode() {
 			$('.chkList_birthChk').prop('checked',false);
 			birthMonthFormatCheck = false;
 		}else{
-// 	 	 	$('.birth_alert_box').css('display','none');
-		 	$('.birth_alert_box').html("<span style='color: green'>월 검사 완료</span>");
+	 	 	$('.birth_alert_box').css('display','none');
+// 		 	$('.birth_alert_box').html("<span style='color: green'>월 검사 완료</span>");
 		 	$(".birth_input_date").val(null); // 일 초기화
 		 	$(".birth_input_date").prop('disabled', false); // 일 활성화
 		 	$('.chkList_birthChk').prop('checked',false);
+// 		 	$(".birth_input_date").focus(); 11월을 입력하고 싶은데 1 입력시 validation test를 통과하므로 focus가 옮겨지면 안됨
 		 	birthMonthFormatCheck = true;
 		}
 	});
@@ -877,8 +1250,8 @@ function execDaumPostcode() {
 			$('.chkList_birthChk').prop('checked',false);
 			birthDateFormatCheck = false;
 		}else{
-// 	 	 	$('.birth_alert_box').css('display','none');
-		 	$('.birth_alert_box').html("<span style='color: green'>일 검사 완료</span>");
+	 	 	$('.birth_alert_box').css('display','none');
+// 		 	$('.birth_alert_box').html("<span style='color: green'>일 검사 완료</span>");
 		 	$('.chkList_birthChk').prop('checked',true);
 		 	birthDateFormatCheck = true;
 		}
@@ -1018,7 +1391,7 @@ $(".seller_marketUniqueNo_check").click(function(){
 			var result = data.result;
 			if(result != 'fail'){
 				$('.seller_entire_alert_box').css('display','block');
-				$('.seller_entire_alert_box').html("<span style='color: green'>검증완료</span>");
+				$('.seller_entire_alert_box').html("<span style='color: green'>검증이 완료되었습니다.</span>");
 				$('.chkList_selUniqueNo').prop('checked',true);
 				sellerMarketUniqueNoCheck = true;
 				var storeVO = data.storeVO;
@@ -1140,6 +1513,7 @@ $(".seller_marketUniqueNo_check").click(function(){
 		if($('.essentialOne').is(':checked')){
 			essentialOneCheck = true;
 		}else{
+			$('.chkList_essentialChk').prop('checked',false);
 			essentialOneCheck = false;
 		}
 	});
@@ -1149,6 +1523,7 @@ $(".seller_marketUniqueNo_check").click(function(){
 		if($('.essentialTwo').is(':checked')){
 			essentialTwoCheck = true;
 		}else{
+			$('.chkList_essentialChk').prop('checked',false);
 			essentialTwoCheck = false;
 		}
 	});
@@ -1185,7 +1560,7 @@ $(".seller_marketUniqueNo_check").click(function(){
 
 	/* 기초 입력값 실시간 감지 - 작성 여부 -끝- */
 	
-	/* 따라오는 체크박스리스트 */
+	/* 리모컨 체크박스리스트 */
 $(document).ready(function(){
 	let currentPosition = parseInt($(".checkList_wrap").css("top"));
 	$(window).scroll(function() {
@@ -1194,6 +1569,12 @@ $(document).ready(function(){
 	});
 });
 	
+	/* 약관 모달 */
+	// 현재 하나의 모달만 만들어 링크건 상태임
+$('.termShow_ess_btn_1').click(function(e){
+	e.preventDefault();
+	$('#termShow_ess_1').modal("show");
+});
 /* 전능한 버튼 => god이라는 클래스명 부여하고 사용하기*/
 // $(".god").click(function(){
 // 	console.log("idCheck : "+idCheck );

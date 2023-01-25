@@ -20,5 +20,15 @@
 	<select id="favorSelectList" resultType="FavorVO" parameterType="Long" >
 		select * from favors 
 	</select>
+	
+	<!-- id에해당하는 모든 레코드 반환 -->
+	<select id="favorGetListByMemId" resultType="FavorVO" parameterType="String">
+		select * from favors where fvmemid = #{memid}
+	</select>
+	
+	<!-- id와 pvid로 삭제 -->
+	<delete id="favorDeleteByMemIdNPdId" parameterType="FavorVO">
+		delete from favors where fvmemId = #{fvmemId} and fvpdId = #{fvpdId}
+	</delete>
 
 </mapper>

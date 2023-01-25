@@ -90,7 +90,10 @@ public class CollectionsController {
 
 	@RequestMapping(value="/bestProductList")
 	@ResponseBody
-	public Map<String, Object> bestProductList(Integer showPage,Integer sort,@RequestParam(value="finalCateList[]",required=false) ArrayList<String> finalCateList) {
+	public Map<String, Object> bestProductList(Integer showPage,Integer sort,
+			@RequestParam(value="finalCateList[]",required=false) ArrayList<String> finalCateList,
+			@RequestParam(value="finalBrandList[]",required=false) ArrayList<String> finalBrandList,
+			@RequestParam(value="finalpriceList[]",required=false) ArrayList<String> finalpriceList) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		int currPage;
@@ -111,12 +114,6 @@ public class CollectionsController {
 		
 		String pgName = "best"; //어떤 페이지인지 명시
 		
-		// ========================에러제거용 ArrayList 반드시 없앨것!===========================
-		ArrayList<String> finalBrandList = new ArrayList<String>();
-		
-		// ========================에러제거용 ArrayList 반드시 없앨것!===========================
-				ArrayList<String> finalpriceList = new ArrayList<String>();
-		
 		PagingVO vo = service.getProdPageInfo(currPage,pgName,sortType,finalCateList,finalBrandList,finalpriceList); //페이징에 필요한 정보 계산
 		List<ProductVO> pageList =  service.getProdPageList(vo);
 		List<String> cateList = service.getCateList(pgName);
@@ -126,8 +123,13 @@ public class CollectionsController {
 		result.put("pageInfo",vo);  //페이징정보
 		result.put("currPage",currPage); //현재페이지
 		result.put("sortType",sortType);  //정렬정보
+		
 		result.put("cateList",cateList);  //카테고리목록
 		result.put("brandList",brandList); //브랜드목록(전체)
+		
+		result.put("activeCateList",finalCateList); //가변카테고리목록(버튼누를때마다 인자로 넘어오는것)
+		result.put("activeBrandList",finalBrandList); //가변브랜드목록(버튼누를때마다 인자로 넘어오는것)
+		result.put("activePriceList",finalpriceList); //가변가격목록(버튼누를때마다 인자로 넘어오는것)
 		
 		return result;
 	}
@@ -144,7 +146,10 @@ public class CollectionsController {
 
 	@RequestMapping(value="/nowOnSaleProductList")
 	@ResponseBody
-	public Map<String, Object> nowOnSaleProductList(Integer showPage,Integer sort,@RequestParam(value="finalCateList[]",required=false) ArrayList<String> finalCateList) {
+	public Map<String, Object> nowOnSaleProductList(Integer showPage,Integer sort,
+			@RequestParam(value="finalCateList[]",required=false) ArrayList<String> finalCateList,
+			@RequestParam(value="finalBrandList[]",required=false) ArrayList<String> finalBrandList,
+			@RequestParam(value="finalpriceList[]",required=false) ArrayList<String> finalpriceList) {
 
 		Map<String, Object> result = new HashMap<String, Object>();
 		
@@ -166,12 +171,6 @@ public class CollectionsController {
 		
 		String pgName = "nowOnSale"; //어떤 페이지인지 명시
 		
-		// ========================에러제거용 ArrayList 반드시 없앨것!===========================
-				ArrayList<String> finalBrandList = new ArrayList<String>();
-				
-		// ========================에러제거용 ArrayList 반드시 없앨것!===========================
-		ArrayList<String> finalpriceList = new ArrayList<String>();
-		
 		PagingVO vo = service.getProdPageInfo(currPage,pgName,sortType,finalCateList,finalBrandList,finalpriceList); //페이징에 필요한 정보 계산
 		List<ProductVO> pageList =  service.getProdPageList(vo);
 		List<String> cateList = service.getCateList(pgName);
@@ -181,8 +180,13 @@ public class CollectionsController {
 		result.put("pageInfo",vo);  //페이징정보
 		result.put("currPage",currPage); //현재페이지
 		result.put("sortType",sortType);  //정렬정보
+		
 		result.put("cateList",cateList);  //카테고리목록
 		result.put("brandList",brandList); //브랜드목록
+		
+		result.put("activeCateList",finalCateList); //가변카테고리목록(버튼누를때마다 인자로 넘어오는것)
+		result.put("activeBrandList",finalBrandList); //가변브랜드목록(버튼누를때마다 인자로 넘어오는것)
+		result.put("activePriceList",finalpriceList); //가변가격목록(버튼누를때마다 인자로 넘어오는것)
 		
 		return result;
 	}
@@ -198,7 +202,10 @@ public class CollectionsController {
 
 	@RequestMapping(value="/mainPageCategoryProductList")
 	@ResponseBody
-	public Map<String, Object> mainPageCategoryProductList(String cateName,Integer showPage,Integer sort,@RequestParam(value="finalCateList[]",required=false) ArrayList<String> finalCateList) {
+	public Map<String, Object> mainPageCategoryProductList(String cateName,Integer showPage,Integer sort,
+			@RequestParam(value="finalCateList[]",required=false) ArrayList<String> finalCateList,
+			@RequestParam(value="finalBrandList[]",required=false) ArrayList<String> finalBrandList,
+			@RequestParam(value="finalpriceList[]",required=false) ArrayList<String> finalpriceList) {
 
 		Map<String, Object> result = new HashMap<String, Object>();
 		
@@ -217,24 +224,21 @@ public class CollectionsController {
 		}
 		
 		//메인카테고리는 입력받아야함 => pgName변수에 대입
-		String pgName = cateName; //어떤 페이지인지 명시 = 어떤 카테고리 페이지인지
-		
-		// ========================에러제거용 ArrayList 반드시 없앨것!===========================
-		ArrayList<String> finalBrandList = new ArrayList<String>();
-		// ========================에러제거용 ArrayList 반드시 없앨것!===========================
-		ArrayList<String> finalpriceList = new ArrayList<String>();
+		String pgName = finalCateList.get(0); //어떤 페이지인지 명시 = 어떤 카테고리 페이지인지
 		
 		PagingVO vo = service.getProdPageInfo(currPage,pgName,sortType,finalCateList,finalBrandList,finalpriceList); //페이징에 필요한 정보 계산
 		List<ProductVO> pageList =  service.getProdPageList(vo);
-		List<String> cateList = service.getCateList(pgName);
 		List<String> brandList = service.getBrandList(pgName);
 		
 		result.put("ProdList",pageList);  //상품목록
 		result.put("pageInfo",vo);  //페이징정보
 		result.put("currPage",currPage); //현재페이지
 		result.put("sortType",sortType);  //정렬정보
-		result.put("cateList",cateList);  //카테고리목록
+		
 		result.put("brandList",brandList); //브랜드목록
+		
+		result.put("activeBrandList",finalBrandList); //가변브랜드목록(버튼누를때마다 인자로 넘어오는것)
+		result.put("activePriceList",finalpriceList); //가변가격목록(버튼누를때마다 인자로 넘어오는것)
 		
 		return result;
 	}

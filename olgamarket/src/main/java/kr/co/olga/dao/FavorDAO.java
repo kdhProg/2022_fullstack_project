@@ -14,5 +14,9 @@ public interface FavorDAO {
 
 	List<FavorVO> favorSelectList();
 
+	List<FavorVO> favorGetListByMemId(String memId);
+
+	int favorDeleteByMemIdNPdId(FavorVO vo);
+
 
 }

@@ -1,6 +1,7 @@
 package kr.co.olga.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.olga.service.FavorService;
 import kr.co.olga.service.MemberService;
 import kr.co.olga.service.SellerService;
 import kr.co.olga.service.StoreService;
+import kr.co.olga.vo.FavorVO;
 import kr.co.olga.vo.MemberVO;
 import kr.co.olga.vo.SellerVO;
 import kr.co.olga.vo.StoreVO;
@@ -32,6 +35,9 @@ public class MemberController {
 	
 	@Autowired
 	private SellerService sellerservice;
+	
+	@Autowired
+	private FavorService favorservice;
 	
 	/************* 로그인 관련 *************/
 	// 로그인 페이지 이동
@@ -59,6 +65,14 @@ public class MemberController {
 				return "member/login";
 			}else {
 				//일반 로그인 성공
+				// 찜목록 세션에 담기
+				List<FavorVO> list = favorservice.favorGetListByMemId(memId);
+				String favorList = ""; //리스트에서 pdid만 담을 문자열, 구분자는 /로 한다
+				for(int i=0;i<list.size();i++) {
+					favorList += list.get(i).getFvpdId();
+					if(i < (list.size()-1)) {favorList += "/";}
+				}
+				session.setAttribute("favor",favorList);
 				session.setAttribute("member", memlogin);
 				return "redirect:/";
 			}
@@ -74,13 +88,28 @@ public class MemberController {
 				return "member/login";
 			}else {
 				//판매자 로그인 성공
+				// 찜목록 세션에 담기
+				List<FavorVO> list = favorservice.favorGetListByMemId(memId);
+				String favorList = ""; //리스트에서 pdid만 담을 문자열, 구분자는 /로 한다
+				for(int i=0;i<list.size();i++) {
+					favorList += list.get(i).getFvpdId();
+					if(i < (list.size()-1)) {favorList += "/";}
+				}
+				session.setAttribute("favor",favorList);
 				session.setAttribute("seller", sellogin);
 				return "redirect:/";
 			}
 		}
 		
 		
-	}	
+	}
+	
+	//로그아웃
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String memNSelLogout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
 	
 	
 	/************* 회원가입관련 *************/

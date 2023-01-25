@@ -4,12 +4,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <style>
-#CateButton,#BrandButton{
+#CateButton,#BrandButton,#PriceButton{
 	background-color: white;
 }
 #sortBtn1,#sortBtn2,#sortBtn3,#sortBtn4{
@@ -151,9 +153,9 @@ $(document).ready(function(){
 			/* =========== 가격 만들기 시작 ===========*/
 			priceLength = 3; // 가격 구간이 3개이므로 3고정
  			var newPdpriceList = "";  //태그에 적용할 문자열 만들기
- 			newPdpriceList += "<input type='button' id='CateButton' name='PriceButton0' value='1' class='btnCateList'/>"; //10000이하
- 			newPdpriceList += "<input type='button' id='CateButton' name='PriceButton1' value='2' class='btnCateList'/>"; //10000초과~30000이하
- 			newPdpriceList += "<input type='button' id='CateButton' name='PriceButton2' value='3' class='btnCateList'/>"; //30000이상
+ 			newPdpriceList += "<input type='button' id='PriceButton' name='PriceButton0' value='1' class='btnCateList'/>"; //10000이하
+ 			newPdpriceList += "<input type='button' id='PriceButton' name='PriceButton1' value='2' class='btnCateList'/>"; //10000초과~30000이하
+ 			newPdpriceList += "<input type='button' id='PriceButton' name='PriceButton2' value='3' class='btnCateList'/>"; //30000이상
 			$("#newPdPriceList").html(newPdpriceList); //메인 컨텐츠 적용
 			
 			// 카테고리 버튼 동적변수 생성

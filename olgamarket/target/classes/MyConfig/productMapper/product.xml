@@ -261,13 +261,32 @@
 
 
 <!-- 2023 01 16 검색 쿼리문 -->
+<!-- 2023-01-21 수정 -->
 <select id="getSearchPdList" parameterType="PagingVO" resultType="ProductVO">
 		select * from 
 			(select rownum rnum, temp.* from
 				(select * from productDatas where pdname LIKE '%' || #{searchKeyWord} || '%'
 				<if test="categories!=null and categories.size!=0">
-					<foreach collection="categories" item="cate" open=" and (" close=")" separator=" or ">
-						pdMainCategory = #{cate}
+				    <foreach collection="categories" item="cate" open=" and (" close=")" separator=" or ">
+						pdmaincategory = #{cate}
+					</foreach>
+				</if>
+				<if test="brandNames!=null and brandNames.size!=0">
+				    <foreach collection="brandNames" item="cate" open=" and (" close=")" separator=" or ">
+						pdstlBrandName = #{cate}
+					</foreach>
+				</if>
+				<if test="priceLists!=null and priceLists.size!=0">
+				    <foreach collection="priceLists" item="cate" open=" and (" close=")" separator=" or ">
+						<if test='cate == "1"'>
+							pdPrice <![CDATA[<=]]> 10000
+						</if>
+						<if test='cate == "2"'>
+							(10000 <![CDATA[<]]> pdPrice and pdPrice <![CDATA[<=]]> 30000)
+						</if>
+						<if test='cate == "3"'>
+							30000 <![CDATA[<=]]> pdPrice
+						</if>
 					</foreach>
 				</if>
 				order by 
@@ -288,8 +307,31 @@
 		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
 </select>
 
-<select id="getSearchPdCount" parameterType="String" resultType="Integer">
+<select id="getSearchPdCount" parameterType="PagingVO" resultType="Integer">
 	select count(*) from productDatas where pdname LIKE '%' || #{searchKeyWord} || '%'
+	<if test="categories!=null and categories.size!=0">
+	    <foreach collection="categories" item="cate" open=" and (" close=")" separator=" or ">
+			pdmaincategory = #{cate}
+		</foreach>
+	</if>
+	<if test="brandNames!=null and brandNames.size!=0">
+	    <foreach collection="brandNames" item="cate" open=" and (" close=")" separator=" or ">
+			pdstlBrandName = #{cate}
+		</foreach>
+	</if>
+	<if test="priceLists!=null and priceLists.size!=0">
+	    <foreach collection="priceLists" item="cate" open=" and (" close=")" separator=" or ">
+			<if test='cate == "1"'>
+				pdPrice <![CDATA[<=]]> 10000
+			</if>
+			<if test='cate == "2"'>
+				(10000 <![CDATA[<]]> pdPrice and pdPrice <![CDATA[<=]]> 30000)
+			</if>
+			<if test='cate == "3"'>
+				30000 <![CDATA[<=]]> pdPrice
+			</if>
+		</foreach>
+	</if>
 </select>
 
 <select id="getSearchCateList" parameterType="String" resultType="String">

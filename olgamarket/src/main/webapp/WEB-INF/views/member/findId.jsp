@@ -7,70 +7,170 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <style>
+* {
+	/* 초기화 */
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    letter-spacing: 0;
+    word-spacing: 0;
+}
+/* 판매자/일반회원 선택버튼 => 버튼의 label태그에 붙어있음 */
+.typebtn{ 
+      height: 40px;
+      width: 120px;
+      font-weight: bold;
+}
 /* 사업자 등록번호는 처음에는 안보임 */
-.form_selRegiNum{
+.form_selRegiNum,.success_result{
 	display: none;
 }
+/* a태그 장식 없애기 */
+a{
+	text-decoration: none;
+	color:black;
+}
+/* 메인 타이틀 */
+.main_title{
+	font-weight: bold;
+	font-size: 20px;
+}
+/* row 간격늘리기 */
+.row_margin{
+	margin-bottom: 10px;
+}
 
-/* 회원/판매자 토글 시작*/
-.typeSelect_btn_wrap {
-    padding: 15px 10px;
+.find_id_wrap{
+	width:70%;
 }
-.typeSelect_btn_wrap input[type=radio]{
-    display: none;
+
+/* 모달 가운데 정렬 */
+.center-align{
+	text-align: center;
+	vertical-align:middle;
+	font-weight: bold;
 }
-.typeSelect_btn_wrap input[type=radio]+label{
-    display: inline-block;
-    cursor: pointer;
-    height: 30px;
-    width: 120px;
-    border: 1px solid #333;
-    line-height: 24px;
-    text-align: center;
-    font-weight:bold;
-    font-size:13px;
+
+/* 로그인/비찾 폰트 */
+.find_font{
+	font-weight: bold;
+	font-size: 12px;
 }
-.typeSelect_btn_wrap input[type=radio]+label{
-    background-color: #fff;
-    color: #333;
+
+/* 찾기버튼 */
+.find_btn{
+	height: 40px;
+	width:300px;
+    font-weight: bold;
+    font-size: 15px;
 }
-.typeSelect_btn_wrap input[type=radio]:checked+label{
-    background-color: rgb(234, 44, 0);
-    color: #fff;
+
+/* 테스트 */
+.col{
+/* 	border:1px solid red; */
 }
-/* 회원/판매자 토글 끝*/
 </style>
 <body>
-<div class="entire_wrap">
-	<div class="form_wrap">
-		<form action="">
-			<div class="typeSelect_btn_wrap">
-				<input type="radio" id="typeSel1" name="typeSelRadio" value="normalMem" checked="checked"><label for="typeSel1">일반회원</label>
-				<input type="radio" id="typeSel2" name="typeSelRadio" value="sellerMem" ><label for="typeSel2">판매자</label>
-			</div>
-			<label for=""><input class="form_name" name="memName" type="text" placeholder="이름입력" maxLength="5"/></label>
-			<label for=""><input class="form_phone" name="memPhone" type="text" oninput="autoHyphen(this)" placeholder="전화번호 입력" maxLength="13"/></label>
-			<div class="selRegiNum_wrap">
-				<label for=""><input class="form_selRegiNum" name="selRegiNum" type="text" placeholder="사업자등록번호 입력" 
-				maxLength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/></label>
-			</div>
-		</form>
-		<button class="find_btn">찾기</button>
+<div class="find_id_wrap container text-center">
+	<div class="row">
+		<div class="col col-lg-2">
+		</div>
+		<div class="col">
+			<span class="main_title">아이디 찾기</span>
+		</div>
+		<div class="col col-lg-2">
+		</div>
 	</div>
-	<div class="warn_msg"></div>
-	<div class="result_wrap"></div>
+	<form class="form-horizontal" action="" method="get">
+		<div class="row_margin inside_form_wrap">
+			<!-- 일반회원/판매자 토글 버튼 : 컨트롤러에서 value를 보고 판단하도록 한다. -->
+			<div class="typeSelect_btn_wrap row_margin row justify-content-center">
+			    <div class="col col-lg-3">
+		    		<input type="radio" class="btn-check" name="typeSelRadio" id="typeSel1" value="normalMem" autocomplete="off" checked="checked">
+					<label class="typebtn btn btn-outline-danger" for="typeSel1">일반회원</label>
+			    </div>
+			    <div class="col col-lg-3">
+			   		<input type="radio" class="btn-check" name="typeSelRadio" id="typeSel2" value="sellerMem" autocomplete="off">
+					<label class="typebtn btn btn-outline-danger" for="typeSel2">판매자회원</label>
+			    </div>
+		    </div>
+	    </div>
+	    <div class="row_margin row">
+		    <div class="col col-lg-4"></div>
+	    	<div class="col">
+	    		<input class="form_name form-control" name="memName" type="text" placeholder="성함을 입력하세요" maxLength="5"/>
+	    	</div>
+	    	<div class="col col-lg-4"></div>
+	    </div>
+	    <div class="row_margin row">
+		    <div class="col col-lg-4"></div>
+	    	<div class="col">
+	    		<input class="form_phone form-control" name="memPhone" type="text" oninput="autoHyphen(this)" placeholder="전화번호를 입력하세요" maxLength="13"/>
+	    	</div>
+	    	<div class="col col-lg-4"></div>
+	    </div>
+	    <div class="row_margin row">
+		    <div class="col col-lg-4"></div>
+	    	<div class="col">
+	    		<input class="form_selRegiNum form-control" name="selRegiNum" type="text" placeholder="사업자등록번호를 입력하세요" maxLength="10" 
+	    		oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+	    	</div>
+	    	<div class="col col-lg-4"></div>
+	    </div>
+	    <div class="row_margin row">
+		    <div class="col col-lg-4"></div>
+	    	<div class="col">
+	    		<button type="button" class="find_btn btn btn-danger">아이디 찾기</button>
+	    	</div>
+	    	<div class="col col-lg-4"></div>
+	    </div>
+	    <div class="success_result row_margin row">
+		    <div class="col col-lg-4"></div>
+	    	<div class="success_result_msg col">
+	    	</div>
+	    	<div class="col col-lg-4"></div>
+	    </div>
+	    <div class="success_result_btn row_margin row">
+		    <div class="col col-lg-4"></div>
+		    	<div class="find_font col">
+		    		<a href="/member/login">로그인</a>
+		    	</div>
+		    	<div class="find_font col">
+		    		<a href="/member/findPwd">비밀번호찾기</a>
+		    	</div>
+		    	<div class="col col-lg-4"></div>
+	    </div>
+    </form>
 </div>
-<a href="/member/login">로그인</a>&nbsp;&nbsp;<a href="/member/findPwd">비밀번호찾기</a>
+	
+<!-- 모달창 -->
+<div id="validataion_warm_msg" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+      </div>
+      <div class="modal_msg center-align modal-body">
+
+      </div>
+      <div class="center-align modal-footer">
+      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 <script>
 let sellerSelected = false;
 $(".find_btn").click(function(){
-	if($(".form_name").val().length==0){$('.warn_msg').css('display','block');$(".warn_msg").html("<p style='color: red'>이름을 입력하세요.</p>");return false;}
-	if($(".form_phone").val().length==0){$('.warn_msg').css('display','block');$(".warn_msg").html("<p style='color: red'>전화번호를 입력하세요.</p>");return false;}
+	if($(".form_name").val().length==0){$(".modal_msg").html("<p>이름을 입력하세요.</p>");$('#validataion_warm_msg').modal("show");return false;}
+	if($(".form_phone").val().length==0){$(".modal_msg").html("<p>전화번호를 입력하세요.</p>");$('#validataion_warm_msg').modal("show");return false;}
 	if(sellerSelected){
-		if($(".form_selRegiNum").val().length==0){$('.warn_msg').css('display','block');$(".warn_msg").html("<p style='color: red'>사업자등록번호를 입력하세요.</p>");return false;}
+		if($(".form_selRegiNum").val().length==0){$('.warn_msg').css('display','block');$(".modal_msg").html("<p>사업자등록번호를 입력하세요.</p>");$('#validataion_warm_msg').modal("show");return false;}
 	}
 	// 모든 입력칸 입력됨
 	let memName = $(".form_name").val();
@@ -94,48 +194,46 @@ $(".find_btn").click(function(){
 		success : function(result){
 			if(result != "failed"){
 				// 찾기 성공
-				$('.warn_msg').css('display','block');
-				$('.result_wrap').html("<span style='color: green'>아이디를 찾았습니다: "+result+"</span>");	
+				$('.success_result_msg').html("<p style='color: green'>아이디를 찾았습니다: "+result+"</p>");	
+				$('.success_result').show();	
 				// 찾으면 입력폼 / 경고메시지 none
-				$('.form_wrap').css('display','none');
-				$('.warn_msg').css('display','none');
+				$('.form_name').prop('disabled',true);
+				$('.form_phone').prop('disabled',true);
+				$('.form_selRegiNum').prop('disabled',true);
+				$('.find_btn').prop('disabled',true);
+				$('#typeSel2').prop('disabled',true);
+				$('#typeSel1').prop('disabled',true);
 			}else{
 				// 찾기 실패
-				$('.warn_msg').css('display','block');
-				$('.warn_msg').html("<span style='color: red'>아이디가 존재하지 않습니다</span>");	
+				$(".modal_msg").html("<p>아이디가 존재하지 않습니다.</p>");
+				$('#validataion_warm_msg').modal("show");
 			}
 		}// success 종료
 	}); // ajax 종료	
 });
 
-$(".form_name").keyup(function(){
-	if($(".form_name").val()==""){
-		$('.warn_msg').css('display','block');
-		$(".warn_msg").html("<p style='color: red'>이름을 입력하세요.</p>");
-	}else{
-		$('.warn_msg').css('display','none');
-	}
-});
+// $(".form_name").keyup(function(){
+// 	if($(".form_name").val()==""){
+// 		$(".modal_msg").html("<p>이름을 입력하세요.</p>");
+// 		$('#validataion_warm_msg').modal("show");
+// 	}
+// });
 
-$(".form_phone").keyup(function(){
-	if($(".form_phone").val()==""){
-		$('.warn_msg').css('display','block');
-		$(".warn_msg").html("<p style='color: red'>전화번호를 입력하세요.</p>");
-	}else{
-		$('.warn_msg').css('display','none');
-	}
-});
+// $(".form_phone").keyup(function(){
+// 	if($(".form_phone").val()==""){
+// 		$(".modal_msg").html("<p>전화번호를 입력하세요.</p>");
+// 		$('#validataion_warm_msg').modal("show");
+// 	}
+// });
 
-$(".form_selRegiNum").keyup(function(){
-	if(sellerSelected){
-		if($(".form_selRegiNum").val()==""){
-			$('.warn_msg').css('display','block');
-			$(".warn_msg").html("<p style='color: red'>사업자등록번호를 입력하세요.</p>");
-		}else{
-			$('.warn_msg').css('display','none');
-		}
-	}
-});
+// $(".form_selRegiNum").keyup(function(){
+// 	if(sellerSelected){
+// 		if($(".form_selRegiNum").val()==""){
+// 			$(".modal_msg").html("<p style='color: red'>사업자등록번호를 입력하세요.</p>");
+// 			$('#validataion_warm_msg').modal("show");
+// 		}
+// 	}
+// });
 
 //전화번호 오토하이픈
 function autoHyphen(target){
@@ -150,14 +248,12 @@ function autoHyphen(target){
 //판매자 모드
 $("#typeSel2").click(function(){
 	$(".form_selRegiNum").css('display','block');
-	$('.warn_msg').css('display','none');
 	sellerSelected = true;
 });
 
 //일반 모드
 $("#typeSel1").click(function(){
 	$(".form_selRegiNum").css('display','none');
-	$('.warn_msg').css('display','none');
 	sellerSelected = false;
 });
 

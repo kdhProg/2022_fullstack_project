@@ -19,10 +19,29 @@
 		<input type="text" placeholder="검색어 입력" name="searchKeyWord"/>
 		<input type="submit" value="검색"/>
 	</form>
-
-	<a href="/member/join">회원가입하기</a><br />
-	<a href="/member/login">로그인</a>
-	<a href="/seller/dedicated?selId=${seller.getSelId()}&selstlBrandName=${seller.getSelstlBrandName()}">판매자 전용 페이지</a>
+	<c:choose> 
+		<c:when test="${not empty member}">
+		<!-- 일반회원 -->
+			<p>일반회원: ${member.getMemName()}님</p>
+			<a href="/member/logout">로그아웃</a>
+		</c:when> 
+		<c:when test="${not empty seller}">
+		<!-- 판매자회원 -->
+			<p>판매자회원: ${seller.getSelName()}님</p>
+			<a href="/member/logout">로그아웃</a><br />
+			<c:if test="${seller.getSelTypeGrade() eq 1}">
+			<!-- 판매자회원이면서 권한이 유효해야함 -->
+				<a href="/seller/dedicated?selId=${seller.getSelId()}&selstlBrandName=${seller.getSelstlBrandName()}">판매자 전용 페이지</a>
+			</c:if>
+		</c:when> 
+		<c:otherwise>
+		<!-- 비로그인 -->
+			<a href="/member/join">회원가입하기</a><br />
+			<a href="/member/login">로그인</a>
+		</c:otherwise> 
+	</c:choose> 
+	
+	
 	<hr />
 	<h2>카테고리 리스트</h2>
 	<a href="/collections/mainPageCategory?cateName=과일">[과일]</a>&nbsp;<a href="/collections/mainPageCategory?cateName=채소">[채소]</a>&nbsp;

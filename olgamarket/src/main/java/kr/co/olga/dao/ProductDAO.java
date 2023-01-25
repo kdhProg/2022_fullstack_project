@@ -61,7 +61,8 @@ public interface ProductDAO {
 //	PagingVO 객체의 searchKeyWord를 이름에 갖고있는 상품레코드 리스트 반환
 	List<ProductVO> getSearchPdList(PagingVO vo);
 
-	int getSearchPdCount(String searchKeyWord);
+	//2023 01-21 김동훈 수정
+	int getSearchPdCount(PagingVO temp_vo);
 
 	List<String> getSearchCateList(String searchKeyWord);
 

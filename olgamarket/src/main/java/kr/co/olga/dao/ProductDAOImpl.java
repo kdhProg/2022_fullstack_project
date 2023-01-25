@@ -155,8 +155,8 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 	
 	@Override
-	public int getSearchPdCount(String searchKeyWord) {
-		return session.selectOne("productMapper.getSearchPdCount", searchKeyWord);
+	public int getSearchPdCount(PagingVO temp_vo) {
+		return session.selectOne("productMapper.getSearchPdCount", temp_vo);
 	}
 	
 	@Override

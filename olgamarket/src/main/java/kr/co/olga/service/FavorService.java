@@ -14,6 +14,12 @@ public interface FavorService {
 	FavorVO favorSelectOne(long fvNo);
 
 	List<FavorVO> favorSelectList();
+	
+	// memId에 해당하는 모든 레코드 가져오기
+	List<FavorVO> favorGetListByMemId(String memId);
+	
+	// memId와 pdId 정보가 들어있는 vo로 레코드 지우기
+	int favorDeleteByMemIdNPdId(FavorVO vo);
 
 
 

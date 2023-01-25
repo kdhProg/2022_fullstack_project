@@ -60,19 +60,19 @@ public class ProductTest {
 	@Test
 	@Ignore
 	public void productSearchTest() {
-		String searchKeyWord = "파랑";
-		PagingVO vo = new PagingVO();
-		vo.setSearchKeyWord(searchKeyWord);
-		vo.setSort(1);
-		vo.setContEnd(10);
-		vo.setContStart(1);
-		List<ProductVO> testList = service.getSearchPdList(vo);
-		PagingVO vo2 = service.getSearchPdPageInfo(1,1,searchKeyWord,new ArrayList<String>());
-		for(int i = 0; i<testList.size() ; i++) {
-			System.out.println(testList.get(i).getPdName());
-		}
-		
-		System.out.println(vo2);
+//		String searchKeyWord = "파랑";
+//		PagingVO vo = new PagingVO();
+//		vo.setSearchKeyWord(searchKeyWord);
+//		vo.setSort(1);
+//		vo.setContEnd(10);
+//		vo.setContStart(1);
+//		List<ProductVO> testList = service.getSearchPdList(vo);
+//		PagingVO vo2 = service.getSearchPdPageInfo(1,1,searchKeyWord,new ArrayList<String>());
+//		for(int i = 0; i<testList.size() ; i++) {
+//			System.out.println(testList.get(i).getPdName());
+//		}
+//		
+//		System.out.println(vo2);
 	}
 	
 	@Test

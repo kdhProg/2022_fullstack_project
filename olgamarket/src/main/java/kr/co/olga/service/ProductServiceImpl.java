@@ -249,19 +249,25 @@ public class ProductServiceImpl implements ProductService {
 		return dao.getSearchPdList(vo);
 	}
 	
-	
+	// 검색페이지임
 	@Override
-	public PagingVO getSearchPdPageInfo(int currPage, int sortType,String searchKeyWord,ArrayList<String> finalCateList) {
+	public PagingVO getSearchPdPageInfo(int currPage, int sortType,String searchKeyWord,
+			ArrayList<String> finalCateList,ArrayList<String> finalBrandList,ArrayList<String> finalpriceList) {
 		PagingVO vo = new PagingVO();
-		int setTotalRecordCount = dao.getSearchPdCount(searchKeyWord);
+		//count전용 임시VO
+		PagingVO temp_vo = new PagingVO();
+		temp_vo.setSearchKeyWord(searchKeyWord);
+		temp_vo.setCategories(finalCateList);
+		temp_vo.setBrandNames(finalBrandList);
+		temp_vo.setPriceLists(finalpriceList);
+		int setTotalRecordCount = dao.getSearchPdCount(temp_vo);
+		
 		int recordCountPerPage = 40;
                         
 		int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
-		//int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
 		int firstPageNoOnPageList = lastPageNoOnPageList - 9;
-		//int firstPageNoOnPageList = lastPageNoOnPageList - 9;
 		
-		int realEnd = (int)(Math.ceil((dao.getSearchPdCount(searchKeyWord) * 1.0) / 40));
+		int realEnd = (int)(Math.ceil((dao.getSearchPdCount(temp_vo) * 1.0) / 40));
 		if(realEnd < lastPageNoOnPageList) {
 			lastPageNoOnPageList = realEnd;
 		}
@@ -289,6 +295,8 @@ public class ProductServiceImpl implements ProductService {
 		vo.setContStart(contStart);
 		vo.setSearchKeyWord(searchKeyWord);
 		vo.setCategories(finalCateList);
+		vo.setBrandNames(finalBrandList);
+		vo.setPriceLists(finalpriceList);
 		vo.setSort(sortType);
 		
 		return vo;

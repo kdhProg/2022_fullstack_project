@@ -34,6 +34,14 @@ public class FavorDAOImpl implements FavorDAO {
 		return session.selectList("favorMapper.favorSelectList");
 	}
 
-
+	@Override
+	public List<FavorVO> favorGetListByMemId(String memId) {
+		return session.selectList("favorMapper.favorGetListByMemId",memId);
+	}
+	
+	@Override
+	public int favorDeleteByMemIdNPdId(FavorVO vo) {
+		return session.delete("favorMapper.favorDeleteByMemIdNPdId",vo);
+	}
 	
 }

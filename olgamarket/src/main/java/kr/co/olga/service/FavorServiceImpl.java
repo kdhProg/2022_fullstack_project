@@ -33,5 +33,15 @@ public class FavorServiceImpl implements FavorService {
 	public List<FavorVO> favorSelectList() {
 		return dao.favorSelectList();
 	}
+	
+	@Override
+	public List<FavorVO> favorGetListByMemId(String memId) {
+		return dao.favorGetListByMemId(memId);
+	}
+	
+	@Override
+	public int favorDeleteByMemIdNPdId(FavorVO vo) {
+		return dao.favorDeleteByMemIdNPdId(vo);
+	}
 
 }
