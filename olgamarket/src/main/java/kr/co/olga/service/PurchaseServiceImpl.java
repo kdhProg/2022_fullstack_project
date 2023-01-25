@@ -62,4 +62,52 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public List<PurchaseVO> getMemPurchaseAdminPageList(PagingVO vo) {
 		return dao.getMemPurchaseAdminPageList(vo);
 	}
+
+// 마이페이지 주문 내역 페이징		
+	@Override
+	public PagingVO getMemPurchasePageInfo(int currPage, String plmemId) {
+		PagingVO vo = new PagingVO();
+		int setTotalRecordCount = dao.getMemPurchaseCount(plmemId);
+		int recordCountPerPage = 20;
+                        
+		int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
+		//int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
+		int firstPageNoOnPageList = lastPageNoOnPageList - 9;
+		//int firstPageNoOnPageList = lastPageNoOnPageList - 9;
+		
+		int realEnd = (int)(Math.ceil((dao.getMemPurchaseCount(plmemId) * 1.0) / 20));
+		if(realEnd < lastPageNoOnPageList) {
+			lastPageNoOnPageList = realEnd;
+		}
+		
+		int firstRecordIndex = (currPage - 1) * recordCountPerPage;
+		boolean xprev= firstPageNoOnPageList > 1;
+		boolean xnext = lastPageNoOnPageList < realEnd;
+		
+		int contEnd = currPage*20;
+		int contStart = contEnd-19;
+		if(contEnd > setTotalRecordCount) {
+			contEnd = setTotalRecordCount;
+		}
+		
+		vo.setCurrentpageno(currPage);
+		vo.setFirstPageNoOnPageList(firstPageNoOnPageList);
+		vo.setFirstRecordIndex(firstRecordIndex);
+		vo.setLastPageNoOnPageList(lastPageNoOnPageList);
+		vo.setRealEnd(realEnd);
+		vo.setRecordCountPerPage(recordCountPerPage);
+		vo.setTotalRecordCount(setTotalRecordCount);
+		vo.setXnext(xnext);
+		vo.setXprev(xprev);
+		vo.setContEnd(contEnd);
+		vo.setContStart(contStart);
+		vo.setPlmemId(plmemId);
+		
+		return vo;
+	}
+
+	@Override
+	public List<PurchaseVO> getMemPurchasePageList(PagingVO vo) {
+		return dao.getMemPurchasePageList(vo);
+	}
 }
