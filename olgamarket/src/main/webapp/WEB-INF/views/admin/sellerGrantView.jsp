@@ -28,13 +28,6 @@
 				<tr>
 					<td>No : ${selUp.selId}</td>
 				</tr>
-				<tr>
-					<td>
-						<label for="selUpdDate">수정 날짜</label> 
-						<fmt:parseDate value="${selUp.selUpdDate}" var="selUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${selUpdDate}" pattern="yyyy.MM.dd"/>
-					</td>
-				</tr>
 			</tbody>
 		</table>
 		<div>

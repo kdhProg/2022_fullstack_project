@@ -22,13 +22,6 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="iqUpdDate">등록날짜 : </label>
-						<fmt:parseDate value="${selAnswerUp.sqUpdDate}" var="sqUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${sqUpdDate}" pattern="yyyy.MM.dd"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
 						<button type="submit">등록</button>
 					</td>
 				</tr>

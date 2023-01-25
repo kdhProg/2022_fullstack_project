@@ -46,13 +46,6 @@
 						<textarea id="ntContent" name="ntContent"><c:out value="${update.ntContent}" /></textarea>
 					</td>
 				</tr>
-				<tr>
-					<td>
-						<label for="ntUpdDate">수정 날짜</label> 
-						<fmt:parseDate value="${update.ntUpdDate}" var="ntUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${ntUpdDate}" pattern="yyyy.MM.dd"/>
-					</td>
-				</tr>
 			</tbody>
 		</table>
 		<div>

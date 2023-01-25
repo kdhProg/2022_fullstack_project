@@ -35,14 +35,7 @@
 				<tr>
 					<td>
 						<label for="faqadmId">작성자 : </label>
-						<input type="text" id="faqadmId" name="faqadmId" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="faqRegiDate">등록날짜 : </label>
-						<fmt:parseDate value="${faqOne.faqRegiDate}" var="faqRegiDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${faqRegiDate}" pattern="yyyy.MM.dd"/>
+						<input type="text" id="faqadmId" name="faqadmId" value="${admin.getAdmId()}" />
 					</td>
 				</tr>
 				<tr>

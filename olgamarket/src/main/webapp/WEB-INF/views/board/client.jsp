@@ -15,19 +15,6 @@
 }
 
 </style>
-<script type="text/javascript">
-		$(document).ready(function(){
-			var formObj = $("form[name='insertForm']");
-			
-			// 1:1 문의 등록
-			$(".otqInsert_btn").on("click", function(){
-				formObj.attr("action", "/board/otqInsertView");
-				formObj.attr("method", "get");
-				formObj.submit();				
-			});
-			
-		});
-</script>
 <body>
 	<h1>고객센터 관리</h1>
 	<a href="#" onclick="noticeList(1);return false;" id="noticeBt">공지사항</a>

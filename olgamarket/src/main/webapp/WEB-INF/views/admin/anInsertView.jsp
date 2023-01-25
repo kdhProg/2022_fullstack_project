@@ -40,15 +40,8 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="otaadmId">작성자 :${otaadmId} </label>
-						<input type="text" id="otaadmId" name="otaadmId" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="otaUpdDate">등록날짜 : </label>
-						<fmt:parseDate value="${anIn.otqUpdDate}" var="otqUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${otqUpdDate}" pattern="yyyy.MM.dd"/>
+						<label for="otaadmId">작성자 : </label>
+						<input type="text" id="otaadmId" name="otaadmId" value="${admin.getAdmId()}" readonly="readonly"/>
 					</td>
 				</tr>
 				<tr>

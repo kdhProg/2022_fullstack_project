@@ -34,15 +34,8 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="ntadmId">작성자 :${ntadmId} </label>
-						<input type="text" id="ntadmId" name="ntadmId" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="ntRegiDate">등록날짜 : </label>
-						<fmt:parseDate value="${noticeOne.ntRegiDate}" var="ntRegiDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${ntRegiDate}" pattern="yyyy.MM.dd"/>
+						<label for="ntadmId">작성자 : </label>
+						<input type="text" id="ntadmId" name="ntadmId" value="${admin.getAdmId()}" readonly="readonly" />
 					</td>
 				</tr>
 				<tr>

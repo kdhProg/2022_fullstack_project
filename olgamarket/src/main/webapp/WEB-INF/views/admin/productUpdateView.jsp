@@ -97,13 +97,6 @@
 						<input type="text" id="pdStock" name="pdStock" value="${update.pdStock}" />
 					</td>
 				</tr>
-				<tr>
-					<td>
-						<label for="pdUpdDate">작성 날짜</label> 
-						<fmt:parseDate value="${productOne.pdUpdDate}" var="pdUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${pdUpdDate}" pattern="yyyy.MM.dd"/>
-					</td>
-				</tr>
 			</tbody>
 		</table>
 		<div>

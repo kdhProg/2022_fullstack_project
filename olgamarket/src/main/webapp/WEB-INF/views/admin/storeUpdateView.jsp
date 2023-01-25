@@ -47,13 +47,6 @@
 						<input type="text" id="stlEmail" name="stlEmail" value="${update.stlEmail}" />
 					</td>
 				</tr>
-				<tr>
-					<td>
-						<label for="stlUpdDate">작성 날짜</label> 
-						<fmt:parseDate value="${storeOne.stlUpdDate}" var="stlRegiDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${stlRegiDate}" pattern="yyyy.MM.dd"/>
-					</td>
-				</tr>
 			</tbody>
 		</table>
 		<div>

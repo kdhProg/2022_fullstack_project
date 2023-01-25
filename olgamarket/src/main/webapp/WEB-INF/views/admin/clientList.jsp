@@ -21,13 +21,13 @@
 			
 			// 공지사항 등록
 			$(".ntInsert_btn").on("click", function(){
-				formObj.attr("action", "/admin/noticeInsertView");
+				formObj.attr("action", '/admin/noticeInsertView?admId="${admin.getAdmId()}"');
 				formObj.attr("method", "get");
 				formObj.submit();				
 			});
 			// FAQ 등록
 			$(".faqInsert_btn").on("click", function(){
-				formObj.attr("action", "/admin/faqInsertView");
+				formObj.attr("action", '/admin/faqInsertView?admId="${admin.getAdmId()}"');
 				formObj.attr("method", "get");
 				formObj.submit();				
 			});

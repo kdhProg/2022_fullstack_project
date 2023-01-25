@@ -29,12 +29,6 @@
 				</tr>
 				<tr>
 					<td>
-						<fmt:parseDate value="${selQuiryIn.selUpdDate}" var="selUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${selUpdDate}" pattern="yyyy.MM.dd"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
 						<button type="submit">등록</button>
 					</td>
 				</tr>

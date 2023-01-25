@@ -22,13 +22,6 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="npqUpdDate">등록날짜 : </label>
-						<fmt:parseDate value="${npaIn.npqUpdDate}" var="npqUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${npqUpdDate}" pattern="yyyy.MM.dd"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
 						<button type="submit">등록</button>
 					</td>
 				</tr>

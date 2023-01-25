@@ -46,13 +46,6 @@
 						<textarea id="faqContent" name="faqContent"><c:out value="${update.faqContent}" /></textarea>
 					</td>
 				</tr>
-				<tr>
-					<td>
-						<label for="faqUpdDate">수정 날짜</label> 
-						<fmt:parseDate value="${update.faqUpdDate}" var="faqUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${faqUpdDate}" pattern="yyyy.MM.dd"/>
-					</td>
-				</tr>
 			</tbody>
 		</table>
 		<div>

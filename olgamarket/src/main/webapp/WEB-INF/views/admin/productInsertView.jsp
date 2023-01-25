@@ -117,13 +117,6 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="stlPhone">등록날짜 : </label>
-						<fmt:parseDate value="${productOne.pdUpdDate}" var="pdUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${pdUpdDate}" pattern="yyyy.MM.dd"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
 						<button type="submit">상품 등록</button>
 					</td>
 				</tr>

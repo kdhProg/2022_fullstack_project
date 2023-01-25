@@ -22,13 +22,6 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="iqUpdDate">등록날짜 : </label>
-						<fmt:parseDate value="${quiryUp.iqUpdDate}" var="iqUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${iqUpdDate}" pattern="yyyy.MM.dd"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
 						<button type="submit">등록</button>
 					</td>
 				</tr>

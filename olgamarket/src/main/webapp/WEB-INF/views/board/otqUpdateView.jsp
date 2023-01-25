@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page session="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,19 +36,6 @@
 					<td>
 						<label for="otqContent">내용 : </label>
 						<textarea id="otqContent" name="otqContent"></textarea>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="otqmemId">작성자 :${otqmemId} </label>
-						<input type="text" id="otqmemId" name="otqmemId" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="otqUpdDate">등록날짜 : </label>
-						<fmt:parseDate value="${otqUp.otqUpdDate}" var="otqUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate value="${otqUpdDate}" pattern="yyyy.MM.dd"/>
 					</td>
 				</tr>
 				<tr>
