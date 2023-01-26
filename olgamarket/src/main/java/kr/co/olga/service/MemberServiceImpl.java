@@ -168,6 +168,18 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberVO> getMemAdminPageList(PagingVO vo) {
 		return dao.getMemAdminPageList(vo);
 	}
+	
+// 관리자 회원 관리 아이디 조회
+	@Override
+	public MemberVO memSelectOne(String memId) {
+		return dao.memSelectOne(memId);
+	}
+	
+// 관리자 회원 등급 업데이트
+	@Override
+	public long memGradeUpdate(MemberVO vo) {
+		return dao.memGradeUpdate(vo);
+	}
 
 	
 }
