@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.olga.vo.MemberVO;
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.PurchaseVO;
 
@@ -17,12 +18,12 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 
 // 관리자 페이징	
 	@Override
-	public int getMemPurchaseAdminCount() {
-		return session.selectOne("PurchaseMapper.getMemPurchaseAdminCount");
+	public int getMemPurchaseAdminCount(int sortType) {
+		return session.selectOne("PurchaseMapper.getMemPurchaseAdminCount", sortType);
 	}
 
 	@Override
-	public List<PurchaseVO> getMemPurchaseAdminPageList(PagingVO vo) {
+	public List<MemberVO> getMemPurchaseAdminPageList(PagingVO vo) {
 		return session.selectList("PurchaseMapper.getMemPurchaseAdminPageList", vo);
 	}
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.olga.dao.PurchaseDAO;
+import kr.co.olga.vo.MemberVO;
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.PurchaseVO;
 
@@ -19,7 +20,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public PagingVO getMemPurchaseAdminPageInfo(int currPage, int sortType) {
 		PagingVO vo = new PagingVO();
-		int setTotalRecordCount = dao.getMemPurchaseAdminCount();
+		int setTotalRecordCount = dao.getMemPurchaseAdminCount(sortType);
 		int recordCountPerPage = 20;
                         
 		int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
@@ -27,7 +28,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		int firstPageNoOnPageList = lastPageNoOnPageList - 9;
 		//int firstPageNoOnPageList = lastPageNoOnPageList - 9;
 		
-		int realEnd = (int)(Math.ceil((dao.getMemPurchaseAdminCount() * 1.0) / 20));
+		int realEnd = (int)(Math.ceil((dao.getMemPurchaseAdminCount(sortType) * 1.0) / 20));
 		if(realEnd < lastPageNoOnPageList) {
 			lastPageNoOnPageList = realEnd;
 		}
@@ -59,7 +60,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public List<PurchaseVO> getMemPurchaseAdminPageList(PagingVO vo) {
+	public List<MemberVO> getMemPurchaseAdminPageList(PagingVO vo) {
 		return dao.getMemPurchaseAdminPageList(vo);
 	}
 

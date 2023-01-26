@@ -34,6 +34,7 @@ import kr.co.olga.vo.AdminVO;
 import kr.co.olga.vo.AnVO;
 import kr.co.olga.vo.AnswerVO;
 import kr.co.olga.vo.FAQVO;
+import kr.co.olga.vo.MemberVO;
 import kr.co.olga.vo.NewPdAnswerVO;
 import kr.co.olga.vo.NewPdQuiryVO;
 import kr.co.olga.vo.NoticeVO;
@@ -797,7 +798,7 @@ public class AdminController {
 		}
 		
 		PagingVO vo = purchaseService.getMemPurchaseAdminPageInfo(currPage, sortType); //페이징에 필요한 정보 계산
-		List<PurchaseVO> memList =  purchaseService.getMemPurchaseAdminPageList(vo);
+		List<MemberVO> memList =  purchaseService.getMemPurchaseAdminPageList(vo);
 		
 		
 		

@@ -41,14 +41,13 @@ function memList(pageNo, sortNo) {
 			var currPage = data.currPage;
             var memPageList = data.memList; // model 처럼
             
-            var memContentTag = "<table><tr><th>No</th><th>회원 아이디</th><th>총 금액</th></tr>";
+            var memContentTag = "<table><tr><th>회원 아이디</th><th>회원 등급</th></tr>";
             var memPagingTag = "";
             
 			$.each(memPageList, function(key, value) {
 				memContentTag += "<tr>";
-				memContentTag += "<td>"+value.plNo+"</td>";
-				memContentTag += "<td><a href='/admin/memOne?memId="+value.plmemId+"'>"+value.plmemId+"</a></td>";
-				memContentTag += "<td>"+value.plTotalPrice+"</td>";
+				memContentTag += "<td><a href='/admin/memOne?memId="+value.memId+"'>"+value.memId+"</a></td>";
+				memContentTag += "<td>"+value.memGrade+"</td>";
 				memContentTag += "</tr>";                
              });
 			memContentTag += "</table>";

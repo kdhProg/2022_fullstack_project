@@ -6,29 +6,41 @@
 
 <!-- 관리자 페이징 -->
 	<select id="getMemPurchaseAdminCount" parameterType="int" resultType="Integer">
-		select count(*) from purchaseLists 
+		select count(*) from (SELECT sum(pltotalprice) as total, plmemid FROM purchaseLists 
+			where (select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -1) PREV_MONTH FROM DUAL)) from dual)
+				= (select EXTRACT(MONTH FROM plDate) AS MONTHS from dual) GROUP BY plmemid) pl, members mem
+				    where 
+				    	<if test='sortType == 1'>
+							total <![CDATA[<]]> 200000 and pl.plmemid = mem.memId
+						</if>
+						<if test='sortType == 2'>
+							total > 200000 and total <![CDATA[<]]> 500000 and pl.plmemid = mem.memId
+						</if>
+						<if test='sortType == 3'>
+							total > 500000 and pl.plmemid = mem.memId
+						</if>
 	</select>
 	
-	<select id="getMemPurchaseAdminPageList" parameterType="PagingVO" resultType="PurchaseVO">
-		select * from 
+	<select id="getMemPurchaseAdminPageList" parameterType="PagingVO" resultType="MemberVO">
+		select memid, memgrade from 
 			(select rownum rnum, temp.* from
-				(select plmemid from (SELECT sum(pltotalprice) as total, plmemid FROM purchaseLists 
+				(select pl.plmemid, mem.* from (SELECT sum(pltotalprice) as total, plmemid FROM purchaseLists 
 					where (select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -1) PREV_MONTH FROM DUAL)) from dual)
-						= (select EXTRACT(MONTH FROM plDate) AS MONTHS from dual) GROUP BY plmemid)
+						= (select EXTRACT(MONTH FROM plDate) AS MONTHS from dual) GROUP BY plmemid) pl, members mem
 						    where 
 						    	<if test='sort == 1'>
-									total <![CDATA[<]]> 200000
+									total <![CDATA[<]]> 200000 and pl.plmemid = mem.memId
 								</if>
 								<if test='sort == 2'>
-									total > 200000 and <![CDATA[<]]> 500000
+									total > 200000 and total <![CDATA[<]]> 500000 and pl.plmemid = mem.memId
 								</if>
 								<if test='sort == 3'>
-									total > 500000
+									total > 500000 and pl.plmemid = mem.memId
 								</if>
 					) 
 			temp) 
-		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}	   				
-	</select>
+		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}	
+		</select>
 	
 <!-- 마이페이지 주문 내역 페이징 -->
 	<select id="getMemPurchaseCount" parameterType="String" resultType="Integer">
