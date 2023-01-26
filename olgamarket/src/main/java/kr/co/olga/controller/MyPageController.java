@@ -64,11 +64,11 @@ public class MyPageController {
 
 		return result;
 	}
-/*	
+	
 	// 배송지
 	@RequestMapping(value = "/shipList")
 	@ResponseBody
-	public Map<String, Object> shipList(String showPage) {
+	public Map<String, Object> shipList(String showPage, String slmemId) {
 		Map<String, Object> result = new HashMap<String, Object>();
 
 		int stShowPage = Integer.parseInt(showPage);
@@ -80,7 +80,7 @@ public class MyPageController {
 			currPage = stShowPage;
 		}
 
-		PagingVO vo = shipService.getMemShipPageInfo(currPage); //페이징에 필요한 정보 계산
+		PagingVO vo = shipService.getMemShipPageInfo(currPage, slmemId); //페이징에 필요한 정보 계산
 		List<ShipVO> myShipList =  shipService.getMemShipPageList(vo);
 
 		result.put("myShipList", myShipList);
@@ -89,7 +89,25 @@ public class MyPageController {
 
 		return result;
 	}
-*/
+	
+	// 배송지 추가
+	@RequestMapping(value = "/shipInsert")
+	public String shipInsert(String slmemId, String postcode, String address, String detailAddress, String extraAddress) {
+		
+		String slAddress = postcode + " " + address + " " + detailAddress + " " + extraAddress;
+		ShipVO vo = new ShipVO(null, slmemId, slAddress);
+		shipService.shipInsert(vo);
+		
+		return "redirect:/myPage/myPageList";
+	}
+	
+	// 배송지 추가 화면
+	@RequestMapping(value = "/shipInsertView")
+	public String shipInsertView() {
+		
+		return "/myPage/shipInsertView";
+	}
+	
 	// 찜
 
 	

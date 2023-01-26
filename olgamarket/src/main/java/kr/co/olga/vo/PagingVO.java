@@ -34,5 +34,6 @@ public class PagingVO {
 	String pdstlBrandName; // 판매자 전용 페이지에 사용
 	String selId; // 판매자 전용 페이지에 사용
 	String plmemId; // 마이페이지 주문내역 사용
+	String slmemId; // 마이페이지 배송지 사용
 	
 }
