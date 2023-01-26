@@ -30,5 +30,19 @@
 	<delete id="favorDeleteByMemIdNPdId" parameterType="FavorVO">
 		delete from favors where fvmemId = #{fvmemId} and fvpdId = #{fvpdId}
 	</delete>
+	
+<!-- 마이페이지 찜 목록 페이징 -->	
+	<select id="getMemFavorCount" parameterType="String" resultType="Integer">
+		select count(*) from favors where fvmemId = #{fvmemId}
+	</select>
+	
+	<select id="getMemFavorPageList" parameterType="PagingVO" resultType="FavorVO">
+		select * from 
+			(select rownum rnum, temp.* from
+				(select * from favors where fvmemId = #{fvmemId} order by fvNo desc) 
+			temp) 
+		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+	</select>
+	
 
 </mapper>

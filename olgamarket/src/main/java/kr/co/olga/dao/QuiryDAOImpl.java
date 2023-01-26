@@ -60,4 +60,15 @@ public class QuiryDAOImpl implements QuiryDAO {
 	public long quiryStateUpdate(QuiryVO quVo) {
 		return session.update("quiryMapper.quiryStateUpdate", quVo);
 	}
+
+// 마이페이지 상품문의 목록 페이징	
+	@Override
+	public int getMemQuiryCount(String iqmemId) {
+		return session.selectOne("quiryMapper.getMemQuiryCount", iqmemId);
+	}
+
+	@Override
+	public List<QuiryVO> getMemQuiryPageList(PagingVO vo) {
+		return session.selectList("quiryMapper.getMemQuiryPageList", vo);
+	}
 }

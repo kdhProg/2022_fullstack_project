@@ -35,5 +35,6 @@ public class PagingVO {
 	String selId; // 판매자 전용 페이지에 사용
 	String plmemId; // 마이페이지 주문내역 사용
 	String slmemId; // 마이페이지 배송지 사용
-	
+	String fvmemId; // 마이페이지 찜 사용
+	String iqmemId; // 마이페이지 상품 문의 사용
 }

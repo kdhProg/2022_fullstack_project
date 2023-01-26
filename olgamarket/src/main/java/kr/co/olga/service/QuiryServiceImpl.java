@@ -133,4 +133,52 @@ public class QuiryServiceImpl implements QuiryService {
 	public long quiryStateUpdate(QuiryVO quVo) {
 		return dao.quiryStateUpdate(quVo);
 	}
+
+// 마이페이지 상품문의 목록 페이징	
+	@Override
+	public PagingVO getMemQuiryPageInfo(int currPage, String iqmemId) {
+		PagingVO vo = new PagingVO();
+		int setTotalRecordCount = dao.getMemQuiryCount(iqmemId);
+		int recordCountPerPage = 20;
+                        
+		int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
+		//int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
+		int firstPageNoOnPageList = lastPageNoOnPageList - 9;
+		//int firstPageNoOnPageList = lastPageNoOnPageList - 9;
+		
+		int realEnd = (int)(Math.ceil((dao.getMemQuiryCount(iqmemId) * 1.0) / 20));
+		if(realEnd < lastPageNoOnPageList) {
+			lastPageNoOnPageList = realEnd;
+		}
+		
+		int firstRecordIndex = (currPage - 1) * recordCountPerPage;
+		boolean xprev= firstPageNoOnPageList > 1;
+		boolean xnext = lastPageNoOnPageList < realEnd;
+		
+		int contEnd = currPage*20;
+		int contStart = contEnd-19;
+		if(contEnd > setTotalRecordCount) {
+			contEnd = setTotalRecordCount;
+		}
+		
+		vo.setCurrentpageno(currPage);
+		vo.setFirstPageNoOnPageList(firstPageNoOnPageList);
+		vo.setFirstRecordIndex(firstRecordIndex);
+		vo.setLastPageNoOnPageList(lastPageNoOnPageList);
+		vo.setRealEnd(realEnd);
+		vo.setRecordCountPerPage(recordCountPerPage);
+		vo.setTotalRecordCount(setTotalRecordCount);
+		vo.setXnext(xnext);
+		vo.setXprev(xprev);
+		vo.setContEnd(contEnd);
+		vo.setContStart(contStart);
+		vo.setIqmemId(iqmemId);
+		
+		return vo;
+	}
+
+	@Override
+	public List<QuiryVO> getMemQuiryPageList(PagingVO vo) {
+		return dao.getMemQuiryPageList(vo);
+	}
 }

@@ -39,7 +39,7 @@
 	<update id="memberUpdate" parameterType="MemberVO">
 		update members set
 			memPwd = #{memPwd}, memName = #{memName}, memEmail = #{memEmail}, 
-			memPhone = #{memPhone}, memAddress = #{memAddress},
+			memPhone = #{memPhone}, memAddress = #{memAddress}, memGender = #{memGender},
 			memChoice = #{memChoice}, memUpdDate = sysdate
 				where memId = #{memId}
 	</update>	

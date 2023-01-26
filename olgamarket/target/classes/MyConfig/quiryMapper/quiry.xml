@@ -64,7 +64,18 @@
 		update inquirys set iqState = #{iqState} where iqNo = #{iqNo}
 	</update>
 	
+<!-- 마이페이지 상품문의 목록 페이징 -->	
+	<select id="getMemQuiryCount" parameterType="String" resultType="Integer">
+		select count(*) from inquirys where iqmemId = #{iqmemId}
+	</select>
 	
+	<select id="getMemQuiryPageList" parameterType="PagingVO" resultType="QuiryVO">
+		select * from 
+			(select rownum rnum, temp.* from
+				(select * from inquirys where iqmemId = #{iqmemId} order by iqNo desc) 
+			temp) 
+		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+	</select>
 	
 	
 	

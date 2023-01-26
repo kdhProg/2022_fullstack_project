@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.olga.vo.FavorVO;
+import kr.co.olga.vo.PagingVO;
 
 @Repository
 public class FavorDAOImpl implements FavorDAO {
@@ -42,6 +43,17 @@ public class FavorDAOImpl implements FavorDAO {
 	@Override
 	public int favorDeleteByMemIdNPdId(FavorVO vo) {
 		return session.delete("favorMapper.favorDeleteByMemIdNPdId",vo);
+	}
+
+// 마이페이지 찜 목록 페이징
+	@Override
+	public int getMemFavorCount(String fvmemId) {
+		return session.selectOne("favorMapper.getMemFavorCount", fvmemId);
+	}
+
+	@Override
+	public List<FavorVO> getMemFavorPageList(PagingVO vo) {
+		return session.selectList("favorMapper.getMemFavorPageList", vo);
 	}
 	
 }

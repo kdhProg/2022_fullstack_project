@@ -10,11 +10,11 @@
 <title>Insert title here</title>
 </head>
 <style>
-#plListBt, #slListBt, #favListBt, #memUpdateBt{
+#plListBt, #slListBt, #favListBt, #memUpdateBt, #quListBt{
 	text-decoration: none;
 }
 
-.sessionMemIdOrder, .sessionMemIdShip, .sessionpdSelId{
+.sessionMemIdOrder, .sessionMemIdShip, .sessionMemIdFavor, .sessionMemIdQuiry{
 	display: none;
 }
 </style>
@@ -23,9 +23,11 @@
 	
 	
 	<a href="#" onclick="purchaseList(1, '${member.getMemId()}');return false;" id="plListBt">주문 내역</a>
-	<a href="#" onclick="slList(1, '${member.getMemId()});return false;" id="slListBt">배송지</a>
-	<a href="#" onclick="favList(1);return false;" id="favListBt">찜</a>
-	<a href="/myPage/memInfoUpdateView" id="memUpdateBt">회원 정보 수정</a>
+	<a href="#" onclick="myShipList(1, '${member.getMemId()}');return false;" id="slListBt">배송지</a>
+	<a href="#" onclick="myFavorList(1, '${member.getMemId()}');return false;" id="favListBt">찜</a>
+	<a href="#" onclick="myQuiryList(1, '${member.getMemId()}');return false;" id="quListBt">상품 문의</a>
+	
+	<a href="/myPage/memInfoUpdateView?memId=${member.getMemId()}" id="memUpdateBt">회원 정보 수정</a>
 	
 	<hr />
 	
@@ -50,9 +52,18 @@
 	
 <!-- 찜 -->	
 	<div id="favDiv" style="display : none;">
+		<span class="sessionMemIdFavor">${member.getMemId()}</span>
 		<div id="favResultList"></div>
 		<div id="favResultPagingNo"></div>
 	</div>
+	
+<!-- 상품문의 -->	
+	<div id="quDiv" style="display : none;">
+		<span class="sessionMemIdQuiry">${member.getMemId()}</span>
+		<div id="quResultList"></div>
+		<div id="quResultPagingNo"></div>
+	</div>
+	
 			
 
 </body>
@@ -167,6 +178,111 @@ function myShipList(pageNo, slmemId) {
     });//ajax
 }// function end
 
+/********************* 찜목록 *******************************************************************/
+let memIdType3 = $(".sessionMemIdFavor").text();
+$(document).ready(myFavorList(1, memIdType3));
+function myFavorList(pageNo, fvmemId) {
+	$.ajax({
+        url : "/myPage/favorList",
+        type : "get",
+        data : {
+        	showPage : pageNo,
+        	fvmemId : fvmemId
+        },
+        success : function(data){
+        	
+        	var pageInfo = data.pageInfo;
+			var currPage = data.currPage;
+            var favorPageList = data.myFavorList; // model 처럼
+        	
+            var favorContentTag = "<table><tr><th>No</th><th>아이디</th><th>상품 아이디</th></tr>";
+            var favorPagingTag = "";
+
+			$.each(favorPageList, function(key, value) {
+				favorContentTag += "<tr>";
+				favorContentTag += "<td>"+value.fvNo+"</td>";
+				favorContentTag += "<td>"+value.fvmemId+"</td>";
+				favorContentTag += "<td><a href='/goods/detailView?pdId="+value.fvpdId+"'>"+value.fvpdId+"</a></td>";
+             });
+			favorContentTag += "</table>";
+			$("#favResultList").html(favorContentTag); //메인 컨텐츠 적용
+			
+			if(pageInfo.xprev){
+				favorPagingTag+="<a href='#' onclick='myFavorList("+(pageInfo.firstPageNoOnPageList-1)+ ", \""+ memIdType3 +"\");return false;'>[prev]</a>&nbsp;&nbsp;&nbsp;";
+			}
+			for(var i = pageInfo.firstPageNoOnPageList; i< pageInfo.lastPageNoOnPageList+1;i++){
+				if(i == currPage){
+					favorPagingTag+="<span>["+i+"]&nbsp;&nbsp;&nbsp;</span>";
+				}else{
+					favorPagingTag+="<a href='#' onclick='myFavorList(" + i + ", \""+ memIdType3 +"\");return false;'>["+i+"]</a>&nbsp;&nbsp;&nbsp;";
+				}
+				
+			}
+			if(pageInfo.xnext){
+				favorPagingTag+="<a href='#' onclick='myFavorList("+(pageInfo.lastPageNoOnPageList+1)+ ", \""+ memIdType3 +"\");return false;'>[next]</a>&nbsp;&nbsp;&nbsp;";
+			}
+			
+			$("#favResultPagingNo").html(favorPagingTag); //페이징 적용
+        },
+        error : function(){
+             alert('error - myFavorList');
+        }//error
+    });//ajax
+}// function end
+
+/********************* 상품 문의 *******************************************************************/
+let memIdType4 = $(".sessionMemIdQuiry").text();
+$(document).ready(myQuiryList(1, memIdType4));
+function myQuiryList(pageNo, iqmemId) {
+	$.ajax({
+        url : "/myPage/quiryList",
+        type : "get",
+        data : {
+        	showPage : pageNo,
+        	iqmemId : iqmemId
+        },
+        success : function(data){
+        	
+        	var pageInfo = data.pageInfo;
+			var currPage = data.currPage;
+            var quiryPageList = data.myQuiryList; // model 처럼
+        	
+            var quiryContentTag = "<table><tr><th>No</th><th>상품 아이디</th><th>제목</th><th>답변 상태</th><th>등록일</th></tr>";
+            var quiryPagingTag = "";
+
+			$.each(quiryPageList, function(key, value) {
+				quiryContentTag += "<tr>";
+				quiryContentTag += "<td><a href='/myPage/quiryOne?iqNo="+value.iqNo+"'>"+value.iqNo+"</a></td>";
+				quiryContentTag += "<td><a href='/goods/detailView?pdId="+value.iqpdId+"'>"+value.iqpdId+"</a></td>";
+				quiryContentTag += "<td>"+value.iqTitle+"</td>";
+				quiryContentTag += "<td>"+value.iqState+"</td>";
+				quiryContentTag += "<td>"+value.iqRegiDate+"</td>";
+             });
+			quiryContentTag += "</table>";
+			$("#quResultList").html(quiryContentTag); //메인 컨텐츠 적용
+			
+			if(pageInfo.xprev){
+				quiryPagingTag+="<a href='#' onclick='myQuiryList("+(pageInfo.firstPageNoOnPageList-1)+ ", \""+ memIdType4 +"\");return false;'>[prev]</a>&nbsp;&nbsp;&nbsp;";
+			}
+			for(var i = pageInfo.firstPageNoOnPageList; i< pageInfo.lastPageNoOnPageList+1;i++){
+				if(i == currPage){
+					quiryPagingTag+="<span>["+i+"]&nbsp;&nbsp;&nbsp;</span>";
+				}else{
+					quiryPagingTag+="<a href='#' onclick='myQuiryList(" + i + ", \""+ memIdType4 +"\");return false;'>["+i+"]</a>&nbsp;&nbsp;&nbsp;";
+				}
+				
+			}
+			if(pageInfo.xnext){
+				quiryPagingTag+="<a href='#' onclick='myQuiryList("+(pageInfo.lastPageNoOnPageList+1)+ ", \""+ memIdType4 +"\");return false;'>[next]</a>&nbsp;&nbsp;&nbsp;";
+			}
+			
+			$("#quResultPagingNo").html(quiryPagingTag); //페이징 적용
+        },
+        error : function(){
+             alert('error - myQuiryList');
+        }//error
+    });//ajax
+}// function end
 $("#plListBt").on("click", function() {
 	$(this).css('font-weight', 'bold');
 	$('#plDiv').css('display', 'block');
@@ -174,22 +290,38 @@ $("#plListBt").on("click", function() {
 	$('#slDiv').css('display', 'none');
 	$("#favListBt").css('font-weight', 'normal');
 	$('#favDiv').css('display', 'none');
+	$("#quListBt").css('font-weight', 'normal');
+	$('#quDiv').css('display', 'none');
 });
 $("#slListBt").on("click", function() {
 	$(this).css('font-weight', 'bold');
 	$('#slDiv').css('display', 'block');
 	$("#favListBt").css('font-weight', 'normal');
 	$('#favDiv').css('display', 'none');
+	$("#quListBt").css('font-weight', 'normal');
+	$('#quDiv').css('display', 'none');
 	$("#plListBt").css('font-weight', 'normal');
 	$('#plDiv').css('display', 'none');
 });
 $("#favListBt").on("click", function() {
 	$(this).css('font-weight', 'bold');
 	$('#favDiv').css('display', 'block');
+	$("#quListBt").css('font-weight', 'normal');
+	$('#quDiv').css('display', 'none');
 	$("#plListBt").css('font-weight', 'normal');
 	$('#plDiv').css('display', 'none');
 	$("#slListBt").css('font-weight', 'normal');
 	$('#slDiv').css('display', 'none');
+});
+$("#quListBt").on("click", function() {
+	$(this).css('font-weight', 'bold');
+	$('#quDiv').css('display', 'block');
+	$("#plListBt").css('font-weight', 'normal');
+	$('#plDiv').css('display', 'none');
+	$("#slListBt").css('font-weight', 'normal');
+	$('#slDiv').css('display', 'none');
+	$("#favListBt").css('font-weight', 'normal');
+	$('#favDiv').css('display', 'none');
 });
 </script>	
 </html>
