@@ -782,7 +782,6 @@ public class AdminController {
 		
 		int stShowPage = Integer.parseInt(showPage);
 		
-		
 		int currPage;
 		if(showPage == null) {
 			currPage = 1;
@@ -800,14 +799,36 @@ public class AdminController {
 		PagingVO vo = purchaseService.getMemPurchaseAdminPageInfo(currPage, sortType); //페이징에 필요한 정보 계산
 		List<MemberVO> memList =  purchaseService.getMemPurchaseAdminPageList(vo);
 		
-		
-		
 		result.put("memList",memList);  
 		result.put("pageInfo",vo);  //페이징정보
 		result.put("currPage",currPage); //현재페이지
 
 		return result;	
 		
+	}
+	
+	// 회원 조회
+	@RequestMapping(value = "/memOne")
+	public String memOne(MemberVO vo, Model model) {
+		model.addAttribute("adminMemOne", memberService.memSelectOne(vo.getMemId()));
+		
+		return "/admin/memOne";
+	}
+	
+	// 회원 등급 변경
+	@RequestMapping(value = "/memGradeUpdate")
+	public String memGradeUpdate(MemberVO vo) {
+		memberService.memGradeUpdate(vo);
+		
+		return "redirect:/admin/memberGrade";
+	}
+	
+	// 회원 등급 변경 화면
+	@RequestMapping(value = "/memGradeUpdateView")
+	public String memGradeUpdateView(MemberVO vo, Model model) {
+		model.addAttribute("memGradeUpd", memberService.memSelectOne(vo.getMemId()));
+		
+		return "/admin/memGradeUpdateView";
 	}
 	
 	

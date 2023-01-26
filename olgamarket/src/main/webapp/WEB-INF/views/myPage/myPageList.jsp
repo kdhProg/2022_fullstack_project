@@ -138,7 +138,7 @@ function myShipList(pageNo, slmemId) {
 
 			$.each(shipPageList, function(key, value) {
 				shipContentTag += "<tr>";
-				shipContentTag += "<td>"+value.slNo+"</td>";
+				shipContentTag += "<td><a href='/myPage/shipOne?slNo="+value.slNo+"'>"+value.slNo+"</a></td>";
 				shipContentTag += "<td>"+value.slAddress+"</td>";
              });
 			shipContentTag += "</table>";

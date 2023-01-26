@@ -95,4 +95,16 @@ public class MemberDAOImpl implements MemberDAO {
 	public List<MemberVO> getMemAdminPageList(PagingVO vo) {
 		return session.selectList("memberMapper.getMemAdminPageList", vo);
 	}
+
+// 관리자 회원 관리 아이디 조회
+	@Override
+	public MemberVO memSelectOne(String memId) {
+		return session.selectOne("memberMapper.memSelectOne", memId);
+	}
+
+// 관리자 회원 등급 업데이트
+	@Override
+	public long memGradeUpdate(MemberVO vo) {
+		return session.update("memberMapper.memGradeUpdate", vo);
+	}
 }

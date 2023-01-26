@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -106,6 +107,14 @@ public class MyPageController {
 	public String shipInsertView() {
 		
 		return "/myPage/shipInsertView";
+	}
+	
+	// 배송지 조회
+	@RequestMapping(value = "/shipOne")
+	public String shipOne(ShipVO vo, Model model) {
+		model.addAttribute("shipOne", shipService.shipSelectOne(vo.getSlNo()));
+		
+		return "/myPage/shipOne";
 	}
 	
 	// 찜

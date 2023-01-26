@@ -104,6 +104,18 @@
 			temp) 
 		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}	   				
 	</select>
+	
+<!-- 관리자 회원 관리 아이디 조회 -->	
+	<select id="memSelectOne" resultType="MemberVO">
+		select * from members where memId = #{memId}
+	</select>
+	
+<!-- 관리자 회원 등급 업데이트 -->
+	<update id="memGradeUpdate" parameterType="MemberVO">
+		update members set memGrade = #{memGrade} where memId = #{memId}
+	</update>
+	
+	
 </mapper>
 
 
