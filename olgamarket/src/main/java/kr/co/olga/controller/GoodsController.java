@@ -191,8 +191,8 @@ public class GoodsController {
 	/* 추천버튼눌림 + 비추해제 */
 	@RequestMapping(value = "/goodBtnPressed",method = RequestMethod.POST)
 	@ResponseBody
-	public void goodBtnPressed(String bno,String currentSession,String good,String bad,HttpServletRequest request) {
-		
+	public Map<String, Object> goodBtnPressed(String bno,String currentSession,String good,String bad,HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<String, Object>();
 		HttpSession session = request.getSession();
 		
 		String memId = currentSession;
@@ -213,7 +213,28 @@ public class GoodsController {
 			//행이 존재하지 않음
 			irrService.insertIrr(vo);
 		}
+		
+		List<InquiryRecoReportVO> irrlist = irrService.irrGetAllByMemId(vo);
 
+		String irrBnoString = "";
+		String irrGoodString = "";
+		String irrBadString ="";
+		for(int i=0;i<irrlist.size();i++) {
+			irrBnoString+=irrlist.get(i).getIrrBno();
+			irrGoodString+=irrlist.get(i).getIrrGood();
+			irrBadString+=irrlist.get(i).getIrrBad();
+			if(i < (irrlist.size()-1)) {irrBnoString += "/";irrGoodString += "/";irrBadString += "/";}
+		}
+//		System.out.println(irrBnoString);
+		session.setAttribute("irrBnoString",irrBnoString);
+		session.setAttribute("irrGoodString",irrGoodString);
+		session.setAttribute("irrBadString",irrBadString);
+		
+		result.put("irrBnoString",irrBnoString);
+		result.put("irrGoodString",irrGoodString);
+		result.put("irrBadString",irrBadString);
+		
+		return result;
 	}
 
 }

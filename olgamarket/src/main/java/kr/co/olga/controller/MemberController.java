@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.olga.service.FavorService;
+import kr.co.olga.service.InquiryRecoReportService;
 import kr.co.olga.service.MemberService;
 import kr.co.olga.service.SellerService;
 import kr.co.olga.service.StoreService;
 import kr.co.olga.vo.FavorVO;
+import kr.co.olga.vo.InquiryRecoReportVO;
 import kr.co.olga.vo.MemberVO;
 import kr.co.olga.vo.SellerVO;
 import kr.co.olga.vo.StoreVO;
@@ -38,6 +40,9 @@ public class MemberController {
 	
 	@Autowired
 	private FavorService favorservice;
+	
+	@Autowired
+	private InquiryRecoReportService irrService;
 	
 	/************* 로그인 관련 *************/
 	// 로그인 페이지 이동
@@ -72,6 +77,23 @@ public class MemberController {
 					favorList += list.get(i).getFvpdId();
 					if(i < (list.size()-1)) {favorList += "/";}
 				}
+				//상품리뷰 추천/비추천 세션에 담기
+				InquiryRecoReportVO vo = new InquiryRecoReportVO();
+				vo.setIrrmemId(memId);
+				List<InquiryRecoReportVO> irrlist = irrService.irrGetAllByMemId(vo);
+				String irrBnoString = "";
+				String irrGoodString = "";
+				String irrBadString ="";
+				for(int i=0;i<irrlist.size();i++) {
+					irrBnoString+=irrlist.get(i).getIrrBno();
+					irrGoodString+=irrlist.get(i).getIrrGood();
+					irrBadString+=irrlist.get(i).getIrrBad();
+					if(i < (irrlist.size()-1)) {irrBnoString += "/";irrGoodString += "/";irrBadString += "/";}
+				}
+				session.setAttribute("irrBnoString",irrBnoString);
+				session.setAttribute("irrGoodString",irrGoodString);
+				session.setAttribute("irrBadString",irrBadString);
+				
 				session.setAttribute("favor",favorList);
 				session.setAttribute("member", memlogin);
 				return "redirect:/";
@@ -95,6 +117,23 @@ public class MemberController {
 					favorList += list.get(i).getFvpdId();
 					if(i < (list.size()-1)) {favorList += "/";}
 				}
+				//상품리뷰 추천/비추천 세션에 담기
+				InquiryRecoReportVO vo = new InquiryRecoReportVO();
+				vo.setIrrmemId(memId);
+				List<InquiryRecoReportVO> irrlist = irrService.irrGetAllByMemId(vo);
+				String irrBnoString = "";
+				String irrGoodString = "";
+				String irrBadString ="";
+				for(int i=0;i<irrlist.size();i++) {
+					irrBnoString+=irrlist.get(i).getIrrBno();
+					irrGoodString+=irrlist.get(i).getIrrGood();
+					irrBadString+=irrlist.get(i).getIrrBad();
+					if(i < (irrlist.size()-1)) {irrBnoString += "/";irrGoodString += "/";irrBadString += "/";}
+				}
+				session.setAttribute("irrBnoString",irrBnoString);
+				session.setAttribute("irrGoodString",irrGoodString);
+				session.setAttribute("irrBadString",irrBadString);
+				
 				session.setAttribute("favor",favorList);
 				session.setAttribute("seller", sellogin);
 				return "redirect:/";
