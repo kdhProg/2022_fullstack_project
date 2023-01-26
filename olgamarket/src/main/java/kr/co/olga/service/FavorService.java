@@ -3,6 +3,7 @@ package kr.co.olga.service;
 import java.util.List;
 
 import kr.co.olga.vo.FavorVO;
+import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ShipVO;
 
 public interface FavorService {
@@ -20,6 +21,11 @@ public interface FavorService {
 	
 	// memId와 pdId 정보가 들어있는 vo로 레코드 지우기
 	int favorDeleteByMemIdNPdId(FavorVO vo);
+	
+// 마이페이지 찜 목록 페이징
+	PagingVO getMemFavorPageInfo(int currPage, String fvmemId);
+
+	List<FavorVO> getMemFavorPageList(PagingVO vo);
 
 
 

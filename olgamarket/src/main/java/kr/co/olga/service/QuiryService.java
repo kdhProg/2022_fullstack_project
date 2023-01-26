@@ -30,5 +30,10 @@ public interface QuiryService {
 // 관리자 전용(답변 상태 업데이트)	
 	long quiryStateUpdate(QuiryVO quVo);
 
+// 마이페이지 상품문의 목록 페이징	
+	PagingVO getMemQuiryPageInfo(int currPage, String iqmemId);
+
+	List<QuiryVO> getMemQuiryPageList(PagingVO vo);
+
 
 }

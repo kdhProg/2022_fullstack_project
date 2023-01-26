@@ -26,12 +26,12 @@
 				<td>${shipOne.slAddress}</td>
 			</tr>
 		</table>
-		<form name="readForm" method="post" action="/myPage/shipUpdate?slNo${shipOne.slNo}">
+		<form name="readForm" method="post" action="/myPage/shipUpdateView?slNo=${shipOne.slNo}">
 			<div>
 				<button type="submit" class="shipUpdate_btn">주소 변경</button>
 			</div>
 		</form>	
-		<form name="deleteForm" method="post" action="/myPage/shipDelete?slNo${shipOne.slNo}">
+		<form name="deleteForm" method="post" action="/myPage/shipDelete?slNo=${shipOne.slNo}">
 			<div>
 				<button type="submit" class="shipDelete_btn">주소 삭제</button>
 			</div>
