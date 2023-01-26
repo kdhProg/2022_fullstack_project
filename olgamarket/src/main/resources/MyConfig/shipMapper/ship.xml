@@ -24,6 +24,26 @@
 	<select id="shipSelectList" resultType="ShipVO" parameterType="Long" >
 		select * from shippingLists 
 	</select>
+
+<!-- 마이 페이지 배송지 페이징 -->	
+
+	<select id="getMemShipCount" parameterType="String" resultType="Integer">
+		select count(*) from shippingLists where slmemId = #{slmemId}
+	</select>
+
+	<select id="getMemShipPageList" parameterType="PagingVO" resultType="ShipVO">
+		select * from 
+			(select rownum rnum, temp.* from
+				(select * from shippingLists where slmemId = #{slmemId} order by slNo desc) 
+			temp) 
+		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+	</select>
+
+
+
+
+
+
 	
 	
 	

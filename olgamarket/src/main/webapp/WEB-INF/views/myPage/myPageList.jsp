@@ -14,7 +14,7 @@
 	text-decoration: none;
 }
 
-.sessionMemId, .sessionBrandName, .sessionpdSelId{
+.sessionMemIdOrder, .sessionMemIdShip, .sessionpdSelId{
 	display: none;
 }
 </style>
@@ -23,7 +23,7 @@
 	
 	
 	<a href="#" onclick="purchaseList(1, '${member.getMemId()}');return false;" id="plListBt">주문 내역</a>
-	<a href="#" onclick="slList(1);return false;" id="slListBt">배송지</a>
+	<a href="#" onclick="slList(1, '${member.getMemId()});return false;" id="slListBt">배송지</a>
 	<a href="#" onclick="favList(1);return false;" id="favListBt">찜</a>
 	<a href="/myPage/memInfoUpdateView" id="memUpdateBt">회원 정보 수정</a>
 	
@@ -31,7 +31,7 @@
 	
 <!-- 주문 내역-->	
 	<div id="plDiv" style="display : none;">
-		<span class="sessionMemId">${member.getMemId()}</span>
+		<span class="sessionMemIdOrder">${member.getMemId()}</span>
 		<div id="plResultList"></div>
 		<div id="plResultPagingNo"></div>
 	</div>
@@ -39,6 +39,7 @@
 <!-- 배송지 -->	
 <form name="insertForm" method="post" action="/myPage/shipInsertView">
 	<div id="slDiv" style="display : none;">
+		<span class="sessionMemIdShip">${member.getMemId()}</span>
 		<div id="slResultList"></div>
 		<div id="slResultPagingNo"></div>
 		<div>
@@ -57,7 +58,7 @@
 </body>
 <script>
 /********************* 주문내역 *******************************************************************/
-let memIdType1 = $(".sessionMemId").text();
+let memIdType1 = $(".sessionMemIdOrder").text();
 $(document).ready(purchaseList(1, memIdType1));
 function purchaseList(pageNo, plmemId) {
 	$.ajax({
@@ -73,7 +74,7 @@ function purchaseList(pageNo, plmemId) {
 			var currPage = data.currPage;
             var purchasePageList = data.purchaseList; // model 처럼
         	
-            var purchaseContentTag = "<table><tr><th>No</th><th>주문 번호</th><th>주문 아이디</th><th>상품 아이디</th><th>수량</th><th>가격</th><th>적립금</th><th>결제방식</th><th>배송지</th><th>주문 상태</th><th>주문 날짜</th></tr>";
+            var purchaseContentTag = "<table><tr><th>No</th><th>주문 번호</th><th>상품 아이디</th><th>수량</th><th>가격</th><th>적립금</th><th>결제방식</th><th>배송지</th><th>주문 상태</th><th>주문 날짜</th></tr>";
             var purchasePagingTag = "";
 
 			$.each(purchasePageList, function(key, value) {
@@ -111,6 +112,57 @@ function purchaseList(pageNo, plmemId) {
         },
         error : function(){
              alert('error - purchaseList');
+        }//error
+    });//ajax
+}// function end
+
+/********************* 배송지 *******************************************************************/
+let memIdType2 = $(".sessionMemIdShip").text();
+$(document).ready(myShipList(1, memIdType2));
+function myShipList(pageNo, slmemId) {
+	$.ajax({
+        url : "/myPage/shipList",
+        type : "get",
+        data : {
+        	showPage : pageNo,
+        	slmemId : slmemId
+        },
+        success : function(data){
+        	
+        	var pageInfo = data.pageInfo;
+			var currPage = data.currPage;
+            var shipPageList = data.myShipList; // model 처럼
+        	
+            var shipContentTag = "<table><tr><th>No</th><th>주소</th></tr>";
+            var shipPagingTag = "";
+
+			$.each(shipPageList, function(key, value) {
+				shipContentTag += "<tr>";
+				shipContentTag += "<td>"+value.slNo+"</td>";
+				shipContentTag += "<td>"+value.slAddress+"</td>";
+             });
+			shipContentTag += "</table>";
+			$("#slResultList").html(shipContentTag); //메인 컨텐츠 적용
+			
+			if(pageInfo.xprev){
+				shipPagingTag+="<a href='#' onclick='myShipList("+(pageInfo.firstPageNoOnPageList-1)+ ", \""+ memIdType2 +"\");return false;'>[prev]</a>&nbsp;&nbsp;&nbsp;";
+			}
+			for(var i = pageInfo.firstPageNoOnPageList; i< pageInfo.lastPageNoOnPageList+1;i++){
+				if(i == currPage){
+					shipPagingTag+="<span>["+i+"]&nbsp;&nbsp;&nbsp;</span>";
+				}else{
+					shipPagingTag+="<a href='#' onclick='myShipList(" + i + ", \""+ memIdType2 +"\");return false;'>["+i+"]</a>&nbsp;&nbsp;&nbsp;";
+				}
+				
+			}
+			if(pageInfo.xnext){
+				shipPagingTag+="<a href='#' onclick='myShipList("+(pageInfo.lastPageNoOnPageList+1)+ ", \""+ memIdType2 +"\");return false;'>[next]</a>&nbsp;&nbsp;&nbsp;";
+			}
+			
+			$("#slResultPagingNo").html(shipPagingTag); //페이징 적용
+        },
+        error : function(){
+             alert('error - myShipList');
         }//error
     });//ajax
 }// function end

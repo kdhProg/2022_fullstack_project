@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ShipVO;
 
 @Repository
@@ -37,6 +38,17 @@ public class ShipDAOImpl implements ShipDAO {
 	@Override
 	public List<ShipVO> shipSelectList() {
 		return session.selectList("shipMapper.shipSelectList");
+	}
+
+// 마이 페이지 배송지 페이징
+	@Override
+	public int getMemShipCount(String slmemId) {
+		return session.selectOne("shipMapper.getMemShipCount", slmemId);
+	}
+
+	@Override
+	public List<ShipVO> getMemShipPageList(PagingVO vo) {
+		return session.selectList("shipMapper.getMemShipPageList", vo);
 	}
 
 
