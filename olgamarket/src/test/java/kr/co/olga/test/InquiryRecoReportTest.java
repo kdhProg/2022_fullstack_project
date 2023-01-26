@@ -2,6 +2,8 @@ package kr.co.olga.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,6 +67,27 @@ public class InquiryRecoReportTest {
 		vo.setIrrmemId("mem_id_1");
 //		vo.setIrrBno(1L);
 		System.out.println(irrService.irrGetAllByMemId(vo));
+	}
+	
+	@Test
+	public void irrListTest() {
+		InquiryRecoReportVO vo = new InquiryRecoReportVO();
+		vo.setIrrmemId("ertert43");
+		List<InquiryRecoReportVO> list = irrService.irrGetAllByMemId(vo);
+		System.out.println(list);
+		
+		String irrBnoString = "";
+		String irrGoodString = "";
+		String irrBadString ="";
+		for(int i=0;i<list.size();i++) {
+			irrBnoString+=list.get(i).getIrrBno();
+			irrGoodString+=list.get(i).getIrrGood();
+			irrBadString+=list.get(i).getIrrBad();
+			if(i < (list.size()-1)) {irrBnoString += "/";irrGoodString += "/";irrBadString += "/";}
+		}
+		System.out.println(irrBnoString);
+		System.out.println(irrGoodString);
+		System.out.println(irrBadString);
 	}
 
 }
