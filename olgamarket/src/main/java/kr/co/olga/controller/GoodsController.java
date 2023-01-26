@@ -191,7 +191,7 @@ public class GoodsController {
 	/* 추천버튼눌림 + 비추해제 */
 	@RequestMapping(value = "/goodBtnPressed",method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> goodBtnPressed(String bno,String currentSession,String good,String bad,HttpServletRequest request) {
+	public Map<String, Object> goodBtnPressed(String bno,String currentSession,String good,String bad,String situation,HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		HttpSession session = request.getSession();
 		
@@ -199,6 +199,24 @@ public class GoodsController {
 		long goodPoint = Long.parseLong(good);
 		long badPoint = Long.parseLong(bad);
 		long bnoPoint = Long.parseLong(bno);
+
+		//리뷰테이블 추천수/비추수 조정
+		if(situation.equals("nothingToGood")) {
+			rvService.reviewNiceUp(bnoPoint);
+		}else if(situation.equals("badToGood")){
+			rvService.reviewNiceUp(bnoPoint);
+			rvService.reviewRptSubtract(bnoPoint);
+		}else if(situation.equals("goodToNothing")){
+			rvService.reviewNiceSubtract(bnoPoint);
+		}else if(situation.equals("goodToBad")){
+			rvService.reviewNiceSubtract(bnoPoint);
+			rvService.reviewRptUp(bnoPoint);
+		}else if(situation.equals("nothingToBad")){
+			rvService.reviewRptUp(bnoPoint);
+		}else if(situation.equals("badToNothing")){
+			rvService.reviewRptSubtract(bnoPoint);
+		}
+		
 		
 		InquiryRecoReportVO vo = new InquiryRecoReportVO();
 		vo.setIrrmemId(memId);
@@ -214,6 +232,7 @@ public class GoodsController {
 			irrService.insertIrr(vo);
 		}
 		
+		//VO의 memId에 해당하는 레코드리스트 반환
 		List<InquiryRecoReportVO> irrlist = irrService.irrGetAllByMemId(vo);
 
 		String irrBnoString = "";
@@ -225,11 +244,13 @@ public class GoodsController {
 			irrBadString+=irrlist.get(i).getIrrBad();
 			if(i < (irrlist.size()-1)) {irrBnoString += "/";irrGoodString += "/";irrBadString += "/";}
 		}
-//		System.out.println(irrBnoString);
+		
+		//기존 세션 업데이트
 		session.setAttribute("irrBnoString",irrBnoString);
 		session.setAttribute("irrGoodString",irrGoodString);
 		session.setAttribute("irrBadString",irrBadString);
 		
+		//배열에 담기
 		result.put("irrBnoString",irrBnoString);
 		result.put("irrGoodString",irrGoodString);
 		result.put("irrBadString",irrBadString);

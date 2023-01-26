@@ -30,5 +30,11 @@ public interface ReviewService {
 
 	List<ReviewVO> getRvPageList(PagingVO vo);
 
+	//rvNo에 해당하는 레코드 추천수-1
+	long reviewNiceSubtract(long rvNo);
+	
+	//rvNo에 해당하는 레코드 신고수-1
+	long reviewRptSubtract(long rvNo);
+
 
 }

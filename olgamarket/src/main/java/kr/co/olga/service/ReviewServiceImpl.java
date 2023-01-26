@@ -93,4 +93,14 @@ public class ReviewServiceImpl implements ReviewService {
 		return dao.getRvPageList(vo);
 	}
 	
+	@Override
+	public long reviewNiceSubtract(long rvNo) {
+		return dao.reviewNiceSubtract(rvNo);
+	}
+	
+	@Override
+	public long reviewRptSubtract(long rvNo) {
+		return dao.reviewRptSubtract(rvNo);
+	}
+	
 }

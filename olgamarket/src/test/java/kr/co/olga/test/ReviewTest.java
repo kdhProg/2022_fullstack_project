@@ -70,5 +70,19 @@ public class ReviewTest {
 		System.out.println(service.reviewSelOne(rvNo));
 	}
 	
+	@Test
+	@Ignore
+	public void reviewNiceSubtractTest() {
+		long rvNo = 1L;
+		System.out.println(service.reviewNiceSubtract(rvNo));
+	}
+	
+	@Test
+	@Ignore
+	public void reviewRptSubtractTest() {
+		long rvNo = 1L;
+		System.out.println(service.reviewRptSubtract(rvNo));
+	}
+	
 	
 }

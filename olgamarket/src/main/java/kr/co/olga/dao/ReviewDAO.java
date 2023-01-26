@@ -23,4 +23,8 @@ public interface ReviewDAO {
 
 	List<ReviewVO> getRvPageList(PagingVO vo);
 
+	long reviewNiceSubtract(long rvNo);
+
+	long reviewRptSubtract(long rvNo);
+
 }

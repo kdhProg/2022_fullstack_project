@@ -55,4 +55,15 @@
 		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
 	</select>
 	
+	<!-- 상품후기 추천수1증가 -->
+	<update id="reviewNiceSubtract" parameterType="Long">
+		update reviews set rvNice=rvNice-1 where rvNo=#{rvNo}
+	</update>
+	
+	<!-- 상품후기 추천수1증가 -->
+	<update id="reviewRptSubtract" parameterType="Long">
+		update reviews set rvReport=rvReport-1 where rvNo=#{rvNo}
+	</update>
+	
+	
 </mapper>

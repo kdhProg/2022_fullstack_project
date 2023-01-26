@@ -18,11 +18,13 @@ import kr.co.olga.service.FavorService;
 import kr.co.olga.service.InquiryRecoReportService;
 import kr.co.olga.service.MemberService;
 import kr.co.olga.service.SellerService;
+import kr.co.olga.service.ShipService;
 import kr.co.olga.service.StoreService;
 import kr.co.olga.vo.FavorVO;
 import kr.co.olga.vo.InquiryRecoReportVO;
 import kr.co.olga.vo.MemberVO;
 import kr.co.olga.vo.SellerVO;
+import kr.co.olga.vo.ShipVO;
 import kr.co.olga.vo.StoreVO;
 
 @Controller
@@ -43,6 +45,9 @@ public class MemberController {
 	
 	@Autowired
 	private InquiryRecoReportService irrService;
+	
+	@Autowired
+	private ShipService shpService;
 	
 	/************* 로그인 관련 *************/
 	// 로그인 페이지 이동
@@ -237,7 +242,13 @@ public class MemberController {
 				if(choiceSelectBoxTwo != null) {memChoice += 10L;}
 				if(choiceSelectBoxThree != null) {memChoice += 100L;}
 				MemberVO vo = new MemberVO(memId, memPwd, memName, memEmail, memPhone, memAddress, memGender, memGrade, null, null, memChoice);
-				memberservice.memberJoin(vo);
+				memberservice.memberJoin(vo); //회원테이블 추가
+				
+				ShipVO shpVo = new ShipVO(); //기본배송지 추가
+				shpVo.setSlmemId(memId);
+				shpVo.setSlAddress(memAddress);
+				shpService.shipInsert(shpVo);
+				
 				return "redirect:/member/login";
 			}else {
 				// typeSelRadio=="sellerMem" (판매점인 경우)
@@ -250,6 +261,11 @@ public class MemberController {
 				if(choiceSelectBoxThree != null) {memChoice += 100L;}
 				SellerVO vo = new SellerVO(memId, memPwd, memName, selstlBrandName, memEmail, memPhone, selAddress, memGender,memGrade,selMarketUniqueNo,selSelRegiNo,memChoice,selTypeGrade,null,null);
 				sellerservice.selJoin(vo);
+				
+				ShipVO shpVo = new ShipVO(); //기본배송지 추가
+				shpVo.setSlmemId(memId);
+				shpVo.setSlAddress(selAddress);
+				shpService.shipInsert(shpVo);
 				return "redirect:/member/login";
 			}
 		}

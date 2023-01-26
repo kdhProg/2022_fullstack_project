@@ -55,4 +55,14 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return session.selectList("reviewMapper.reviewGetPdList",vo);
 	}
 	
+	@Override
+	public long reviewNiceSubtract(long rvNo) {
+		return session.update("reviewMapper.reviewNiceSubtract",rvNo);
+	}
+	
+	@Override
+	public long reviewRptSubtract(long rvNo) {
+		return session.update("reviewMapper.reviewRptSubtract",rvNo);
+	}
+	
 }
