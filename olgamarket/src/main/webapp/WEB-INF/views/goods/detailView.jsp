@@ -11,7 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <style>
 /* 데이터만을위한 태그 시야에서 제거 */
-#justForPdId,#currMemSession,#currSelSession,#favorList{
+#justForPdId,#currMemSession,#currSelSession,#favorList,#justForPdId{
  	display:none;
 }
 /* 세션값 */
@@ -68,8 +68,9 @@ a{
 <body>
 <!-- 현재 세션 아이디 넘기기-->
 <span id="currMemSession">${member.getMemId()}</span><span id="currSelSession">${seller.getSelId()}</span>
-<!-- 현재PdId값 JS로 넘기는 용도 -->
+<!-- 현재PdId값+기타 -->
 <p id="justForPdId">${productDetail.getPdId()}</p>
+<span id="pdPrice">${productDetail.getPdPrice()}</span>
 <!-- 찜목록 -->
 <span id="favorList">${favor}</span>
 <!-- 상품리뷰 세션값 넘기기 -->
@@ -82,6 +83,7 @@ a{
 <p>상품메인카테고리:${productDetail.getPdMainCategory()}</p>
 <p>상품가격:${productDetail.getPdPrice()}</p>
 <p>상품등록일:${productDetail.getPdRegiDate()}</p>
+<!-- 찜 하트 -->
 <div id="favor_form">
 	<div id="favor_heart_btn">
 		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart" viewBox="0 0 16 16">
@@ -89,6 +91,13 @@ a{
 		</svg>
 	</div>
 </div>
+<!-- 장바구니 -->
+<button id="cartQuantityPlus"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg></button>
+<span id="pdQuantity">1</span>
+<button id="cartQuantityMinus"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button>
+<div>총가격: <span id="totalPrice">${productDetail.getPdPrice()}</span></div>
+<button type="button" id="addCartBtn">장바구니 담기</button>
+<!-- 장바구니 끝 --> <br />
 <img src="https://dummyimage.com/600x400/000/fff" alt="" />
 <hr />
 <h1>상품후기</h1>
@@ -255,8 +264,10 @@ let selSession = $('#currSelSession').text();
 
 let currentSession; // 현재세션값
 if(memSession.length != 0){currentSession = memSession}else{currentSession = selSession}
-// 현재PdId값 JS에서 받는 용도
+// 현재PdId값
 let pdId = $("#justForPdId").text();
+// 현재 pd가격
+let pdPrice = $("#pdPrice").text();
 
 //찜 관련 변수들
 let favorList = $("#favorList").text().split("/"); // 구분자로 나누어 배열로 pdId를 저장
@@ -266,6 +277,53 @@ let favorDetected = false; //찜목록에 없다면 false
 let irrBnoString = $("#irrBnoString").text().split("/");
 let irrGoodString = $("#irrGoodString").text().split("/");
 let irrBadString = $("#irrBadString").text().split("/");
+
+
+/* 장바구니 구현 */
+// 수량증감용 변수
+let quantityVal = 1;
+
+//총가격
+let computeTotal = pdPrice * quantityVal;
+
+$("#cartQuantityPlus").click(function(){
+	quantityVal += 1;
+	computeTotal = pdPrice * quantityVal;
+	$("#totalPrice").text(computeTotal);
+	$("#pdQuantity").text(quantityVal);
+});
+$("#cartQuantityMinus").click(function(){
+	if(quantityVal===1){return false;}  // 수량이1이면 더이상 감소X
+	quantityVal -= 1;
+	computeTotal = pdPrice * quantityVal;
+	$("#totalPrice").text(computeTotal);
+	$("#pdQuantity").text(quantityVal);
+});
+
+
+// 장바구니 버튼 클릭
+$("#addCartBtn").click(function(){
+	if(currentSession.length === 0){$("#login_warn_modal").modal("show");return false;}
+	let productQuantity = $("#pdQuantity").text();
+	$.ajax({
+		type : "post",
+		url : "/cart/addCart",
+		data : {
+			currentSession : currentSession,
+			pdId : pdId,
+			productQuantity : productQuantity
+		},
+		success : function(rst){
+			let result = rst;
+			if(result === "alreadyIn"){
+				alert("장바구니에 상품을 추가했습니다. 이미 담은 상품에 수량을 추가했습니다.");
+			}else{
+				alert("장바구니에 상품을 추가했습니다.");
+			}
+		}// success 종료
+	}); // ajax 종료
+});
+
 
 
 /* 찜하기 구현 */

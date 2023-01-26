@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cartMapper">
+
+	<!-- 인서트 -->
+	<insert id="insertCart" parameterType="CartVO">
+		insert into cart values((select NVL(MAX(caNo) +1, 1) from cart),#{camemId},#{capdId},#{caQuantity})
+	</insert>
+	
+	<!-- 멤버ID에 해당하는 리스트반환 -->
+	<select id="selectByMemID" parameterType="CartVO" resultType="CartVO">
+		select * from cart where camemId=#{camemId}
+	</select>
+	
+	<!-- caNo(기본키)로 삭제 -->
+	<delete id="deleteByCano" parameterType="CartVO">
+		delete from cart where cano=#{caNo}
+	</delete>
+	
+	<!-- caNo로 quantity변경 -->
+	<update id="updateQuantityByCano" parameterType="CartVO">
+		update cart set caQuantity=#{caQuantity} where caNo=#{caNo}
+	</update>
+	
+	<!-- memId와 pdId에 해당하는 레코드 세기 -->
+	<select id="existChkByMemIdNPdId" parameterType="CartVO" resultType="Integer">
+		select count(*) from cart where camemId=#{camemId} and capdId=#{capdId}
+	</select>
+	
+	<!-- memId와 pdId로 레코드 가져오기 -->
+	<select id="getOneByMemIdNPdId" parameterType="CartVO" resultType="CartVO">
+		select * from cart where camemId=#{camemId} and capdId=#{capdId}
+	</select>
+
+	
+</mapper>

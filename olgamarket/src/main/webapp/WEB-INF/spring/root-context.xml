@@ -49,6 +49,7 @@
 				<value>classpath:MyConfig/newPdAnswerMapper/newPdAnswer.xml</value>
 				<value>classpath:MyConfig/purchaseMapper/purchase.xml</value>
 				<value>classpath:MyConfig/inquiryRecoReportMapper/inquiryRecoReport.xml</value>
+				<value>classpath:MyConfig/cartMapper/cart.xml</value>
 			</list>
 		</property>
 	</bean>
