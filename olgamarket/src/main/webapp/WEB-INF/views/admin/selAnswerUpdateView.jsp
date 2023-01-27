@@ -31,7 +31,7 @@
 					<tr>
 						<td>
 							<label for="saContents">내용 : </label>
-							<textarea id="saContents" name="saContents"></textarea>
+							<textarea id="saContents" name="saContents" class="form-control"></textarea>
 						</td>
 					</tr>
 					<tr>

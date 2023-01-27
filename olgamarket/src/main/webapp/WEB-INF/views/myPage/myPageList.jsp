@@ -100,7 +100,7 @@ function purchaseList(pageNo, plmemId) {
 				purchaseContentTag += "<tr>";
 				purchaseContentTag += "<td>"+value.plNo+"</td>";
 				purchaseContentTag += "<td>"+value.plOrderNo+"</td>";
-				purchaseContentTag += "<td>"+value.plpdId+"</td>";
+				purchaseContentTag += "<td><a href='/goods/detailView?pdId="+value.plpdId+"'>"+value.plpdId+"</td>";
 				purchaseContentTag += "<td>"+value.plPdQuantity+"</td>";
 				purchaseContentTag += "<td>"+value.plTotalPrice+"</td>";
 				purchaseContentTag += "<td>"+value.plSavedMoney+"</td>";
