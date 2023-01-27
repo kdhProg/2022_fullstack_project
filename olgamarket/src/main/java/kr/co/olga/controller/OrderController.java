@@ -83,7 +83,7 @@ public class OrderController {
 			insertVO.setPlpdId(prodList.get(j).getPdId());
 			insertVO.setPlPdQuantity(cartList.get(j).getCaQuantity());
 			
-			if(memService.memSelectOne(memId).getMemGrade().equals("friend")) {
+			if(memService.memSelectOne(memId).getMemGrade().equals("Friend")) {
 				insertVO.setPlSavedMoney((prodList.get(j).getPdPrice())*(100-prodList.get(j).getPdSale())/100 * cartList.get(j).getCaQuantity()*5/100);
 			}
 			if(memService.memSelectOne(memId).getMemGrade().equals("VIP")) {
@@ -101,7 +101,7 @@ public class OrderController {
 			//해당상품 판매량 증가
 			ProductVO pdVO = new ProductVO();
 			pdVO.setPdId(prodList.get(j).getPdId());
-			pdVO.setPdSalesVolume(cartList.get(j).getCaQuantity());
+			pdVO.setPdSalesVolume(pdService.productSelectOne(prodList.get(j).getPdId()).getPdSalesVolume() + cartList.get(j).getCaQuantity());
 			pdService.increaseSaleByPdId(pdVO);
 		}
 		//장바구니 리스트 삭제
