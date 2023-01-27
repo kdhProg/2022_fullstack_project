@@ -27,4 +27,9 @@ public interface ReviewDAO {
 
 	long reviewRptSubtract(long rvNo);
 
+// 마이페이지 상품 후기 페이징
+	int getMemReviewCount(String rvmemId);
+
+	List<ReviewVO> getMemReviewPageList(PagingVO vo);
+
 }

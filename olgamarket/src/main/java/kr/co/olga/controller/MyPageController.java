@@ -15,6 +15,7 @@ import kr.co.olga.service.FavorService;
 import kr.co.olga.service.MemberService;
 import kr.co.olga.service.PurchaseService;
 import kr.co.olga.service.QuiryService;
+import kr.co.olga.service.ReviewService;
 import kr.co.olga.service.ShipService;
 import kr.co.olga.vo.AnswerVO;
 import kr.co.olga.vo.FavorVO;
@@ -22,6 +23,7 @@ import kr.co.olga.vo.MemberVO;
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.PurchaseVO;
 import kr.co.olga.vo.QuiryVO;
+import kr.co.olga.vo.ReviewVO;
 import kr.co.olga.vo.ShipVO;
 
 @Controller
@@ -50,6 +52,9 @@ public class MyPageController {
 	
 	@Autowired
 	private AnswerService answerService;
+	
+	@Autowired
+	private ReviewService reviewService;
 
 	// 주문내역
 	@RequestMapping(value = "/purchase")
@@ -179,6 +184,65 @@ public class MyPageController {
 
 		return result;
 	}
+	
+	// 상품 후기 리스트
+	@RequestMapping(value = "/reviewList")
+	@ResponseBody
+	public Map<String, Object> reviewList(String showPage, String rvmemId) {
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		int stShowPage = Integer.parseInt(showPage);
+
+		int currPage;
+		if (showPage == null) {
+			currPage = 1;
+		} else {
+			currPage = stShowPage;
+		}
+
+		PagingVO vo = reviewService.getMemReviewPageInfo(currPage, rvmemId); //페이징에 필요한 정보 계산
+		List<ReviewVO> myReviewList =  reviewService.getMemReviewPageList(vo);
+
+		result.put("myReviewList", myReviewList);
+		result.put("pageInfo", vo); // 페이징정보
+		result.put("currPage", currPage); // 현재페이지
+
+		return result;
+	}
+	
+	// 상품 후기 조회
+	@RequestMapping(value = "/reviewOne")
+	public String reviewOne(ReviewVO vo, Model model) {
+		model.addAttribute("reviewOne", reviewService.reviewSelOne(vo.getRvNo()));
+		
+		return "/myPage/reviewOne";
+	}
+	
+	// 상품 후기 수정
+	@RequestMapping(value = "/reviewUpdate")
+	public String reviewUpdate(ReviewVO vo) {
+		reviewService.reviewUpd(vo);
+		
+		return "redirect:/myPage/myPageList";
+	}
+	
+	// 상품 후기 수정 화면
+	@RequestMapping(value = "/reviewUpdateView")
+	public String reviewUpdateView(ReviewVO vo, Model model) {
+		model.addAttribute("reviewUpd", reviewService.reviewSelOne(vo.getRvNo()));
+		
+		return "/myPage/reviewUpdateView";
+	}
+	
+	
+	// 상품 후기 삭제
+	@RequestMapping(value = "/reviewDelete")
+	public String reviewDelete(ReviewVO vo) {
+		reviewService.reviewDelOne(vo.getRvNo());
+		
+		return "redirect:/myPage/myPageList";
+	}
+	
 	
 	// 상품 문의 목록 페이징
 	@RequestMapping(value = "/quiryList")

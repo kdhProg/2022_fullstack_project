@@ -145,7 +145,7 @@
 			    <div class="col col-lg-2">
 			    </div>
 			    <div class="col-md-auto">
-			      <span class="join_title h2">회원가입</span>
+			      <span class="join_title h2">내 정보 수정</span>
 			    </div>
 			    <div class="col col-lg-2">
 			    </div>

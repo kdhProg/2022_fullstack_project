@@ -65,5 +65,19 @@
 		update reviews set rvReport=rvReport-1 where rvNo=#{rvNo}
 	</update>
 	
+<!-- 마이페이지 상품 후기 페이징 -->	
+	<select id="getMemReviewCount" parameterType="String" resultType="Integer">
+		select count(*) from reviews where rvmemId = #{rvmemId}
+	</select>
+	
+	<select id="getMemReviewPageList" parameterType="PagingVO" resultType="ReviewVO">
+		select * from 
+			(select rownum rnum, temp.* from
+				(select * from reviews where rvmemId = #{rvmemId} order by rvNo desc) 
+			temp) 
+		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+	</select>
+	
+	
 	
 </mapper>
