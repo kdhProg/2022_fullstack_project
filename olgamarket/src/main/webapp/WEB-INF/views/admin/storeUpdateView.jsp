@@ -46,19 +46,19 @@
 					<tr>
 						<td>
 							<label for="stlInfo">정보</label>
-							<textarea id="stlInfo" name="stlInfo"><c:out value="${update.stlInfo}" /></textarea>
+							<textarea id="stlInfo" name="stlInfo" class="form-control">${update.stlInfo}</textarea>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<label for="stlPhone">번호</label>
-							<input type="text" id="stlPhone" name="stlPhone" value="${update.stlPhone}" />
+							<input type="text" id="stlPhone" name="stlPhone" value="${update.stlPhone}" class="form-control"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<label for="stlEmail">이메일</label>
-							<input type="text" id="stlEmail" name="stlEmail" value="${update.stlEmail}" />
+							<input type="text" id="stlEmail" name="stlEmail" value="${update.stlEmail}" class="form-control"/>
 						</td>
 					</tr>
 				</tbody>
