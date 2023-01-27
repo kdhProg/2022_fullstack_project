@@ -38,6 +38,16 @@
 	<select id="getOneByCaNo" parameterType="CartVO" resultType="CartVO">
 		select * from cart where caNo=#{caNo}
 	</select>
+	
+	<!-- memId에 해당하는 레코드 개수 -->
+	<select id="countByMemId" parameterType="CartVO" resultType="Integer">
+		select count(*) from cart where camemId=#{camemId}
+	</select>
+	
+	<!-- memId에 해당하는 레코드 전부 삭제 -->
+	<delete id="deleteByMemId" parameterType="CartVO">
+		delete from cart where camemId=#{camemId}
+	</delete>
 
 	
 </mapper>

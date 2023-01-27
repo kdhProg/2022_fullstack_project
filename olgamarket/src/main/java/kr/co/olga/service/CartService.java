@@ -26,5 +26,11 @@ public interface CartService {
 	
 	// vo의 caNo로 가져오기
 	CartVO getOneByCaNo(CartVO vo);
+	
+	// vo의 memId에 해당하는 컬럼 다 가져옴
+	int countByMemId(CartVO vo);
+	
+	// vo의 memId에 해당하는 컬럼 다 삭제
+	int deleteByMemId(CartVO vo);
 
 }

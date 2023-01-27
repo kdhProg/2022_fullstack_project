@@ -48,4 +48,14 @@ public class CartDAOImpl implements CartDAO {
 	public CartVO getOneByCaNo(CartVO vo) {
 		return session.selectOne("cartMapper.getOneByCaNo",vo);
 	}
+	
+	@Override
+	public int countByMemId(CartVO vo) {
+		return session.selectOne("cartMapper.countByMemId",vo);
+	}
+	
+	@Override
+	public int deleteByMemId(CartVO vo) {
+		return session.delete("cartMapper.deleteByMemId",vo);
+	}
 }
