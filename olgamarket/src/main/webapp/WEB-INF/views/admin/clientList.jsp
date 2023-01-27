@@ -9,35 +9,35 @@
 <title>Insert title here</title>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <style>
 #noticeBt,#faqBt,#onetooneBt{
 	text-decoration: none;
 }
+a {
+	text-decoration: none;
+}
 
 </style>
-<script type="text/javascript">
-		$(document).ready(function(){
-			var formObj = $("form[name='insertForm']");
-			
-			// 공지사항 등록
-			$(".ntInsert_btn").on("click", function(){
-				formObj.attr("action", '/admin/noticeInsertView?admId="${admin.getAdmId()}"');
-				formObj.attr("method", "get");
-				formObj.submit();				
-			});
-			// FAQ 등록
-			$(".faqInsert_btn").on("click", function(){
-				formObj.attr("action", '/admin/faqInsertView?admId="${admin.getAdmId()}"');
-				formObj.attr("method", "get");
-				formObj.submit();				
-			});
-		});
-</script>
+
 <body>
-	<h1>고객센터 관리</h1>
-	<a href="#" onclick="noticeList(1);return false;" id="noticeBt">공지사항</a>
-	<a href="#" onclick="faqList(1);return false;" id="faqBt">FAQ</a>
-	<a href="#" onclick="otList(1);return false;" id="onetooneBt">1 : 1 문의</a>
+<div class="container">
+	<nav class="navbar bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/admin/storeList">판매점</a>
+			<a class="navbar-brand" href="/admin/seller">판매자</a>
+			<a class="navbar-brand" href="/admin/product">상품</a>
+			<a class="navbar-brand" href="/admin/clientList">고객센터</a>
+			<a class="navbar-brand" href="/admin/memberGrade">회원</a>
+			<a class="navbar-brand" href="/admin/storeList">통계</a>
+		</div>
+	</nav>
+
+	<br />
+	<a href="#" onclick="noticeList(1);return false;" id="noticeBt" class="btn btn-primary">공지사항</a>
+	<a href="#" onclick="faqList(1);return false;" id="faqBt" class="btn btn-primary">FAQ</a>
+	<a href="#" onclick="otList(1);return false;" id="onetooneBt" class="btn btn-primary">1 : 1 문의</a>
 	
 	<hr />
 <!-- 공지사항 -->	
@@ -46,7 +46,7 @@
 		<div id="noticeResultList"></div>
 		<div id="noticeResultPagingNo"></div>
 		<div>
-			<button type="submit" class="ntInsert_btn">공지사항 등록</button>
+			<button type="submit" class="btn btn-outline-danger">공지사항 등록</button>
 		</div>
 	</div>
 </form>	
@@ -56,20 +56,21 @@
 		<div id="faqResultList"></div>
 		<div id="faqResultPagingNo"></div>
 		<div>
-			<button type="submit" class="faqInsert_btn">FAQ 등록</button>
+			<button type="submit" class="btn btn-outline-danger">FAQ 등록</button>
 		</div>
 	</div>
 </form>	
 <!-- 1대1 문의 -->	
 	
 	<div id="otoDiv" style="display : none;">
-	<a href="#" onclick="sortList(1);return false;" id="sortBtn1">답변 대기</a>
-	<a href="#" onclick="sortList(2);return false;" id="sortBtn2">답변 완료</a>
+	<a href="#" onclick="sortList(1);return false;" id="sortBtn1" class="btn btn-light">답변 대기</a>
+	<a href="#" onclick="sortList(2);return false;" id="sortBtn2" class="btn btn-light">답변 완료</a>
 		<div id="otoResultList"></div>
 		<div id="otoResultPagingNo"></div>
 		
 	</div>
-		
+
+</div>		
 </body>
 <script>
 /********************* 공지사항 *******************************************************************/
@@ -87,12 +88,12 @@ function noticeList(pageNo) {
 			var currPage = data.currPage;
             var noticePageList = data.noticeList; // model 처럼
         	
-            var noticeContentTag = "<table><tr><th>No</th><th>제목</th><th>작성자</th><th>등록일</th></tr>";
+            var noticeContentTag = "<table class='table'><tr><th>No</th><th>제목</th><th>작성자</th><th>등록일</th></tr>";
             var noticePagingTag = "";
 
 			$.each(noticePageList, function(key, value) {
 				noticeContentTag += "<tr>";
-				noticeContentTag += "<td><a href='/admin/noticeOne?ntNo="+value.ntNo+"'>"+value.ntNo+"</a></td>";
+				noticeContentTag += "<td><a href='/admin/noticeOne?ntNo="+value.ntNo+"'class='btn btn-danger'>"+value.ntNo+"</a></td>";
 				noticeContentTag += "<td>"+value.ntTitle+"</td>";
 				noticeContentTag += "<td>"+value.ntadmId+"</td>";
 				noticeContentTag += "<td>"+value.ntUpdDate+"</td>";
@@ -139,12 +140,12 @@ function faqList(pageNo) {
 			var currPage = data.currPage;
             var faqPageList = data.faqList; // model 처럼
         	
-            var faqContentTag = "<table><tr><th>No</th><th>카테고리</th><th>제목</th><th>작성자</th><th>등록일</th></tr>";
+            var faqContentTag = "<table class='table'><tr><th>No</th><th>카테고리</th><th>제목</th><th>작성자</th><th>등록일</th></tr>";
             var faqPagingTag = "";
 
 			$.each(faqPageList, function(key, value) {
 				faqContentTag += "<tr>";
-				faqContentTag += "<td><a href='/admin/faqOne?faqNo="+value.faqNo+"'>"+value.faqNo+"</a></td>";
+				faqContentTag += "<td><a href='/admin/faqOne?faqNo="+value.faqNo+"'class='btn btn-danger'>"+value.faqNo+"</a></td>";
 				faqContentTag += "<td>"+value.faqCategory+"</td>";
 				faqContentTag += "<td>"+value.faqTitle+"</td>";
 				faqContentTag += "<td>"+value.faqadmId+"</td>";
@@ -194,12 +195,12 @@ function otList(pageNo, sortNo) {
 			var currPage = data.currPage;
             var otPageList = data.otoList; // model 처럼
         	
-            var otContentTag = "<table><tr><th>No</th><th>메인 카테고리</th><th>서브 카테고리</th><th>제목</th><th>작성자</th><th>답변 상태</th><th>등록일</th></tr>";
+            var otContentTag = "<table class='table'><tr><th>No</th><th>메인 카테고리</th><th>서브 카테고리</th><th>제목</th><th>작성자</th><th>답변 상태</th><th>등록일</th></tr>";
             var otPagingTag = "";
 
 			$.each(otPageList, function(key, value) {
 				otContentTag += "<tr>";
-				otContentTag += "<td><a href='/admin/adminQnOne?otqNo="+value.otqNo+"'>"+value.otqNo+"</a></td>";
+				otContentTag += "<td><a href='/admin/adminQnOne?otqNo="+value.otqNo+"'class='btn btn-danger'>"+value.otqNo+"</a></td>";
 				otContentTag += "<td>"+value.otqMainCategory +"</td>";
 				otContentTag += "<td>"+value.otqSubCategory  +"</td>";
 				otContentTag += "<td>"+value.otqTitle+"</td>";

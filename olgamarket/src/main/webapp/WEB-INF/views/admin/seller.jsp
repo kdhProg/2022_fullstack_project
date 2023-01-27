@@ -36,32 +36,32 @@ a {
 	</nav>
 	
 	<br />
-	<a href="#" onclick="selList(1);return false;" id="selListBt">판매자 목록</a>
-	<a href="#" onclick="npqList(1);return false;" id="npqListBt">신상품 등록 문의</a>
-	<a href="#" onclick="sqList(1);return false;" id="sqListBt">판매자 문의</a>
+	<a href="#" onclick="selList(1);return false;" id="selListBt" class="btn btn-primary">판매자 목록</a>
+	<a href="#" onclick="npqList(1);return false;" id="npqListBt" class="btn btn-primary">신상품 등록 문의</a>
+	<a href="#" onclick="sqList(1);return false;" id="sqListBt" class="btn btn-primary">판매자 문의</a>
 	
 	<hr />
 
 <!-- 판매자 목록 -->	
 	<div id="selDiv" style="display : none;">
-		<a href="#" onclick="sortList1(1);return false;" id="sortBtn1">판매자</a>
-		<a href="#" onclick="sortList1(2);return false;" id="sortBtn2">권한 회수된 판매자</a>
+		<a href="#" onclick="sortList1(1);return false;" id="sortBtn1" class="btn btn-light">판매자</a>
+		<a href="#" onclick="sortList1(2);return false;" id="sortBtn2" class="btn btn-light">권한 회수된 판매자</a>
 		<div id="selResultList"></div>
 		<div id="selResultPagingNo"></div>
 	</div>
 
 <!-- 신상품 등록 문의 -->	
 	<div id="npqDiv" style="display : none;">
-		<a href="#" onclick="sortList2(1);return false;" id="sortBtn1">답변 대기</a>
-		<a href="#" onclick="sortList2(2);return false;" id="sortBtn2">답변 완료</a>
+		<a href="#" onclick="sortList2(1);return false;" id="sortBtn1" class="btn btn-light">답변 대기</a>
+		<a href="#" onclick="sortList2(2);return false;" id="sortBtn2" class="btn btn-light">답변 완료</a>
 		<div id="newPdQuiryResultList"></div>
 		<div id="newPdQuiryResultPagingNo"></div>
 	</div>
 
 <!-- 판매자 문의 -->	
 	<div id="sqDiv" style="display : none;">
-		<a href="#" onclick="sortList3(1);return false;" id="sortBtn1">답변 대기</a>
-		<a href="#" onclick="sortList3(2);return false;" id="sortBtn2">답변 완료</a>
+		<a href="#" onclick="sortList3(1);return false;" id="sortBtn1" class="btn btn-light">답변 대기</a>
+		<a href="#" onclick="sortList3(2);return false;" id="sortBtn2" class="btn btn-light">답변 완료</a>
 		<div id="sqResultList"></div>
 		<div id="sqResultPagingNo"></div>
 	</div>
@@ -91,7 +91,7 @@ function selList(pageNo, sortNo) {
 			
 			$.each(selPageList, function(key, value) {
 				selContentTag += "<tr>";
-				selContentTag += "<td><a href='/admin/sellerOne?selId="+value.selId+"&selstlBrandName="+value.selstlBrandName+"'>"+value.selId+"</a></td>";
+				selContentTag += "<td><a href='/admin/sellerOne?selId="+value.selId+"&selstlBrandName="+value.selstlBrandName+"'class='btn btn-danger'>"+value.selId+"</a></td>";
 				selContentTag += "<td>"+value.selName+"</td>";
 				selContentTag += "<td>"+value.selstlBrandName+"</td>";
 				selContentTag += "<td>"+value.selEmail+"</td>";
@@ -155,7 +155,7 @@ function npqList(pageNo, sortNo) {
 			
 			$.each(npqPageList, function(key, value) {
 				npqContentTag += "<tr>";
-				npqContentTag += "<td><a href='/admin/newPdQuiryOne?npqNo="+value.npqNo+"'>"+value.npqNo+"</a></td>";
+				npqContentTag += "<td><a href='/admin/newPdQuiryOne?npqNo="+value.npqNo+"'class='btn btn-danger'>"+value.npqNo+"</a></td>";
 				npqContentTag += "<td>"+value.npqselId+"</td>";
 				npqContentTag += "<td>"+value.npqTitle+"</td>";
 				npqContentTag += "<td>"+value.npqContent+"</td>";
@@ -217,7 +217,7 @@ function sqList(pageNo, sortNo) {
             
 			$.each(selQuiryPageList, function(key, value) {
 				selQuiryContentTag += "<tr>";
-				selQuiryContentTag += "<td><a href='/admin/selQuiryOne?sqNo="+value.sqNo+"'>"+value.sqNo+"</a></td>";
+				selQuiryContentTag += "<td><a href='/admin/selQuiryOne?sqNo="+value.sqNo+"'class='btn btn-danger'>"+value.sqNo+"</a></td>";
 				selQuiryContentTag += "<td>"+value.sqpdId+"</td>";
 				selQuiryContentTag += "<td>"+value.sqTitle+"</td>";
 				selQuiryContentTag += "<td>"+value.sqContent+"</td>";

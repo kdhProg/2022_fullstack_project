@@ -52,7 +52,7 @@ a {
 				</tr>
 				<c:forEach var="list" items="${storeList}">
 					<tr>
-						<td><a href="/admin/storeOne?stlNo=${list.getStlNo()}">${list.getStlNo()}</a></td>
+						<td><a href="/admin/storeOne?stlNo=${list.getStlNo()}" class="btn btn-danger">${list.getStlNo()}</a></td>
 						<td>${list.getStlBrandName()}</td>
 						<td>${list.getStlPhone()}</td>
 						<td>${list.getStlEmail()}</td>

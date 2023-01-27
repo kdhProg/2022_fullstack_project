@@ -7,22 +7,43 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
+<style>
+a {
+	text-decoration: none;
+}
+
+</style>
 <body>
+<div class="container">
+	<nav class="navbar bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/admin/storeList">판매점</a>
+			<a class="navbar-brand" href="/admin/seller">판매자</a>
+			<a class="navbar-brand" href="/admin/product">상품</a>
+			<a class="navbar-brand" href="/admin/clientList">고객센터</a>
+			<a class="navbar-brand" href="/admin/memberGrade">회원</a>
+			<a class="navbar-brand" href="/admin/storeList">통계</a>
+		</div>
+	</nav>
+	<br />
 <!-- 회원 등급 관리 -->	
-	<h1>회원 등급</h1>
-	<p>전월 기준</p>
-	<p>500,000원 이상 VVIP</p> <p>500,000원 미만 200,000원 이상 VIP</p> <p>200,000원 미만 일반</p>
+	
+	<h3>전월 기준</h3>
+	<p>VVIP : 500,000원 이상</p> <p>VIP :500,000원 미만 200,000원 이상</p> <p>Friend : 200,000원 미만</p>
 
 	<div id="memDiv" style="display : block;">
-		<a href="#" onclick="sortList(1);return false;" id="sortBtn1">20만원 미만</a>
-		<a href="#" onclick="sortList(2);return false;" id="sortBtn2">20~50만원</a>
-		<a href="#" onclick="sortList(3);return false;" id="sortBtn3">50만원 이상</a>
+		<a href="#" onclick="sortList(1);return false;" id="sortBtn1" class="btn btn-primary">20만원 미만</a>
+		<a href="#" onclick="sortList(2);return false;" id="sortBtn2" class="btn btn-primary">20~50만원</a>
+		<a href="#" onclick="sortList(3);return false;" id="sortBtn3" class="btn btn-primary">50만원 이상</a>
 		<div id="memResultList"></div>
 		<div id="memResultPagingNo"></div>
 		
 	</div>
+</div>	
 </body>
 <script>
 let sortType = 1;
@@ -41,12 +62,12 @@ function memList(pageNo, sortNo) {
 			var currPage = data.currPage;
             var memPageList = data.memList; // model 처럼
             
-            var memContentTag = "<table><tr><th>회원 아이디</th><th>회원 등급</th></tr>";
+            var memContentTag = "<table class='table'><tr><th>회원 아이디</th><th>회원 등급</th></tr>";
             var memPagingTag = "";
             
 			$.each(memPageList, function(key, value) {
 				memContentTag += "<tr>";
-				memContentTag += "<td><a href='/admin/memOne?memId="+value.memId+"'>"+value.memId+"</a></td>";
+				memContentTag += "<td><a href='/admin/memOne?memId="+value.memId+"'class='btn btn-danger'>"+value.memId+"</a></td>";
 				memContentTag += "<td>"+value.memGrade+"</td>";
 				memContentTag += "</tr>";                
              });
