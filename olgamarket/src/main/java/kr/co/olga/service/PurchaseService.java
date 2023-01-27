@@ -18,4 +18,7 @@ public interface PurchaseService {
 
 	List<PurchaseVO> getMemPurchasePageList(PagingVO vo);
 
+	// 단순 인서트
+	int insertPurchase(PurchaseVO vo);
+
 }

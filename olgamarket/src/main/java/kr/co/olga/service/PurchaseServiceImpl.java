@@ -111,4 +111,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public List<PurchaseVO> getMemPurchasePageList(PagingVO vo) {
 		return dao.getMemPurchasePageList(vo);
 	}
+	
+	@Override
+	public int insertPurchase(PurchaseVO vo) {
+		return dao.insertPurchase(vo);
+	}
 }

@@ -253,6 +253,15 @@ public class ProductTest {
 			
 			System.out.println(pdList);
 		}
+	
+	@Test
+	@Ignore
+	public void increaseSaleByPdIdTest() {
+		ProductVO vo = new ProductVO();
+		vo.setPdId(138L);
+		vo.setPdSalesVolume(2000L);
+		assertEquals(1, service.increaseSaleByPdId(vo));
+	}
 }
 
 

@@ -37,4 +37,9 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 	public List<PurchaseVO> getMemPurchasePageList(PagingVO vo) {
 		return session.selectList("PurchaseMapper.getMemPurchasePageList", vo);
 	}
+	
+	@Override
+	public int insertPurchase(PurchaseVO vo) {
+		return session.insert("PurchaseMapper.insertPurchase", vo);
+	}
 }

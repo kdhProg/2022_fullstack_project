@@ -191,6 +191,10 @@ public class ProductDAOImpl implements ProductDAO {
 		return session.selectList("productMapper.getProductAdminPageList", vo);
 	}
 	
-	
+	//pdId로 판매량 증가
+	@Override
+	public int increaseSaleByPdId(ProductVO vo) {
+		return session.update("productMapper.increaseSaleByPdId", vo);
+	}
 	
 }
