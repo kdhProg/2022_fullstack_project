@@ -235,7 +235,7 @@ public class MemberController {
 				// 20230118   이슈: 생일컬럼이 없으므로 값을 컨트롤러로 넘겨받긴 하지만 사용하지는 않음
 				// choice의 경우는 차례대로 가중치가 1 / 10 / 100 임 따라서 111이면 3개체크, 11이면 2개체크임
 				String memAddress = mainPostcode + " " + mainAddress + " " + mainDetailAddress;
-				String memGrade = "friend"; //기본값은 friend
+				String memGrade = "Friend"; //기본값은 friend
 				Long memChoice = 0L;
 				//아래IF문 => 리팩토링 예정
 				if(choiceSelectBoxOne != null) {memChoice += 1L;}
@@ -253,7 +253,7 @@ public class MemberController {
 			}else {
 				// typeSelRadio=="sellerMem" (판매점인 경우)
 				String selAddress = mainPostcode + " " + mainAddress + " " + mainDetailAddress;
-				String memGrade = "friend"; //기본값은 friend
+				String memGrade = "Friend"; //기본값은 friend
 				Long selTypeGrade = 1L; //기본값은 1
 				Long memChoice = 0L;
 				if(choiceSelectBoxOne != null) {memChoice += 1L;}
