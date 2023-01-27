@@ -7,17 +7,35 @@
 <head>
 <meta charset="UTF-8">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <title>Insert title here</title>
 </head>
 <style>
 #selListBt, #sqListBt, #npqListBt{
 	text-decoration: none;
 }
+a {
+	text-decoration: none;
+}
+
 
 </style>
 
 <body>
-	<h1>판매자 / 문의 관리</h1>
+<div class="container">
+	<nav class="navbar bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/admin/storeList">판매점</a>
+			<a class="navbar-brand" href="/admin/seller">판매자</a>
+			<a class="navbar-brand" href="/admin/product">상품</a>
+			<a class="navbar-brand" href="/admin/clientList">고객센터</a>
+			<a class="navbar-brand" href="/admin/memberGrade">회원</a>
+			<a class="navbar-brand" href="/admin/storeList">통계</a>
+		</div>
+	</nav>
+	
+	<br />
 	<a href="#" onclick="selList(1);return false;" id="selListBt">판매자 목록</a>
 	<a href="#" onclick="npqList(1);return false;" id="npqListBt">신상품 등록 문의</a>
 	<a href="#" onclick="sqList(1);return false;" id="sqListBt">판매자 문의</a>
@@ -48,7 +66,7 @@
 		<div id="sqResultPagingNo"></div>
 	</div>
 		
-
+</div>
 </body>
 <script>
 /********************* 판매자 목록 *******************************************************************/
@@ -68,7 +86,7 @@ function selList(pageNo, sortNo) {
 			var currPage = data.currPage;
             var selPageList = data.selList; // model 처럼
         	
-            var selContentTag = "<table><tr><th>Id</th><th>판매자 이름</th><th>상호명</th><th>이메일</th><th>전화 번호</th><th>마켓 고유 번호</th><th>사업자 등록 번호</th><th>판매자 권한</th><th>등록일</th></tr>";
+            var selContentTag = "<table class='table'><tr><th>Id</th><th>판매자 이름</th><th>상호명</th><th>이메일</th><th>전화 번호</th><th>마켓 고유 번호</th><th>사업자 등록 번호</th><th>판매자 권한</th><th>등록일</th></tr>";
             var selPagingTag = "";
 			
 			$.each(selPageList, function(key, value) {
@@ -132,7 +150,7 @@ function npqList(pageNo, sortNo) {
 			var currPage = data.currPage;
             var npqPageList = data.npqList; // model 처럼
         	
-            var npqContentTag = "<table><tr><th>No</th><th>판매자 Id</th><th>제목</th><th>내용</th><th>이미지</th><th>답변 상태</th><th>등록일</th></tr>";
+            var npqContentTag = "<table class='table'><tr><th>No</th><th>판매자 Id</th><th>제목</th><th>내용</th><th>이미지</th><th>답변 상태</th><th>등록일</th></tr>";
             var npqPagingTag = "";
 			
 			$.each(npqPageList, function(key, value) {
@@ -194,7 +212,7 @@ function sqList(pageNo, sortNo) {
 			var currPage = data.currPage;
             var selQuiryPageList = data.sqList; // model 처럼
             
-            var selQuiryContentTag = "<table><tr><th>No</th><th>상품 아이디</th><th>제목</th><th>내용</th><th>답변 상태</th><th>작성자</th><th>등록일</th></tr>";
+            var selQuiryContentTag = "<table class='table'><tr><th>No</th><th>상품 아이디</th><th>제목</th><th>내용</th><th>답변 상태</th><th>작성자</th><th>등록일</th></tr>";
             var selQuiryPagingTag = "";
             
 			$.each(selQuiryPageList, function(key, value) {

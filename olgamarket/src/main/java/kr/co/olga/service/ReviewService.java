@@ -35,6 +35,11 @@ public interface ReviewService {
 	
 	//rvNo에 해당하는 레코드 신고수-1
 	long reviewRptSubtract(long rvNo);
+	
+// 마이페이지 상품 후기 페이징
+	PagingVO getMemReviewPageInfo(int currPage, String rvmemId);
+
+	List<ReviewVO> getMemReviewPageList(PagingVO vo);
 
 
 }

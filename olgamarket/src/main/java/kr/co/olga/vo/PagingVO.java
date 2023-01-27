@@ -37,4 +37,5 @@ public class PagingVO {
 	String slmemId; // 마이페이지 배송지 사용
 	String fvmemId; // 마이페이지 찜 사용
 	String iqmemId; // 마이페이지 상품 문의 사용
+	String rvmemId; // 마이페이지 상품 후기 사용
 }

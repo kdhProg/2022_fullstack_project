@@ -64,5 +64,16 @@ public class ReviewDAOImpl implements ReviewDAO {
 	public long reviewRptSubtract(long rvNo) {
 		return session.update("reviewMapper.reviewRptSubtract",rvNo);
 	}
+
+// 마이페이지 상품 후기 페이징
+	@Override
+	public int getMemReviewCount(String rvmemId) {
+		return session.selectOne("reviewMapper.getMemReviewCount", rvmemId);
+	}
+
+	@Override
+	public List<ReviewVO> getMemReviewPageList(PagingVO vo) {
+		return session.selectList("reviewMapper.getMemReviewPageList", vo);
+	}
 	
 }

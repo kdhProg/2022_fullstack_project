@@ -10,11 +10,11 @@
 <title>Insert title here</title>
 </head>
 <style>
-#plListBt, #slListBt, #favListBt, #memUpdateBt, #quListBt{
+#plListBt, #slListBt, #favListBt, #memUpdateBt, #quListBt, #rvListBt{
 	text-decoration: none;
 }
 
-.sessionMemIdOrder, .sessionMemIdShip, .sessionMemIdFavor, .sessionMemIdQuiry{
+.sessionMemIdOrder, .sessionMemIdShip, .sessionMemIdFavor, .sessionMemIdReview, .sessionMemIdQuiry{
 	display: none;
 }
 </style>
@@ -25,9 +25,10 @@
 	<a href="#" onclick="purchaseList(1, '${member.getMemId()}');return false;" id="plListBt">주문 내역</a>
 	<a href="#" onclick="myShipList(1, '${member.getMemId()}');return false;" id="slListBt">배송지</a>
 	<a href="#" onclick="myFavorList(1, '${member.getMemId()}');return false;" id="favListBt">찜</a>
+	<a href="#" onclick="myReviewList(1, '${member.getMemId()}');return false;" id="rvListBt">상품 후기</a>
 	<a href="#" onclick="myQuiryList(1, '${member.getMemId()}');return false;" id="quListBt">상품 문의</a>
 	
-	<a href="/myPage/memInfoUpdateView?memId=${member.getMemId()}" id="memUpdateBt">회원 정보 수정</a>
+	<a href="/myPage/memInfoUpdateView?memId=${member.getMemId()}" id="memUpdateBt">내 정보 수정</a>
 	
 	<hr />
 	
@@ -56,6 +57,13 @@
 		<div id="favResultList"></div>
 		<div id="favResultPagingNo"></div>
 	</div>
+	
+<!-- 상품후기 -->	
+	<div id="rvDiv" style="display : none;">
+		<span class="sessionMemIdReview">${member.getMemId()}</span>
+		<div id="rvResultList"></div>
+		<div id="rvResultPagingNo"></div>
+	</div>	
 	
 <!-- 상품문의 -->	
 	<div id="quDiv" style="display : none;">
@@ -230,9 +238,65 @@ function myFavorList(pageNo, fvmemId) {
     });//ajax
 }// function end
 
+/********************* 상품 후기 *******************************************************************/
+let memIdType4 = $(".sessionMemIdReview").text();
+$(document).ready(myReviewList(1, memIdType4));
+function myReviewList(pageNo, rvmemId) {
+	$.ajax({
+        url : "/myPage/reviewList",
+        type : "get",
+        data : {
+        	showPage : pageNo,
+        	rvmemId : rvmemId
+        },
+        success : function(data){
+        	
+        	var pageInfo = data.pageInfo;
+			var currPage = data.currPage;
+            var reviewPageList = data.myReviewList; // model 처럼
+        	
+            var reviewContentTag = "<table><tr><th>No</th><th>상품 아이디</th><th>내용</th><th>이미지</th><th>추천수</th><th>신고수</th><th>등록일</th></tr>";
+            var reviewPagingTag = "";
+
+			$.each(reviewPageList, function(key, value) {
+				reviewContentTag += "<tr>";
+				reviewContentTag += "<td><a href='/myPage/reviewOne?rvNo="+value.rvNo+"'>"+value.rvNo+"</a></td>";
+				reviewContentTag += "<td><a href='/goods/detailView?pdId="+value.rvpdId+"'>"+value.rvpdId+"</a></td>";
+				reviewContentTag += "<td>"+value.rvContent+"</td>";
+				reviewContentTag += "<td>"+value.rvImg+"</td>";
+				reviewContentTag += "<td>"+value.rvNice+"</td>";
+				reviewContentTag += "<td>"+value.rvReport+"</td>";
+				reviewContentTag += "<td>"+value.rvUpdDate+"</td>";
+             });
+			reviewContentTag += "</table>";
+			$("#rvResultList").html(reviewContentTag); //메인 컨텐츠 적용
+			
+			if(pageInfo.xprev){
+				reviewPagingTag+="<a href='#' onclick='myReviewList("+(pageInfo.firstPageNoOnPageList-1)+ ", \""+ memIdType4 +"\");return false;'>[prev]</a>&nbsp;&nbsp;&nbsp;";
+			}
+			for(var i = pageInfo.firstPageNoOnPageList; i< pageInfo.lastPageNoOnPageList+1;i++){
+				if(i == currPage){
+					reviewPagingTag+="<span>["+i+"]&nbsp;&nbsp;&nbsp;</span>";
+				}else{
+					reviewPagingTag+="<a href='#' onclick='myReviewList(" + i + ", \""+ memIdType4 +"\");return false;'>["+i+"]</a>&nbsp;&nbsp;&nbsp;";
+				}
+				
+			}
+			if(pageInfo.xnext){
+				reviewPagingTag+="<a href='#' onclick='myReviewList("+(pageInfo.lastPageNoOnPageList+1)+ ", \""+ memIdType4 +"\");return false;'>[next]</a>&nbsp;&nbsp;&nbsp;";
+			}
+			
+			$("#rvResultPagingNo").html(reviewPagingTag); //페이징 적용
+        },
+        error : function(){
+             alert('error - myReviewList');
+        }//error
+    });//ajax
+}// function end
+
 /********************* 상품 문의 *******************************************************************/
-let memIdType4 = $(".sessionMemIdQuiry").text();
-$(document).ready(myQuiryList(1, memIdType4));
+let memIdType5 = $(".sessionMemIdQuiry").text();
+$(document).ready(myQuiryList(1, memIdType5));
 function myQuiryList(pageNo, iqmemId) {
 	$.ajax({
         url : "/myPage/quiryList",
@@ -262,18 +326,18 @@ function myQuiryList(pageNo, iqmemId) {
 			$("#quResultList").html(quiryContentTag); //메인 컨텐츠 적용
 			
 			if(pageInfo.xprev){
-				quiryPagingTag+="<a href='#' onclick='myQuiryList("+(pageInfo.firstPageNoOnPageList-1)+ ", \""+ memIdType4 +"\");return false;'>[prev]</a>&nbsp;&nbsp;&nbsp;";
+				quiryPagingTag+="<a href='#' onclick='myQuiryList("+(pageInfo.firstPageNoOnPageList-1)+ ", \""+ memIdType5 +"\");return false;'>[prev]</a>&nbsp;&nbsp;&nbsp;";
 			}
 			for(var i = pageInfo.firstPageNoOnPageList; i< pageInfo.lastPageNoOnPageList+1;i++){
 				if(i == currPage){
 					quiryPagingTag+="<span>["+i+"]&nbsp;&nbsp;&nbsp;</span>";
 				}else{
-					quiryPagingTag+="<a href='#' onclick='myQuiryList(" + i + ", \""+ memIdType4 +"\");return false;'>["+i+"]</a>&nbsp;&nbsp;&nbsp;";
+					quiryPagingTag+="<a href='#' onclick='myQuiryList(" + i + ", \""+ memIdType5 +"\");return false;'>["+i+"]</a>&nbsp;&nbsp;&nbsp;";
 				}
 				
 			}
 			if(pageInfo.xnext){
-				quiryPagingTag+="<a href='#' onclick='myQuiryList("+(pageInfo.lastPageNoOnPageList+1)+ ", \""+ memIdType4 +"\");return false;'>[next]</a>&nbsp;&nbsp;&nbsp;";
+				quiryPagingTag+="<a href='#' onclick='myQuiryList("+(pageInfo.lastPageNoOnPageList+1)+ ", \""+ memIdType5 +"\");return false;'>[next]</a>&nbsp;&nbsp;&nbsp;";
 			}
 			
 			$("#quResultPagingNo").html(quiryPagingTag); //페이징 적용
@@ -290,6 +354,8 @@ $("#plListBt").on("click", function() {
 	$('#slDiv').css('display', 'none');
 	$("#favListBt").css('font-weight', 'normal');
 	$('#favDiv').css('display', 'none');
+	$("#rvListBt").css('font-weight', 'normal');
+	$('#rvDiv').css('display', 'none');
 	$("#quListBt").css('font-weight', 'normal');
 	$('#quDiv').css('display', 'none');
 });
@@ -298,6 +364,8 @@ $("#slListBt").on("click", function() {
 	$('#slDiv').css('display', 'block');
 	$("#favListBt").css('font-weight', 'normal');
 	$('#favDiv').css('display', 'none');
+	$("#rvListBt").css('font-weight', 'normal');
+	$('#rvDiv').css('display', 'none');
 	$("#quListBt").css('font-weight', 'normal');
 	$('#quDiv').css('display', 'none');
 	$("#plListBt").css('font-weight', 'normal');
@@ -306,12 +374,26 @@ $("#slListBt").on("click", function() {
 $("#favListBt").on("click", function() {
 	$(this).css('font-weight', 'bold');
 	$('#favDiv').css('display', 'block');
+	$("#rvListBt").css('font-weight', 'normal');
+	$('#rvDiv').css('display', 'none');
 	$("#quListBt").css('font-weight', 'normal');
 	$('#quDiv').css('display', 'none');
 	$("#plListBt").css('font-weight', 'normal');
 	$('#plDiv').css('display', 'none');
 	$("#slListBt").css('font-weight', 'normal');
 	$('#slDiv').css('display', 'none');
+});
+$("#rvListBt").on("click", function() {
+	$(this).css('font-weight', 'bold');
+	$('#rvDiv').css('display', 'block');
+	$("#quListBt").css('font-weight', 'normal');
+	$('#quDiv').css('display', 'none');
+	$("#plListBt").css('font-weight', 'normal');
+	$('#plDiv').css('display', 'none');
+	$("#slListBt").css('font-weight', 'normal');
+	$('#slDiv').css('display', 'none');
+	$("#favListBt").css('font-weight', 'normal');
+	$('#favDiv').css('display', 'none');
 });
 $("#quListBt").on("click", function() {
 	$(this).css('font-weight', 'bold');
@@ -322,6 +404,8 @@ $("#quListBt").on("click", function() {
 	$('#slDiv').css('display', 'none');
 	$("#favListBt").css('font-weight', 'normal');
 	$('#favDiv').css('display', 'none');
+	$("#rvListBt").css('font-weight', 'normal');
+	$('#rvDiv').css('display', 'none');
 });
 </script>	
 </html>

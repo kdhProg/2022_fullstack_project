@@ -102,5 +102,53 @@ public class ReviewServiceImpl implements ReviewService {
 	public long reviewRptSubtract(long rvNo) {
 		return dao.reviewRptSubtract(rvNo);
 	}
+
+// 마이페이지 상품 후기 페이징
+	@Override
+	public PagingVO getMemReviewPageInfo(int currPage, String rvmemId) {
+		PagingVO vo = new PagingVO();
+		int setTotalRecordCount = dao.getMemReviewCount(rvmemId);
+		int recordCountPerPage = 20;
+                        
+		int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
+		//int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
+		int firstPageNoOnPageList = lastPageNoOnPageList - 9;
+		//int firstPageNoOnPageList = lastPageNoOnPageList - 9;
+		
+		int realEnd = (int)(Math.ceil((dao.getMemReviewCount(rvmemId) * 1.0) / 20));
+		if(realEnd < lastPageNoOnPageList) {
+			lastPageNoOnPageList = realEnd;
+		}
+		
+		int firstRecordIndex = (currPage - 1) * recordCountPerPage;
+		boolean xprev= firstPageNoOnPageList > 1;
+		boolean xnext = lastPageNoOnPageList < realEnd;
+		
+		int contEnd = currPage*20;
+		int contStart = contEnd-19;
+		if(contEnd > setTotalRecordCount) {
+			contEnd = setTotalRecordCount;
+		}
+		
+		vo.setCurrentpageno(currPage);
+		vo.setFirstPageNoOnPageList(firstPageNoOnPageList);
+		vo.setFirstRecordIndex(firstRecordIndex);
+		vo.setLastPageNoOnPageList(lastPageNoOnPageList);
+		vo.setRealEnd(realEnd);
+		vo.setRecordCountPerPage(recordCountPerPage);
+		vo.setTotalRecordCount(setTotalRecordCount);
+		vo.setXnext(xnext);
+		vo.setXprev(xprev);
+		vo.setContEnd(contEnd);
+		vo.setContStart(contStart);
+		vo.setRvmemId(rvmemId);
+		
+		return vo;
+	}
+
+	@Override
+	public List<ReviewVO> getMemReviewPageList(PagingVO vo) {
+		return dao.getMemReviewPageList(vo);
+	}
 	
 }
