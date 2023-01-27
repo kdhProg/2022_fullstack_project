@@ -21,22 +21,24 @@
 <span id="currentSession">${member.getMemId()}</span>
 
 <h1>장바구니페이지임</h1>
-<p>상온</p>
-<div id="cartListRoomTemp"></div>
-<hr />
-<p>냉장</p>
-<div id="cartListRefrigerated"></div>
-<hr />
-<p>냉동</p>
-<div id="cartListFrozen"></div>
-<hr />
-<div>
-<p>총할인가: <span id="totalSalePrice"></span></p>
-<p>총액: <span id="totalPrice"></span></p>
-</div>
-<button id="regist_ship_btn">배송지 등록하기</button>
-<input type="text" id="shipList_inputBox" placeholder="배송지" readonly="readonly"/><br />
-<button id="enter_order">주문하기</button>
+<form action="/order/orderPage" method="post">
+	<p>=상온=</p>
+	<div id="cartListRoomTemp"></div>
+	<hr />
+	<p>=냉장=</p>
+	<div id="cartListRefrigerated"></div>
+	<hr />
+	<p>=냉동=</p>
+	<div id="cartListFrozen"></div>
+	<hr />
+	<div>
+	<p>총할인가: </p><input type="text" id="totalSalePrice" name="totalSalePrice" readonly="readonly"/>
+	<p>총액: </p><input type="text" id="totalPrice" name="totalPrice" readonly="readonly"/>
+	</div>
+	<button type="button" id="regist_ship_btn">배송지 등록하기</button>
+	<input type="text" id="shipList_inputBox" name="shipDestination" placeholder="배송지" readonly="readonly"/><br />
+	<button id="enter_order">주문하기</button>
+</form>
 <!-- 모달창-삭제버튼 -->
 <div id="modal_delete" class="modal fade" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
@@ -129,19 +131,19 @@ function makeCartList(){
 					frozenString += "<tr>";
 					frozenString += "<td><a href='/goods/detailView?pdId="+prodResult[i].pdId+"'>"+prodResult[i].pdName+"</a></td>";
 					/* 수량버튼추가 */
-					frozenString+= '<td><button class="cartQuantityPlus" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg></button>';
+					frozenString+= '<td><button type="button" class="cartQuantityPlus" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg></button>';
 					frozenString+= '<span class="pdQuantity'+cartList[i].caNo+'">'+cartList[i].caQuantity+'</span>';
 					frozenString+= '<input type="hidden" name="pdValue'+cartList[i].caNo+'" value="'+prodResult[i].pdPrice+'">'; //증감기능에 상품가격 전달용도
 					frozenString+= '<input type="hidden" name="pdSale'+cartList[i].caNo+'" value="'+prodResult[i].pdSale+'">'; //증감기능에 상품할인가 전달용도
 					frozenString+= '<input type="hidden" name="caNo'+cartList[i].caNo+'" value="'+cartList[i].caNo+'">'; //AJAX에 pdId 전달용도
 					//수량1이면 빼기버튼 disabled상태로 생성
 					if(cartList[i].caQuantity===1){
-						frozenString+= '<button class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'" disabled="disabled"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button></td>';
+						frozenString+= '<button type="button" class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'" disabled="disabled"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button></td>';
 					}else{
-						frozenString+= '<button class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button></td>';
+						frozenString+= '<button type="button" class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button></td>';
 					}
 					/* === */
-					frozenString += '<td><button class="deleteBtn" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></button></td>';
+					frozenString += '<td><button type="button" class="deleteBtn" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></button></td>';
 					frozenString += "</tr>";
 					totalPrice += (cartList[i].caQuantity)*((prodResult[i].pdPrice)*(100-prodResult[i].pdSale)/100);
 					totalSalePrice += (cartList[i].caQuantity)*((prodResult[i].pdPrice)*(prodResult[i].pdSale)/100);
@@ -150,18 +152,18 @@ function makeCartList(){
 					refrigeratedString += "<tr>";
 					refrigeratedString += "<td><a href='/goods/detailView?pdId="+prodResult[i].pdId+"'>"+prodResult[i].pdName+"</a></td>";
 					/* 수량버튼추가 */
-					refrigeratedString+= '<td><button class="cartQuantityPlus" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg></button>';
+					refrigeratedString+= '<td><button type="button" class="cartQuantityPlus" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg></button>';
 					refrigeratedString+= '<span class="pdQuantity'+cartList[i].caNo+'">'+cartList[i].caQuantity+'</span>';
 					refrigeratedString+= '<input type="hidden" name="pdValue'+cartList[i].caNo+'" value="'+prodResult[i].pdPrice+'">'; //증감기능에 상품가격 전달용도
 					refrigeratedString+= '<input type="hidden" name="pdSale'+cartList[i].caNo+'" value="'+prodResult[i].pdSale+'">'; //증감기능에 상품할인가 전달용도
 					refrigeratedString+= '<input type="hidden" name="caNo'+cartList[i].caNo+'" value="'+cartList[i].caNo+'">'; //AJAX에 pdId 전달용도
 					if(cartList[i].caQuantity===1){
-						refrigeratedString+= '<button class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'" disabled="disabled"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button></td>';
+						refrigeratedString+= '<button type="button" class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'" disabled="disabled"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button></td>';
 					}else{
-						refrigeratedString+= '<button class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button></td>';
+						refrigeratedString+= '<button type="button" class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button></td>';
 					}
 					/* === */
-					refrigeratedString += '<td><button class="deleteBtn" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></button></td>';
+					refrigeratedString += '<td><button type="button" class="deleteBtn" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></button></td>';
 					refrigeratedString += "</tr>";
 					totalPrice += (cartList[i].caQuantity)*((prodResult[i].pdPrice)*(100-prodResult[i].pdSale)/100);
 					totalSalePrice += (cartList[i].caQuantity)*((prodResult[i].pdPrice)*(prodResult[i].pdSale)/100);
@@ -170,19 +172,18 @@ function makeCartList(){
 					roomTempString += "<tr>";
 					roomTempString += "<td><a href='/goods/detailView?pdId="+prodResult[i].pdId+"'>"+prodResult[i].pdName+"</a></td>";
 					/* 수량버튼추가 */
-					roomTempString+= '<td><button class="cartQuantityPlus" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg></button>';
+					roomTempString+= '<td><button type="button" class="cartQuantityPlus" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg></button>';
 					roomTempString+= '<span class="pdQuantity'+cartList[i].caNo+'">'+cartList[i].caQuantity+'</span>';
 					roomTempString+= '<input type="hidden" name="pdValue'+cartList[i].caNo+'" value="'+prodResult[i].pdPrice+'">'; //증감기능에 상품가격 전달용도
 					roomTempString+= '<input type="hidden" name="pdSale'+cartList[i].caNo+'" value="'+prodResult[i].pdSale+'">'; //증감기능에 상품할인가 전달용도
 					roomTempString+= '<input type="hidden" name="caNo'+cartList[i].caNo+'" value="'+cartList[i].caNo+'">'; //AJAX에 pdId 전달용도
 					if(cartList[i].caQuantity===1){
-						roomTempString+= '<button class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'" disabled="disabled"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button></td>';
+						roomTempString+= '<button type="button" class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'" disabled="disabled"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button></td>';
 					}else{
-						console.log($("span[class=pdQuantity"+cartList[i].caNo+"]").text());
-						roomTempString+= '<button class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button></td>';
+						roomTempString+= '<button type="button" class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button></td>';
 					}
 					/* === */
-					roomTempString += '<td><button class="deleteBtn" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></button></td>';
+					roomTempString += '<td><button type="button" class="deleteBtn" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></button></td>';
 					roomTempString += "</tr>";
 					totalPrice += (cartList[i].caQuantity)*((prodResult[i].pdPrice)*(100-prodResult[i].pdSale)/100);
 					totalSalePrice += (cartList[i].caQuantity)*((prodResult[i].pdPrice)*(prodResult[i].pdSale)/100);
@@ -198,8 +199,8 @@ function makeCartList(){
 			$("#cartListRoomTemp").html(roomTempString);
 			
 			//총액 계산
-			$("#totalPrice").text(totalPrice);
-			$("#totalSalePrice").text(totalSalePrice);
+			$("#totalPrice").val(totalPrice);
+			$("#totalSalePrice").val(totalSalePrice);
 		}// success 종료
 	}); // ajax 종료	
 }
@@ -238,8 +239,8 @@ $(document).on('click', '.cartQuantityPlus', function(){
 	let pdSale = Number($("input[name=pdSale"+tempVal+"]").val()); //1개당 할인율
 	totalPrice += pdPrice*(100-pdSale)/100; //한개 추가되었으므로 1개 가격만큼 증가시킨다.
 	totalSalePrice += pdPrice*(pdSale)/100;
-	$("#totalPrice").text(totalPrice); //화면에 반영
-	$("#totalSalePrice").text(totalSalePrice); //화면에 반영
+	$("#totalPrice").val(totalPrice); //화면에 반영
+	$("#totalSalePrice").val(totalSalePrice); //화면에 반영
 	// 수량이 2이상이면 마이너스 버튼 재활성화
 	if(currentVal===1){$("button[name="+tempVal+"]").attr("disabled",false);}
 	
@@ -268,8 +269,8 @@ $(document).on('click', '.cartQuantityMinus', function(){
 	let pdSale = Number($("input[name=pdSale"+tempVal+"]").val()); //1개당 할인율
 	totalPrice -= pdPrice*(100-pdSale)/100; //한개 추가되었으므로 1개 가격만큼 감소시킨다.
 	totalSalePrice -= pdPrice*(pdSale)/100;
-	$("#totalPrice").text(totalPrice); //화면에 반영
-	$("#totalSalePrice").text(totalSalePrice); //화면에 반영
+	$("#totalPrice").val(totalPrice); //화면에 반영
+	$("#totalSalePrice").val(totalSalePrice); //화면에 반영
 	//수량이 1이 되면 마이너스 버튼 무력화
 	//2이면 1로 줄며 동시에 버튼 무력화
 	if(currentVal===2){ $("button[name="+tempVal+"]").attr("disabled",true);}
@@ -414,11 +415,11 @@ function execDaumPostcode() {
 } //function end
 
 
-/* 주소입력 + 상품총가격이 0보다 높아야 버튼 활성화 */
-
+/* 주소입력 + 상품총가격이 0보다 높아야 버튼 먹힘 */
 $("#enter_order").click(function(){
 	if($("#shipList_inputBox").val() == ""){$("#warn_msg_content").html("<p>배송지를 등록하세요</p>");$("#modal_warn_msg").modal("show");return false;}
 	if(totalPrice === 0){$("#warn_msg_content").html("<p>상품을 담아 주세요.</p>");$("#modal_warn_msg").modal("show");return false;}
+	let shipDestination = $("#shipList_inputBox").val();
 });
 </script>
 </html>

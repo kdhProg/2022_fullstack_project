@@ -160,13 +160,34 @@ public class CartController {
 	
 	
 	//배송지 추가
-		@RequestMapping(value="/addShipList",method = RequestMethod.POST)
-		@ResponseBody
-		public void addShipList(String memId,String finalAddress) {
-			ShipVO vo = new ShipVO();
-			vo.setSlAddress(finalAddress);
-			vo.setSlmemId(memId);
-			shService.shipInsert(vo);
-		}
+	@RequestMapping(value="/addShipList",method = RequestMethod.POST)
+	@ResponseBody
+	public void addShipList(String memId,String finalAddress) {
+		ShipVO vo = new ShipVO();
+		vo.setSlAddress(finalAddress);
+		vo.setSlmemId(memId);
+		shService.shipInsert(vo);
+	}
+	
+	
+	//주문페이지에서 초기 AJAX - 상품명/ 외 몇건 표시
+	@RequestMapping(value="/getOrderInitInfos",method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> getOrderInitInfos(String memId) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		// memId에 해당하는 상품 레코드의 첫번째 상품명
+		CartVO vo = new CartVO();
+		vo.setCamemId(memId);
+		String cartListFirstProdName = pdService.productSelectOne(ctService.selectByMemID(vo).get(0).getCapdId()).getPdName();
+		
+		//memId에 해당하는 장바구니 리스트의 개수
+		int cartListCount = ctService.countByMemId(vo);
+		
+		result.put("cartListFirstProdName", cartListFirstProdName);
+		result.put("cartListCount", cartListCount);
+
+		
+		return result;
+	}
 
 }

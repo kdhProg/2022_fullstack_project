@@ -83,5 +83,21 @@ public class CartTest {
 		vo.setCaNo(1L);
 		System.out.println(ctService.getOneByCaNo(vo));
 	}
+	
+	@Test
+	@Ignore
+	public void countByMemIdTest() {
+		CartVO vo = new CartVO();
+		vo.setCamemId("ertert43");
+		System.out.println(ctService.countByMemId(vo));
+	}
+	
+	@Test
+	@Ignore
+	public void deleteByMemIdTest() {
+		CartVO vo = new CartVO();
+		vo.setCamemId("ertert43");
+		System.out.println(ctService.deleteByMemId(vo));
+	}
 
 }

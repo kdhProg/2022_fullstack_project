@@ -48,4 +48,14 @@ public class CartServiceImpl implements CartService {
 	public CartVO getOneByCaNo(CartVO vo) {
 		return dao.getOneByCaNo(vo);
 	}
+	
+	@Override
+	public int countByMemId(CartVO vo) {
+		return dao.countByMemId(vo);
+	}
+	
+	@Override
+	public int deleteByMemId(CartVO vo) {
+		return dao.deleteByMemId(vo);
+	}
 }

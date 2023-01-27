@@ -20,4 +20,8 @@ public interface CartDAO {
 
 	CartVO getOneByCaNo(CartVO vo);
 
+	int countByMemId(CartVO vo);
+
+	int deleteByMemId(CartVO vo);
+
 }
