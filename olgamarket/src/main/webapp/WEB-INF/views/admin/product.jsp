@@ -17,12 +17,26 @@
 #pdListBt, #pdQnListBt{
 	text-decoration: none;
 }
+a {
+	text-decoration: none;
+}
 
 </style>
 <body>
-	<h1>상품 / 문의 관리</h1>
-	<a href="#" onclick="pdList(1);return false;" id="pdListBt">상품 목록</a>
-	<a href="#" onclick="pdQnList(1);return false;" id="pdQnListBt">상품 문의</a>
+<div class="container">
+	<nav class="navbar bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/admin/storeList">판매점</a>
+			<a class="navbar-brand" href="/admin/seller">판매자</a>
+			<a class="navbar-brand" href="/admin/product">상품</a>
+			<a class="navbar-brand" href="/admin/clientList">고객센터</a>
+			<a class="navbar-brand" href="/admin/memberGrade">회원</a>
+			<a class="navbar-brand" href="/admin/storeList">통계</a>
+		</div>
+	</nav>	
+	<br />
+	<a href="#" onclick="pdList(1);return false;" id="pdListBt" class="btn btn-primary">상품 목록</a>
+	<a href="#" onclick="pdQnList(1);return false;" id="pdQnListBt" class="btn btn-primary">상품 문의</a>
 	
 	<hr />
 
@@ -32,21 +46,21 @@
 		<div id="pdResultList"></div>
 		<div id="pdResultPagingNo"></div>
 		<div>
-			<button type="submit" class="pdInsert_btn">상품 등록</button>
+			<button type="submit" class="btn btn-outline-danger">상품 등록</button>
 		</div>
 	</div>
 </form>	
 
 <!-- 상품 문의 -->	
 	<div id="pdQnDiv" style="display : none;">
-		<a href="#" onclick="sortList(1);return false;" id="sortBtn1">답변 대기</a>
-		<a href="#" onclick="sortList(2);return false;" id="sortBtn2">답변 완료</a>
+		<a href="#" onclick="sortList(1);return false;" id="sortBtn1" class="btn btn-light">답변 대기</a>
+		<a href="#" onclick="sortList(2);return false;" id="sortBtn2" class="btn btn-light">답변 완료</a>
 		<div id="pdQuiryResultList"></div>
 		<div id="pdQuiryResultPagingNo"></div>
 		
 	</div>
 		
-
+</div>
 </body>
 <script>
 /********************* 상품 목록 *******************************************************************/
@@ -64,12 +78,12 @@ function pdList(pageNo) {
 			var currPage = data.currPage;
             var pdPageList = data.pdList; // model 처럼
         	
-            var pdContentTag = "<table><tr><th>Id</th><th>썸네일 이미지</th><th>상품 이름</th><th>카테고리</th><th>브랜드</th><th>가격</th><th>할인</th><th>재고</th><th>판매량</th><th>등록일</th></tr>";
+            var pdContentTag = "<table class='table'><tr><th>Id</th><th>썸네일 이미지</th><th>상품 이름</th><th>카테고리</th><th>브랜드</th><th>가격</th><th>할인</th><th>재고</th><th>판매량</th><th>등록일</th></tr>";
             var pdPagingTag = "";
 
 			$.each(pdPageList, function(key, value) {
 				pdContentTag += "<tr>";
-				pdContentTag += "<td><a href='/admin/productOne?pdId="+value.pdId+"'>"+value.pdId+"</a></td>";
+				pdContentTag += "<td><a href='/admin/productOne?pdId="+value.pdId+"'class='btn btn-danger'>"+value.pdId+"</a></td>";
 				pdContentTag += "<td>"+value.pdThumbImg+"</td>";
 				pdContentTag += "<td>"+value.pdName+"</td>";
 				pdContentTag += "<td>"+value.pdMainCategory+"</td>";
@@ -124,12 +138,12 @@ function pdQnList(pageNo, sortNo) {
 			var currPage = data.currPage;
             var pdQnPageList = data.pdQuiryList; // model 처럼
             
-            var pdQuiryContentTag = "<table><tr><th>No</th><th>상품 아이디</th><th>제목</th><th>내용</th><th>답변 상태</th><th>작성자</th><th>등록일</th></tr>";
+            var pdQuiryContentTag = "<table class='table'><tr><th>No</th><th>상품 아이디</th><th>제목</th><th>내용</th><th>답변 상태</th><th>작성자</th><th>등록일</th></tr>";
             var pdQuiryPagingTag = "";
             
 			$.each(pdQnPageList, function(key, value) {
 				pdQuiryContentTag += "<tr>";
-				pdQuiryContentTag += "<td><a href='/admin/adminQuiryOne?iqNo="+value.iqNo+"'>"+value.iqNo+"</a></td>";
+				pdQuiryContentTag += "<td><a href='/admin/adminQuiryOne?iqNo="+value.iqNo+"'class='btn btn-danger'>"+value.iqNo+"</a></td>";
 				pdQuiryContentTag += "<td>"+value.iqpdId+"</td>";
 				pdQuiryContentTag += "<td>"+value.iqTitle+"</td>";
 				pdQuiryContentTag += "<td>"+value.iqContent+"</td>";
