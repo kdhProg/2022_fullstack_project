@@ -43,4 +43,9 @@ public class CartDAOImpl implements CartDAO {
 	public CartVO getOneByMemIdNPdId(CartVO vo) {
 		return session.selectOne("cartMapper.getOneByMemIdNPdId",vo);
 	}
+	
+	@Override
+	public CartVO getOneByCaNo(CartVO vo) {
+		return session.selectOne("cartMapper.getOneByCaNo",vo);
+	}
 }

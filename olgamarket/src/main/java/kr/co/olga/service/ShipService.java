@@ -22,5 +22,8 @@ public interface ShipService {
 
 	List<ShipVO> getMemShipPageList(PagingVO vo);
 	
+	// vo에 들어있는 slmemId에 해당하는 리스트 반환
+	List<ShipVO> getShipListByMemId(ShipVO vo);
+	
 
 }

@@ -43,4 +43,9 @@ public class CartServiceImpl implements CartService {
 	public CartVO getOneByMemIdNPdId(CartVO vo) {
 		return dao.getOneByMemIdNPdId(vo);
 	}
+	
+	@Override
+	public CartVO getOneByCaNo(CartVO vo) {
+		return dao.getOneByCaNo(vo);
+	}
 }

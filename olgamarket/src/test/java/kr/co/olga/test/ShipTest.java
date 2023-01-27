@@ -18,53 +18,60 @@ import kr.co.olga.vo.ShipVO;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 public class ShipTest {
-	
+
 	@Autowired
 	private ShipService service;
 
 	@Test
 	public void shipInsertTest() {
 		ShipVO vo = new ShipVO();
-		
+
 		vo.setSlmemId("mem_id_1");
 		vo.setSlAddress("경기도 성남시 분당구");
-		
+
 		assertEquals(service.shipInsert(vo), 1);
 	}
+
 	@Test
 	public void shipDelOneTest() {
-		long slNo = 1L;	
+		long slNo = 1L;
 		assertEquals(service.shipDelOne(slNo), 0);
 	}
-		@Test
-		public void shipUpdate() {
-			ShipVO vo = new ShipVO();
-			
-			vo.setSlNo(2L);
-			vo.setSlAddress("경기도 고양시 ");
-			
-			assertEquals(service.shipUpdate(vo), 1);
-		}
-		
+
+	@Test
+	public void shipUpdate() {
+		ShipVO vo = new ShipVO();
+
+		vo.setSlNo(2L);
+		vo.setSlAddress("경기도 고양시 ");
+
+		assertEquals(service.shipUpdate(vo), 1);
+	}
+
 	@Test
 	public void shipSelectOneTest() {
 		long slNo = 1L;
-		
+
 		System.out.println(service.shipSelectOne(slNo));
 	}
-	
 
 	@Test
 	public void shipSelectListTest() {
 		List<ShipVO> list = service.shipSelectList();
-		
-		for(ShipVO vo : list) {
+
+		for (ShipVO vo : list) {
 			System.out.println("==========================================");
 			System.out.println(vo);
 			System.out.println("==========================================");
-		
-		
-	}
 
-}
+		}
+	}
+	
+	/* 20230127 김동훈 추가 */
+	@Test
+	public void getShipListByMemIdTest() {
+		ShipVO vo = new ShipVO();
+		vo.setSlmemId("qweqweqwe");
+		System.out.println(service.getShipListByMemId(vo));
+	}
 }

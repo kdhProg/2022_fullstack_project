@@ -89,5 +89,10 @@ public class ShipServiceImpl implements ShipService {
 	public List<ShipVO> getMemShipPageList(PagingVO vo) {
 		return dao.getMemShipPageList(vo);
 	}
+	
+	@Override
+	public List<ShipVO> getShipListByMemId(ShipVO vo) {
+		return dao.getShipListByMemId(vo);
+	}
 
 }

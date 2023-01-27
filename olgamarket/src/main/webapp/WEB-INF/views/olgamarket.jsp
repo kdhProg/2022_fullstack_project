@@ -7,13 +7,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </head>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <style>
 	div {
 		border : 1px solid black;
 	}
+#currentSession{
+	display: none;
+}
 </style>
 <body>
+<!-- 현재세션값 자바스크립트 넘기기-->
+<span id="currentSession">${member.getMemId()}</span>
 
 	<form action="/search/productList">
 		<input type="text" placeholder="검색어 입력" name="searchKeyWord"/>
@@ -57,6 +67,7 @@
 	<hr />
 	<a href="/board/client">고객센터</a>
 	<hr />
+	<button type="button" id="enterCartPage">장바구니</button>
 	
 	   
 	<div class="fruitPd">
@@ -131,5 +142,40 @@
 			</c:forEach>
 		</table>
 	</div>
+	
+	
+	
+<!-- 모달창-로그인 -->
+<div id="login_warn_modal" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+      </div>
+      <div class="modal-body">
+		<p>로그인시 이용할 수 있는 서비스 입니다.</p>
+      </div>
+      <div class="modal-footer">
+     	<button type="button" id="warn_modal_login" class="btn btn-primary" data-bs-dismiss="modal">로그인</button>
+      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
+<script>
+//현재 세션값
+let currentSession = $("#currentSession").text();
+
+//장바구니 버튼 클릭
+$("#enterCartPage").click(function(){
+	if(currentSession.length === 0){$("#login_warn_modal").modal("show");return false;}
+	location.href="/cart/enterCartPage";
+});
+
+//모달창에서 로그인 버튼
+$("#warn_modal_login").click(function(){
+	location.href = "/member/login";
+});
+
+</script>
 </html>

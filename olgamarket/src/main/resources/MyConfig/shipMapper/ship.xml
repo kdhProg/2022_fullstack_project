@@ -38,13 +38,11 @@
 			temp) 
 		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
 	</select>
-
-
-
-
-
-
 	
-	
+	<!-- slMemid로 리스트 반환 -->
+	<select id="getShipListByMemId" parameterType="ShipVO" resultType="ShipVO">
+		select * from shippingLists where slmemId = #{slmemId} order by slNo desc
+	</select>
+		
 	
 </mapper>

@@ -18,4 +18,6 @@ public interface CartDAO {
 
 	CartVO getOneByMemIdNPdId(CartVO vo);
 
+	CartVO getOneByCaNo(CartVO vo);
+
 }

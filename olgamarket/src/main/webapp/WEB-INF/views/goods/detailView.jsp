@@ -11,7 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <style>
 /* 데이터만을위한 태그 시야에서 제거 */
-#justForPdId,#currMemSession,#currSelSession,#favorList,#justForPdId{
+#justForPdId,#currMemSession,#currSelSession,#favorList,#justForPdId,#pdPrice,#pdSale{
  	display:none;
 }
 /* 세션값 */
@@ -71,6 +71,7 @@ a{
 <!-- 현재PdId값+기타 -->
 <p id="justForPdId">${productDetail.getPdId()}</p>
 <span id="pdPrice">${productDetail.getPdPrice()}</span>
+<span id="pdSale">${productDetail.getPdSale()}</span>
 <!-- 찜목록 -->
 <span id="favorList">${favor}</span>
 <!-- 상품리뷰 세션값 넘기기 -->
@@ -82,6 +83,7 @@ a{
 <p>상품명:${productDetail.getPdName()}</p>
 <p>상품메인카테고리:${productDetail.getPdMainCategory()}</p>
 <p>상품가격:${productDetail.getPdPrice()}</p>
+<p>상품할인율:${productDetail.getPdSale()}</p>
 <p>상품등록일:${productDetail.getPdRegiDate()}</p>
 <!-- 찜 하트 -->
 <div id="favor_form">
@@ -95,7 +97,8 @@ a{
 <button id="cartQuantityPlus"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg></button>
 <span id="pdQuantity">1</span>
 <button id="cartQuantityMinus"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button>
-<div>총가격: <span id="totalPrice">${productDetail.getPdPrice()}</span></div>
+<div>할인금액: <span id="salePrice"></span></div>
+<div>최종가격: <span id="totalPrice"></span></div>
 <button type="button" id="addCartBtn">장바구니 담기</button>
 <!-- 장바구니 끝 --> <br />
 <img src="https://dummyimage.com/600x400/000/fff" alt="" />
@@ -114,7 +117,7 @@ a{
 <hr />
 <img src="https://dummyimage.com/600x400/000/fff" alt="" />
 
-<!-- 모달창-상품문의 -->
+<!-- 모달창-로그인 -->
 <div id="login_warn_modal" class="modal fade" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -267,7 +270,17 @@ if(memSession.length != 0){currentSession = memSession}else{currentSession = sel
 // 현재PdId값
 let pdId = $("#justForPdId").text();
 // 현재 pd가격
-let pdPrice = $("#pdPrice").text();
+let pdPrice = Number($("#pdPrice").text());
+//할인율
+let pdSale = Number($("#pdSale").text());
+//1개당 할인가(할인율을적용한 가격)
+let totalPricePerOne = pdPrice * ((100-pdSale)/100);
+//1개당 할인가(할인되어 빠진 가격)
+let totalSalePerOne = pdPrice * (pdSale/100);
+
+//초기 가격/할인공제가
+$("#salePrice").text(totalSalePerOne);
+$("#totalPrice").text(totalPricePerOne);
 
 //찜 관련 변수들
 let favorList = $("#favorList").text().split("/"); // 구분자로 나누어 배열로 pdId를 저장
@@ -284,20 +297,26 @@ let irrBadString = $("#irrBadString").text().split("/");
 let quantityVal = 1;
 
 //총가격
-let computeTotal = pdPrice * quantityVal;
+let computeTotal = totalPricePerOne * quantityVal;
+//총할인공제가
+let computeSaleTotal = totalSalePerOne * quantityVal;
 
 $("#cartQuantityPlus").click(function(){
 	quantityVal += 1;
-	computeTotal = pdPrice * quantityVal;
+	computeTotal = totalPricePerOne * quantityVal;
+	computeSaleTotal = totalSalePerOne * quantityVal;
 	$("#totalPrice").text(computeTotal);
 	$("#pdQuantity").text(quantityVal);
+	$("#salePrice").text(computeSaleTotal);
 });
 $("#cartQuantityMinus").click(function(){
 	if(quantityVal===1){return false;}  // 수량이1이면 더이상 감소X
 	quantityVal -= 1;
-	computeTotal = pdPrice * quantityVal;
+	computeTotal = totalPricePerOne * quantityVal;
+	computeSaleTotal = totalSalePerOne * quantityVal;
 	$("#totalPrice").text(computeTotal);
 	$("#pdQuantity").text(quantityVal);
+	$("#salePrice").text(computeSaleTotal);
 });
 
 

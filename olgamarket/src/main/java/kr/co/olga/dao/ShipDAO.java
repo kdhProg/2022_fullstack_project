@@ -22,5 +22,7 @@ public interface ShipDAO {
 
 	List<ShipVO> getMemShipPageList(PagingVO vo);
 
+	List<ShipVO> getShipListByMemId(ShipVO vo);
+
 
 }
