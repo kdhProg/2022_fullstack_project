@@ -33,6 +33,11 @@
 	<select id="getOneByMemIdNPdId" parameterType="CartVO" resultType="CartVO">
 		select * from cart where camemId=#{camemId} and capdId=#{capdId}
 	</select>
+	
+	<!-- caNo로 레코드 가져오기 -->
+	<select id="getOneByCaNo" parameterType="CartVO" resultType="CartVO">
+		select * from cart where caNo=#{caNo}
+	</select>
 
 	
 </mapper>

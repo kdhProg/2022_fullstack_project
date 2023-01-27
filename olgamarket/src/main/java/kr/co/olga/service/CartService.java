@@ -20,7 +20,11 @@ public interface CartService {
 	
 	// vo에 들어있는 memId와 PdId에 해당하는 레코드가 존재하는지 체크용(있으면1)
 	int existChkByMemIdNPdId(CartVO vo);
-
+	
+	// vo의 memId와 pdId로 가져오기
 	CartVO getOneByMemIdNPdId(CartVO vo);
+	
+	// vo의 caNo로 가져오기
+	CartVO getOneByCaNo(CartVO vo);
 
 }

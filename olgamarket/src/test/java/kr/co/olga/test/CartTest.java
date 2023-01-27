@@ -68,11 +68,20 @@ public class CartTest {
 	}
 	
 	@Test
+	@Ignore
 	public void getOneByMemIdNPdIdTest() {
 		CartVO vo = new CartVO();
 		vo.setCamemId("mem_id_1");
 		vo.setCapdId(2L);
 		System.out.println(ctService.getOneByMemIdNPdId(vo));
+	}
+	
+	@Test
+	@Ignore
+	public void getOneByCaNoTest() {
+		CartVO vo = new CartVO();
+		vo.setCaNo(1L);
+		System.out.println(ctService.getOneByCaNo(vo));
 	}
 
 }

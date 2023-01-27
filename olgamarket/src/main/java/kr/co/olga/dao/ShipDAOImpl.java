@@ -50,6 +50,11 @@ public class ShipDAOImpl implements ShipDAO {
 	public List<ShipVO> getMemShipPageList(PagingVO vo) {
 		return session.selectList("shipMapper.getMemShipPageList", vo);
 	}
+	
+	@Override
+	public List<ShipVO> getShipListByMemId(ShipVO vo) {
+		return session.selectList("shipMapper.getShipListByMemId", vo);
+	}
 
 
 }
