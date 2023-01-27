@@ -17,9 +17,14 @@
 				<tr>
 					<td>
 						<label for="faqCategory">카테고리 : </label>
-						<input type="text" id="faqCategory" name="faqCategory" />
+						<select name="faqCategory" required="required">
+							<option value="">선택하세요.</option>
+							<option value="주문/결제">주문/결제</option>
+							<option value="취소/교환/환불">취소/교환/환불</option>
+							<option value="회원">회원</option>
+						</select> 
 					</td>
-				</tr>
+				</tr>	
 				<tr>
 					<td>
 						<label for="faqTitle">제목 : </label>
