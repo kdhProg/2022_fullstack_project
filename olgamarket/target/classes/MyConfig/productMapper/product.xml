@@ -376,7 +376,15 @@
 	      				order by pdId desc
 	</select>
  
+ 
+<!-- pdId에 해당하는 레코드 판매량 증가 -->
+	<update id="increaseSaleByPdId" parameterType="ProductVO">
+		update productDatas set pdSalesVolume = #{pdSalesVolume} where pdId = #{pdId}
+	</update>
+ 
+ 
 </mapper>
+
 
 
 

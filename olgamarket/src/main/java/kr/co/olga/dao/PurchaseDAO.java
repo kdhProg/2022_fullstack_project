@@ -18,4 +18,6 @@ public interface PurchaseDAO {
 
 	List<PurchaseVO> getMemPurchasePageList(PagingVO vo);
 
+	int insertPurchase(PurchaseVO vo);
+
 }

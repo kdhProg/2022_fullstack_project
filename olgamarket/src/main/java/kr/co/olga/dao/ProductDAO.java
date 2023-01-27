@@ -78,6 +78,8 @@ public interface ProductDAO {
 
 	List<ProductVO> getProductAdminPageList(PagingVO vo);
 
+	int increaseSaleByPdId(ProductVO vo);
+
 	
 
 	

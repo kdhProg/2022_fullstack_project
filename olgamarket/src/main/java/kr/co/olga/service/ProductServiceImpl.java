@@ -366,4 +366,9 @@ public class ProductServiceImpl implements ProductService {
 		return dao.getProductAdminPageList(vo);
 	}
 	
+	@Override
+	public int increaseSaleByPdId(ProductVO vo) {
+		return dao.increaseSaleByPdId(vo);
+	}
+	
 }

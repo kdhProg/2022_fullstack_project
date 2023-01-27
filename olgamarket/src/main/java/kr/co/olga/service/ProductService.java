@@ -81,6 +81,10 @@ public interface ProductService {
 
 	List<ProductVO> getProductAdminPageList(PagingVO vo);
 
+	// vo객체의 pdId를 통하여 판매량 증가
+	int increaseSaleByPdId(ProductVO vo);
+
+	
 
 	
 
