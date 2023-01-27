@@ -98,7 +98,7 @@ public class OrderController {
 			//최종주문내역 삽입
 			pcService.insertPurchase(insertVO);
 			
-			//해당상품 판매량 증가
+			// 해당상품 판매량 증가
 			ProductVO pdVO = new ProductVO();
 			pdVO.setPdId(prodList.get(j).getPdId());
 			pdVO.setPdSalesVolume(pdService.productSelectOne(prodList.get(j).getPdId()).getPdSalesVolume() + cartList.get(j).getCaQuantity());
