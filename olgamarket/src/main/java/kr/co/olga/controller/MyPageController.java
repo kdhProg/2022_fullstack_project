@@ -10,12 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.olga.service.AnswerService;
 import kr.co.olga.service.FavorService;
 import kr.co.olga.service.MemberService;
 import kr.co.olga.service.PurchaseService;
 import kr.co.olga.service.QuiryService;
 import kr.co.olga.service.ShipService;
-import kr.co.olga.vo.FAQVO;
+import kr.co.olga.vo.AnswerVO;
 import kr.co.olga.vo.FavorVO;
 import kr.co.olga.vo.MemberVO;
 import kr.co.olga.vo.PagingVO;
@@ -46,6 +47,9 @@ public class MyPageController {
 	
 	@Autowired
 	private QuiryService quiryService;
+	
+	@Autowired
+	private AnswerService answerService;
 
 	// 주문내역
 	@RequestMapping(value = "/purchase")
@@ -206,6 +210,9 @@ public class MyPageController {
 	public String quiryOne(QuiryVO vo, Model model) {
 		model.addAttribute("quiryOne", quiryService.quirySelOne(vo.getIqNo()));
 		
+		List<AnswerVO> answerList = answerService.answerList(vo.getIqNo());
+		model.addAttribute("answerList", answerList);
+		
 		return "/myPage/quiryOne";
 	}
 	
@@ -219,9 +226,18 @@ public class MyPageController {
 	
 	// 상품 문의 수정 화면 
 	@RequestMapping(value = "/quiryUpdateView")
-	public String quiryUpdateView(QuiryVO vo) {
+	public String quiryUpdateView(QuiryVO vo, Model model) {
+		model.addAttribute("quiryUpd", quiryService.quirySelOne(vo.getIqNo()));
 		
 		return "/myPage/quiryUpdateView";
+	}
+	
+	// 상품 문의 삭제
+	@RequestMapping(value = "/quiryDelete")
+	public String quiryDelete(QuiryVO vo) {
+		quiryService.quiryDelOne(vo.getIqNo());
+		
+		return "redirect:/myPage/myPageList";
 	}
 	
 	// 회원 정보 수정 

@@ -17,9 +17,17 @@
 				<tr>
 					<td>
 						<label for="ntCategory">카테고리 : </label>
-						<input type="text" id="ntCategory" name="ntCategory" />
+						<select name="ntCategory" required="required">
+							<option value="">선택하세요.</option>
+							<option value="안내">안내</option>
+							<option value="이벤트">이벤트</option>
+							<option value="가격인상">가격인상</option>
+							<option value="가격인하">가격인하</option>
+							<option value="배송">배송</option>
+							<option value="결제">결제</option>
+						</select> 
 					</td>
-				</tr>
+				</tr>	
 				<tr>
 					<td>
 						<label for="ntTitle">제목 : </label>
