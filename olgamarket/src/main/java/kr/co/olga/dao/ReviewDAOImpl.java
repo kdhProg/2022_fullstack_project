@@ -76,4 +76,9 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return session.selectList("reviewMapper.getMemReviewPageList", vo);
 	}
 	
+	@Override
+	public long countByPdIdNMemId(ReviewVO vo) {
+		return session.selectOne("reviewMapper.countByPdIdNMemId", vo);
+	}
+	
 }

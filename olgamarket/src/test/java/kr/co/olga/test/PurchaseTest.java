@@ -39,5 +39,14 @@ public class PurchaseTest {
 		
 		assertEquals(1, service.insertPurchase(vo));
 	}
+	
+	@Test
+	@Ignore
+	public void countCaseByMemIdNPdIdTest() {
+		PurchaseVO vo = new PurchaseVO();
+		vo.setPlpdId(1570L);
+		vo.setPlmemId("ad332ass");
+		System.out.println(service.countCaseByMemIdNPdId(vo));
+	}
 
 }

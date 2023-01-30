@@ -32,4 +32,6 @@ public interface ReviewDAO {
 
 	List<ReviewVO> getMemReviewPageList(PagingVO vo);
 
+	long countByPdIdNMemId(ReviewVO vo);
+
 }

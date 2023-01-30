@@ -151,4 +151,9 @@ public class ReviewServiceImpl implements ReviewService {
 		return dao.getMemReviewPageList(vo);
 	}
 	
+	@Override
+	public long countByPdIdNMemId(ReviewVO vo) {
+		return dao.countByPdIdNMemId(vo);
+	}
+	
 }

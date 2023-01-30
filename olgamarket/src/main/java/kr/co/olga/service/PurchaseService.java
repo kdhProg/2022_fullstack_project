@@ -20,5 +20,8 @@ public interface PurchaseService {
 
 	// 단순 인서트
 	int insertPurchase(PurchaseVO vo);
+	
+	// vo에 들어있는 pdId,memId에 해당하는 레코드 개수 조회
+	int countCaseByMemIdNPdId(PurchaseVO vo);
 
 }

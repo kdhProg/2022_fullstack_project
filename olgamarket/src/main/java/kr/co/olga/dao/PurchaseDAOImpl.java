@@ -42,4 +42,9 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 	public int insertPurchase(PurchaseVO vo) {
 		return session.insert("PurchaseMapper.insertPurchase", vo);
 	}
+	
+	@Override
+	public int countCaseByMemIdNPdId(PurchaseVO vo) {
+		return session.selectOne("PurchaseMapper.countCaseByMemIdNPdId", vo);
+	}
 }

@@ -116,4 +116,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public int insertPurchase(PurchaseVO vo) {
 		return dao.insertPurchase(vo);
 	}
+	
+	@Override
+	public int countCaseByMemIdNPdId(PurchaseVO vo) {
+		return dao.countCaseByMemIdNPdId(vo);
+	}
 }
