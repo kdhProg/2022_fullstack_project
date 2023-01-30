@@ -8,20 +8,57 @@
 <meta charset="UTF-8">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<title>Insert title here</title>
+<title>마이페이지</title>
+<link rel="icon" href="/resources/pdimages/favicon.ico" type="image/x-icon">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body>
-<form action="/myPage/shipUpdate">
-	<input type="hidden" name="slNo" value="${shipUpd.slNo}"/>
-	<input type="text" name="upd_postcode" id="upd_postcode" placeholder="우편번호">
-	<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-	<input type="text" name="upd_address" id="upd_address" placeholder="주소"><br>
-	<input type="text" name="upd_detailAddress" id="upd_detailAddress" placeholder="상세주소">
-	<input type="text" name="upd_extraAddress" id="upd_extraAddress" placeholder="참고항목">
-	<div>
-		<button type="submit" class="slUpdate_btn">주소 등록</button>
-	</div>
-</form>
+<div class="container">
+	<ul class="nav nav-pills">
+		<li class="nav-item">
+			<a href="#" onclick="purchaseList(1, '${member.getMemId()}');return false;" id="plListBt" class="nav-link">주문 내역</a>
+	 	</li>
+		<li class="nav-item">
+	    	<a href="#" onclick="myShipList(1, '${member.getMemId()}');return false;" id="slListBt" class="nav-link">배송지</a>
+		</li>
+		<li class="nav-item">
+			<a href="#" onclick="myFavorList(1, '${member.getMemId()}');return false;" id="favListBt" class="nav-link">찜</a>
+		</li>
+		<li class="nav-item">
+			<a href="#" onclick="myReviewList(1, '${member.getMemId()}');return false;" id="rvListBt" class="nav-link">상품 후기</a>
+		</li>
+		<li class="nav-item">
+			<a href="#" onclick="myQuiryList(1, '${member.getMemId()}');return false;" id="quListBt" class="nav-link">상품 문의</a>
+		</li>
+		<li class="nav-item">
+			<a href="/myPage/memInfoUpdateView?memId=${member.getMemId()}" id="memUpdateBt" class="nav-link">내 정보 수정</a>
+		</li>
+	</ul>
+	<form role="form" method="post" action="/myPage/shipUpdate">
+		<input type="hidden" name="slNo" value="${shipUpd.slNo}"/>
+		<table class="table">
+			<tbody>
+				<tr>
+					<td>
+						<input type="text" name="postcode" id="postcode" placeholder="우편번호" class="form-control">
+						<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn btn-secondary"><br>
+						<input type="text" name="address" id="address" placeholder="주소" class="form-control"><br>
+						<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소" class="form-control"><br />
+						<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목" class="form-control"><br />
+					</td>
+				</tr>
+				<tr>	
+					<td>
+						<button type="submit" class="btn btn-outline-danger">주소 등록</button>
+					</td>
+				</tr>
+			</tbody>	
+		</table>
+	</form>
+</div>
 </body>
 <script>
 function execDaumPostcode() {

@@ -6,53 +6,80 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>마이페이지</title>
+<link rel="icon" href="/resources/pdimages/favicon.ico" type="image/x-icon">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body>
-<section id="container">
-	<div>
-		<form name="readForm" role="form" method="post">
-			<input type="hidden" id="rvNo" name="rvNo" value="${reviewOne.rvNo}" />
-		</form>
-		<table>
-			<tr>
-				<th>No</th>
-				<th>상품 Id</th>
-				<th>내용</th>
-				<th>이미지</th>
-				<th>추천수</th>
-				<th>신고수</th>
-				<th>등록일</th>
-			</tr>
-			<tr>
-				<td>${reviewOne.rvNo}</td>
-				<td>${reviewOne.rvpdId}</td>
-				<td>${reviewOne.rvContent}</td>
-				<td>${reviewOne.rvImg}</td>
-				<td>${reviewOne.rvNice}</td>
-				<td>${reviewOne.rvReport}</td>
-				<td>
-					<fmt:parseDate value="${reviewOne.rvUpdDate}" var="rvUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-					<fmt:formatDate value="${rvUpdDate}" pattern="yyyy.MM.dd"/>
-				</td>
-			</tr>
-		</table>
-		<form name="readForm" method="post" action="/myPage/reviewUpdateView?rvNo=${reviewOne.rvNo}">
-			<div>
-				<button type="submit" class="reviewUpdate_btn">후기 수정</button>
-			</div>
-		</form>	
-		<form name="deleteForm" method="post" action="/myPage/reviewDelete?rvNo=${reviewOne.rvNo}">
-			<div>
-				<button type="submit" class="reviewDelete_btn">후기 삭제</button>
-			</div>
-		</form>		
-		<form name="listForm" method="post" action="/myPage/myPageList">
-			<div>
-				<button type="submit" class="list_btn">목록</button>
-			</div>
-		</form>	
-	</div>
-</section>
+<div class="container">
+	<ul class="nav nav-pills">
+		<li class="nav-item">
+			<a href="#" onclick="purchaseList(1, '${member.getMemId()}');return false;" id="plListBt" class="nav-link">주문 내역</a>
+	 	</li>
+		<li class="nav-item">
+	    	<a href="#" onclick="myShipList(1, '${member.getMemId()}');return false;" id="slListBt" class="nav-link">배송지</a>
+		</li>
+		<li class="nav-item">
+			<a href="#" onclick="myFavorList(1, '${member.getMemId()}');return false;" id="favListBt" class="nav-link">찜</a>
+		</li>
+		<li class="nav-item">
+			<a href="#" onclick="myReviewList(1, '${member.getMemId()}');return false;" id="rvListBt" class="nav-link">상품 후기</a>
+		</li>
+		<li class="nav-item">
+			<a href="#" onclick="myQuiryList(1, '${member.getMemId()}');return false;" id="quListBt" class="nav-link">상품 문의</a>
+		</li>
+		<li class="nav-item">
+			<a href="/myPage/memInfoUpdateView?memId=${member.getMemId()}" id="memUpdateBt" class="nav-link">내 정보 수정</a>
+		</li>
+	</ul>
+	<section id="container">
+		<div>
+			<form name="readForm" role="form" method="post">
+				<input type="hidden" id="rvNo" name="rvNo" value="${reviewOne.rvNo}" />
+			</form>
+			<table class="table">
+				<tr>
+					<th>No</th>
+					<th>상품 Id</th>
+					<th>내용</th>
+					<th>이미지</th>
+					<th>추천수</th>
+					<th>신고수</th>
+					<th>등록일</th>
+				</tr>
+				<tr>
+					<td>${reviewOne.rvNo}</td>
+					<td>${reviewOne.rvpdId}</td>
+					<td>${reviewOne.rvContent}</td>
+					<td>${reviewOne.rvImg}</td>
+					<td>${reviewOne.rvNice}</td>
+					<td>${reviewOne.rvReport}</td>
+					<td>
+						<fmt:parseDate value="${reviewOne.rvUpdDate}" var="rvUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${rvUpdDate}" pattern="yyyy.MM.dd"/>
+					</td>
+				</tr>
+			</table>
+			<form name="readForm" method="post" action="/myPage/reviewUpdateView?rvNo=${reviewOne.rvNo}">
+				<div>
+					<button type="submit" class="btn btn-outline-danger">후기 수정</button>
+				</div>
+			</form>	
+			<form name="deleteForm" method="post" action="/myPage/reviewDelete?rvNo=${reviewOne.rvNo}">
+				<div>
+					<button type="submit" class="btn btn-outline-danger">후기 삭제</button>
+				</div>
+			</form>		
+			<form name="listForm" method="post" action="/myPage/myPageList">
+				<div>
+					<button type="submit" class="btn btn-outline-danger">목록</button>
+				</div>
+			</form>	
+		</div>
+	</section>
+</div>	
 </body>
 </html>

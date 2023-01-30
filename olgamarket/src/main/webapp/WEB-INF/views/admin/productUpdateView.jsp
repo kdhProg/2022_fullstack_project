@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Admin</title>
+<link rel="icon" href="/resources/pdimages/favicon.ico" type="image/x-icon">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -60,7 +61,7 @@
 					<tr>
 						<td>
 							<label for="pdStorageType">보관 방법 : </label>
-							<select name="pdStorageType" required="required">
+							<select name="pdStorageType" required="required" class="form-control">
 								<option value="">선택하세요.</option>
 								<option value="냉동">냉동</option>
 								<option value="냉장">냉장</option>
@@ -71,7 +72,7 @@
 					<tr>
 						<td>
 							<label for="pdUnit">구성 단위 : </label>
-							<select name="pdUnit" required="required">
+							<select name="pdUnit" required="required" class="form-control">
 								<option value="">1개 기준</option>
 								<option value="박스">박스</option>
 								<option value="팩">팩</option>

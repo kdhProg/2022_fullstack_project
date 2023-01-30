@@ -7,7 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<title>Insert title here</title>
+<title>Admin</title>
+<link rel="icon" href="/resources/pdimages/favicon.ico" type="image/x-icon">
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -45,7 +46,7 @@
 					<tr>
 						<td>
 							<label for="faqCategory">카테고리</label>
-							<select name="faqCategory" required="required">
+							<select name="faqCategory" required="required" class="form-control">
 								<option value="">선택하세요.</option>
 								<option value="주문/결제">주문/결제</option>
 								<option value="취소/교환/환불">취소/교환/환불</option>
