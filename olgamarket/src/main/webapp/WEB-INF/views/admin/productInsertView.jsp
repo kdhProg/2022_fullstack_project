@@ -9,150 +9,165 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <title>Insert title here</title>
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <body>
-<section id="container">
-	<form role="form" method="post" action="/admin/productInsert">
-		<table>
-			<tbody>
-				<tr>
-					<td>
-						<label for="pdThumbImg">썸네일 이미지 : </label>
-						<input type="text" id="pdThumbImg" name="pdThumbImg" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="pdName">상품 이름 : </label>
-						<input type="text" id="pdName" name="pdName" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="pdMainCategory">메인카테고리 : </label>
-						<select name="pdMainCategory" required="required">
-							<option value="">선택하세요.</option>
-							<option value="과일">과일</option>
-							<option value="채소">채소</option>
-							<option value="쌀/잡곡">쌀/잡곡</option>
-							<option value="수산물">수산물</option>
-							<option value="축산/계란">축산/계란</option>
-							<option value="냉동/냉장/간편식">냉동/냉장/간편식</option>
-						</select> 
-					</td>
-				</tr>	
-				<tr>
-					<td>
-						<label for="pdSubCategory">서브카테고리 : </label>
-						<select name="pdSubCategory" required="required">
-							<option value="">선택하세요</option>
-						</select>
-					</td>		
-				</tr>
-				<tr>
-					<td>
-						<label for="pdstlBrandName">브랜드 이름 : </label>
-						<input type="text" id="pdstlBrandName" name="pdstlBrandName" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="pdStorageType">보관 방법 : </label>
-						<select name="pdStorageType" required="required">
-							<option value="">선택하세요.</option>
-							<option value="냉동">냉동</option>
-							<option value="냉장">냉장</option>
-							<option value="상온">상온</option>
-						</select> 
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="pdUnit">구성 단위 : </label>
-						<select name="pdUnit" required="required">
-							<option value="">1개 기준</option>
-							<option value="박스">박스</option>
-							<option value="팩">팩</option>
-							<option value="봉지">봉지</option>
-							<option value="낱개">낱개</option>
-							<option value="세트">세트</option>
-						</select> 
-					</td>
-				</tr>		
-				<tr>
-					<td>
-						<label for="pdWeight">단위 무게 : </label>
-						<input type="text" id="pdWeight" name="pdWeight" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="pdCountry">원산지 : </label>
-						<input type="text" id="pdCountry" name="pdCountry" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="pdBBE">유통기한 : </label>
-						<input type="text" id="pdBBE" name="pdBBE" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="pdDesInfoImg">상품 정보 이미지 : </label>
-						<input type="text" id="pdDesInfoImg" name="pdDesInfoImg" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="pdSeason">계절 : </label>
-						<select name="pdSeason" required="required">
-							<option value="no">no</option>
-							<option value="spring">spring</option>
-							<option value="summer">summer</option>
-							<option value="autumn">autumn</option>
-							<option value="winter">winter</option>
-						</select> 
-					</td>
-				</tr>	
-				<tr>
-					<td>
-						<label for="pdHits">조회수 : </label>
-						<input type="text" id="pdHits" name="pdHits" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="pdSalesVolume">판매량 : </label>
-						<input type="text" id="pdSalesVolume" name="pdSalesVolume" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="pdPrice">가격 : </label>
-						<input type="text" id="pdPrice" name="pdPrice" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="pdSale">할인 : </label>
-						<input type="text" id="pdSale" name="pdSale" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="pdStock">재고 : </label>
-						<input type="text" id="pdStock" name="pdStock" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<button type="submit">상품 등록</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</form>	
-</section>
+<div class="container">
+	<nav class="navbar bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/admin/storeList">판매점</a>
+			<a class="navbar-brand" href="/admin/seller">판매자</a>
+			<a class="navbar-brand" href="/admin/product">상품</a>
+			<a class="navbar-brand" href="/admin/clientList">고객센터</a>
+			<a class="navbar-brand" href="/admin/memberGrade">회원</a>
+			<a class="navbar-brand" href="/admin/storeList">통계</a>
+		</div>
+	</nav>
+	<section id="container">
+		<form role="form" method="post" action="/admin/productInsert">
+			<table class="table">
+				<tbody>
+					<tr>
+						<td>
+							<label for="pdThumbImg">썸네일 이미지 : </label>
+							<input type="text" id="pdThumbImg" name="pdThumbImg" class="form-control"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="pdName">상품 이름 : </label>
+							<input type="text" id="pdName" name="pdName" class="form-control"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="pdMainCategory">메인카테고리 : </label>
+							<select name="pdMainCategory" required="required">
+								<option value="">선택하세요.</option>
+								<option value="과일">과일</option>
+								<option value="채소">채소</option>
+								<option value="쌀/잡곡">쌀/잡곡</option>
+								<option value="수산물">수산물</option>
+								<option value="축산/계란">축산/계란</option>
+								<option value="냉동/냉장/간편식">냉동/냉장/간편식</option>
+							</select> 
+						</td>
+					</tr>	
+					<tr>
+						<td>
+							<label for="pdSubCategory">서브카테고리 : </label>
+							<select name="pdSubCategory" required="required">
+								<option value="">선택하세요</option>
+							</select>
+						</td>		
+					</tr>
+					<tr>
+						<td>
+							<label for="pdstlBrandName">브랜드 이름 : </label>
+							<input type="text" id="pdstlBrandName" name="pdstlBrandName" class="form-control"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="pdStorageType">보관 방법 : </label>
+							<select name="pdStorageType" required="required">
+								<option value="">선택하세요.</option>
+								<option value="냉동">냉동</option>
+								<option value="냉장">냉장</option>
+								<option value="상온">상온</option>
+							</select> 
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="pdUnit">구성 단위 : </label>
+							<select name="pdUnit" required="required">
+								<option value="">1개 기준</option>
+								<option value="박스">박스</option>
+								<option value="팩">팩</option>
+								<option value="봉지">봉지</option>
+								<option value="낱개">낱개</option>
+								<option value="세트">세트</option>
+							</select> 
+						</td>
+					</tr>		
+					<tr>
+						<td>
+							<label for="pdWeight">단위 무게 : </label>
+							<input type="text" id="pdWeight" name="pdWeight" class="form-control"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="pdCountry">원산지 : </label>
+							<input type="text" id="pdCountry" name="pdCountry" class="form-control"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="pdBBE">유통기한 : </label>
+							<input type="text" id="pdBBE" name="pdBBE" class="form-control"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="pdDesInfoImg">상품 정보 이미지 : </label>
+							<input type="text" id="pdDesInfoImg" name="pdDesInfoImg" class="form-control"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="pdSeason">계절 : </label>
+							<select name="pdSeason" required="required">
+								<option value="no">no</option>
+								<option value="spring">spring</option>
+								<option value="summer">summer</option>
+								<option value="autumn">autumn</option>
+								<option value="winter">winter</option>
+							</select> 
+						</td>
+					</tr>	
+					<tr>
+						<td>
+							<label for="pdHits">조회수 : </label>
+							<input type="text" id="pdHits" name="pdHits" class="form-control"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="pdSalesVolume">판매량 : </label>
+							<input type="text" id="pdSalesVolume" name="pdSalesVolume" class="form-control"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="pdPrice">가격 : </label>
+							<input type="text" id="pdPrice" name="pdPrice" class="form-control"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="pdSale">할인 : </label>
+							<input type="text" id="pdSale" name="pdSale" class="form-control"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="pdStock">재고 : </label>
+							<input type="text" id="pdStock" name="pdStock" class="form-control"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<button type="submit" class="btn btn-outline-danger">상품 등록</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>	
+	</section>
+</div>	
 </body>
 <script>
 	$(function() {

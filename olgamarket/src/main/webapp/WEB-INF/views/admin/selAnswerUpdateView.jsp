@@ -36,7 +36,7 @@
 					</tr>
 					<tr>
 						<td>
-							<button type="submit">등록</button>
+							<button type="submit" class="btn btn-outline-danger">등록</button>
 						</td>
 					</tr>
 				</tbody>
