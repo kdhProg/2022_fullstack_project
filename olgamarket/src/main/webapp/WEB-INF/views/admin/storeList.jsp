@@ -50,6 +50,7 @@ a {
 					<th>브랜드 이름</th>
 					<th>연락처</th>
 					<th>Email</th>
+			<!-- 	<th>사업장 주소</th> -->
 				</tr>
 				<c:forEach var="list" items="${storeList}">
 					<tr>
@@ -57,6 +58,7 @@ a {
 						<td>${list.getStlBrandName()}</td>
 						<td>${list.getStlPhone()}</td>
 						<td>${list.getStlEmail()}</td>
+				<!-- 	<td>${storeOne.stlAddress}</td> -->
 					</tr>
 				</c:forEach>
 			</table>

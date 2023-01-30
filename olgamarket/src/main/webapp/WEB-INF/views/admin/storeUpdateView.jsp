@@ -62,6 +62,18 @@
 							<input type="text" id="stlEmail" name="stlEmail" value="${update.stlEmail}" class="form-control"/>
 						</td>
 					</tr>
+			<!-- 추후 테이블 추가하고 사용  
+					<tr>
+						<td>
+							<label for="stlAddress">판매점 주소</label>
+							<input type="text" name="postcode" id="postcode" placeholder="우편번호" class="form-control">
+							<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn btn-secondary"><br>
+							<input type="text" name="address" id="address" placeholder="주소" class="form-control"><br>
+							<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소" class="form-control"><br />
+							<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목" class="form-control"><br />
+						</td>
+					</tr>
+			-->				
 				</tbody>
 			</table>
 			<div>

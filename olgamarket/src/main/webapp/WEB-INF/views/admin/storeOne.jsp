@@ -40,6 +40,7 @@
 				<th>브랜드 이메일</th>
 				<th>고유 번호</th>
 				<th>사업자 등록 번호</th>
+		<!-- 	<th>사업장 주소</th> -->
 				<th>입점 날짜</th>
 				<th>정보 수정 날짜</th>
 			</tr>
@@ -49,6 +50,7 @@
 				<td>${storeOne.stlInfo}</td>
 				<td>${storeOne.stlPhone}</td>
 				<td>${storeOne.stlEmail}</td>
+		<!-- 	<td>${storeOne}</td> -->
 				<td>${storeOne.stlMarketUniqueNo}</td>
 				<td>${storeOne.stlSelRegiNo}</td>
 			  	<td>
