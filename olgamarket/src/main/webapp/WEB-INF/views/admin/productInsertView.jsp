@@ -7,7 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<title>Insert title here</title>
+<title>Admin</title>
+<link rel="icon" href="/resources/pdimages/favicon.ico" type="image/x-icon">
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -43,7 +44,7 @@
 					<tr>
 						<td>
 							<label for="pdMainCategory">메인카테고리 : </label>
-							<select name="pdMainCategory" required="required">
+							<select name="pdMainCategory" required="required" class="form-control">
 								<option value="">선택하세요.</option>
 								<option value="과일">과일</option>
 								<option value="채소">채소</option>
@@ -57,7 +58,7 @@
 					<tr>
 						<td>
 							<label for="pdSubCategory">서브카테고리 : </label>
-							<select name="pdSubCategory" required="required">
+							<select name="pdSubCategory" required="required" class="form-control">
 								<option value="">선택하세요</option>
 							</select>
 						</td>		
@@ -71,7 +72,7 @@
 					<tr>
 						<td>
 							<label for="pdStorageType">보관 방법 : </label>
-							<select name="pdStorageType" required="required">
+							<select name="pdStorageType" required="required" class="form-control">
 								<option value="">선택하세요.</option>
 								<option value="냉동">냉동</option>
 								<option value="냉장">냉장</option>
@@ -82,7 +83,7 @@
 					<tr>
 						<td>
 							<label for="pdUnit">구성 단위 : </label>
-							<select name="pdUnit" required="required">
+							<select name="pdUnit" required="required" class="form-control">
 								<option value="">1개 기준</option>
 								<option value="박스">박스</option>
 								<option value="팩">팩</option>
@@ -119,7 +120,7 @@
 					<tr>
 						<td>
 							<label for="pdSeason">계절 : </label>
-							<select name="pdSeason" required="required">
+							<select name="pdSeason" required="required" class="form-control">
 								<option value="no">no</option>
 								<option value="spring">spring</option>
 								<option value="summer">summer</option>

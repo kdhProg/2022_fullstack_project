@@ -6,51 +6,66 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>고객센터</title>
+<link rel="icon" href="/resources/pdimages/favicon.ico" type="image/x-icon">
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <style>
 #noticeBt,#faqBt,#onetooneBt{
 	text-decoration: none;
 }
+a {
+	text-decoration: none;
+}
 
 </style>
 <body>
-	<h1>고객센터 관리</h1>
-	<a href="#" onclick="noticeList(1);return false;" id="noticeBt">공지사항</a>
-	<a href="#" onclick="faqList(1);return false;" id="faqBt">FAQ</a>
-	<a href="#" onclick="otList(1);return false;" id="onetooneBt">1 : 1 문의</a>
+<div class="container">
+	<ul class="nav nav-pills">
+	  <li class="nav-item">
+	    <a href="#" onclick="noticeList(1);return false;" id="noticeBt" aria-current="page" class="nav-link"  href="#">공지사항</a>
+	  </li>
+	  <li class="nav-item">
+	    <a href="#" onclick="faqList(1);return false;" id="faqBt" class="nav-link">FAQ</a>
+	  </li>
+	  <li class="nav-item">
+		<a href="#" onclick="otList(1);return false;" id="onetooneBt" class="nav-link">1 : 1 문의</a>
+	  </li>
+	</ul>
 	
-	<hr />
-<!-- 공지사항 -->	
-	<div id="noticeDiv" style="display : none;">
-		<div id="noticeResultList"></div>
-		<div id="noticeResultPagingNo"></div>
-	</div>
-
-<!-- faq -->	
-	<div id="faqDiv" style="display : none;">
-	<a href="#" onclick="sortFaqList('defaultCate');return false;" id="categoryBt1">전체</a>
-	<a href="#" onclick="sortFaqList('주문/결제');return false;" id="categoryBt2">주문/결제</a>
-	<a href="#" onclick="sortFaqList('취소/교환/환불');return false;" id="categoryBt3">취소/교환/환불</a>
-	<a href="#" onclick="sortFaqList('포장');return false;" id="categoryBt4">포장</a>
-	<a href="#" onclick="sortFaqList('회원');return false;" id="categoryBt5">회원</a>
-		<div id="faqResultList"></div>
-		<div id="faqResultPagingNo"></div>
-	</div>
-	
-<!-- 1대1 문의 -->	
-<form name="insertForm" method="post" action="/board/otqInsertView">	
-	<div id="otoDiv" style="display : none;">
-	<a href="#" onclick="sortList(1);return false;" id="sortBtn1">답변 대기</a>
-	<a href="#" onclick="sortList(2);return false;" id="sortBtn2">답변 완료</a>
-		<div id="otoResultList"></div>
-		<div id="otoResultPagingNo"></div>
-		<div>
-			<button type="submit" class="otqInsert_btn">1:1 문의 등록</button>
+	<!-- 공지사항 -->	
+		<div id="noticeDiv" style="display : show;">
+			<div id="noticeResultList"></div>
+			<div id="noticeResultPagingNo"></div>
 		</div>
-	</div>
-</form>			
+	
+	<!-- faq -->	
+		<div id="faqDiv" style="display : none;">
+		<a href="#" onclick="sortFaqList('defaultCate');return false;" id="categoryBt1" class="btn btn-light">전체</a>
+		<a href="#" onclick="sortFaqList('주문/결제');return false;" id="categoryBt2" class="btn btn-light">주문/결제</a>
+		<a href="#" onclick="sortFaqList('취소/교환/환불');return false;" id="categoryBt3" class="btn btn-light">취소/교환/환불</a>
+		<a href="#" onclick="sortFaqList('포장');return false;" id="categoryBt4" class="btn btn-light">포장</a>
+		<a href="#" onclick="sortFaqList('회원');return false;" id="categoryBt5" class="btn btn-light">회원</a>
+			<div id="faqResultList"></div>
+			<div id="faqResultPagingNo"></div>
+		</div>
+		
+	<!-- 1대1 문의 -->	
+	<form name="insertForm" method="post" action="/board/otqInsertView">	
+		<div id="otoDiv" style="display : none;">
+		<a href="#" onclick="sortList(1);return false;" id="sortBtn1" class="btn btn-light">답변 대기</a>
+		<a href="#" onclick="sortList(2);return false;" id="sortBtn2" class="btn btn-light">답변 완료</a>
+			<div id="otoResultList"></div>
+			<div id="otoResultPagingNo"></div>
+			<div>
+				<button type="submit" class="btn btn-outline-danger">1:1 문의 등록</button>
+			</div>
+		</div>
+	</form>
+</div>			
 </body>
 <script>
 /********************* 공지사항 *******************************************************************/
@@ -68,12 +83,12 @@ function noticeList(pageNo) {
 			var currPage = data.currPage;
             var noticePageList = data.noticeList; // model 처럼
         	
-            var noticeContentTag = "<table><tr><th>No</th><th>제목</th><th>작성자</th><th>등록일</th></tr>";
+            var noticeContentTag = "<table class='table'><tr><th>No</th><th>제목</th><th>작성자</th><th>등록일</th></tr>";
             var noticePagingTag = "";
 
 			$.each(noticePageList, function(key, value) {
 				noticeContentTag += "<tr>";
-				noticeContentTag += "<td><a href='/board/noticeOne?ntNo="+value.ntNo+"'>"+value.ntNo+"</a></td>";
+				noticeContentTag += "<td><a href='/board/noticeOne?ntNo="+value.ntNo+"'class='btn btn-danger'>"+value.ntNo+"</a></td>";
 				noticeContentTag += "<td>"+value.ntTitle+"</td>";
 				noticeContentTag += "<td>"+value.ntadmId+"</td>";
 				noticeContentTag += "<td>"+value.ntUpdDate+"</td>";
@@ -122,12 +137,12 @@ function faqList(pageNo, category) {
 			var currPage = data.currPage;
             var faqPageList = data.faqList; // model 처럼
         	
-            var faqContentTag = "<table><tr><th>No</th><th>카테고리</th><th>제목</th><th>작성자</th><th>등록일</th></tr>";
+            var faqContentTag = "<table class='table'><tr><th>No</th><th>카테고리</th><th>제목</th><th>작성자</th><th>등록일</th></tr>";
             var faqPagingTag = "";
 
 			$.each(faqPageList, function(key, value) {
 				faqContentTag += "<tr>";
-				faqContentTag += "<td><a href='/board/faqOne?faqNo="+value.faqNo+"'>"+value.faqNo+"</a></td>";
+				faqContentTag += "<td><a href='/board/faqOne?faqNo="+value.faqNo+"'class='btn btn-danger'>"+value.faqNo+"</a></td>";
 				faqContentTag += "<td>"+value.faqCategory+"</td>";
 				faqContentTag += "<td>"+value.faqTitle+"</td>";
 				faqContentTag += "<td>"+value.faqadmId+"</td>";
@@ -183,12 +198,12 @@ function otList(pageNo, sortNo) {
 			var currPage = data.currPage;
             var otPageList = data.otoList; // model 처럼
         	
-            var otContentTag = "<table><tr><th>No</th><th>메인 카테고리</th><th>서브 카테고리</th><th>제목</th><th>작성자</th><th>답변 상태</th><th>등록일</th></tr>";
+            var otContentTag = "<table class='table'><tr><th>No</th><th>메인 카테고리</th><th>서브 카테고리</th><th>제목</th><th>작성자</th><th>답변 상태</th><th>등록일</th></tr>";
             var otPagingTag = "";
 
 			$.each(otPageList, function(key, value) {
 				otContentTag += "<tr>";
-				otContentTag += "<td><a href='/board/boardQnOne?otqNo="+value.otqNo+"'>"+value.otqNo+"</a></td>";
+				otContentTag += "<td><a href='/board/boardQnOne?otqNo="+value.otqNo+"'class='btn btn-danger'>"+value.otqNo+"</a></td>";
 				otContentTag += "<td>"+value.otqMainCategory +"</td>";
 				otContentTag += "<td>"+value.otqSubCategory  +"</td>";
 				otContentTag += "<td>"+value.otqTitle+"</td>";

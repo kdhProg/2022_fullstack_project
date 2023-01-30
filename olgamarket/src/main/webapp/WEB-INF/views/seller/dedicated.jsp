@@ -7,8 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<title>Insert title here</title>
+<title>Seller</title>
+<link rel="icon" href="/resources/pdimages/favicon.ico" type="image/x-icon">
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <style>
 #selListBt, #sqListBt{
 	text-decoration: none;
@@ -16,28 +20,34 @@
 .sessionSelId, .sessionBrandName, .sessionpdSelId{
 	display: none;
 }
-
+a {
+	text-decoration: none;
+}
 
 
 </style>
 
 <body>
-	<h1>판매자 / 문의 관리</h1>
-	<a href="#" onclick="npqList(1, 1, '${seller.getSelId()}');return false;" id="npqListBt">신상품 등록 문의</a>
-	<a href="#" onclick="pdList(1, '${seller.getSelstlBrandName()}', '${seller.getSelId()}');return false;" id="pdListBt">등록된 상품 목록</a>
-	
+<div class="container">
+	<nav class="nav nav-pills nav-fill">
+		<div class="nav nav-pills flex-column flex-sm-row">
+			<a href="#" onclick="npqList(1, 1, '${seller.getSelId()}');return false;" id="npqListBt" class="btn btn-primary">신상품 등록 문의</a>
+			<a href="#" onclick="pdList(1, '${seller.getSelstlBrandName()}', '${seller.getSelId()}');return false;" id="pdListBt" class="btn btn-primary">등록된 상품 목록</a>
+		</div>
+	</nav>	
+
 	<hr />
 
 <!-- 신상품 등록 문의 -->
 <form name="insertForm" method="post" action="/seller/newPdQuiryInsertView?selId=${seller.getSelId()}">
 	<span class="sessionSelId">${seller.getSelId()}</span>
 	<div id="npqDiv" style="display : none;">
-		<a href="#" onclick="sortList1(1);return false;" id="sortBtn1">답변 대기</a>
-		<a href="#" onclick="sortList1(2);return false;" id="sortBtn2">답변 완료</a>
+		<a href="#" onclick="sortList1(1);return false;" id="sortBtn1" class="btn btn-light">답변 대기</a>
+		<a href="#" onclick="sortList1(2);return false;" id="sortBtn2" class="btn btn-light">답변 완료</a>
 		<div id="newPdQuiryResultList"></div>
 		<div id="newPdQuiryResultPagingNo"></div>
 		<div>
-			<button type="submit" class="npqInsert_btn">등록 문의하기</button>
+			<button type="submit" class="btn btn-outline-danger">등록 문의하기</button>
 		</div>
 	</div>
 </form>	
@@ -49,6 +59,7 @@
 		<div id="pdResultList"></div>
 		<div id="pdResultPagingNo"></div>
 	</div>
+</div>	
 </body>
 <script>
 /********************* 신상품 등록 문의 목록 *******************************************************************/
@@ -71,12 +82,12 @@ function npqList(pageNo, sortNo, npqselId) {
 			var currPage = data.currPage;
             var npqPageList = data.npqList; // model 처럼
         	
-            var npqContentTag = "<table><tr><th>No</th><th>판매자 Id</th><th>제목</th><th>내용</th><th>이미지</th><th>답변 상태</th><th>등록일</th></tr>";
+            var npqContentTag = "<table class='table'><tr><th>No</th><th>판매자 Id</th><th>제목</th><th>내용</th><th>이미지</th><th>답변 상태</th><th>등록일</th></tr>";
             var npqPagingTag = "";
 			
 			$.each(npqPageList, function(key, value) {
 				npqContentTag += "<tr>";
-				npqContentTag += "<td><a href='/seller/newPdQuiryOne?npqNo="+value.npqNo+"'>"+value.npqNo+"</a></td>";
+				npqContentTag += "<td><a href='/seller/newPdQuiryOne?npqNo="+value.npqNo+"'class='btn btn-danger'>"+value.npqNo+"</a></td>";
 				npqContentTag += "<td>"+value.npqselId+"</td>";
 				npqContentTag += "<td>"+value.npqTitle+"</td>";
 				npqContentTag += "<td>"+value.npqContent+"</td>";
@@ -136,12 +147,12 @@ function pdList(pageNo, selstlBrandName, selId) {
             var pdPageList = data.pdList;
             var selId = data.selId;// model 처럼
         	
-            var pdContentTag = "<table><tr><th>Id</th><th>썸네일 이미지</th><th>상품 이름</th><th>카테고리</th><th>브랜드</th><th>가격</th><th>할인</th><th>재고</th><th>판매량</th><th>등록일</th></tr>";
+            var pdContentTag = "<table class='table'><tr><th>Id</th><th>썸네일 이미지</th><th>상품 이름</th><th>카테고리</th><th>브랜드</th><th>가격</th><th>할인</th><th>재고</th><th>판매량</th><th>등록일</th></tr>";
             var pdPagingTag = "";
 
 			$.each(pdPageList, function(key, value) {
 				pdContentTag += "<tr>";
-				pdContentTag += "<td><a href='/seller/productOne?pdId="+value.pdId+"&pdstlBrandName="+value.pdstlBrandName+"&selId="+selId+"'>"+value.pdId+"</a></td>";
+				pdContentTag += "<td><a href='/seller/productOne?pdId="+value.pdId+"&pdstlBrandName="+value.pdstlBrandName+"&selId="+selId+"'class='btn btn-danger'>"+value.pdId+"</a></td>";
 				pdContentTag += "<td>"+value.pdThumbImg+"</td>";
 				pdContentTag += "<td>"+value.pdName+"</td>";
 				pdContentTag += "<td>"+value.pdMainCategory+"</td>";

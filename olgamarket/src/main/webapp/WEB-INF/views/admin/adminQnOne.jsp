@@ -7,7 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<title>Insert title here</title>
+<title>Admin</title>
+<link rel="icon" href="/resources/pdimages/favicon.ico" type="image/x-icon">
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -64,35 +65,22 @@
 			<br />
 			<h3>답변</h3>
 	 		<table class="table">
+	 			<tr>
+					<th>작성자</th>
+					<th>메인 카테고리</th>
+					<th>서브 카테고리</th>
+					<th>제목</th>
+					<th>답변내용</th>
+					<th>작성날짜</th>
+				</tr>
 	 			<c:forEach items="${adminAnList}" var="adminAnList">
 					<tr>
+						<td>${adminAnList.otaadmId}</td>
+						<td>${adminAnList.otaMainCategory}</td>
+						<td>${adminAnList.otaSubCategory}</td>
+						<td>${adminAnList.otaTitle}</td>
+						<td>${adminAnList.otaContent}</td>
 						<td>
-							작성자 : ${adminAnList.otaadmId}
-						</td>
-					</tr>
-					<tr>
-						<td>
-							메인 카테고리 : ${adminAnList.otaMainCategory}
-						</td>
-					</tr>
-					<tr>
-						<td>
-							서브 카테고리 : ${adminAnList.otaSubCategory}
-						</td>
-					</tr>
-					<tr>
-						<td>
-							제목 :  ${adminAnList.otaTitle}
-						</td>
-					</tr>
-					<tr>
-						<td>
-							답변 내용 : ${adminAnList.otaContent}
-						</td>
-					</tr>
-				    <tr>
-						<td>
-							작성 날짜 : 
 				        	<fmt:parseDate value="${adminAnList.otaUpdDate}" var="otaUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/> 
 				        	<fmt:formatDate value="${otaUpdDate}" pattern="yyyy-MM-dd" />
 						</td>

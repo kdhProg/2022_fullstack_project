@@ -7,7 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<title>Insert title here</title>
+<title>마이페이지</title>
+<link rel="icon" href="/resources/pdimages/favicon.ico" type="image/x-icon">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <style>
 #plListBt, #slListBt, #favListBt, #memUpdateBt, #quListBt, #rvListBt{
@@ -17,23 +22,35 @@
 .sessionMemIdOrder, .sessionMemIdShip, .sessionMemIdFavor, .sessionMemIdReview, .sessionMemIdQuiry{
 	display: none;
 }
+a {
+	text-decoration: none;
+}
 </style>
 <body>
-	<h1>마이페이지</h1>
-	
-	
-	<a href="#" onclick="purchaseList(1, '${member.getMemId()}');return false;" id="plListBt">주문 내역</a>
-	<a href="#" onclick="myShipList(1, '${member.getMemId()}');return false;" id="slListBt">배송지</a>
-	<a href="#" onclick="myFavorList(1, '${member.getMemId()}');return false;" id="favListBt">찜</a>
-	<a href="#" onclick="myReviewList(1, '${member.getMemId()}');return false;" id="rvListBt">상품 후기</a>
-	<a href="#" onclick="myQuiryList(1, '${member.getMemId()}');return false;" id="quListBt">상품 문의</a>
-	
-	<a href="/myPage/memInfoUpdateView?memId=${member.getMemId()}" id="memUpdateBt">내 정보 수정</a>
-	
-	<hr />
+<div class="container">
+	<ul class="nav nav-pills">
+		<li class="nav-item">
+			<a href="#" onclick="purchaseList(1, '${member.getMemId()}');return false;" id="plListBt" class="nav-link">주문 내역</a>
+	 	</li>
+		<li class="nav-item">
+	    	<a href="#" onclick="myShipList(1, '${member.getMemId()}');return false;" id="slListBt" class="nav-link">배송지</a>
+		</li>
+		<li class="nav-item">
+			<a href="#" onclick="myFavorList(1, '${member.getMemId()}');return false;" id="favListBt" class="nav-link">찜</a>
+		</li>
+		<li class="nav-item">
+			<a href="#" onclick="myReviewList(1, '${member.getMemId()}');return false;" id="rvListBt" class="nav-link">상품 후기</a>
+		</li>
+		<li class="nav-item">
+			<a href="#" onclick="myQuiryList(1, '${member.getMemId()}');return false;" id="quListBt" class="nav-link">상품 문의</a>
+		</li>
+		<li class="nav-item">
+			<a href="/myPage/memInfoUpdateView?memId=${member.getMemId()}" id="memUpdateBt" class="nav-link">내 정보 수정</a>
+		</li>
+	</ul>
 	
 <!-- 주문 내역-->	
-	<div id="plDiv" style="display : none;">
+	<div id="plDiv" style="display : show;">
 		<span class="sessionMemIdOrder">${member.getMemId()}</span>
 		<div id="plResultList"></div>
 		<div id="plResultPagingNo"></div>
@@ -46,7 +63,7 @@
 		<div id="slResultList"></div>
 		<div id="slResultPagingNo"></div>
 		<div>
-			<button type="submit" class="pdInsert_btn">배송지 등록</button>
+			<button type="submit" class="btn btn-outline-danger">배송지 등록</button>
 		</div>
 	</div>
 </form>	
@@ -70,10 +87,8 @@
 		<span class="sessionMemIdQuiry">${member.getMemId()}</span>
 		<div id="quResultList"></div>
 		<div id="quResultPagingNo"></div>
-	</div>
-	
-			
-
+	</div>		
+</div>
 </body>
 <script>
 /********************* 주문내역 *******************************************************************/
@@ -93,14 +108,14 @@ function purchaseList(pageNo, plmemId) {
 			var currPage = data.currPage;
             var purchasePageList = data.purchaseList; // model 처럼
         	
-            var purchaseContentTag = "<table><tr><th>No</th><th>주문 번호</th><th>상품 아이디</th><th>수량</th><th>가격</th><th>적립금</th><th>결제방식</th><th>배송지</th><th>주문 상태</th><th>주문 날짜</th></tr>";
+            var purchaseContentTag = "<table class='table'><tr><th>No</th><th>주문 번호</th><th>상품 아이디</th><th>수량</th><th>가격</th><th>적립금</th><th>결제방식</th><th>배송지</th><th>주문 상태</th><th>주문 날짜</th></tr>";
             var purchasePagingTag = "";
 
 			$.each(purchasePageList, function(key, value) {
 				purchaseContentTag += "<tr>";
 				purchaseContentTag += "<td>"+value.plNo+"</td>";
 				purchaseContentTag += "<td>"+value.plOrderNo+"</td>";
-				purchaseContentTag += "<td><a href='/goods/detailView?pdId="+value.plpdId+"'>"+value.plpdId+"</td>";
+				purchaseContentTag += "<td><a href='/goods/detailView?pdId="+value.plpdId+"'class='btn btn-danger'>"+value.plpdId+"</td>";
 				purchaseContentTag += "<td>"+value.plPdQuantity+"</td>";
 				purchaseContentTag += "<td>"+value.plTotalPrice+"</td>";
 				purchaseContentTag += "<td>"+value.plSavedMoney+"</td>";
@@ -152,12 +167,12 @@ function myShipList(pageNo, slmemId) {
 			var currPage = data.currPage;
             var shipPageList = data.myShipList; // model 처럼
         	
-            var shipContentTag = "<table><tr><th>No</th><th>주소</th></tr>";
+            var shipContentTag = "<table class='table'><tr><th>No</th><th>주소</th></tr>";
             var shipPagingTag = "";
 
 			$.each(shipPageList, function(key, value) {
 				shipContentTag += "<tr>";
-				shipContentTag += "<td><a href='/myPage/shipOne?slNo="+value.slNo+"'>"+value.slNo+"</a></td>";
+				shipContentTag += "<td><a href='/myPage/shipOne?slNo="+value.slNo+"'class='btn btn-danger'>"+value.slNo+"</a></td>";
 				shipContentTag += "<td>"+value.slAddress+"</td>";
              });
 			shipContentTag += "</table>";
@@ -203,14 +218,14 @@ function myFavorList(pageNo, fvmemId) {
 			var currPage = data.currPage;
             var favorPageList = data.myFavorList; // model 처럼
         	
-            var favorContentTag = "<table><tr><th>No</th><th>아이디</th><th>상품 아이디</th></tr>";
+            var favorContentTag = "<table class='table'><tr><th>No</th><th>아이디</th><th>상품 아이디</th></tr>";
             var favorPagingTag = "";
 
 			$.each(favorPageList, function(key, value) {
 				favorContentTag += "<tr>";
 				favorContentTag += "<td>"+value.fvNo+"</td>";
 				favorContentTag += "<td>"+value.fvmemId+"</td>";
-				favorContentTag += "<td><a href='/goods/detailView?pdId="+value.fvpdId+"'>"+value.fvpdId+"</a></td>";
+				favorContentTag += "<td><a href='/goods/detailView?pdId="+value.fvpdId+"'class='btn btn-danger'>"+value.fvpdId+"</a></td>";
              });
 			favorContentTag += "</table>";
 			$("#favResultList").html(favorContentTag); //메인 컨텐츠 적용
@@ -255,13 +270,13 @@ function myReviewList(pageNo, rvmemId) {
 			var currPage = data.currPage;
             var reviewPageList = data.myReviewList; // model 처럼
         	
-            var reviewContentTag = "<table><tr><th>No</th><th>상품 아이디</th><th>내용</th><th>이미지</th><th>추천수</th><th>신고수</th><th>등록일</th></tr>";
+            var reviewContentTag = "<table class='table'><tr><th>No</th><th>상품 아이디</th><th>내용</th><th>이미지</th><th>추천수</th><th>신고수</th><th>등록일</th></tr>";
             var reviewPagingTag = "";
 
 			$.each(reviewPageList, function(key, value) {
 				reviewContentTag += "<tr>";
-				reviewContentTag += "<td><a href='/myPage/reviewOne?rvNo="+value.rvNo+"'>"+value.rvNo+"</a></td>";
-				reviewContentTag += "<td><a href='/goods/detailView?pdId="+value.rvpdId+"'>"+value.rvpdId+"</a></td>";
+				reviewContentTag += "<td><a href='/myPage/reviewOne?rvNo="+value.rvNo+"'class='btn btn-danger'>"+value.rvNo+"</a></td>";
+				reviewContentTag += "<td><a href='/goods/detailView?pdId="+value.rvpdId+"'class='btn btn-danger'>"+value.rvpdId+"</a></td>";
 				reviewContentTag += "<td>"+value.rvContent+"</td>";
 				reviewContentTag += "<td>"+value.rvImg+"</td>";
 				reviewContentTag += "<td>"+value.rvNice+"</td>";
@@ -311,13 +326,13 @@ function myQuiryList(pageNo, iqmemId) {
 			var currPage = data.currPage;
             var quiryPageList = data.myQuiryList; // model 처럼
         	
-            var quiryContentTag = "<table><tr><th>No</th><th>상품 아이디</th><th>제목</th><th>답변 상태</th><th>등록일</th></tr>";
+            var quiryContentTag = "<table class='table'><tr><th>No</th><th>상품 아이디</th><th>제목</th><th>답변 상태</th><th>등록일</th></tr>";
             var quiryPagingTag = "";
 
 			$.each(quiryPageList, function(key, value) {
 				quiryContentTag += "<tr>";
-				quiryContentTag += "<td><a href='/myPage/quiryOne?iqNo="+value.iqNo+"'>"+value.iqNo+"</a></td>";
-				quiryContentTag += "<td><a href='/goods/detailView?pdId="+value.iqpdId+"'>"+value.iqpdId+"</a></td>";
+				quiryContentTag += "<td><a href='/myPage/quiryOne?iqNo="+value.iqNo+"'class='btn btn-danger'>"+value.iqNo+"</a></td>";
+				quiryContentTag += "<td><a href='/goods/detailView?pdId="+value.iqpdId+"'class='btn btn-danger'>"+value.iqpdId+"</a></td>";
 				quiryContentTag += "<td>"+value.iqTitle+"</td>";
 				quiryContentTag += "<td>"+value.iqState+"</td>";
 				quiryContentTag += "<td>"+value.iqRegiDate+"</td>";
