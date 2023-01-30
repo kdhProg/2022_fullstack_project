@@ -2,23 +2,80 @@
 	trimDirectiveWhitespaces="true" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Olga</title>
+<link rel="icon" href="/resources/pdimages/favicon.ico" type="image/x-icon">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </head>
-<!-- CSS only -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <style>
-	div {
-		border : 1px solid black;
-	}
+div {
+/* 	border : 1px solid black; */
+}
+/* 현재세션 */
 #currentSession{
 	display: none;
+}
+/* 슬라이드 이미지 조정 */
+.show_img_div{
+	overflow: hidden;
+}
+.show_img_size{
+	width:500px;
+	height: 250px;
+}
+/*  */
+/* 스와이프 가격문구 */
+.swiper_pdSale{
+	color:#fc5603;
+	font-weight: bold;
+}
+.swiper_pdOriginPrice{
+	color:grey;
+	text-decoration: line-through;
+	font-weight: bold;
+}
+.swiper_pdTotalPrice{
+	font-weight: bold;
+}
+/* hr태그 마진 조정*/
+hr{
+	margin-top: 6px;
+	margin-bottom : 6px;
+}
+/* 스와이프 브랜드명/상품명 */
+.show_pdName,.show_pdBrandName{
+	font-weight:bold;
+	color:#666666;
+}
+.show_swiper_title{
+	font-weight: bold;
+	font-size: 1.3em;
+}
+
+/* =========스와이프========= */
+.swiper-container {
+	width:800px;
+	height:380px;
+/* 	border:5px solid silver; */
+	border-radius:7px;
+}
+.swiper-slide {
+	text-align:center;
+	display:flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
+	align-items:center; /* 위아래 기준 중앙정렬 */
+	justify-content:center; /* 좌우 기준 중앙정렬 */
+}
+
+.col{
+/* 	border:2px solid green; */
 }
 </style>
 <body>
@@ -142,7 +199,222 @@
 			</c:forEach>
 		</table>
 	</div>
-	
+<!-- =====================================리모델링============================================== -->
+<%-- <c:forEach var="list" items="${fruitPd}" varStatus="vs"> --%>
+<!-- 	<tr> -->
+<%-- 		<td>${vs.index}</td> --%>
+<%-- 		<td>${list.getPdThumbImg()}</td> --%>
+<%-- 		<td>${list.getPdName()}</td> --%>
+<%-- 		<td>${list.getPdPrice()}</td> --%>
+<%-- 		<td>${list.getPdSale()}</td> --%>
+<!-- 	</tr> -->
+<%-- </c:forEach> --%>
+
+<div class="product_swiper_container container">
+	<!-- 제철과일 타이틀 -->
+	<div class="row">
+		<div class="col col-lg-3"></div>
+		<div class="col text-center">
+			<p class="show_swiper_title">제철과일</p>
+		</div>
+		<div class="col col-lg-3"></div>
+	</div>
+	<div class="row">
+	<!-- 제철과일 콘텐츠 -->
+		<div class="container">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<c:forEach var="list" items="${fruitPd}" varStatus="vs">
+						<div class="swiper-slide">
+							<div class="row">
+								<div class="col">
+								<!-- 개별상품1개 -->
+									<div class="row">
+										<div class="col">
+											<span class="show_pdBrandName">[${list.getPdstlBrandName()}]</span>
+											<br />
+											<hr />
+											<span class="show_pdName">${list.getPdName()}</span>
+										</div>
+										<div class="col">
+											<c:if test="${list.getPdSale() gt 0}">
+												<c:set var="total" value="${list.getPdPrice() * (100-list.getPdSale())/100 }" />
+												<fmt:parseNumber var="parsed_total" value="${total}" integerOnly="true" />
+												<span class="swiper_pdSale">${list.getPdSale()}%</span>&nbsp;<span class="swiper_pdTotalPrice">${parsed_total}원</span><br />
+												<span class="swiper_pdOriginPrice">${list.getPdPrice()}원</span>
+											</c:if>
+											<c:if test="${list.getPdSale() eq 0}">
+												<span><strong>${list.getPdPrice()}원</strong></span>
+											</c:if>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col show_img_div">
+											<img class="show_img_size" src="/resources/pdimages/pd_main_default.jpg" alt="" />
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<a href="/goods/detailView?pdId=${list.getPdId()}"><button class="btn btn-outline-secondary">상세보기</button></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			</div>
+		</div>
+	</div>
+	<br />
+	<br />
+	<div class="row">
+	<!-- 메인페이지 지금 할인 중 select -->
+		<div class="container">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<div class="row">
+							<div class="col col-lg-3">
+							aa
+							</div>
+							<div class="col col-lg-3">
+							bb
+							</div>
+							<div class="col col-lg-3">
+							cc
+							</div>
+							<div class="col col-lg-3">
+							dd
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			</div>
+		</div>
+	</div>
+	<br />
+	<br />
+	<div class="row">
+	<!-- 메인페이지 만원 이하 판매량 높은 제품 select -->
+		<div class="container">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<div class="row">
+							<div class="col col-lg-3">
+							aa
+							</div>
+							<div class="col col-lg-3">
+							bb
+							</div>
+							<div class="col col-lg-3">
+							cc
+							</div>
+							<div class="col col-lg-3">
+							dd
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			</div>
+		</div>
+	</div>
+	<br />
+	<br />
+	<div class="row">
+	<!-- 메인페이지 후기 10,000개 이상 select -->
+		<div class="container">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<div class="row">
+							<div class="col col-lg-3">
+							aa
+							</div>
+							<div class="col col-lg-3">
+							bb
+							</div>
+							<div class="col col-lg-3">
+							cc
+							</div>
+							<div class="col col-lg-3">
+							dd
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			</div>
+		</div>
+	</div>
+	<br />
+	<br />
+	<div class="row">
+	<!-- 메인페이지 조회수 100,000 이상 select -->
+		<div class="container">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<div class="row">
+							<div class="col col-lg-3">
+							aa
+							</div>
+							<div class="col col-lg-3">
+							bb
+							</div>
+							<div class="col col-lg-3">
+							cc
+							</div>
+							<div class="col col-lg-3">
+							dd
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			</div>
+		</div>
+	</div>
+	<br />
+	<br />
+	<div class="row">
+	<!-- 메인페이지 제품 출시 6개월 미만 판매량 높은 제품 select -->
+		<div class="container">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<div class="row">
+							<div class="col col-lg-3">
+							aa
+							</div>
+							<div class="col col-lg-3">
+							bb
+							</div>
+							<div class="col col-lg-3">
+							cc
+							</div>
+							<div class="col col-lg-3">
+							dd
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			</div>
+		</div>
+	</div>
+</div>
+
 	
 	
 <!-- 모달창-로그인 -->
@@ -177,5 +449,12 @@ $("#warn_modal_login").click(function(){
 	location.href = "/member/login";
 });
 
+//스와이파
+new Swiper('.swiper-container', {
+	navigation : {
+		nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+		prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+	},
+});
 </script>
 </html>

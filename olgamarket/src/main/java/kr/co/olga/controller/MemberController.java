@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -377,6 +378,17 @@ public class MemberController {
 				sellerservice.sellerUpdatePwd(vo);
 				return "redirect:/member/login";
 			}
+		}
+		
+		
+		/* 주문페이지에서 현재 세션ID에 해당하는 VO객체 반환 */
+		@PostMapping(value = "/getMemVOBySessionFromOrderPage")
+		@ResponseBody
+		public Map<String, Object> getMemVOBySessionFromOrderPage(String memId) throws Exception {
+			Map<String, Object> result = new HashMap<String, Object>();
+			MemberVO vo = memberservice.memSelectOne(memId);
+			result.put("currMemVO", vo);
+			return result;
 		}
 		
 	

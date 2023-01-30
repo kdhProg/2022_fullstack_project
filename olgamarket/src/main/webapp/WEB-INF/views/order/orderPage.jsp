@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Olga-결제페이지</title>
+<link rel="icon" href="/resources/pdimages/favicon.ico" type="image/x-icon">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </head>
@@ -17,6 +18,34 @@
 #pay_simple{
 	display:none;
 }
+/* 버튼 영역에 꽉채우기 */
+.full-width-btn{
+	width:100%;
+}
+/* col클래스 padding제거 */
+.eliminate_padding_col{
+	padding: 0;
+}
+/* hr태그 마진 조정 */
+hr{
+	margin-bottom: 6px;
+	margin-top: 6px;
+}
+/* 전체 폼 크기조정 */
+#entire_container{
+	width:80%;
+}
+/* 상세정보버튼 크기조정*/
+#detailInfo_btn{
+	height: 35px;
+}
+/* 주문상품문구 폰트 */
+#singleOrder,#showFirstCartProduct{
+	font-weight: bold;
+}
+.col{
+/* 	border: 1px red solid; */
+}
 </style>
 <body>
 <!-- 현재세션값 자바스크립트 넘기기-->
@@ -26,66 +55,187 @@
 <!-- 총가격,총할인가-->
 <span id="totalSalePriceSession">${totalSalePrice}</span>
 
-
-<h1>여기는 주문 페이지임</h1>
-<span id="showFirstCartProduct"></span><span id="prodAdditionalCountInfo"><span>외</span><span id="showProductCount"></span><span>건을 주문합니다.</span></span><span id="singleOrder">을(를) 주문합니다.</span>
-<hr />
-<div>
-	<span id="showDestination">배송지:${shipDestination}</span>
+<div id="entire_container" class="container">
+	<form action="/order/orderAction" method="post">
+		<div class="row text-center">
+			<div class="col col-lg-4"></div>
+			<div class="col">
+				<h4><strong>주문서</strong></h4>
+			</div>
+			<div class="col col-lg-4"></div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="row">
+					<div class="col col-lg-2"><h5><strong>주문상품</strong></h5></div>
+				</div>
+				<hr />
+				<div class="row">
+					<div class="col text-center">
+						<span id="showFirstCartProduct"></span><span id="prodAdditionalCountInfo"><span>외</span><span id="showProductCount"></span><span>건을 주문합니다.</span></span><span id="singleOrder">을(를) 주문합니다.</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col">
+				<div class="row">
+					<div class="col col-lg-2"><h5><strong>주문자 정보</strong></h5></div>
+				</div>
+				<hr />
+				<div class="row">
+					<div class="col col-lg-2">보내는분</div>
+					<div class="col"><span id="order_memName"></span></div>
+				</div>
+				<div class="row">
+					<div class="col col-lg-2">휴대폰</div>
+					<div class="col"><span id="order_memPhone"></span></div>
+				</div>
+				<div class="row">
+					<div class="col col-lg-2">이메일</div>
+					<div class="col"><span id="order_memEmail"></span></div>
+				</div>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col">
+				<div class="row">
+					<div class="col col-lg-2"><h5><strong>배송 정보</strong></h5></div>
+				</div>
+				<hr />
+				<div class="row">
+					<div class="col col-lg-2">배송지</div>
+					<div class="col">
+						<span id="showDestination">${shipDestination}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col col-lg-2">상세정보</div>
+					<div class="col">
+						<button id="detailInfo_btn" type="button" class="btn btn-outline-secondary">입력</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col">
+				<div class="row">
+					<div class="col col-lg-2">
+						<h5><strong>결제수단선택</strong></h5>
+					</div>
+					<hr />
+					<div class="col">
+						<div class="row">
+							<div class="col">
+								<div class="row justify-content-center">
+									<div class="eliminate_padding_col col col-lg-3">
+										<input type="radio" class="btn-check" name="payType" id="payType1" value="payType1" autocomplete="off" checked="checked">
+										<label class="full-width-btn btn btn-outline-danger" for="payType1"><strong>신용카드</strong></label>
+									</div>
+									<div class="eliminate_padding_col col col-lg-3">
+										<input type="radio" class="btn-check" name="payType" id="payType2" value="payType2" autocomplete="off">
+										<label class="full-width-btn btn btn-outline-danger" for="payType2"><strong>간편결제</strong></label>
+									</div>
+									<div class="eliminate_padding_col col col-lg-3">
+										<input type="radio" class="btn-check" name="payType" id="payType3" value="payType3" autocomplete="off">
+										<label class="full-width-btn btn btn-outline-danger" for="payType3"><strong>휴대폰</strong></label>
+									</div>
+								</div>
+							</div>
+							<br />
+							<div class="row text-center">
+								<div class="col col-lg-2"></div>
+								<div class="col">
+									<div id="pay_card">
+										<select class="form-select" name="payCard" >
+											<option value="none" disabled="disabled">=== 카드선택 ===</option>
+											<option value="현대">현대</option>
+											<option value="신한">신한</option>
+											<option value="KB국민">KB국민</option>
+										</select>
+									</div>
+									<div id="pay_simple" class="text-start">
+										<input type="radio" id="naverPay" class="form-check-input" name="pay_simple" value="네이버페이" checked="checked">
+										<label class="form-check-label" for="naverPay">네이버페이</label>
+										<br />
+										<input type="radio" id="smilePay" class="form-check-input" name="pay_simple" value="스마일페이">
+										<label class="form-check-label" for="smilePay">스마일페이</label>
+										<br />
+										<input type="radio" id="toss" class="form-check-input" name="pay_simple" value="토스">
+										<label class="form-check-label" for="toss">토스</label>
+										<br />
+										<input type="radio" id="payco" class="form-check-input" name="pay_simple" value="페이코">
+										<label class="form-check-label" for="payco">페이코</label>
+									</div>
+								</div>
+								<div class="col col-lg-2"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col col-lg-3">
+				<div class="row">
+					<div class="col col-lg-6"><h5><strong>결제금액</strong></h5></div>
+				</div>
+				<div class="row">
+					<div class="col col-lg-6">주문금액</div>
+					<div class="col">${totalPrice}</div>
+				</div>
+				<div class="row">
+					<div class="col col-lg-6">배송비</div>
+					<div class="col">0원</div>
+				</div>
+				<div class="row">
+					<div class="col col-lg-6">상품할인금액</div>
+					<div class="col">
+						${totalSalePrice}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col col-lg-6">최종결제금액</div>
+					<div class="col">${totalPrice}</div>
+				</div>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col">
+				<div class="row">
+					<div class="col col-lg-2"><h5><strong>개인정보 수집/제공</strong></h5></div>
+				</div>
+				<hr />
+				<div class="row">
+					<div class="col col-lg-2"></div>
+					<div class="col">
+						<div id="essentialChkBoxes">
+							<input type="checkbox" id="essOne" class="form-check-input" value="ess1">
+							<label class="form-check-label" for="essOne">(필수) 개인정보 수집∙이용 및 처리 동의</label>
+							<br />
+							<input type="checkbox" id="essTwo" class="form-check-input" value="ess1">
+							<label class="form-check-label" for="essTwo">(필수) 개인정보 제3자 제공 동의</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+		<!-- 순수 전송용 시작-->
+		<input type="hidden" value="${member.getMemId()}" name="memId"/>
+		<input type="hidden" value="${shipDestination}"  name="shipDestination"/>
+		<!-- 순수 전송용 끝-->
+		<div class="row">
+			<div class="col col-lg-4"></div>
+			<div class="col text-center">
+				<button id="orderBtn" class="btn btn-danger"><strong>${totalPrice}원 주문하기</strong></button>
+			</div>
+			<div class="col col-lg-4"></div>
+		</div>
+	</form>
 </div>
-<hr />
-<p>결제수단</p>
-<form action="/order/orderAction" method="post">
-<div class="row justify-content-center">
-	<div class="col col-lg-3">
-		<input type="radio" class="btn-check" name="payType" id="payType1" value="payType1" autocomplete="off" checked="checked">
-		<label class="btn btn-outline-danger" for="payType1">신용카드</label>
-	</div>
-	<div class="col col-lg-3">
-		<input type="radio" class="btn-check" name="payType" id="payType2" value="payType2" autocomplete="off">
-		<label class="btn btn-outline-danger" for="payType2">간편결제</label>
-	</div>
-	<div class="col col-lg-3">
-		<input type="radio" class="btn-check" name="payType" id="payType3" value="payType3" autocomplete="off">
-		<label class="btn btn-outline-danger" for="payType3">휴대폰</label>
-	</div>
-</div>
-<div id="pay_card">
-	<select name="payCard" >
-		<option value="none" disabled="disabled">=== 카드선택 ===</option>
-		<option value="현대">현대</option>
-		<option value="신한">신한</option>
-		<option value="KB국민">KB국민</option>
-	</select>
-</div>
-<div id="pay_simple">
-	<label for="naverPay">네이버페이</label>
-	<input type="radio" id="naverPay" name="pay_simple" value="네이버페이" checked="checked">
-	<br />
-	<label for="smilePay">스마일페이</label>
-	<input type="radio" id="smilePay" name="pay_simple" value="스마일페이">
-	<br />
-	<label for="toss">토스</label>
-	<input type="radio" id="toss" name="pay_simple" value="토스">
-	<br />
-	<label for="payco">페이코</label>
-	<input type="radio" id="payco" name="pay_simple" value="페이코">
-</div>
-<div id="essentialChkBoxes">
-	<label for="essOne">필수약관1</label>
-	<input type="checkbox" id="essOne" value="ess1">
-	<br />
-	<label for="essTwo">필수약관2</label>
-	<input type="checkbox" id="essTwo" value="ess1">
-</div>
-<!-- 여기부터는 순수 전송용 -->
-<input type="hidden" value="${member.getMemId()}" name="memId"/>
-<input type="hidden" value="${shipDestination}"  name="shipDestination"/>
-
-<p>총할인액:${totalSalePrice}</p>
-<p>총가격:${totalPrice}</p>
-<button id="orderBtn">${totalPrice}원 주문하기</button>
-</form>
 
 <!-- 필수약관 경고 모달 -->
 <div id="validataion_warn_msg" class="modal fade" tabindex="-1">
@@ -102,8 +252,6 @@
     </div>
   </div>
 </div>
-
-
 
 </body>
 <script>
@@ -165,15 +313,26 @@ $("#payType3").click(function(){
 
 
 //주문버튼 - 필수약관 다 체크해야 주문됨
-/* 필수약관체크1 */
-$('.essentialOne').change( function() {
-	if($('.essentialOne').is(':checked')){
-		essentialOneCheck = true;
-	}
-});
-
 $("#orderBtn").click(function(){
 	if(!$('#essOne').is(':checked') || !$('#essTwo').is(':checked')){$("#validataion_warn_msg").modal("show");return false;}
+});
+
+//회원정보 나타내기
+$(document).ready(()=>{
+	let memId = currentSession;
+	$.ajax({
+		type : "post",
+		url : "/member/getMemVOBySessionFromOrderPage",
+		data : {
+			memId : currentSession
+		},
+		success : function(rst){
+			let result = rst.currMemVO;
+			$('#order_memName').text(result.memName);
+			$('#order_memPhone').text(result.memPhone);
+			$('#order_memEmail').text(result.memEmail);
+		}// success 종료
+	}); // ajax 종료	
 });
 </script>
 </html>
