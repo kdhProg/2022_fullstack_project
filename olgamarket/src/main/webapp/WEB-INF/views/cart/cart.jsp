@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Olga-장바구니</title>
+<link rel="icon" href="/resources/pdimages/favicon.ico" type="image/x-icon">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -15,30 +16,159 @@
 #currentSession{
 	display:none;
 }
+/* 수량 증감버튼 패딩 조정 */
+.padding_eliminate_left{
+	padding-left: 0;
+}
+.padding_eliminate_right{
+	padding-right: 0;
+}
+/* a태그 기본 장식 제거 */
+a{
+	text-decoration: none;
+	color: black;
+}
+/* 버튼 기본장식 제거 */
+.deleteBtn,.cartQuantityPlus,.cartQuantityMinus{
+	border: none;
+	background: transparent;
+}
+/* hr태그 마진 조정 */
+hr{
+	margin-bottom: 6px;
+	margin-top: 6px;
+}
+/* 굵은 hr */
+.strong_hr{
+	border:1.5px solid black;
+}
+/* 배송지/총액 테두리 */
+#ship_price_wrapper{
+	border:1px solid #FAFAFA;
+}
+/* 가격 백그라운드 */
+#priceWrapper{
+	background: #FAFAFA;
+}
+/* 가격입력버튼 형식설정 */
+#totalSalePrice,#totalPrice,#shippingPrice{
+	border: none;
+	background: transparent;
+	font-weight: bold;
+	font-size: 1.2em;
+	width: 100px;
+}
+/* 배송지 입력박스 */
+#shipList_inputBox{
+	border: none;
+	width: 100%;
+	height:40px;
+}
+/* 배송지등록+주문버튼 */
+#regist_ship_btn,#enter_order{
+	width:100%;
+}
+.col{
+/*  	border:1px solid red;  */
+}
 </style>
 <body>
 <!-- 현재세션값 자바스크립트 넘기기-->
 <span id="currentSession">${member.getMemId()}</span>
 
-<h1>장바구니페이지임</h1>
-<form action="/order/orderPage" method="post">
-	<p>=상온=</p>
-	<div id="cartListRoomTemp"></div>
-	<hr />
-	<p>=냉장=</p>
-	<div id="cartListRefrigerated"></div>
-	<hr />
-	<p>=냉동=</p>
-	<div id="cartListFrozen"></div>
-	<hr />
-	<div>
-	<p>총할인가: </p><input type="text" id="totalSalePrice" name="totalSalePrice" readonly="readonly"/>
-	<p>총액: </p><input type="text" id="totalPrice" name="totalPrice" readonly="readonly"/>
-	</div>
-	<button type="button" id="regist_ship_btn">배송지 등록하기</button>
-	<input type="text" id="shipList_inputBox" name="shipDestination" placeholder="배송지" readonly="readonly"/><br />
-	<button id="enter_order">주문하기</button>
-</form>
+<div class="container">
+	<form action="/order/orderPage" class="form-horizontal" method="post">
+		<div class="row text-center">
+			<div class="col col-lg-4"></div>
+			<div class="col">
+				<h4><strong>장바구니</strong></h4>
+			</div>
+			<div class="col col-lg-4"></div>
+		</div>
+		<div class="row">
+			<div class="col col-lg-8">
+				<div class="row">
+					<hr class="strong_hr" />
+					<div><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="skyblue" class="bi bi-droplet" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.21.8C7.69.295 8 0 8 0c.109.363.234.708.371 1.038.812 1.946 2.073 3.35 3.197 4.6C12.878 7.096 14 8.345 14 10a6 6 0 0 1-12 0C2 6.668 5.58 2.517 7.21.8zm.413 1.021A31.25 31.25 0 0 0 5.794 3.99c-.726.95-1.436 2.008-1.96 3.07C3.304 8.133 3 9.138 3 10a5 5 0 0 0 10 0c0-1.201-.796-2.157-2.181-3.7l-.03-.032C9.75 5.11 8.5 3.72 7.623 1.82z"/><path fill-rule="evenodd" d="M4.553 7.776c.82-1.641 1.717-2.753 2.093-3.13l.708.708c-.29.29-1.128 1.311-1.907 2.87l-.894-.448z"/></svg><strong>냉장 상품</strong></div>
+					<div id="cartListRefrigerated"></div>
+				</div>
+				<div class="row">
+					<hr class="strong_hr" />
+					<div><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="blue" class="bi bi-snow" viewBox="0 0 16 16"><path d="M8 16a.5.5 0 0 1-.5-.5v-1.293l-.646.647a.5.5 0 0 1-.707-.708L7.5 12.793V8.866l-3.4 1.963-.496 1.85a.5.5 0 1 1-.966-.26l.237-.882-1.12.646a.5.5 0 0 1-.5-.866l1.12-.646-.884-.237a.5.5 0 1 1 .26-.966l1.848.495L7 8 3.6 6.037l-1.85.495a.5.5 0 0 1-.258-.966l.883-.237-1.12-.646a.5.5 0 1 1 .5-.866l1.12.646-.237-.883a.5.5 0 1 1 .966-.258l.495 1.849L7.5 7.134V3.207L6.147 1.854a.5.5 0 1 1 .707-.708l.646.647V.5a.5.5 0 1 1 1 0v1.293l.647-.647a.5.5 0 1 1 .707.708L8.5 3.207v3.927l3.4-1.963.496-1.85a.5.5 0 1 1 .966.26l-.236.882 1.12-.646a.5.5 0 0 1 .5.866l-1.12.646.883.237a.5.5 0 1 1-.26.966l-1.848-.495L9 8l3.4 1.963 1.849-.495a.5.5 0 0 1 .259.966l-.883.237 1.12.646a.5.5 0 0 1-.5.866l-1.12-.646.236.883a.5.5 0 1 1-.966.258l-.495-1.849-3.4-1.963v3.927l1.353 1.353a.5.5 0 0 1-.707.708l-.647-.647V15.5a.5.5 0 0 1-.5.5z"/></svg><strong>냉동 상품</strong></div>
+					<div id="cartListFrozen"></div>
+				</div>
+				<div class="row">
+					<hr class="strong_hr" />
+					<div><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="orange" class="bi bi-brightness-high" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></svg><strong>상온 상품</strong></div>
+					<div id="cartListRoomTemp"></div>
+				</div>
+			</div>
+			<div id="ship_price_wrapper" class="col col-lg-4">
+				<div class="row">
+					<div class="col">
+						<div class="row">
+							<div class="col col-lg-2"></div>
+							<div class="col text-center">
+								<button type="button" id="regist_ship_btn" class="btn btn-outline-danger">배송지 등록하기</button>
+							</div>
+							<div class="col col-lg-2"></div>
+						</div>
+						<br />
+						<div class="row">
+							<div class="col col-lg-1"></div>
+							<div class="col text-center">
+								<input type="text" id="shipList_inputBox" name="shipDestination" placeholder="배송지를 등록하세요." readonly="readonly"/>
+							</div>
+							<div class="col col-lg-1"></div>
+						</div>
+					</div>
+				</div>
+				<br />
+				<div id="priceWrapper" class="row">
+					<div class="col">
+						<div class="row">
+							<div class="col col-lg-4">
+								<p>상품할인금액</p>
+							</div>
+							<div class="col text-center">
+								<input type="text" id="totalSalePrice" name="totalSalePrice" readonly="readonly"/><strong>원</strong>
+							</div>
+							<div class="col col-lg-2"></div>
+						</div>
+						<div class="row">
+							<div class="col col-lg-4">
+								<p>배송비</p>
+							</div>
+							<div class="col text-center">
+								<input type="text" id="shippingPrice" readonly="readonly" value="0"/><strong>원</strong>
+							</div>
+							<div class="col col-lg-2"></div>
+						</div>
+						<div class="row">
+							<div class="col col-lg-4">
+								<p>결제예정금액</p>
+							</div>
+							<div class="col text-center">
+								<input type="text" id="totalPrice" name="totalPrice" readonly="readonly"/><strong>원</strong>
+							</div>
+							<div class="col col-lg-2"></div>
+						</div>
+					</div>
+				</div>
+				<br />
+				<div class="row">
+					<div class="col col-lg-2"></div>
+					<div class="col text-center">
+						<button id="enter_order" class="btn btn-danger">주문하기</button>
+					</div>
+					<div class="col col-lg-2"></div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
 <!-- 모달창-삭제버튼 -->
 <div id="modal_delete" class="modal fade" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
@@ -120,77 +250,167 @@ function makeCartList(){
 			let prodResult = result.prodList;
 			let cartList = result.cartList;
 			
-			let roomTempString = "<table><tr><th>상품명</th><th>수량조정</th><th>삭제</th></tr>"; //상온
-			let refrigeratedString = "<table><tr><th>상품명</th><th>수량조정</th><th>삭제</th></tr>"; //냉장
-			let frozenString = "<table><tr><th>상품명</th><th>수량조정</th><th>삭제</th></tr>"; //냉동
+			let roomTempString = ""; //상온
+			let refrigeratedString = ""; //냉장
+			let frozenString = ""; //냉동
 			
 			totalPrice = 0; // 초기화
+			totalSalePrice = 0; // 초기화
 			
 			for(let i=0;i<cartList.length;i++){
 				if(prodResult[i].pdStorageType === "냉동"){
-					frozenString += "<tr>";
-					frozenString += "<td><a href='/goods/detailView?pdId="+prodResult[i].pdId+"'>"+prodResult[i].pdName+"</a></td>";
+					frozenString += "<div class='row'>";
+					frozenString += "<div class='col'>";
+						frozenString += "<div class='row'>";
+							frozenString += "<div class='col col-lg-5 text-center'>";
+								frozenString += "<p><strong>["+prodResult[i].pdstlBrandName+"]</strong></p>";
+							frozenString += '</div>';
+							frozenString += "<div class='col'>";
+								frozenString += "<a href='/goods/detailView?pdId="+prodResult[i].pdId+"'><strong>"+prodResult[i].pdName+"</strong></a>";
+							frozenString += '</div>';
+						frozenString += '</div>';
+					frozenString += '</div>';
 					/* 수량버튼추가 */
-					frozenString+= '<td><button type="button" class="cartQuantityPlus" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg></button>';
-					frozenString+= '<span class="pdQuantity'+cartList[i].caNo+'">'+cartList[i].caQuantity+'</span>';
+					frozenString+= "<div class='col col-lg-4'>";
 					frozenString+= '<input type="hidden" name="pdValue'+cartList[i].caNo+'" value="'+prodResult[i].pdPrice+'">'; //증감기능에 상품가격 전달용도
 					frozenString+= '<input type="hidden" name="pdSale'+cartList[i].caNo+'" value="'+prodResult[i].pdSale+'">'; //증감기능에 상품할인가 전달용도
 					frozenString+= '<input type="hidden" name="caNo'+cartList[i].caNo+'" value="'+cartList[i].caNo+'">'; //AJAX에 pdId 전달용도
-					//수량1이면 빼기버튼 disabled상태로 생성
-					if(cartList[i].caQuantity===1){
-						frozenString+= '<button type="button" class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'" disabled="disabled"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button></td>';
-					}else{
-						frozenString+= '<button type="button" class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button></td>';
-					}
+						frozenString += "<div class='row'>";
+							frozenString += "<div class='col text-end padding_eliminate_right'>";
+								if(cartList[i].caQuantity===1){
+									frozenString+= '<button type="button" class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'" disabled="disabled"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fc5603" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button>';
+								}else{
+									frozenString+= '<button type="button" class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fc5603" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button>';
+								}
+							frozenString += "</div>";
+							frozenString += "<div class='col col-lg-2 text-center'>";
+								frozenString+= '<span class="pdQuantity'+cartList[i].caNo+'">'+cartList[i].caQuantity+'</span>';
+							frozenString += "</div>";
+							frozenString += "<div class='col text-start padding_eliminate_left'>";
+								frozenString+= '<button type="button" class="cartQuantityPlus" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fc5603" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg></button>';
+							frozenString += "</div>";
+						frozenString += "</div>";
+					frozenString += "</div>";
 					/* === */
-					frozenString += '<td><button type="button" class="deleteBtn" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></button></td>';
-					frozenString += "</tr>";
+					frozenString += "<div class='col col-lg-3'>";
+						frozenString += "<div class='row'>";
+							frozenString += "<div class='col col-lg-6 text-center'>";
+								frozenString += "<span class='pdTotalPricePerOne"+cartList[i].caNo+"'>"+((prodResult[i].pdPrice)*((100-prodResult[i].pdSale)/100)*(cartList[i].caQuantity)).toLocaleString('ko-KR')+"원</span>";
+							frozenString += "</div>";
+							frozenString += "<div class='col col-lg-3'>";
+								frozenString += '<button type="button" class="deleteBtn" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></button>';
+							frozenString += "</div>";
+						frozenString += "</div>";
+					frozenString += "</div>";
+					
+					frozenString += "</div>";
+					frozenString += "<hr/>";
 					totalPrice += (cartList[i].caQuantity)*((prodResult[i].pdPrice)*(100-prodResult[i].pdSale)/100);
 					totalSalePrice += (cartList[i].caQuantity)*((prodResult[i].pdPrice)*(prodResult[i].pdSale)/100);
 				}
 				if(prodResult[i].pdStorageType === "냉장"){
-					refrigeratedString += "<tr>";
-					refrigeratedString += "<td><a href='/goods/detailView?pdId="+prodResult[i].pdId+"'>"+prodResult[i].pdName+"</a></td>";
+					refrigeratedString += "<div class='row'>";
+					refrigeratedString += "<div class='col'>";
+						refrigeratedString += "<div class='row'>";
+							refrigeratedString += "<div class='col col-lg-5 text-center'>";
+								refrigeratedString += "<p><strong>["+prodResult[i].pdstlBrandName+"]</strong></p>";
+							refrigeratedString += '</div>';
+							refrigeratedString += "<div class='col'>";
+								refrigeratedString += "<a href='/goods/detailView?pdId="+prodResult[i].pdId+"'><strong>"+prodResult[i].pdName+"</strong></a>";
+							refrigeratedString += '</div>';
+						refrigeratedString += '</div>';
+					refrigeratedString += '</div>';
 					/* 수량버튼추가 */
-					refrigeratedString+= '<td><button type="button" class="cartQuantityPlus" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg></button>';
-					refrigeratedString+= '<span class="pdQuantity'+cartList[i].caNo+'">'+cartList[i].caQuantity+'</span>';
+					refrigeratedString += "<div class='col col-lg-4'>";
 					refrigeratedString+= '<input type="hidden" name="pdValue'+cartList[i].caNo+'" value="'+prodResult[i].pdPrice+'">'; //증감기능에 상품가격 전달용도
 					refrigeratedString+= '<input type="hidden" name="pdSale'+cartList[i].caNo+'" value="'+prodResult[i].pdSale+'">'; //증감기능에 상품할인가 전달용도
 					refrigeratedString+= '<input type="hidden" name="caNo'+cartList[i].caNo+'" value="'+cartList[i].caNo+'">'; //AJAX에 pdId 전달용도
-					if(cartList[i].caQuantity===1){
-						refrigeratedString+= '<button type="button" class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'" disabled="disabled"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button></td>';
-					}else{
-						refrigeratedString+= '<button type="button" class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button></td>';
-					}
+						refrigeratedString += "<div class='row'>";
+							refrigeratedString += "<div class='col text-end padding_eliminate_right'>";
+								if(cartList[i].caQuantity===1){
+									refrigeratedString+= '<button type="button" class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'" disabled="disabled"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fc5603" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button>';
+								}else{
+									refrigeratedString+= '<button type="button" class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fc5603" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button>';
+								}
+							refrigeratedString += "</div>";
+							refrigeratedString += "<div class='col col-lg-2 text-center'>";
+								refrigeratedString+= '<span class="pdQuantity'+cartList[i].caNo+'">'+cartList[i].caQuantity+'</span>';
+							refrigeratedString += "</div>";
+							refrigeratedString += "<div class='col text-start padding_eliminate_left'>";
+								refrigeratedString+= '<button type="button" class="cartQuantityPlus" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fc5603" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg></button>';
+							refrigeratedString += "</div>";
+						refrigeratedString += "</div>";
+					refrigeratedString += "</div>";
 					/* === */
-					refrigeratedString += '<td><button type="button" class="deleteBtn" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></button></td>';
-					refrigeratedString += "</tr>";
+					refrigeratedString += "<div class='col col-lg-3'>";
+						refrigeratedString += "<div class='row'>";
+							refrigeratedString += "<div class='col col-lg-6 text-center'>";
+								refrigeratedString += "<span class='pdTotalPricePerOne"+cartList[i].caNo+"'>"+((prodResult[i].pdPrice)*((100-prodResult[i].pdSale)/100)*(cartList[i].caQuantity)).toLocaleString('ko-KR')+"원</span>";
+							refrigeratedString += "</div>";
+							refrigeratedString += "<div class='col col-lg-3'>";
+								refrigeratedString += '<button type="button" class="deleteBtn" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></button>';
+							refrigeratedString += "</div>";
+						refrigeratedString += "</div>";
+					refrigeratedString += "</div>";
+					
+					refrigeratedString += "</div>";
+					refrigeratedString += "<hr/>";
 					totalPrice += (cartList[i].caQuantity)*((prodResult[i].pdPrice)*(100-prodResult[i].pdSale)/100);
 					totalSalePrice += (cartList[i].caQuantity)*((prodResult[i].pdPrice)*(prodResult[i].pdSale)/100);
 				}
 				if(prodResult[i].pdStorageType === "상온"){
-					roomTempString += "<tr>";
-					roomTempString += "<td><a href='/goods/detailView?pdId="+prodResult[i].pdId+"'>"+prodResult[i].pdName+"</a></td>";
+					roomTempString += "<div class='row'>";
+					roomTempString += "<div class='col'>";
+						roomTempString += "<div class='row'>";
+							roomTempString += "<div class='col col-lg-5 text-center'>";
+								roomTempString += "<p><strong>["+prodResult[i].pdstlBrandName+"]</strong></p>";
+							roomTempString += '</div>';
+							roomTempString += "<div class='col'>";
+								roomTempString += "<a href='/goods/detailView?pdId="+prodResult[i].pdId+"'><strong>"+prodResult[i].pdName+"</strong></a>";
+							roomTempString += '</div>';
+						roomTempString += '</div>';
+					roomTempString += '</div>';
 					/* 수량버튼추가 */
-					roomTempString+= '<td><button type="button" class="cartQuantityPlus" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg></button>';
-					roomTempString+= '<span class="pdQuantity'+cartList[i].caNo+'">'+cartList[i].caQuantity+'</span>';
+					roomTempString += "<div class='col col-lg-4'>";
 					roomTempString+= '<input type="hidden" name="pdValue'+cartList[i].caNo+'" value="'+prodResult[i].pdPrice+'">'; //증감기능에 상품가격 전달용도
 					roomTempString+= '<input type="hidden" name="pdSale'+cartList[i].caNo+'" value="'+prodResult[i].pdSale+'">'; //증감기능에 상품할인가 전달용도
 					roomTempString+= '<input type="hidden" name="caNo'+cartList[i].caNo+'" value="'+cartList[i].caNo+'">'; //AJAX에 pdId 전달용도
-					if(cartList[i].caQuantity===1){
-						roomTempString+= '<button type="button" class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'" disabled="disabled"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button></td>';
-					}else{
-						roomTempString+= '<button type="button" class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button></td>';
-					}
+						roomTempString += "<div class='row'>";
+							roomTempString += "<div class='col text-end padding_eliminate_right'>";
+								if(cartList[i].caQuantity===1){
+									roomTempString+= '<button type="button" class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'" disabled="disabled"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fc5603" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button>';
+								}else{
+									roomTempString+= '<button type="button" class="cartQuantityMinus" name="'+cartList[i].caNo+'" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fc5603" class="bi bi-dash-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></button>';
+								}
+							roomTempString += "</div>";
+							roomTempString += "<div class='col col-lg-2 text-center'>";
+								roomTempString+= '<span class="pdQuantity'+cartList[i].caNo+'">'+cartList[i].caQuantity+'</span>';
+							roomTempString += "</div>";
+							roomTempString += "<div class='col text-start padding_eliminate_left'>";
+								roomTempString+= '<button type="button" class="cartQuantityPlus" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fc5603" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg></button></td>';
+							roomTempString += "</div>";
+						roomTempString += "</div>";
+					roomTempString += "</div>";
 					/* === */
-					roomTempString += '<td><button type="button" class="deleteBtn" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></button></td>';
-					roomTempString += "</tr>";
+					roomTempString += "<div class='col col-lg-3'>";
+						roomTempString += "<div class='row'>";
+							roomTempString += "<div class='col col-lg-6 text-center'>";
+								roomTempString += "<span class='pdTotalPricePerOne"+cartList[i].caNo+"'>"+((prodResult[i].pdPrice)*((100-prodResult[i].pdSale)/100)*(cartList[i].caQuantity)).toLocaleString('ko-KR')+"원</span>";
+							roomTempString += "</div>";
+							roomTempString += "<div class='col col-lg-3'>";
+								roomTempString += '<button type="button" class="deleteBtn" value="'+cartList[i].caNo+'"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></button>';
+							roomTempString += "</div>";
+						roomTempString += "</div>";
+					roomTempString += "</div>";
+					
+					roomTempString += "</div>";
+					roomTempString += "<hr/>";
 					totalPrice += (cartList[i].caQuantity)*((prodResult[i].pdPrice)*(100-prodResult[i].pdSale)/100);
 					totalSalePrice += (cartList[i].caQuantity)*((prodResult[i].pdPrice)*(prodResult[i].pdSale)/100);
 				}
 			}
 			
-			roomTempString += "</table>"; 
+			roomTempString += ""; 
 			refrigeratedString += "</table>"; 
 			frozenString += "</table>"; 
 			
@@ -199,8 +419,8 @@ function makeCartList(){
 			$("#cartListRoomTemp").html(roomTempString);
 			
 			//총액 계산
-			$("#totalPrice").val(totalPrice);
-			$("#totalSalePrice").val(totalSalePrice);
+			$("#totalPrice").val(totalPrice.toLocaleString('ko-KR'));
+			$("#totalSalePrice").val(totalSalePrice.toLocaleString('ko-KR'));
 		}// success 종료
 	}); // ajax 종료	
 }
@@ -239,8 +459,12 @@ $(document).on('click', '.cartQuantityPlus', function(){
 	let pdSale = Number($("input[name=pdSale"+tempVal+"]").val()); //1개당 할인율
 	totalPrice += pdPrice*(100-pdSale)/100; //한개 추가되었으므로 1개 가격만큼 증가시킨다.
 	totalSalePrice += pdPrice*(pdSale)/100;
-	$("#totalPrice").val(totalPrice); //화면에 반영
-	$("#totalSalePrice").val(totalSalePrice); //화면에 반영
+	$("#totalPrice").val(totalPrice.toLocaleString('ko-KR')); //화면에 반영
+	$("#totalSalePrice").val(totalSalePrice.toLocaleString('ko-KR')); //화면에 반영
+	
+	//각각 행별 값
+	let pricePerOne = Number($("span[class=pdQuantity"+tempVal+"]").text()) * (pdPrice*(100-pdSale)/100);
+	$(".pdTotalPricePerOne"+tempVal).text(pricePerOne.toLocaleString('ko-KR')+"원");
 	// 수량이 2이상이면 마이너스 버튼 재활성화
 	if(currentVal===1){$("button[name="+tempVal+"]").attr("disabled",false);}
 	
@@ -269,9 +493,12 @@ $(document).on('click', '.cartQuantityMinus', function(){
 	let pdSale = Number($("input[name=pdSale"+tempVal+"]").val()); //1개당 할인율
 	totalPrice -= pdPrice*(100-pdSale)/100; //한개 추가되었으므로 1개 가격만큼 감소시킨다.
 	totalSalePrice -= pdPrice*(pdSale)/100;
-	$("#totalPrice").val(totalPrice); //화면에 반영
-	$("#totalSalePrice").val(totalSalePrice); //화면에 반영
-	//수량이 1이 되면 마이너스 버튼 무력화
+	$("#totalPrice").val(totalPrice.toLocaleString('ko-KR')); //화면에 반영
+	$("#totalSalePrice").val(totalSalePrice.toLocaleString('ko-KR')); //화면에 반영
+	
+	//각각 행별 값
+	let pricePerOne = Number($("span[class=pdQuantity"+tempVal+"]").text()) * (pdPrice*(100-pdSale)/100);
+	$(".pdTotalPricePerOne"+tempVal).text(pricePerOne.toLocaleString('ko-KR')+"원");
 	//2이면 1로 줄며 동시에 버튼 무력화
 	if(currentVal===2){ $("button[name="+tempVal+"]").attr("disabled",true);}
 	

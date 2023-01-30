@@ -60,5 +60,9 @@
 	<insert id="insertPurchase" parameterType="PurchaseVO">
 		insert into purchaseLists values ((select NVL(MAX(plNo) + 1, 1) from purchaseLists),sysdate,#{plOrderNo},#{plmemId},#{plpdId},#{plPdQuantity},#{plTotalPrice},#{plSavedMoney},#{plPayWay},#{plShipAddInfo},#{plOrderState})
 	</insert>
-
+	
+	<!-- pdId,memId 해당하는 행 개수 -->
+	<select id="countCaseByMemIdNPdId" parameterType="PurchaseVO" resultType="Integer">
+		select count(*) from purchaseLists where plpdId=#{plpdId} and plmemId = #{plmemId}
+	</select>
 </mapper>

@@ -84,5 +84,14 @@ public class ReviewTest {
 		System.out.println(service.reviewRptSubtract(rvNo));
 	}
 	
+	@Test
+	@Ignore
+	public void countByPdIdNMemIdTest() {
+		ReviewVO vo = new ReviewVO();
+		vo.setRvpdId(1721L);
+		vo.setRvmemId("mem_id_1");
+		System.out.println(service.countByPdIdNMemId(vo));
+	}
+	
 	
 }

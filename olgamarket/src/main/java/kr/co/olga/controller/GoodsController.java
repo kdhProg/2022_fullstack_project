@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +19,7 @@ import kr.co.olga.service.AnswerService;
 import kr.co.olga.service.FavorService;
 import kr.co.olga.service.InquiryRecoReportService;
 import kr.co.olga.service.ProductService;
+import kr.co.olga.service.PurchaseService;
 import kr.co.olga.service.QuiryService;
 import kr.co.olga.service.ReviewService;
 import kr.co.olga.vo.AnswerVO;
@@ -25,6 +27,7 @@ import kr.co.olga.vo.FavorVO;
 import kr.co.olga.vo.InquiryRecoReportVO;
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ProductVO;
+import kr.co.olga.vo.PurchaseVO;
 import kr.co.olga.vo.QuiryVO;
 import kr.co.olga.vo.ReviewVO;
 
@@ -49,6 +52,9 @@ public class GoodsController {
 	
 	@Autowired
 	private InquiryRecoReportService irrService;
+	
+	@Autowired
+	private PurchaseService pcService;
 	
 	//문자열 상품ID를 줘야함
 	@RequestMapping(value="/detailView")
@@ -91,6 +97,48 @@ public class GoodsController {
 	}
 	
 	
+	/* 상품후기 버튼 유효성 검사 */
+	@PostMapping(value = "rvBtnValidationChk")
+	@ResponseBody
+	public String rvBtnValidationChk(String memId,String pdId) {
+		long pdIdValue = Long.parseLong(pdId);
+		//1단계: 해당상품 구매내역이 1건이라도 있는지 검사
+		PurchaseVO testPcVO = new PurchaseVO();
+		testPcVO.setPlmemId(memId);
+		testPcVO.setPlpdId(pdIdValue);
+		if(pcService.countCaseByMemIdNPdId(testPcVO) >= 1) {
+			//해당상품의 구매내역이 1건 이상 존재
+			//2단계: 해당상품에 작성한 리뷰의 개수가 0인가
+			ReviewVO testRvVO = new ReviewVO();
+			testRvVO.setRvmemId(memId);
+			testRvVO.setRvpdId(pdIdValue);
+			if(rvService.countByPdIdNMemId(testRvVO) == 0) {
+				//리뷰를 작성하지않음 - 작성가능
+				return "btnON";
+			}else {
+				//리뷰를 작성한 내역이 있음 - 작성불가능
+				return "btnOFF";
+			}
+		}else {
+			// 구매내역이 없음 - 작성불가능
+			return "btnOFF";
+		}
+	}
+	
+	/* 상품문의 등록하기 */
+	@RequestMapping(value = "/reviewRegist",method = RequestMethod.POST)
+	@ResponseBody
+	public String rvRegist(ReviewVO vo) {
+		vo.setRvImg("/sample/reviewSample.jpg"); //이미지는 임의로 설정
+		long insertResult = rvService.reviewInsert(vo);
+		if(insertResult != 0) {
+			// 성공시 1
+			return "success";
+		}else {
+			// 실패시 0
+			return "failed";
+		}
+	}
 	
 	/* 상품문의 컨트롤러 */
 	@RequestMapping(value = "quiryPageInitInfos")

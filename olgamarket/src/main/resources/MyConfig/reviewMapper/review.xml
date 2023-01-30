@@ -6,7 +6,7 @@
 
 	<!-- 상품후기 추가 -->
 	<insert id="reviewInsert" parameterType="ReviewVO">
-		insert into reviews values ((select NVL(MAX(rvpdId) + 1, 1) from reviews),#{rvmemId},#{rvpdId},#{rvContent},#{rvImg},sysdate,sysdate,0,0)
+		insert into reviews values ((select NVL(MAX(rvNo) + 1, 1) from reviews),#{rvmemId},#{rvpdId},#{rvContent},#{rvImg},sysdate,sysdate,0,0)
 	</insert>
 	
 	<!-- 상품후기 삭제 - rvNo로 삭제 -->
@@ -76,6 +76,11 @@
 				(select * from reviews where rvmemId = #{rvmemId} order by rvNo desc) 
 			temp) 
 		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+	</select>
+	
+	<!-- pdId,memId에 해당하는 레코드 개수 조회 -->
+	<select id="countByPdIdNMemId" parameterType="ReviewVO" resultType="Long">
+		select count(*) from reviews where rvpdId=#{rvpdId} and rvmemId = #{rvmemId}
 	</select>
 	
 	

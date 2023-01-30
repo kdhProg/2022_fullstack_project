@@ -20,4 +20,6 @@ public interface PurchaseDAO {
 
 	int insertPurchase(PurchaseVO vo);
 
+	int countCaseByMemIdNPdId(PurchaseVO vo);
+
 }
