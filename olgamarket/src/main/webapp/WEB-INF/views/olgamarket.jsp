@@ -16,11 +16,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link rel="stylesheet" href="/resources/css/mainfooter.css" />
-<link rel="stylesheet" href="/resources/css/mainheader.css" />
 <style>
 div {
-/* 	border : 1px solid black; */
-border : 3px solid red;
+/* border : 3px solid red; */
 }
 /* 현재세션 */
 #currentSession{
@@ -76,9 +74,54 @@ hr{
 	align-items:center; /* 위아래 기준 중앙정렬 */
 	justify-content:center; /* 좌우 기준 중앙정렬 */
 }
-
+/* ==========헤더관련=============== */
+/* 스틱키 */
+#main_navBars{
+	position: sticky;
+	top:0px;
+	z-index: 999;
+	background: white;
+/* 	box-shadow: 0 1px 2px 0; */
+}
+/* a태그 장식제거 */
+a{
+	color:black;
+	text-decoration: none;
+}
+/* 카테고리바 숨기기 */
+.main2{
+	position: absolute;
+	left: -9999px;
+}
+/* 카테고리바 보이기 */
+.main1>li:hover .main2 {
+	left: 200px;
+}
+/* 찜/장바구니 버튼 */
+#enterFavorPage,#enterCartPage{
+	border: none;
+	background: transparent;
+}
+/* 메인로고 */
+#mainLogo{
+	width:80px;
+}
+/* 검색창 테두리 */
+#searchBox_wrap{
+	border: 1px solid #FC5603;
+	border-radius: 10px;
+}
+/* 검색 인풋박스 테두리 */
+#search_input_box{
+	border: none;
+}
+/* 카테고리박스 */
+.main2{
+	border: 1px solid black;
+}
+/* =============헤더관련 끝================ */
 .col{
-/* 	border:2px solid green; */
+/*  	border:2px solid green; */
 }
 </style>
 <body>
@@ -86,412 +129,465 @@ hr{
 <span id="currentSession">${member.getMemId()}</span>
 
 <!-- ======== 헤더시작 ============= -->
-<header>
-		<div class="links">
-			<a href="/member/join" class="link_text">회원가입</a> <a href="/member/login" class="link_text">로그인</a>
-			<a href="/board/client" class="link_text">고객센터</a>
-		</div>
-
-		<a href="/" ><img src="/resources/pdimages/logo.png" class="img_logo" alt="" /></a>
-		<form action="/search/productList">
-			<fieldset>
-				<legend class="visually-hidden">검색</legend>
-				<div class="search_box">
-					<input type="search" maxlength="225" tabindex="1" placeholder="검색어를 입력하세요" name="searchKeyWord"/>
-					<button type="submit" tabindex="2"><i class="fas fa-search"></i></button>
-				</div>
-			</fieldset>
-		</form>
-
-		<div class="fav">
-			<button type="button" onclick="location.href='/myPage/myPageList'"></button>
-		</div>
-
-		<div class="shopbasket">
-			<button type="button" onclick="location.href='/cart/enterCartPage'"></button>
-		</div>
-
-
-		<nav>
-			<div id="menu">
-				<ul class="main1">
-					<li style="border: none;"><b style="font-size: 15px;"><span
-							style="font-size: 15px;">≡</span> 카테고리</b>
-						<ul class="main2">
-							<li class="cate_li"><a href="/collections/mainPageCategory?cateName=과일">[과일]</a></li>
-							<li class="cate_li"><a href="/collections/mainPageCategory?cateName=채소">[채소]</a></li>
-							<li class="cate_li"><a href="/collections/mainPageCategory?cateName=쌀/잡곡">[쌀/잡곡]</a></li>
-							<li class="cate_li"><a href="/collections/mainPageCategory?cateName=수산물">[수산물]</a></li>
-							<li class="cate_li"><a href="/collections/mainPageCategory?cateName=축산/계란">[축산/계란]</a></li>
-							<li class="cate_li"><a href="/collections/mainPageCategory?cateName=냉동/냉장/간편식">[냉동/냉장/간편식]</a></li>
-						</ul>
-					</li>
-					<li><a href="/collections/newProduct">신상품</a></li>
-					<li><a href="/collections/best">베스트</a></li>
-					<li><a href="/collections/nowOnSale">할인/특가</a></li>
-				</ul>
+<div id="header_and_contents" class="container">
+	<div class="row text-center">
+		<div class="col col-lg-3"></div>
+		<div class="col col-lg-3"></div>
+		<div class="col">
+			<div class="links">
+				<c:choose> 
+					<c:when test="${not empty member}">
+					<!-- 일반회원 -->
+						<span>${member.getMemName()}님</span>
+						<a href="/member/logout">로그아웃</a>
+						<a href="/myPage/myPageList?memId=${member.getMemId()}">마이페이지</a>
+					</c:when> 
+					<c:when test="${not empty seller}">
+					<!-- 판매자회원 -->
+						<span>판매자회원: ${seller.getSelName()}님</span>
+						<a href="/member/logout">로그아웃</a>
+						<c:if test="${seller.getSelTypeGrade() eq 1}">
+						<!-- 판매자회원이면서 권한이 유효해야함 -->
+							<a href="/seller/dedicated?selId=${seller.getSelId()}&selstlBrandName=${seller.getSelstlBrandName()}">판매자 전용 페이지</a>
+						</c:if>
+					</c:when> 
+					<c:otherwise>
+					<!-- 비로그인 -->
+						<a href="/member/join">회원가입</a>
+						<a href="/member/login">로그인</a>
+					</c:otherwise> 
+				</c:choose>
+				<a href="/board/client" class="link_text">고객센터</a>
 			</div>
-		</nav>
-	</header>
-
-<!-- =======헤더끝================= -->
-<br />
-<br />
-<br />
-<div class="product_swiper_container container">
-	<!-- 제철과일 타이틀 -->
-	<div class="row">
-		<div class="col col-lg-3"></div>
-		<div class="col text-center">
-			<p class="show_swiper_title">제철과일</p>
 		</div>
-		<div class="col col-lg-3"></div>
 	</div>
 	<div class="row">
-	<!-- 제철과일 콘텐츠 -->
-		<div class="container">
-			<div class="swiper-container">
-				<div class="swiper-wrapper">
-					<c:forEach var="list" items="${fruitPd}" varStatus="vs">
-						<div class="swiper-slide">
-							<div class="row">
-								<div class="col">
-								<!-- 개별상품1개 -->
-									<div class="row">
-										<div class="col">
-											<span class="show_pdBrandName">[${list.getPdstlBrandName()}]</span>
-											<br />
-											<hr />
-											<span class="show_pdName">${list.getPdName()}</span>
+		<div class="col col-lg-3 text-end">
+			<a href="/" ><img id="mainLogo" src="/resources/pdimages/logo.png" class="img_logo" alt="" /></a>
+		</div>
+		<div class="col col-lg-6 text-center">
+			<form action="/search/productList">
+				<div id="searchBox_wrap" class="row">
+					<div class="col col-lg-10">
+						<input id="search_input_box" type="search" class="form-control" maxlength="225" tabindex="1" placeholder="검색어를 입력하세요" name="searchKeyWord"/>
+					</div>
+					<div class="col col-lg-1 text-start">
+						<button type="submit" class="btn" tabindex="2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg></button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col col-lg-3 text-center">
+			<div class="row">
+				<div class="col col-lg-2"></div>
+				<div class="col">
+					<div class="fav">
+						<button id="enterFavorPage" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"><path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/></svg></button>
+					</div>
+				</div>
+				<div class="col">
+					<div class="shopbasket">
+						<button id="enterCartPage" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16"><path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/></svg></button>
+					</div>
+				</div>
+				<div class="col col-lg-2"></div>
+			</div>
+		</div>
+	</div>
+	<div id="main_navBars" class="row">
+		<div class="col col-lg-2"></div>
+		<div class="col col-lg-2">
+			<nav>
+				<div id="menu">
+					<ul class="main1">
+						<li style="border: none;"><b style="font-size: 15px;"><span style="font-size: 15px;">≡</span> 카테고리</b>
+							<ul class="main2">
+								<li class="cate_li"><a href="/collections/mainPageCategory?cateName=과일">[과일]</a></li>
+								<li class="cate_li"><a href="/collections/mainPageCategory?cateName=채소">[채소]</a></li>
+								<li class="cate_li"><a href="/collections/mainPageCategory?cateName=쌀/잡곡">[쌀/잡곡]</a></li>
+								<li class="cate_li"><a href="/collections/mainPageCategory?cateName=수산물">[수산물]</a></li>
+								<li class="cate_li"><a href="/collections/mainPageCategory?cateName=축산/계란">[축산/계란]</a></li>
+								<li class="cate_li"><a href="/collections/mainPageCategory?cateName=냉동/냉장/간편식">[냉동/냉장/간편식]</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+		<div class="col col-lg-2 text-center"><a href="/collections/newProduct"><strong>신상품</strong></a></div>
+		<div class="col col-lg-2 text-center"><a href="/collections/best"><strong>베스트</strong></a></div>
+		<div class="col col-lg-2 text-center"><a href="/collections/nowOnSale"><strong>할인/특가</strong></a></div>
+		<div class="col col-lg-2"></div>
+	</div>
+	<!-- =======헤더끝================= -->
+	<br />
+	<br />
+	<br />
+	<div class="product_swiper_container container">
+		<!-- 제철과일 타이틀 -->
+		<div class="row">
+			<div class="col col-lg-3"></div>
+			<div class="col text-center">
+				<p class="show_swiper_title">제철과일</p>
+			</div>
+			<div class="col col-lg-3"></div>
+		</div>
+		<div class="row">
+		<!-- 제철과일 콘텐츠 -->
+			<div class="container">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<c:forEach var="list" items="${fruitPd}" varStatus="vs">
+							<div class="swiper-slide">
+								<div class="row">
+									<div class="col">
+									<!-- 개별상품1개 -->
+										<div class="row">
+											<div class="col">
+												<span class="show_pdBrandName">[${list.getPdstlBrandName()}]</span>
+												<br />
+												<hr />
+												<span class="show_pdName">${list.getPdName()}</span>
+											</div>
+											<div class="col">
+												<c:if test="${list.getPdSale() gt 0}">
+													<c:set var="total" value="${list.getPdPrice() * (100-list.getPdSale())/100 }" />
+													<fmt:parseNumber var="parsed_total" value="${total}" integerOnly="true" />
+													<span class="swiper_pdSale">${list.getPdSale()}%</span>&nbsp;<span class="swiper_pdTotalPrice">${parsed_total}원</span><br />
+													<span class="swiper_pdOriginPrice">${list.getPdPrice()}원</span>
+												</c:if>
+												<c:if test="${list.getPdSale() eq 0}">
+													<span><strong>${list.getPdPrice()}원</strong></span>
+												</c:if>
+											</div>
 										</div>
-										<div class="col">
-											<c:if test="${list.getPdSale() gt 0}">
-												<c:set var="total" value="${list.getPdPrice() * (100-list.getPdSale())/100 }" />
-												<fmt:parseNumber var="parsed_total" value="${total}" integerOnly="true" />
-												<span class="swiper_pdSale">${list.getPdSale()}%</span>&nbsp;<span class="swiper_pdTotalPrice">${parsed_total}원</span><br />
-												<span class="swiper_pdOriginPrice">${list.getPdPrice()}원</span>
-											</c:if>
-											<c:if test="${list.getPdSale() eq 0}">
-												<span><strong>${list.getPdPrice()}원</strong></span>
-											</c:if>
+										<div class="row">
+											<div class="col show_img_div">
+												<img class="show_img_size" src="/resources/pdimages/pd_main_default.jpg" alt="" />
+											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col show_img_div">
-											<img class="show_img_size" src="/resources/pdimages/pd_main_default.jpg" alt="" />
-										</div>
-									</div>
-									<div class="row">
-										<div class="col">
-											<a href="/goods/detailView?pdId=${list.getPdId()}"><button class="btn btn-outline-secondary">상세보기</button></a>
+										<br />
+										<div class="row">
+											<div class="col">
+												<a href="/goods/detailView?pdId=${list.getPdId()}"><button class="btn btn-outline-secondary">상세보기</button></a>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</c:forEach>
+						</c:forEach>
+					</div>
+					<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+					<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 				</div>
-				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 			</div>
 		</div>
-	</div>
-	<br />
-	<br />
-	<!-- 메인페이지 지금 할인 중 select -->
-	<div class="row">
-		<div class="col col-lg-3"></div>
-		<div class="col text-center">
-			<p class="show_swiper_title">지금 할인 중</p>
+		<br />
+		<br />
+		<!-- 메인페이지 지금 할인 중 select -->
+		<div class="row">
+			<div class="col col-lg-3"></div>
+			<div class="col text-center">
+				<p class="show_swiper_title">지금 할인 중</p>
+			</div>
+			<div class="col col-lg-3"></div>
 		</div>
-		<div class="col col-lg-3"></div>
-	</div>
-	<div class="row">
-	<!-- 메인페이지 지금 할인 중 select -->
-		<div class="container">
-			<div class="swiper-container">
-				<div class="swiper-wrapper">
-					<c:forEach var="list" items="${salePd}" varStatus="vs">
-						<div class="swiper-slide">
-							<div class="row">
-								<div class="col">
-								<!-- 개별상품1개 -->
-									<div class="row">
-										<div class="col">
-											<span class="show_pdBrandName">[${list.getPdstlBrandName()}]</span>
-											<br />
-											<hr />
-											<span class="show_pdName">${list.getPdName()}</span>
+		<div class="row">
+		<!-- 메인페이지 지금 할인 중 select -->
+			<div class="container">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<c:forEach var="list" items="${salePd}" varStatus="vs">
+							<div class="swiper-slide">
+								<div class="row">
+									<div class="col">
+									<!-- 개별상품1개 -->
+										<div class="row">
+											<div class="col">
+												<span class="show_pdBrandName">[${list.getPdstlBrandName()}]</span>
+												<br />
+												<hr />
+												<span class="show_pdName">${list.getPdName()}</span>
+											</div>
+											<div class="col">
+												<c:if test="${list.getPdSale() gt 0}">
+													<c:set var="total" value="${list.getPdPrice() * (100-list.getPdSale())/100 }" />
+													<fmt:parseNumber var="parsed_total" value="${total}" integerOnly="true" />
+													<span class="swiper_pdSale">${list.getPdSale()}%</span>&nbsp;<span class="swiper_pdTotalPrice">${parsed_total}원</span><br />
+													<span class="swiper_pdOriginPrice">${list.getPdPrice()}원</span>
+												</c:if>
+												<c:if test="${list.getPdSale() eq 0}">
+													<span><strong>${list.getPdPrice()}원</strong></span>
+												</c:if>
+											</div>
 										</div>
-										<div class="col">
-											<c:if test="${list.getPdSale() gt 0}">
-												<c:set var="total" value="${list.getPdPrice() * (100-list.getPdSale())/100 }" />
-												<fmt:parseNumber var="parsed_total" value="${total}" integerOnly="true" />
-												<span class="swiper_pdSale">${list.getPdSale()}%</span>&nbsp;<span class="swiper_pdTotalPrice">${parsed_total}원</span><br />
-												<span class="swiper_pdOriginPrice">${list.getPdPrice()}원</span>
-											</c:if>
-											<c:if test="${list.getPdSale() eq 0}">
-												<span><strong>${list.getPdPrice()}원</strong></span>
-											</c:if>
+										<div class="row">
+											<div class="col show_img_div">
+												<img class="show_img_size" src="/resources/pdimages/pd_main_default.jpg" alt="" />
+											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col show_img_div">
-											<img class="show_img_size" src="/resources/pdimages/pd_main_default.jpg" alt="" />
-										</div>
-									</div>
-									<div class="row">
-										<div class="col">
-											<a href="/goods/detailView?pdId=${list.getPdId()}"><button class="btn btn-outline-secondary">상세보기</button></a>
+										<br />
+										<div class="row">
+											<div class="col">
+												<a href="/goods/detailView?pdId=${list.getPdId()}"><button class="btn btn-outline-secondary">상세보기</button></a>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</c:forEach>
+						</c:forEach>
+					</div>
+					<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+					<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 				</div>
-				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 			</div>
 		</div>
-	</div>
-	<br />
-	<br />
-	<!-- 메인페이지 만원 이하 판매량 높은 제품 select -->
-	<div class="row">
-		<div class="col col-lg-3"></div>
-		<div class="col text-center">
-			<p class="show_swiper_title">만원 이하 판매량 높은 제품</p>
+		<br />
+		<br />
+		<!-- 메인페이지 만원 이하 판매량 높은 제품 select -->
+		<div class="row">
+			<div class="col col-lg-3"></div>
+			<div class="col text-center">
+				<p class="show_swiper_title">만원 이하 판매량 높은 제품</p>
+			</div>
+			<div class="col col-lg-3"></div>
 		</div>
-		<div class="col col-lg-3"></div>
-	</div>
-	<div class="row">
-	<!-- 메인페이지 만원 이하 판매량 높은 제품 select -->
-		<div class="container">
-			<div class="swiper-container">
-				<div class="swiper-wrapper">
-					<c:forEach var="list" items="${svPd}" varStatus="vs">
-						<div class="swiper-slide">
-							<div class="row">
-								<div class="col">
-								<!-- 개별상품1개 -->
-									<div class="row">
-										<div class="col">
-											<span class="show_pdBrandName">[${list.getPdstlBrandName()}]</span>
-											<br />
-											<hr />
-											<span class="show_pdName">${list.getPdName()}</span>
+		<div class="row">
+		<!-- 메인페이지 만원 이하 판매량 높은 제품 select -->
+			<div class="container">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<c:forEach var="list" items="${svPd}" varStatus="vs">
+							<div class="swiper-slide">
+								<div class="row">
+									<div class="col">
+									<!-- 개별상품1개 -->
+										<div class="row">
+											<div class="col">
+												<span class="show_pdBrandName">[${list.getPdstlBrandName()}]</span>
+												<br />
+												<hr />
+												<span class="show_pdName">${list.getPdName()}</span>
+											</div>
+											<div class="col">
+												<c:if test="${list.getPdSale() gt 0}">
+													<c:set var="total" value="${list.getPdPrice() * (100-list.getPdSale())/100 }" />
+													<fmt:parseNumber var="parsed_total" value="${total}" integerOnly="true" />
+													<span class="swiper_pdSale">${list.getPdSale()}%</span>&nbsp;<span class="swiper_pdTotalPrice">${parsed_total}원</span><br />
+													<span class="swiper_pdOriginPrice">${list.getPdPrice()}원</span>
+												</c:if>
+												<c:if test="${list.getPdSale() eq 0}">
+													<span><strong>${list.getPdPrice()}원</strong></span>
+												</c:if>
+											</div>
 										</div>
-										<div class="col">
-											<c:if test="${list.getPdSale() gt 0}">
-												<c:set var="total" value="${list.getPdPrice() * (100-list.getPdSale())/100 }" />
-												<fmt:parseNumber var="parsed_total" value="${total}" integerOnly="true" />
-												<span class="swiper_pdSale">${list.getPdSale()}%</span>&nbsp;<span class="swiper_pdTotalPrice">${parsed_total}원</span><br />
-												<span class="swiper_pdOriginPrice">${list.getPdPrice()}원</span>
-											</c:if>
-											<c:if test="${list.getPdSale() eq 0}">
-												<span><strong>${list.getPdPrice()}원</strong></span>
-											</c:if>
+										<div class="row">
+											<div class="col show_img_div">
+												<img class="show_img_size" src="/resources/pdimages/pd_main_default.jpg" alt="" />
+											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col show_img_div">
-											<img class="show_img_size" src="/resources/pdimages/pd_main_default.jpg" alt="" />
-										</div>
-									</div>
-									<div class="row">
-										<div class="col">
-											<a href="/goods/detailView?pdId=${list.getPdId()}"><button class="btn btn-outline-secondary">상세보기</button></a>
+										<br />
+										<div class="row">
+											<div class="col">
+												<a href="/goods/detailView?pdId=${list.getPdId()}"><button class="btn btn-outline-secondary">상세보기</button></a>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</c:forEach>
+						</c:forEach>
+					</div>
+					<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+					<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 				</div>
-				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 			</div>
 		</div>
-	</div>
-	<br />
-	<br />
-	<!-- 메인페이지 후기 10,000개 이상 select -->
-	<div class="row">
-		<div class="col col-lg-3"></div>
-		<div class="col text-center">
-			<p class="show_swiper_title">후기 10,000개 이상</p>
+		<br />
+		<br />
+		<!-- 메인페이지 후기 10,000개 이상 select -->
+		<div class="row">
+			<div class="col col-lg-3"></div>
+			<div class="col text-center">
+				<p class="show_swiper_title">후기 10,000개 이상</p>
+			</div>
+			<div class="col col-lg-3"></div>
 		</div>
-		<div class="col col-lg-3"></div>
-	</div>
-	<div class="row">
-	<!-- 메인페이지 후기 10,000개 이상 select -->
-		<div class="container">
-			<div class="swiper-container">
-				<div class="swiper-wrapper">
-					<c:forEach var="list" items="${reviewPd}" varStatus="vs">
-						<div class="swiper-slide">
-							<div class="row">
-								<div class="col">
-								<!-- 개별상품1개 -->
-									<div class="row">
-										<div class="col">
-											<span class="show_pdBrandName">[${list.getPdstlBrandName()}]</span>
-											<br />
-											<hr />
-											<span class="show_pdName">${list.getPdName()}</span>
+		<div class="row">
+		<!-- 메인페이지 후기 10,000개 이상 select -->
+			<div class="container">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<c:forEach var="list" items="${reviewPd}" varStatus="vs">
+							<div class="swiper-slide">
+								<div class="row">
+									<div class="col">
+									<!-- 개별상품1개 -->
+										<div class="row">
+											<div class="col">
+												<span class="show_pdBrandName">[${list.getPdstlBrandName()}]</span>
+												<br />
+												<hr />
+												<span class="show_pdName">${list.getPdName()}</span>
+											</div>
+											<div class="col">
+												<c:if test="${list.getPdSale() gt 0}">
+													<c:set var="total" value="${list.getPdPrice() * (100-list.getPdSale())/100 }" />
+													<fmt:parseNumber var="parsed_total" value="${total}" integerOnly="true" />
+													<span class="swiper_pdSale">${list.getPdSale()}%</span>&nbsp;<span class="swiper_pdTotalPrice">${parsed_total}원</span><br />
+													<span class="swiper_pdOriginPrice">${list.getPdPrice()}원</span>
+												</c:if>
+												<c:if test="${list.getPdSale() eq 0}">
+													<span><strong>${list.getPdPrice()}원</strong></span>
+												</c:if>
+											</div>
 										</div>
-										<div class="col">
-											<c:if test="${list.getPdSale() gt 0}">
-												<c:set var="total" value="${list.getPdPrice() * (100-list.getPdSale())/100 }" />
-												<fmt:parseNumber var="parsed_total" value="${total}" integerOnly="true" />
-												<span class="swiper_pdSale">${list.getPdSale()}%</span>&nbsp;<span class="swiper_pdTotalPrice">${parsed_total}원</span><br />
-												<span class="swiper_pdOriginPrice">${list.getPdPrice()}원</span>
-											</c:if>
-											<c:if test="${list.getPdSale() eq 0}">
-												<span><strong>${list.getPdPrice()}원</strong></span>
-											</c:if>
+										<div class="row">
+											<div class="col show_img_div">
+												<img class="show_img_size" src="/resources/pdimages/pd_main_default.jpg" alt="" />
+											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col show_img_div">
-											<img class="show_img_size" src="/resources/pdimages/pd_main_default.jpg" alt="" />
-										</div>
-									</div>
-									<div class="row">
-										<div class="col">
-											<a href="/goods/detailView?pdId=${list.getPdId()}"><button class="btn btn-outline-secondary">상세보기</button></a>
+										<br />
+										<div class="row">
+											<div class="col">
+												<a href="/goods/detailView?pdId=${list.getPdId()}"><button class="btn btn-outline-secondary">상세보기</button></a>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</c:forEach>
+						</c:forEach>
+					</div>
+					<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+					<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 				</div>
-				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 			</div>
 		</div>
-	</div>
-	<br />
-	<br />
-	<!-- 메인페이지 조회수 100,000 이상 select -->
-	<div class="row">
-		<div class="col col-lg-3"></div>
-		<div class="col text-center">
-			<p class="show_swiper_title">조회수 100,000 이상</p>
+		<br />
+		<br />
+		<!-- 메인페이지 조회수 100,000 이상 select -->
+		<div class="row">
+			<div class="col col-lg-3"></div>
+			<div class="col text-center">
+				<p class="show_swiper_title">조회수 100,000 이상</p>
+			</div>
+			<div class="col col-lg-3"></div>
 		</div>
-		<div class="col col-lg-3"></div>
-	</div>
-	<div class="row">
-	<!-- 메인페이지 조회수 100,000 이상 select -->
-		<div class="container">
-			<div class="swiper-container">
-				<div class="swiper-wrapper">
-					<c:forEach var="list" items="${hitsPd}" varStatus="vs">
-						<div class="swiper-slide">
-							<div class="row">
-								<div class="col">
-								<!-- 개별상품1개 -->
-									<div class="row">
-										<div class="col">
-											<span class="show_pdBrandName">[${list.getPdstlBrandName()}]</span>
-											<br />
-											<hr />
-											<span class="show_pdName">${list.getPdName()}</span>
+		<div class="row">
+		<!-- 메인페이지 조회수 100,000 이상 select -->
+			<div class="container">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<c:forEach var="list" items="${hitsPd}" varStatus="vs">
+							<div class="swiper-slide">
+								<div class="row">
+									<div class="col">
+									<!-- 개별상품1개 -->
+										<div class="row">
+											<div class="col">
+												<span class="show_pdBrandName">[${list.getPdstlBrandName()}]</span>
+												<br />
+												<hr />
+												<span class="show_pdName">${list.getPdName()}</span>
+											</div>
+											<div class="col">
+												<c:if test="${list.getPdSale() gt 0}">
+													<c:set var="total" value="${list.getPdPrice() * (100-list.getPdSale())/100 }" />
+													<fmt:parseNumber var="parsed_total" value="${total}" integerOnly="true" />
+													<span class="swiper_pdSale">${list.getPdSale()}%</span>&nbsp;<span class="swiper_pdTotalPrice">${parsed_total}원</span><br />
+													<span class="swiper_pdOriginPrice">${list.getPdPrice()}원</span>
+												</c:if>
+												<c:if test="${list.getPdSale() eq 0}">
+													<span><strong>${list.getPdPrice()}원</strong></span>
+												</c:if>
+											</div>
 										</div>
-										<div class="col">
-											<c:if test="${list.getPdSale() gt 0}">
-												<c:set var="total" value="${list.getPdPrice() * (100-list.getPdSale())/100 }" />
-												<fmt:parseNumber var="parsed_total" value="${total}" integerOnly="true" />
-												<span class="swiper_pdSale">${list.getPdSale()}%</span>&nbsp;<span class="swiper_pdTotalPrice">${parsed_total}원</span><br />
-												<span class="swiper_pdOriginPrice">${list.getPdPrice()}원</span>
-											</c:if>
-											<c:if test="${list.getPdSale() eq 0}">
-												<span><strong>${list.getPdPrice()}원</strong></span>
-											</c:if>
+										<div class="row">
+											<div class="col show_img_div">
+												<img class="show_img_size" src="/resources/pdimages/pd_main_default.jpg" alt="" />
+											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col show_img_div">
-											<img class="show_img_size" src="/resources/pdimages/pd_main_default.jpg" alt="" />
-										</div>
-									</div>
-									<div class="row">
-										<div class="col">
-											<a href="/goods/detailView?pdId=${list.getPdId()}"><button class="btn btn-outline-secondary">상세보기</button></a>
+										<br />
+										<div class="row">
+											<div class="col">
+												<a href="/goods/detailView?pdId=${list.getPdId()}"><button class="btn btn-outline-secondary">상세보기</button></a>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</c:forEach>
+						</c:forEach>
+					</div>
+					<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+					<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 				</div>
-				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 			</div>
 		</div>
-	</div>
-	<br />
-	<br />
-	<!-- 메인페이지 제품 출시 6개월 미만 판매량 높은 제품 select -->
-	<div class="row">
-		<div class="col col-lg-3"></div>
-		<div class="col text-center">
-			<p class="show_swiper_title">제품 출시 6개월 미만 판매량 높은 제품</p>
+		<br />
+		<br />
+		<!-- 메인페이지 제품 출시 6개월 미만 판매량 높은 제품 select -->
+		<div class="row">
+			<div class="col col-lg-3"></div>
+			<div class="col text-center">
+				<p class="show_swiper_title">제품 출시 6개월 미만 판매량 높은 제품</p>
+			</div>
+			<div class="col col-lg-3"></div>
 		</div>
-		<div class="col col-lg-3"></div>
-	</div>
-	<div class="row">
-	<!-- 메인페이지 제품 출시 6개월 미만 판매량 높은 제품 select -->
-		<div class="container">
-			<div class="swiper-container">
-				<div class="swiper-wrapper">
-					<c:forEach var="list" items="${datePd}" varStatus="vs">
-						<div class="swiper-slide">
-							<div class="row">
-								<div class="col">
-								<!-- 개별상품1개 -->
-									<div class="row">
-										<div class="col">
-											<span class="show_pdBrandName">[${list.getPdstlBrandName()}]</span>
-											<br />
-											<hr />
-											<span class="show_pdName">${list.getPdName()}</span>
+		<div class="row">
+		<!-- 메인페이지 제품 출시 6개월 미만 판매량 높은 제품 select -->
+			<div class="container">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<c:forEach var="list" items="${datePd}" varStatus="vs">
+							<div class="swiper-slide">
+								<div class="row">
+									<div class="col">
+									<!-- 개별상품1개 -->
+										<div class="row">
+											<div class="col">
+												<span class="show_pdBrandName">[${list.getPdstlBrandName()}]</span>
+												<br />
+												<hr />
+												<span class="show_pdName">${list.getPdName()}</span>
+											</div>
+											<div class="col">
+												<c:if test="${list.getPdSale() gt 0}">
+													<c:set var="total" value="${list.getPdPrice() * (100-list.getPdSale())/100 }" />
+													<fmt:parseNumber var="parsed_total" value="${total}" integerOnly="true" />
+													<span class="swiper_pdSale">${list.getPdSale()}%</span>&nbsp;<span class="swiper_pdTotalPrice">${parsed_total}원</span><br />
+													<span class="swiper_pdOriginPrice">${list.getPdPrice()}원</span>
+												</c:if>
+												<c:if test="${list.getPdSale() eq 0}">
+													<span><strong>${list.getPdPrice()}원</strong></span>
+												</c:if>
+											</div>
 										</div>
-										<div class="col">
-											<c:if test="${list.getPdSale() gt 0}">
-												<c:set var="total" value="${list.getPdPrice() * (100-list.getPdSale())/100 }" />
-												<fmt:parseNumber var="parsed_total" value="${total}" integerOnly="true" />
-												<span class="swiper_pdSale">${list.getPdSale()}%</span>&nbsp;<span class="swiper_pdTotalPrice">${parsed_total}원</span><br />
-												<span class="swiper_pdOriginPrice">${list.getPdPrice()}원</span>
-											</c:if>
-											<c:if test="${list.getPdSale() eq 0}">
-												<span><strong>${list.getPdPrice()}원</strong></span>
-											</c:if>
+										<div class="row">
+											<div class="col show_img_div">
+												<img class="show_img_size" src="/resources/pdimages/pd_main_default.jpg" alt="" />
+											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col show_img_div">
-											<img class="show_img_size" src="/resources/pdimages/pd_main_default.jpg" alt="" />
-										</div>
-									</div>
-									<div class="row">
-										<div class="col">
-											<a href="/goods/detailView?pdId=${list.getPdId()}"><button class="btn btn-outline-secondary">상세보기</button></a>
+										<br />
+										<div class="row">
+											<div class="col">
+												<a href="/goods/detailView?pdId=${list.getPdId()}"><button class="btn btn-outline-secondary">상세보기</button></a>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</c:forEach>
+						</c:forEach>
+					</div>
+					<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+					<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+					</div>
 				</div>
-				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 			</div>
 		</div>
-	</div>
+	
 </div>
+
+
+
 <!-- =======================푸터 시작======================= -->
 <footer class="footer">
 		<div class="footer-limit">
@@ -628,6 +724,11 @@ let currentSession = $("#currentSession").text();
 $("#enterCartPage").click(function(){
 	if(currentSession.length === 0){$("#login_warn_modal").modal("show");return false;}
 	location.href="/cart/enterCartPage";
+});
+//찜하기 버튼 클릭
+$("#enterFavorPage").click(function(){
+	if(currentSession.length === 0){$("#login_warn_modal").modal("show");return false;}
+	location.href="/myPage/myPageList";
 });
 
 //모달창에서 로그인 버튼
