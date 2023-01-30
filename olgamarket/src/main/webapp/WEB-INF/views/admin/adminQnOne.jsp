@@ -16,7 +16,7 @@
 <div class="container">
 	<nav class="navbar bg-light">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="/admin/storeList">판매점</a>
+			<a class="navbar-brand" href="/admin/storeList">판매점</a> 
 			<a class="navbar-brand" href="/admin/seller">판매자</a>
 			<a class="navbar-brand" href="/admin/product">상품</a>
 			<a class="navbar-brand" href="/admin/clientList">고객센터</a>
