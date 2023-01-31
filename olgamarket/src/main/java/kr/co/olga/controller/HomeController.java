@@ -1,5 +1,6 @@
 package kr.co.olga.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,16 @@ public class HomeController {
 		List<ProductVO> pdVo3 = productService.mainProductSalesVolumeSelect(vo);
 		model.addAttribute("svPd", pdVo3);
 	
-	// 후기 10,000개 이상		
-		List<ProductVO> pdVo4 = productService.mainProductReviewSelect(vo);
-		model.addAttribute("reviewPd", pdVo4);
+	// 후기 10,000개 이상	
+		ProductVO prodcutVo = new ProductVO();
+		List<ProductVO> pdVo = productService.productReviewSelectList(prodcutVo);
+		List<ProductVO> pdList = new ArrayList<ProductVO>();
+		for(int i = 0; i < pdVo.size(); i++) {
+			pdList.add(productService.productSelectOne(pdVo.get(i).getPdId()));
+			
+		}
+		model.addAttribute("reviewPd", pdList);
+		
 
 	// 조회수 100,000 이상	
 		List<ProductVO> pdVo5 = productService.mainProductHitsSelect(vo);

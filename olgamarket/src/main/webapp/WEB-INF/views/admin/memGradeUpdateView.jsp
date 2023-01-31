@@ -33,7 +33,12 @@
 					<tr>
 						<td>
 							<label for="memGrade">등급</label>
-							<input type="text" id="memGrade" name="memGrade" value="${memGradeUpd.memGrade}" class="form-control"/>
+							<select name="memGrade" required="required" class="form-control">
+								<option value="">선택하세요.</option>
+								<option value="Friend">Friend</option>
+								<option value="VIP">VIP</option>
+								<option value="VVIP">VVIP</option>
+							</select> 
 						</td>
 					</tr>
 					<tr>

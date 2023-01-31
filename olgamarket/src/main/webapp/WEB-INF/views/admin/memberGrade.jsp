@@ -62,7 +62,7 @@ function memList(pageNo, sortNo) {
         	var pageInfo = data.pageInfo;
 			var currPage = data.currPage;
             var memPageList = data.memList; // model 처럼
-            
+            console.log(memPageList);
             var memContentTag = "<table class='table'><tr><th>회원 아이디</th><th>회원 등급</th></tr>";
             var memPagingTag = "";
             

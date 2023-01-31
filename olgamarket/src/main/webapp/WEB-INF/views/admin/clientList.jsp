@@ -89,12 +89,13 @@ function noticeList(pageNo) {
 			var currPage = data.currPage;
             var noticePageList = data.noticeList; // model 처럼
         	
-            var noticeContentTag = "<table class='table'><tr><th>No</th><th>제목</th><th>작성자</th><th>등록일</th></tr>";
+            var noticeContentTag = "<table class='table'><tr><th>No</th><th>카테고리</th><th>제목</th><th>작성자</th><th>등록일</th></tr>";
             var noticePagingTag = "";
 
 			$.each(noticePageList, function(key, value) {
 				noticeContentTag += "<tr>";
 				noticeContentTag += "<td><a href='/admin/noticeOne?ntNo="+value.ntNo+"'class='btn btn-danger'>"+value.ntNo+"</a></td>";
+				noticeContentTag += "<td>"+value.ntCategory+"</td>";
 				noticeContentTag += "<td>"+value.ntTitle+"</td>";
 				noticeContentTag += "<td>"+value.ntadmId+"</td>";
 				noticeContentTag += "<td>"+value.ntUpdDate+"</td>";

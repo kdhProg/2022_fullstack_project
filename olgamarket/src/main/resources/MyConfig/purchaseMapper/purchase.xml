@@ -11,13 +11,13 @@
 				= (select EXTRACT(MONTH FROM plDate) AS MONTHS from dual) GROUP BY plmemid) pl, members mem
 				    where 
 				    	<if test='sortType == 1'>
-							total <![CDATA[<]]> 200000 and pl.plmemid = mem.memId
+							total <![CDATA[<]]> 200000 and pl.plmemid = mem.memId and mem.memGrade != 'Friend'
 						</if>
 						<if test='sortType == 2'>
-							total > 200000 and total <![CDATA[<]]> 500000 and pl.plmemid = mem.memId
+							total > 200000 and total <![CDATA[<]]> 500000 and pl.plmemid = mem.memId and mem.memGrade != 'VIP'
 						</if>
 						<if test='sortType == 3'>
-							total > 500000 and pl.plmemid = mem.memId
+							total > 500000 and pl.plmemid = mem.memId and mem.memGrade != 'VVIP'
 						</if>
 	</select>
 	
