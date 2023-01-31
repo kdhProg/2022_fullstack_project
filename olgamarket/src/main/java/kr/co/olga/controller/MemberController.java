@@ -263,10 +263,10 @@ public class MemberController {
 				SellerVO vo = new SellerVO(memId, memPwd, memName, selstlBrandName, memEmail, memPhone, selAddress, memGender,memGrade,selMarketUniqueNo,selSelRegiNo,memChoice,selTypeGrade,null,null);
 				sellerservice.selJoin(vo);
 				
-				ShipVO shpVo = new ShipVO(); //기본배송지 추가
-				shpVo.setSlmemId(memId);
-				shpVo.setSlAddress(selAddress);
-				shpService.shipInsert(shpVo);
+//				ShipVO shpVo = new ShipVO(); //기본배송지 추가
+//				shpVo.setSlmemId(memId);
+//				shpVo.setSlAddress(selAddress);
+//				shpService.shipInsert(shpVo);
 				return "redirect:/member/login";
 			}
 		}
