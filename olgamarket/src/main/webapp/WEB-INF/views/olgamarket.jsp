@@ -20,10 +20,7 @@
 div {
 /* border : 3px solid red; */
 }
-/* 현재세션 */
-#currentSession{
-	display: none;
-}
+
 /* 슬라이드 이미지 조정 */
 .show_img_div{
 	overflow: hidden;
@@ -75,18 +72,26 @@ hr{
 	justify-content:center; /* 좌우 기준 중앙정렬 */
 }
 /* ==========헤더관련=============== */
+/* 현재세션 */
+#currentSession{
+	display: none;
+}
 /* 스틱키 */
 #main_navBars{
 	position: sticky;
 	top:0px;
 	z-index: 999;
 	background: white;
-/* 	box-shadow: 0 1px 2px 0; */
+ 	box-shadow: 0 4px 4px -4px black;
 }
-/* a태그 장식제거 */
+/* a태그 장식제거*/
 a{
 	color:black;
 	text-decoration: none;
+}
+/* a태그 호버 */
+a:hover{
+	color:#FC5603;
 }
 /* 카테고리바 숨기기 */
 .main2{
@@ -95,7 +100,7 @@ a{
 }
 /* 카테고리바 보이기 */
 .main1>li:hover .main2 {
-	left: 200px;
+	left: 130px;
 }
 /* 찜/장바구니 버튼 */
 #enterFavorPage,#enterCartPage{
@@ -104,7 +109,7 @@ a{
 }
 /* 메인로고 */
 #mainLogo{
-	width:80px;
+	width:70px;
 }
 /* 검색창 테두리 */
 #searchBox_wrap{
@@ -117,11 +122,47 @@ a{
 }
 /* 카테고리박스 */
 .main2{
-	border: 1px solid black;
+	border: 1px solid #FAFAFA;
+	background: white;
+}
+/* li태그 마진 조정 */
+.cate_li{
+	margin-top:20px;
+	margin-bottom: 10px;
+	font-weight: bold;
+	font-size: 0.9em;
+}
+/* 네비게이션 검색박스 */
+#navSearchBox,#navSearchBoxBtn{
+	display:none;
+}
+/* 회원가입 */
+#header_join{
+	color:red;
+}
+/* 판매자일시 */
+#header_sellName{
+	color:tomato;
+}
+/* 일반멤버일시 */
+#header_memName{
+	color:tomato;
+}
+/* 네비게이션 padding 조정 */
+.nav_padding_modified{
+	padding-top: 10px;
+}
+/* 세부조정 */
+.nav_padding_modified_input{
+	padding-top: 5px;
 }
 /* =============헤더관련 끝================ */
+/* 이벤트 탭 */
+.event_tab{
+	width:60%;
+}
 .col{
-/*  	border:2px solid green; */
+/*    	border:2px solid green;   */
 }
 </style>
 <body>
@@ -138,46 +179,55 @@ a{
 				<c:choose> 
 					<c:when test="${not empty member}">
 					<!-- 일반회원 -->
-						<span>${member.getMemName()}님</span>
-						<a href="/member/logout">로그아웃</a>
-						<a href="/myPage/myPageList?memId=${member.getMemId()}">마이페이지</a>
+						<strong><span id="header_memName">${member.getMemName()}</span>님</strong>
+						<span>|</span>
+						<strong><a href="/member/logout">로그아웃</a></strong>
+						<span>|</span>
+						<strong><a href="/myPage/myPageList?memId=${member.getMemId()}">마이페이지</a></strong>
+						<span>|</span>
 					</c:when> 
 					<c:when test="${not empty seller}">
 					<!-- 판매자회원 -->
-						<span>판매자회원: ${seller.getSelName()}님</span>
-						<a href="/member/logout">로그아웃</a>
+						<strong><span id="header_sellName">${seller.getSelName()}</span>님</strong>
+						<span>|</span>
+						<strong><a href="/member/logout">로그아웃</a></strong>
+						<span>|</span>
 						<c:if test="${seller.getSelTypeGrade() eq 1}">
 						<!-- 판매자회원이면서 권한이 유효해야함 -->
-							<a href="/seller/dedicated?selId=${seller.getSelId()}&selstlBrandName=${seller.getSelstlBrandName()}">판매자 전용 페이지</a>
+							<strong><a href="/seller/dedicated?selId=${seller.getSelId()}&selstlBrandName=${seller.getSelstlBrandName()}">판매자 전용 페이지</a></strong>
+							<span>|</span>
 						</c:if>
 					</c:when> 
 					<c:otherwise>
 					<!-- 비로그인 -->
-						<a href="/member/join">회원가입</a>
-						<a href="/member/login">로그인</a>
+						<strong><a href="/member/join" id="header_join">회원가입</a></strong>
+						<span>|</span>
+						<strong><a href="/member/login">로그인</a></strong>
+						<span>|</span>
 					</c:otherwise> 
 				</c:choose>
-				<a href="/board/client" class="link_text">고객센터</a>
+				<strong><a href="/board/client" id="header_board_tag" class="link_text">고객센터</a></strong>
 			</div>
 		</div>
 	</div>
+	<br />
 	<div class="row">
-		<div class="col col-lg-3 text-end">
+		<div class="col col-lg-4 text-end">
 			<a href="/" ><img id="mainLogo" src="/resources/pdimages/logo.png" class="img_logo" alt="" /></a>
 		</div>
-		<div class="col col-lg-6 text-center">
+		<div class="col col-lg-4 text-center">
 			<form action="/search/productList">
 				<div id="searchBox_wrap" class="row">
-					<div class="col col-lg-10">
+					<div class="col">
 						<input id="search_input_box" type="search" class="form-control" maxlength="225" tabindex="1" placeholder="검색어를 입력하세요" name="searchKeyWord"/>
 					</div>
-					<div class="col col-lg-1 text-start">
-						<button type="submit" class="btn" tabindex="2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg></button>
+					<div class="col col-lg-2 text-start">
+						<button type="submit" class="btn" tabindex="2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#FC5603" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg></button>
 					</div>
 				</div>
 			</form>
 		</div>
-		<div class="col col-lg-3 text-center">
+		<div class="col col-lg-4 text-center">
 			<div class="row">
 				<div class="col col-lg-2"></div>
 				<div class="col">
@@ -190,34 +240,36 @@ a{
 						<button id="enterCartPage" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16"><path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/></svg></button>
 					</div>
 				</div>
-				<div class="col col-lg-2"></div>
+				<div class="col col-lg-4"></div>
 			</div>
 		</div>
 	</div>
 	<div id="main_navBars" class="row">
-		<div class="col col-lg-2"></div>
-		<div class="col col-lg-2">
+		<div class="col col-lg-1"></div>
+		<div class="nav_padding_modified col">
 			<nav>
 				<div id="menu">
 					<ul class="main1">
-						<li style="border: none;"><b style="font-size: 15px;"><span style="font-size: 15px;">≡</span> 카테고리</b>
+						<li style="border: none;"><a href="" onclick="return false;"><b style="font-size: 15px;"><span style="font-size: 15px;">≡</span>카테고리</b></a>
 							<ul class="main2">
-								<li class="cate_li"><a href="/collections/mainPageCategory?cateName=과일">[과일]</a></li>
-								<li class="cate_li"><a href="/collections/mainPageCategory?cateName=채소">[채소]</a></li>
-								<li class="cate_li"><a href="/collections/mainPageCategory?cateName=쌀/잡곡">[쌀/잡곡]</a></li>
-								<li class="cate_li"><a href="/collections/mainPageCategory?cateName=수산물">[수산물]</a></li>
-								<li class="cate_li"><a href="/collections/mainPageCategory?cateName=축산/계란">[축산/계란]</a></li>
-								<li class="cate_li"><a href="/collections/mainPageCategory?cateName=냉동/냉장/간편식">[냉동/냉장/간편식]</a></li>
+								<li class="cate_li"><a href="/collections/mainPageCategory?cateName=과일">과일</a></li>
+								<li class="cate_li"><a href="/collections/mainPageCategory?cateName=채소">채소</a></li>
+								<li class="cate_li"><a href="/collections/mainPageCategory?cateName=쌀/잡곡">쌀/잡곡</a></li>
+								<li class="cate_li"><a href="/collections/mainPageCategory?cateName=수산물">수산물</a></li>
+								<li class="cate_li"><a href="/collections/mainPageCategory?cateName=축산/계란">축산/계란</a></li>
+								<li class="cate_li"><a href="/collections/mainPageCategory?cateName=냉동/냉장/간편식">냉동/냉장/간편식</a></li>
 							</ul>
 						</li>
 					</ul>
 				</div>
 			</nav>
 		</div>
-		<div class="col col-lg-2 text-center"><a href="/collections/newProduct"><strong>신상품</strong></a></div>
-		<div class="col col-lg-2 text-center"><a href="/collections/best"><strong>베스트</strong></a></div>
-		<div class="col col-lg-2 text-center"><a href="/collections/nowOnSale"><strong>할인/특가</strong></a></div>
-		<div class="col col-lg-2"></div>
+		<div class="nav_padding_modified col text-center"><a href="/collections/newProduct"><strong>신상품</strong></a></div>
+		<div class="nav_padding_modified col text-center"><a href="/collections/best"><strong>베스트</strong></a></div>
+		<div class="nav_padding_modified col text-center"><a href="/collections/nowOnSale"><strong>할인/특가</strong></a></div>
+		<div id="navSearchBox" class="nav_padding_modified_input col col-lg-2 text-center"><input id="navSearchBox_input" type="search" class="form-control" maxlength="225" tabindex="1" placeholder="검색어를 입력하세요" name="searchKeyWord"/></div>
+		<div id="navSearchBoxBtn" class="nav_padding_modified_input col col-lg-1 text-start"><button id="navSearchBoxBtn_Btn" type="submit" class="btn" tabindex="2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#FC5603" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg></button></div>
+		<div class="col col-lg-1"></div>
 	</div>
 	<!-- =======헤더끝================= -->
 	<br />
@@ -228,7 +280,7 @@ a{
 		<div class="row">
 			<div class="col col-lg-3"></div>
 			<div class="col text-center">
-				<p class="show_swiper_title">제철과일</p>
+				<p class="show_swiper_title"><a href="/mainEvent/fruit">제철과일</a></p>
 			</div>
 			<div class="col col-lg-3"></div>
 		</div>
@@ -284,11 +336,20 @@ a{
 		</div>
 		<br />
 		<br />
+		<!-- 이벤트탭 -->
+<!-- 		<div class="row"> -->
+<!-- 			<div class="col text-center"> -->
+<!-- 				<img class="event_tab" src="/resources/pdimages/mainpage_default_event.png" alt="" /> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+		<!-- 이벤트탭 -->
+		<br />
+		<br />
 		<!-- 메인페이지 지금 할인 중 select -->
 		<div class="row">
 			<div class="col col-lg-3"></div>
 			<div class="col text-center">
-				<p class="show_swiper_title">지금 할인 중</p>
+				<p class="show_swiper_title"><a href="/mainEvent/sale">지금 할인 중</a></p>
 			</div>
 			<div class="col col-lg-3"></div>
 		</div>
@@ -344,11 +405,20 @@ a{
 		</div>
 		<br />
 		<br />
+		<!-- 이벤트탭 -->
+		<div class="row">
+			<div class="col text-center">
+				<img class="event_tab" src="/resources/pdimages/mainpage_default_event.png" alt="" />
+			</div>
+		</div>
+		<!-- 이벤트탭 -->
+		<br />
+		<br />
 		<!-- 메인페이지 만원 이하 판매량 높은 제품 select -->
 		<div class="row">
 			<div class="col col-lg-3"></div>
 			<div class="col text-center">
-				<p class="show_swiper_title">만원 이하 판매량 높은 제품</p>
+				<p class="show_swiper_title"><a href="/mainEvent/salesVolume">만원 이하 판매량 높은 제품</a></p>
 			</div>
 			<div class="col col-lg-3"></div>
 		</div>
@@ -408,7 +478,7 @@ a{
 		<div class="row">
 			<div class="col col-lg-3"></div>
 			<div class="col text-center">
-				<p class="show_swiper_title">후기 10,000개 이상</p>
+				<p class="show_swiper_title"><a href="/mainEvent/review">후기 10,000개 이상</a></p>
 			</div>
 			<div class="col col-lg-3"></div>
 		</div>
@@ -464,11 +534,20 @@ a{
 		</div>
 		<br />
 		<br />
+		<!-- 이벤트탭 -->
+		<div class="row">
+			<div class="col text-center">
+				<img class="event_tab" src="/resources/pdimages/mainpage_default_event.png" alt="" />
+			</div>
+		</div>
+		<!-- 이벤트탭 -->
+		<br />
+		<br />
 		<!-- 메인페이지 조회수 100,000 이상 select -->
 		<div class="row">
 			<div class="col col-lg-3"></div>
 			<div class="col text-center">
-				<p class="show_swiper_title">조회수 100,000 이상</p>
+				<p class="show_swiper_title"><a href="/mainEvent/hits">조회수 100,000 이상</a></p>
 			</div>
 			<div class="col col-lg-3"></div>
 		</div>
@@ -528,7 +607,7 @@ a{
 		<div class="row">
 			<div class="col col-lg-3"></div>
 			<div class="col text-center">
-				<p class="show_swiper_title">제품 출시 6개월 미만 판매량 높은 제품</p>
+				<p class="show_swiper_title"><a href="/mainEvent/date">제품 출시 6개월 미만 판매량 높은 제품</a></p>
 			</div>
 			<div class="col col-lg-3"></div>
 		</div>
@@ -584,7 +663,7 @@ a{
 			</div>
 		</div>
 	
-</div>
+</div> <!-- 헤더 따라오는 탭 때문에 넣은것 => id가header_and_contents인 최상위 div의 마침태그임 -->
 
 
 
@@ -715,11 +794,27 @@ a{
     </div>
   </div>
 </div>
+
 </body>
 <script>
 //현재 세션값
 let currentSession = $("#currentSession").text();
 
+//스와이퍼
+new Swiper('.swiper-container', {
+	navigation : {
+		nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+		prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+	},
+});
+
+
+/* 헤더관련  - 시작*/
+
+//모달창에서 로그인 버튼
+$("#warn_modal_login").click(function(){
+	location.href = "/member/login";
+});
 //장바구니 버튼 클릭
 $("#enterCartPage").click(function(){
 	if(currentSession.length === 0){$("#login_warn_modal").modal("show");return false;}
@@ -730,18 +825,27 @@ $("#enterFavorPage").click(function(){
 	if(currentSession.length === 0){$("#login_warn_modal").modal("show");return false;}
 	location.href="/myPage/myPageList";
 });
-
-//모달창에서 로그인 버튼
-$("#warn_modal_login").click(function(){
-	location.href = "/member/login";
+//고객센터 버튼 클릭
+$("#header_board_tag").click(function(){
+	if(currentSession.length === 0){$("#login_warn_modal").modal("show");return false;}
+});
+//스크롤관련
+let scrollPosition = Math.ceil($("#searchBox_wrap").offset().top);
+$(window).scroll(function(){
+	if(window.scrollY >= scrollPosition) {
+		$("#navSearchBox").css("display","block");
+		$("#navSearchBoxBtn").css("display","block");
+	}else{
+		$("#navSearchBox").css("display","none");
+		$("#navSearchBoxBtn").css("display","none");
+	}
 });
 
-//스와이파
-new Swiper('.swiper-container', {
-	navigation : {
-		nextEl : '.swiper-button-next', // 다음 버튼 클래스명
-		prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
-	},
+$("#navSearchBoxBtn_Btn").click(()=>{
+	let navSearchKeyWord = $("#navSearchBox_input").val();
+	location.href="/search/productList?searchKeyWord="+navSearchKeyWord;
 });
+/* 헤더관련  - 끝*/
+
 </script>
 </html>
