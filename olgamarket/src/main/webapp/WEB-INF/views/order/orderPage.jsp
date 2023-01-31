@@ -340,6 +340,7 @@ a:hover{
 								</div>
 							</div>
 							<br />
+							<br />
 							<div class="row text-center">
 								<div class="col col-lg-2"></div>
 								<div class="col">
@@ -377,7 +378,7 @@ a:hover{
 				</div>
 				<div class="row">
 					<div class="col col-lg-6">주문금액</div>
-					<div class="col">${totalPrice}</div>
+					<div class="col">${totalPrice}원</div>
 				</div>
 				<div class="row">
 					<div class="col col-lg-6">배송비</div>
@@ -386,12 +387,12 @@ a:hover{
 				<div class="row">
 					<div class="col col-lg-6">상품할인금액</div>
 					<div class="col">
-						${totalSalePrice}
+						${totalSalePrice}원
 					</div>
 				</div>
 				<div class="row">
 					<div class="col col-lg-6">최종결제금액</div>
-					<div class="col">${totalPrice}</div>
+					<div class="col">${totalPrice}원</div>
 				</div>
 			</div>
 		</div>
