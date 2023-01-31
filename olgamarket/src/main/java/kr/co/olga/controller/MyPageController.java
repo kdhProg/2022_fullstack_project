@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -307,7 +310,7 @@ public class MyPageController {
 	// 회원 정보 수정 
 	@RequestMapping(value = "/memInfoUpdate")
 	public String memInfoUpdate(MemberVO vo, String mainPostcode,String mainAddress,String mainDetailAddress, 
-								Integer choiceSelectBoxOne,Integer choiceSelectBoxTwo,Integer choiceSelectBoxThree ) {
+								Integer choiceSelectBoxOne,Integer choiceSelectBoxTwo,Integer choiceSelectBoxThree,HttpServletRequest request ) {
 		
 		String memAddress = mainPostcode + " " + mainAddress + " " + mainDetailAddress;
 		Long memChoice = 0L;
@@ -319,6 +322,9 @@ public class MyPageController {
 		
 		memberService.memberUpdate(vo);
 		
+		//세션없애기
+		HttpSession session = request.getSession();
+		session.invalidate();
 		
 		return "redirect:/member/login";
 	}

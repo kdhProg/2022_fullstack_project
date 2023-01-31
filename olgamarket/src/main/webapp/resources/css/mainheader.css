@@ -1,214 +1,88 @@
 @charset "UTF-8";
 
-* {
-	list-style: none;
-	box-sizing: border-box;
-	/* 길이 계산을 편하게 하기위함. box-sizing에 관한 설명은 아래 링크를 참고해주세요 */
+/* ==========헤더관련=============== */
+/* 현재세션 */
+#currentSession{
+	display: none;
 }
-
-body {
-	margin: 0; /* body의 기본마진을 없애줍니다(선택사항) */
-	font-family: sans-serif;
-}
-
-a {
-	text-decoration: none; /* 기본 밑줄을 제거합니다 */
-	color: #888;
-}
-
-a:hover {
-	text-decoration: none; /* 마우스 커서가 올라갔을 때 밑줄을 생성합니다*/
-	color: red;
-}
-
-#span:hover {
-	color: red;
-	background-color: white;
-	text-decoration: none;
-}
-
-header {
-	margin: auto; /* header의 양쪽 여백(margin)을 동등하게 맞춤 -> 수평가운데정렬 */
-	width: 1080px;
-	height: 215px;
-	display: flex;
-	align-items: center; /* 하위 요소들 수직 가운데정렬 */
-	position: relative;
-	border: 0px solid black;
-}
-main{
-	height: 100%;	
-}
-fieldset {
-	border: none; /* 기본 border 없애기(이 코드를 지우고 기본 border를 확인해보세요) */
-}
-
-.visually-hidden { /* legend 안보이게 설정. 이렇게하면 접근성을 준수하면서 디자인을 해치지 않습니다. */
-	position: absolute !important;
-	height: 1px;
-	width: 1px;
-	overflow: hidden;
-	clip: rect(1px, 1px, 1px, 1px);
-	clip: rect(1px, 1px, 1px, 1px);
-	white-space: nowrap;
-}
-
-.links { /* 링크들을 상단 우측에 위치시킵니다. */
-}
-
-.link_text {
-	font-size: 14px;
-	margin-left: 5px;	
-}
-
- .img_logo {	
-	border: 0px red solid;
-	width: 112px;
-	height: 80px;
-	cursor:pointer;
-}
-
-
-.search_box {
-	width: 400px;
-	height: 50px;
-	border: 2px solid red;
-	border-radius: 13px;
-	display: flex;
-	align-items: center;
-	outline: none;
-}
-
-.search_box input {
-	flex: 9; /* search-box내부에서 9만큼의 크기를 차지(비율) */
-	height: 40px;
-	padding-left: 12px;
-	padding-right: 12px;
-	border-radius: 13px;
-	border: none;
-	outline: none;
-	font-size: 16px;
-}
-
-.search_box button {
-	flex: 1; /* search-box내부에서 1만큼의 크기를 차지(비율) */
-	height: 46px;
-	margin: 0;
-	padding: 0;
-	border: none;
-	outline: none;
-	background: white;
-	color: red;
-	border-radius: 13px;
-}
-.fav button{
-	width: 36px;
-	height: 36px;
-	background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCAzNiAzNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik0yOC45MjcgOC44OTNhNi40NiA2LjQ2IDAgMCAwLTkuMTM5IDBsLTEuODI5IDEuODI4LTEuODI3LTEuODI4YTYuNDYyIDYuNDYyIDAgMSAwLTkuMTQgOS4xMzhMOC44MiAxOS44Nmw4LjQzMiA4LjQzNGExIDEgMCAwIDAgMS40MTQgMGw4LjQzMy04LjQzNGgwbDEuODI4LTEuODI4YTYuNDYgNi40NiAwIDAgMCAwLTkuMTM4eiIgc3Ryb2tlPSIjMzMzIiBzdHJva2Utd2lkdGg9IjEuNyIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+Cg==)
-	50% 50% no-repeat;
-	border: none;
-	outline: none;
-	cursor:pointer;
-}
-.shopbasket button{
-	width: 36px;
-	height: 36px;
-	background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCAzNiAzNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTM2IDM2SDBWMGgzNnoiLz4KICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1LjE2NCA2LjU0NykiIHN0cm9rZT0iIzMzMyIgc3Ryb2tlLWxpbmVjYXA9InNxdWFyZSIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjciPgogICAgICAgICAgICA8cGF0aCBkPSJtMjUuNjggMy42Ni0yLjcyIDExLjU3SDcuMzdMNC42NiAzLjY2eiIvPgogICAgICAgICAgICA8Y2lyY2xlIGN4PSIyMC41MiIgY3k9IjIwLjc4IiByPSIyLjE0Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY3g9IjkuODEiIGN5PSIyMC43OCIgcj0iMi4xNCIvPgogICAgICAgICAgICA8cGF0aCBkPSJNMCAwaDMuOGwxLjc2IDcuNSIvPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+Cg==)
-	50% 50% no-repeat;	
-	border: none;
-	outline: none;
-	cursor:pointer;
-}
- main {
-	background: white;
-	min-height: 700px;
-	border: 1px solid black;
-}
-
---------------------------------------------
- * {
-	list-style: none;
-}
- a {
-	text-decoration: none;
-	color: #57523E;
-} 
-header>nav {
-   width: 100%;
-   height: 45px;
-   position: absolute;
-   bottom: 0;
-}
- #menu {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   font-size: 15px;
-   font-weight: bold;
-   border-top: 0px solid #f1f3f6;
-}
-
-[class*="main"] {
-	background-color: white;
-	border-radius: 5px 5px 5px 5px;
-}
-
-[class*="main"] ul {
-	border-radius: 5px 5px 5px 5px;
-	border: 1px solid #57523E;
-}
-
-.main1 {
-	margin:0;
-	display: inline-block;
-}
-
-.main1>li {
-	float: left;
-	line-height: 50px;
-	position: relative;
-	text-align: center;
-	justify-content: center;
-}
-
-.main1>li:hover .main2 {
-	left: 0;
-}
-
-.main1>li a {
-	display: block;
-}
-
-.main1>li a:hover {
-	font-weight: bold;
-	color: red;
-	text-decoration: none;
-}
-
-.main2 {
-	width: 200%;
-	position: absolute;
-	top: 50px;
-	left: -9999px;
-	width: 100%;
-	padding: 0px;
+/* 스틱키 */
+#main_navBars{
+	position: sticky;
+	top:0px;
 	z-index: 999;
+	background: white;
+ 	box-shadow: 0 4px 4px -4px black;
 }
-
-.main2>li {
-	position: relative;
+/* a태그 장식제거*/
+a{
+	color:black;
+	text-decoration: none;
 }
-
-.main2>li:hover .main3 {
-	left: 100%;
+/* a태그 호버 */
+a:hover{
+	color:#FC5603;
 }
-
-.main2>li a, .main3>li a {
+/* 카테고리바 숨기기 */
+.main2{
+	position: absolute;
+	left: -9999px;
+}
+/* 카테고리바 보이기 */
+.main1>li:hover .main2 {
+	left: 130px;
+}
+/* 찜/장바구니 버튼 */
+#enterFavorPage,#enterCartPage{
+	border: none;
+	background: transparent;
+}
+/* 메인로고 */
+#mainLogo{
+	width:70px;
+}
+/* 검색창 테두리 */
+#searchBox_wrap{
+	border: 1px solid #FC5603;
 	border-radius: 10px;
-	margin: 10px;
 }
-nav {
-	margin-top: 20px;
+/* 검색 인풋박스 테두리 */
+#search_input_box{
+	border: none;
 }
-
-
+/* 카테고리박스 */
+.main2{
+	border: 1px solid #FAFAFA;
+	background: white;
+}
+/* li태그 마진 조정 */
+.cate_li{
+	margin-top:20px;
+	margin-bottom: 10px;
+	font-weight: bold;
+	font-size: 0.9em;
+}
+/* 네비게이션 검색박스 */
+#navSearchBox,#navSearchBoxBtn{
+	display:none;
+}
+/* 회원가입 */
+#header_join{
+	color:red;
+}
+/* 판매자일시 */
+#header_sellName{
+	color:tomato;
+}
+/* 일반멤버일시 */
+#header_memName{
+	color:tomato;
+}
+/* 네비게이션 padding 조정 */
+.nav_padding_modified{
+	padding-top: 10px;
+}
+/* 세부조정 */
+.nav_padding_modified_input{
+	padding-top: 5px;
+}
+/* =============헤더관련 끝================ */
