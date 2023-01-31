@@ -41,7 +41,7 @@
 		</select>
 		<!-- 제철과일 selectList 페이지 -->
 			<select id="productSeasonFruitSelectList" parameterType="ProductVO" resultType="ProductVO">
-				select * from productDatas where pdSeason = 'winter' and rownum <![CDATA[<=]]> 30
+				select * from productDatas where pdSeason = 'summer' and rownum <![CDATA[<=]]> 30
 			</select>
 	
 	<!-- 메인페이지 지금 할인 중 select -->	
@@ -70,13 +70,14 @@
 			select pd.pdId from productDatas pd, reviews rv 
     			where pd.pdId = rv.rvpdId and rownum <![CDATA[<=]]> 10
     				group by pdId
-    					having count(rvNo) >= 5
+    					having count(rvNo) >= 10000
 		</select>
 		<!-- 후기 10,000개 이상 selectList 페이지 -->
 			<select id="productReviewSelectList" parameterType="ProductVO" resultType="ProductVO">
-				select pd.pdId from productDatas pd, reviews rv 
-    				where pd.pdId = rv.rvpdId and rownum <![CDATA[<=]]> 30
-    					group by pdId having count(rvNo) >= 5
+				select * from 
+					(select pd.pdId from productDatas pd, reviews rv 
+    					where pd.pdId = rv.rvpdId group by pdId having count(rvNo) >= 10000) 
+    			temp where rownum <![CDATA[<=]]> 30
 			</select>
 					
 	<!-- 메인페이지 조회수 100,000 이상 select -->	
@@ -94,7 +95,11 @@
 		</select>
 		<!-- 제품 출시 6개월 미만 판매량 높은 제품 selectList 페이지 -->
 			<select id="productDateSelectList" parameterType="ProductVO" resultType="ProductVO">
-				select * from productDatas where pdRegiDate <![CDATA[<]]> (select add_months(pdRegiDate, 6) from dual) and rownum <![CDATA[<=]]> 30 order by pdSalesVolume desc
+				select * from 
+					(select * from productDatas 
+						where pdRegiDate > (select add_months(sysdate, -6) from dual) 
+							order by pdSalesVolume desc)
+				temp where rownum <![CDATA[<=]]> 30
 			</select>	
 	
 <!-- 검색결과 select -->	
