@@ -142,7 +142,7 @@ public class MemberController {
 				
 				session.setAttribute("favor",favorList);
 				session.setAttribute("seller", sellogin);
-				return "redirect:/";
+				return "redirect:/seller/sellerMain";
 			}
 		}
 		

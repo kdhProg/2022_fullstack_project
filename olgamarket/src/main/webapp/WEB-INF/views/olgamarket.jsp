@@ -194,7 +194,7 @@ a:hover{
 						<span>|</span>
 						<c:if test="${seller.getSelTypeGrade() eq 1}">
 						<!-- 판매자회원이면서 권한이 유효해야함 -->
-							<strong><a href="/seller/dedicated?selId=${seller.getSelId()}&selstlBrandName=${seller.getSelstlBrandName()}">판매자 전용 페이지</a></strong>
+							<strong><a href="/seller/sellerMain?selId=${seller.getSelId()}&selstlBrandName=${seller.getSelstlBrandName()}">판매자 전용 페이지</a></strong>
 							<span>|</span>
 						</c:if>
 					</c:when> 
