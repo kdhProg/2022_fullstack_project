@@ -41,9 +41,9 @@ public class SellerController {
 		return "/seller/productListView";
 	}
 	
-	@RequestMapping(value = "/dedicated")
+	@RequestMapping(value = "/sellerMain")
 	public String dedicated() {
-		return "/seller/dedicated";
+		return "/seller/sellerMain";
 	}
 	
 /***************** 신상품 등록 문의 ****************************************************************************************/
@@ -57,10 +57,15 @@ public class SellerController {
 	@Autowired
 	private SellerService sellerService;
 	
+	@RequestMapping(value= "/newPdQuiry")
+	public String newPdQuiry() {
+		return "/seller/newPdQuiryList";
+	}
+	
 	// 신상품 등록 문의 리스트
-	@RequestMapping(value = "newPdQuiryList")
+	@RequestMapping(value = "/newPdQuiryList")
 	@ResponseBody
-	public Map<String, Object> newPdQuiryList(String showPage, Integer sort, String npqselId) {
+	public Map<String, Object> newPdQuiry(String showPage, Integer sort, String npqselId) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		int stShowPage = Integer.parseInt(showPage);
@@ -123,7 +128,7 @@ public class SellerController {
 	public String newPdQuiryUpdate(NewPdQuiryVO vo) {
 		newPdQuiryService.newPdQuiryUpdate(vo);
 		
-		return "redirect:/seller/dedicated";
+		return "redirect:/seller/newPdQuiry";
 	}
 	
 	// 신상품 등록 문의 수정 화면 
@@ -140,7 +145,7 @@ public class SellerController {
 	public String newPdQuiryDelete(NewPdQuiryVO vo) {
 		newPdQuiryService.newPdQuiryDelete(vo.getNpqNo());
 		
-		return "redirect:/seller/dedicated";
+		return "redirect:/seller/newPdQuiry";
 	}
 
 	
@@ -153,6 +158,11 @@ public class SellerController {
 	
 	@Autowired
 	private SelAnswerService selanswerService;
+	
+	@RequestMapping(value = "/product")
+	public String selQuiry() {
+		return "/seller/productList";
+	}
 	
 	// 세션으로 가져온 판매자 상품 목록
 	@RequestMapping(value = "/productList")

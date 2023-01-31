@@ -20,7 +20,6 @@
 <div class="container">
 	<!-- 판매점 -->
 	<div class="card" style="width: 75rem;">
-		<img src="..." class="card-img-top" alt="...">
 		<div class="card-body">
 			<h5 class="card-title">판매점</h5>
 			<p class="card-text">판매점 추가 / 판매점 정보 수정</p>
@@ -29,7 +28,6 @@
 	</div>
 	<!-- 판매자 -->
 	<div class="card" style="width: 75rem;">
-		<img src="..." class="card-img-top" alt="...">
 		<div class="card-body">
 			<h5 class="card-title">판매자</h5>
 			<p class="card-text">판매자 목록 / 신상품 등록 문의 / 판매자 문의</p>
@@ -38,7 +36,6 @@
 	</div>
 	<!-- 상품 -->
 	<div class="card" style="width: 75rem;">
-		<img src="..." class="card-img-top" alt="...">
 		<div class="card-body">
 			<h5 class="card-title">상품</h5>
 			<p class="card-text">상품 목록 / 상품 문의</p>
@@ -47,7 +44,6 @@
 	</div>
 	<!-- 고객센터 -->
 	<div class="card" style="width: 75rem;">
-		<img src="..." class="card-img-top" alt="...">
 		<div class="card-body">
 			<h5 class="card-title">고객센터</h5>
 			<p class="card-text">공지사항 / FAQ / 1 대 1 문의</p>
@@ -56,7 +52,6 @@
 	</div>
 	<!-- 회원 등급 -->
 	<div class="card" style="width: 75rem;">
-		<img src="..." class="card-img-top" alt="...">
 		<div class="card-body">
 			<h5 class="card-title">회원 관리</h5>
 			<p class="card-text">회원 등급 조정</p>
@@ -65,7 +60,6 @@
 	</div>
 	<!-- 통계 -->
 	<div class="card" style="width: 75rem;">
-		<img src="..." class="card-img-top" alt="...">
 		<div class="card-body">
 			<h5 class="card-title">통계</h5>
 			<p class="card-text">방문자 / 매출액 /</p>
