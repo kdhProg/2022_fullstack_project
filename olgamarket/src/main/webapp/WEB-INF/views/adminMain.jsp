@@ -62,8 +62,8 @@
 	<div class="card" style="width: 75rem;">
 		<div class="card-body">
 			<h5 class="card-title">통계</h5>
-			<p class="card-text">방문자 / 매출액 /</p>
-			<a href="/admin/memberGrade" class="btn btn-primary">통계 보러 가기</a>
+			<p class="card-text">방문자 / 판매량 / 매출액</p>
+			<a href="/admin/adminStats" class="btn btn-primary">통계 보러 가기</a>
 		</div>
 	</div>
 </div>

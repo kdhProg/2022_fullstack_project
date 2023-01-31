@@ -31,7 +31,7 @@
 			<a class="navbar-brand" href="/admin/product">상품</a>
 			<a class="navbar-brand" href="/admin/clientList">고객센터</a>
 			<a class="navbar-brand" href="/admin/memberGrade">회원</a>
-			<a class="navbar-brand" href="/admin/storeList">통계</a>
+			<a class="navbar-brand" href="/admin/adminStats">통계</a>	
 		</div>
 	</nav>
 	<section id="container">

@@ -924,8 +924,12 @@ public class AdminController {
 		return "/admin/anUpdateView";
 	}
 	
-
+/************ 관리자 통계 ************************************************************************************************************************/	
 	
+	@RequestMapping(value = "/adminStats")
+	public String adminStats() {
+		return "/admin/adminStats";
+	}
 	
 	
 	

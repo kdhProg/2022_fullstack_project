@@ -24,26 +24,6 @@
 			<a class="navbar-brand" href="/admin/adminStats">통계</a>	
 		</div>
 	</nav>
-	<section id="container">
-		<form role="form" method="post"  action="/admin/selAnswerUpdate">
-			<input type="hidden" value="${selAnswerUp.sqNo}" id="ipNo" name="sasqNo" />
-			<table class="table">
-				<tbody>
-					<tr>
-						<td>
-							<label for="saContents">내용 : </label>
-							<textarea id="saContents" name="saContents" class="form-control"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<button type="submit" class="btn btn-outline-danger">등록</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>	
-		</form>	
-	</section>
 </div>	
 </body>
 </html>
