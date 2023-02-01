@@ -934,30 +934,110 @@ public class AdminController {
 	// 일일 매출액
 	@RequestMapping(value="/dayTotalPrice")
 	@ResponseBody
-	public Map<String, Object> daySalesVolume() {
+	public Map<String, Object> dayTotalPrice() {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		// 당일
-		Long plListTotal = purchaseService.dayPriceTotalSelect();
+		Long plDay1 = purchaseService.dayPriceTotalSelect();
 		// 1일전
-		Long plListTotal2 = purchaseService.dayPriceTotalSelect2();
+		Long plDay2 = purchaseService.dayPriceTotalSelect2();
 		// 2일전
-		Long plListTotal3 = purchaseService.dayPriceTotalSelect3();
+		Long plDay3 = purchaseService.dayPriceTotalSelect3();
 		// 3일전
-		Long plListTotal4 = purchaseService.dayPriceTotalSelect4();
+		Long plDay4 = purchaseService.dayPriceTotalSelect4();
 		
 		String plListDate = purchaseService.daySelect();
 		
-		result.put("plListTotal", plListTotal);
-		result.put("plListTotal2", plListTotal2);
-		result.put("plListTotal3", plListTotal3);
-		result.put("plListTotal4", plListTotal4);
+		result.put("plDay1", plDay1);
+		result.put("plDay2", plDay2);
+		result.put("plDay3", plDay3);
+		result.put("plDay4", plDay4);
 		result.put("plListDate", plListDate);
-		
-		
 		
 		return result;
 	}
+	
+	// 월별 매출액
+	@RequestMapping(value="/monthTotalPrice")
+	@ResponseBody
+	public Map<String, Object> monthTotalPrice() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		// 당일
+		Long plMonth1 = purchaseService.monthPriceTotalSelect1();
+		// 1일전
+		Long plMonth2 = purchaseService.monthPriceTotalSelect2();
+		// 2일전
+		Long plMonth3 = purchaseService.monthPriceTotalSelect3();
+		// 3일전
+		Long plMonth4 = purchaseService.monthPriceTotalSelect4();
+		
+		result.put("plMonth1", plMonth1);
+		result.put("plMonth2", plMonth2);
+		result.put("plMonth3", plMonth3);
+		result.put("plMonth4", plMonth4);
+		
+		return result;
+	}
+	
+	// 연도 매출액
+	@RequestMapping(value="/yearTotalPrice")
+	@ResponseBody
+	public Map<String, Object> yearTotalPrice() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		// 올해
+		Long plYear1 = purchaseService.yearPriceTotalSelect1();
+		// 1년전
+		Long plYear2 = purchaseService.yearPriceTotalSelect2();
+		// 2년전
+		Long plYear3 = purchaseService.yearPriceTotalSelect3();
+		// 3년전
+		Long plYear4 = purchaseService.yearPriceTotalSelect4();
+		// 4년전
+		Long plYear5 = purchaseService.yearPriceTotalSelect5();
+		// 5년전
+		Long plYear6 = purchaseService.yearPriceTotalSelect6();
+		// 6년전
+		Long plYear7 = purchaseService.yearPriceTotalSelect7();
+		// 7년전
+		Long plYear8 = purchaseService.yearPriceTotalSelect8();
+		// 8년전
+		Long plYear9 = purchaseService.yearPriceTotalSelect9();
+		// 9년전
+		Long plYear10 = purchaseService.yearPriceTotalSelect10();
+		// 10년전
+		Long plYear11 = purchaseService.yearPriceTotalSelect11();
+		
+		result.put("plYear1", plYear1);
+		result.put("plYear2", plYear2);
+		result.put("plYear3", plYear3);
+		result.put("plYear4", plYear4);
+		result.put("plYear5", plYear5);
+		result.put("plYear6", plYear6);
+		result.put("plYear7", plYear7);
+		result.put("plYear8", plYear8);
+		result.put("plYear9", plYear9);
+		result.put("plYear10", plYear10);
+		result.put("plYear11", plYear11);
+		
+		return result;
+	}
+	
+	// 누적 매출액
+	@RequestMapping(value="/allTotalPrice")
+	@ResponseBody
+	public Map<String, Object> allTotalPrice() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		Long plAll = purchaseService.allPriceTotalSelect();
+		
+		result.put("plAll", plAll);
+		
+		return result;
+	}
+	
+	
 	
 	
 	

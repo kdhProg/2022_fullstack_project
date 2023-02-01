@@ -147,4 +147,89 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public Long dayPriceTotalSelect4() {
 		return dao.dayPriceTotalSelect4();
 	}
+
+// 관리자 통계 - 매출(당월, 전월, 두 달전, 세 달전)	
+	@Override
+	public Long monthPriceTotalSelect1() {
+		return dao.monthPriceTotalSelect1();
+	}
+
+	@Override
+	public Long monthPriceTotalSelect2() {
+		return dao.monthPriceTotalSelect2();
+	}
+
+	@Override
+	public Long monthPriceTotalSelect3() {
+		return dao.monthPriceTotalSelect3();
+	}
+
+	@Override
+	public Long monthPriceTotalSelect4() {
+		return dao.monthPriceTotalSelect4();
+	}
+
+// 관리자 통계 - 매출(올해, 1년전, 2년전, 3년전)	
+	@Override
+	public Long yearPriceTotalSelect1() {
+		return dao.yearPriceTotalSelect1();
+	}
+
+	@Override
+	public Long yearPriceTotalSelect2() {
+		return dao.yearPriceTotalSelect2();
+	}
+
+	@Override
+	public Long yearPriceTotalSelect3() {
+		return dao.yearPriceTotalSelect3();
+	}
+
+	@Override
+	public Long yearPriceTotalSelect4() {
+		return dao.yearPriceTotalSelect4();
+	}
+	
+	@Override
+	public Long yearPriceTotalSelect5() {
+		return dao.yearPriceTotalSelect5();
+	}
+
+	@Override
+	public Long yearPriceTotalSelect6() {
+		return dao.yearPriceTotalSelect6();
+	}
+
+	@Override
+	public Long yearPriceTotalSelect7() {
+		return dao.yearPriceTotalSelect7();
+	}
+
+	@Override
+	public Long yearPriceTotalSelect8() {
+		return dao.yearPriceTotalSelect8();
+	}
+
+	@Override
+	public Long yearPriceTotalSelect9() {
+		return dao.yearPriceTotalSelect9();
+	}
+
+	@Override
+	public Long yearPriceTotalSelect10() {
+		return dao.yearPriceTotalSelect10();
+	}
+
+	@Override
+	public Long yearPriceTotalSelect11() {
+		return dao.yearPriceTotalSelect11();
+	}
+
+// 관리자 통계 - 매출(누적)
+	@Override
+	public Long allPriceTotalSelect() {
+		return dao.allPriceTotalSelect();
+	}
+
+	
 }
