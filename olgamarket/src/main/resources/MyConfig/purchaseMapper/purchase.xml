@@ -67,10 +67,27 @@
 	</select>
 	
 <!-- 관리자 통계 - 매출(일일) -->
-	<select id="daySalesVolumeSelect" resultType="Long">
+	<select id="dayPriceTotalSelect" resultType="Long">
 			select sum(plTotalPrice) as day from purchaseLists
-        		where EXTRACT(day from (plDate)) = (select TO_CHAR(TO_DATE('2023-01-31','YYYY-MM-dd'),'dd') from dual)
+        		where EXTRACT(day from (plDate)) = (select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd'),'dd') from dual)
 	</select>
+	
+	<select id="dayPriceTotalSelect2" resultType="Long">
+			select sum(plTotalPrice) as day from purchaseLists
+        		where EXTRACT(day from (plDate)) = (select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd') -1,'dd') from dual)
+	</select>
+	
+	<select id="dayPriceTotalSelect3" resultType="Long">
+			select sum(plTotalPrice) as day from purchaseLists
+        		where EXTRACT(day from (plDate)) = (select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd') -2,'dd') from dual)
+	</select>
+	
+	<select id="dayPriceTotalSelect4" resultType="Long">
+			select sum(plTotalPrice) as day from purchaseLists
+        		where EXTRACT(day from (plDate)) = (select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd') -3,'dd') from dual)
+	</select>
+	
+	
 	
 	<select id="daySelect" resultType="String">
 		select to_date('2023-01-31', 'YYYY-MM-dd') from dual

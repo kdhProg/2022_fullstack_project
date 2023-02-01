@@ -106,6 +106,36 @@ a {
 <br />
 <br />
 
+<!-- 매출액 div -->
+<br />
+<br />
+
+<!-- 일별 -->
+<div class="container">
+	<div class="col col-lg-3">
+         <div class="row">
+            <div class="col border-grey">
+               <p class="focus_font">총 매출액</p>
+               <div id="todayTotalPrice" class="focus_font"></div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col border-grey">
+               <p class="focus_font">순 매출액</p>
+               <div id="netSales" class="focus_font"></div>
+            </div>
+         </div>
+      </div>
+   <div class="row">
+      <div class="col col-lg-9">
+         <div id='columnchart_values' ></div>
+      </div>
+   </div>
+</div>
+
+<br />
+<br />
+
 <!-- 김동훈 작업 끝 -->   
 </body>
 <script>
@@ -183,5 +213,273 @@ function drawChart(interGratedList) {
 }
 
 /* ===================김동훈추가끝==================== */
+/* ===================매출액==================== */
+
+// 일별 매출
+google.charts.load("current", {packages:['corechart']});
+google.charts.setOnLoadCallback(getDayTotalPrice); 
+ 
+function getDayTotalPrice(){
+   $.ajax({
+      type : "get",
+      url : "/admin/dayTotalPrice",
+      data : {
+      },
+      success : function(result){
+         let plTotal = result.plListTotal;
+         let plTotal2 = result.plListTotal2;
+         let plTotal3 = result.plListTotal3;
+         let plTotal4 = result.plListTotal4;
+         
+         if(plTotal == null){
+        	 plTotal = 0;
+         }
+         if(plTotal2 == null){
+        	 plTotal2 = 0;
+         }
+         if(plTotal3 == null){
+        	 plTotal3 = 0;
+         }
+         if(plTotal4 == null){
+        	 plTotal4 = 0;
+         }
+         
+         $("#todayTotalPrice").text(Number(plTotal).toLocaleString('ko-KR'));
+         $("#netSales").text(Number(plTotal*10/100).toLocaleString('ko-KR'));
+         
+         drawChart2(plTotal, plTotal2, plTotal3, plTotal4);
+      }// success 종료
+   }); // ajax 종료
+}
+
+function drawChart2(plTotal, plTotal2, plTotal3, plTotal4) {
+  var data = google.visualization.arrayToDataTable([
+    ["기간", "Density", { role: "style" } ],
+    ["3일전", plTotal4, "#b87333"],
+    ["2일전", plTotal3, "silver"],
+    ["1일전", plTotal2, "gold"],
+    ["오늘", plTotal, "color: #e5e4e2"]
+  ]);
+
+  var view = new google.visualization.DataView(data);
+  view.setColumns([0, 1,
+                   { calc: "stringify",
+                     sourceColumn: 1,
+                     type: "string",
+                     role: "annotation" },
+                   2]);
+
+  var options = {
+    title: "일일 매출액",
+    width: 600,
+    height: 400,
+    bar: {groupWidth: "95%"},
+    legend: { position: "none" },
+  };
+  var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+  chart.draw(view, options);
+
+}
+
+// 월별 매출
+google.charts.load("current", {packages:['corechart']});
+google.charts.setOnLoadCallback(getMonthTotalPrice); 
+ 
+function getMonthTotalPrice(){
+   $.ajax({
+      type : "get",
+      url : "/admin/",
+      data : {
+      },
+      success : function(result){
+         let plTotal = result.plListTotal;
+         let plTotal2 = result.plListTotal2;
+         let plTotal3 = result.plListTotal3;
+         let plTotal4 = result.plListTotal4;
+         
+         if(plTotal == null){
+        	 plTotal = 0;
+         }
+         if(plTotal2 == null){
+        	 plTotal2 = 0;
+         }
+         if(plTotal3 == null){
+        	 plTotal3 = 0;
+         }
+         if(plTotal4 == null){
+        	 plTotal4 = 0;
+         }
+         
+         $("#todayTotalPrice").text(Number(plTotal).toLocaleString('ko-KR'));
+         $("#netSales").text(Number(plTotal*10/100).toLocaleString('ko-KR'));
+         
+         drawChart3(plTotal, plTotal2, plTotal3, plTotal4);
+      }// success 종료
+   }); // ajax 종료
+}
+
+function drawChart3(plTotal, plTotal2, plTotal3, plTotal4) {
+  var data = google.visualization.arrayToDataTable([
+    ["기간", "Density", { role: "style" } ],
+    ["3일전", plTotal4, "#b87333"],
+    ["2일전", plTotal3, "silver"],
+    ["1일전", plTotal2, "gold"],
+    ["오늘", plTotal, "color: #e5e4e2"]
+  ]);
+
+  var view = new google.visualization.DataView(data);
+  view.setColumns([0, 1,
+                   { calc: "stringify",
+                     sourceColumn: 1,
+                     type: "string",
+                     role: "annotation" },
+                   2]);
+
+  var options = {
+    title: "일일 매출액",
+    width: 600,
+    height: 400,
+    bar: {groupWidth: "95%"},
+    legend: { position: "none" },
+  };
+  var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+  chart.draw(view, options);
+
+} 
+
+// 연별 매출
+google.charts.load("current", {packages:['corechart']});
+google.charts.setOnLoadCallback(getYearTotalPrice); 
+ 
+function getYearTotalPrice(){
+   $.ajax({
+      type : "get",
+      url : "/admin/",
+      data : {
+      },
+      success : function(result){
+         let plTotal = result.plListTotal;
+         let plTotal2 = result.plListTotal2;
+         let plTotal3 = result.plListTotal3;
+         let plTotal4 = result.plListTotal4;
+         
+         if(plTotal == null){
+        	 plTotal = 0;
+         }
+         if(plTotal2 == null){
+        	 plTotal2 = 0;
+         }
+         if(plTotal3 == null){
+        	 plTotal3 = 0;
+         }
+         if(plTotal4 == null){
+        	 plTotal4 = 0;
+         }
+         
+         $("#todayTotalPrice").text(Number(plTotal).toLocaleString('ko-KR'));
+         $("#netSales").text(Number(plTotal*10/100).toLocaleString('ko-KR'));
+         
+         drawChart4(plTotal, plTotal2, plTotal3, plTotal4);
+      }// success 종료
+   }); // ajax 종료
+}
+
+function drawChart4(plTotal, plTotal2, plTotal3, plTotal4) {
+  var data = google.visualization.arrayToDataTable([
+    ["기간", "Density", { role: "style" } ],
+    ["3일전", plTotal4, "#b87333"],
+    ["2일전", plTotal3, "silver"],
+    ["1일전", plTotal2, "gold"],
+    ["오늘", plTotal, "color: #e5e4e2"]
+  ]);
+
+  var view = new google.visualization.DataView(data);
+  view.setColumns([0, 1,
+                   { calc: "stringify",
+                     sourceColumn: 1,
+                     type: "string",
+                     role: "annotation" },
+                   2]);
+
+  var options = {
+    title: "일일 매출액",
+    width: 600,
+    height: 400,
+    bar: {groupWidth: "95%"},
+    legend: { position: "none" },
+  };
+  var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+  chart.draw(view, options);
+
+} 
+
+// 누적 매출
+google.charts.load("current", {packages:['corechart']});
+google.charts.setOnLoadCallback(getTotalPrice); 
+ 
+function getTotalPrice(){
+   $.ajax({
+      type : "get",
+      url : "/admin/daySalesVolume",
+      data : {
+      },
+      success : function(result){
+         let plTotal = result.plListTotal;
+         let plTotal2 = result.plListTotal2;
+         let plTotal3 = result.plListTotal3;
+         let plTotal4 = result.plListTotal4;
+         
+         if(plTotal == null){
+        	 plTotal = 0;
+         }
+         if(plTotal2 == null){
+        	 plTotal2 = 0;
+         }
+         if(plTotal3 == null){
+        	 plTotal3 = 0;
+         }
+         if(plTotal4 == null){
+        	 plTotal4 = 0;
+         }
+         
+         $("#todayTotalPrice").text(Number(plTotal).toLocaleString('ko-KR'));
+         $("#netSales").text(Number(plTotal*10/100).toLocaleString('ko-KR'));
+         
+         drawChart2(plTotal, plTotal2, plTotal3, plTotal4);
+      }// success 종료
+   }); // ajax 종료
+}
+
+function drawChart2(plTotal, plTotal2, plTotal3, plTotal4) {
+  var data = google.visualization.arrayToDataTable([
+    ["기간", "Density", { role: "style" } ],
+    ["3일전", plTotal4, "#b87333"],
+    ["2일전", plTotal3, "silver"],
+    ["1일전", plTotal2, "gold"],
+    ["오늘", plTotal, "color: #e5e4e2"]
+  ]);
+
+  var view = new google.visualization.DataView(data);
+  view.setColumns([0, 1,
+                   { calc: "stringify",
+                     sourceColumn: 1,
+                     type: "string",
+                     role: "annotation" },
+                   2]);
+
+  var options = {
+    title: "일일 매출액",
+    width: 600,
+    height: 400,
+    bar: {groupWidth: "95%"},
+    legend: { position: "none" },
+  };
+  var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+  chart.draw(view, options);
+
+} 
+
+ 
+ 
 </script>
 </html>

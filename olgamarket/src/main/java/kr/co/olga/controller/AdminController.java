@@ -932,17 +932,29 @@ public class AdminController {
 	}
 	
 	// 일일 매출액
-	@RequestMapping(value="/daySalesVolume")
+	@RequestMapping(value="/dayTotalPrice")
 	@ResponseBody
 	public Map<String, Object> daySalesVolume() {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
-		long plListTotal = purchaseService.daySalesVolumeSelect();
+		// 당일
+		Long plListTotal = purchaseService.dayPriceTotalSelect();
+		// 1일전
+		Long plListTotal2 = purchaseService.dayPriceTotalSelect2();
+		// 2일전
+		Long plListTotal3 = purchaseService.dayPriceTotalSelect3();
+		// 3일전
+		Long plListTotal4 = purchaseService.dayPriceTotalSelect4();
+		
 		String plListDate = purchaseService.daySelect();
 		
-				
 		result.put("plListTotal", plListTotal);
+		result.put("plListTotal2", plListTotal2);
+		result.put("plListTotal3", plListTotal3);
+		result.put("plListTotal4", plListTotal4);
 		result.put("plListDate", plListDate);
+		
+		
 		
 		return result;
 	}

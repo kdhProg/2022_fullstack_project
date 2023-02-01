@@ -24,9 +24,15 @@ public interface PurchaseService {
 	// vo에 들어있는 pdId,memId에 해당하는 레코드 개수 조회
 	int countCaseByMemIdNPdId(PurchaseVO vo);
 
-// 관리자 통계 - 매출(일일)	
-	long daySalesVolumeSelect();
+// 관리자 통계 - 매출(당일, 1일전, 2일전, 3일전)	
+	Long dayPriceTotalSelect();
 
 	String daySelect();
+
+	Long dayPriceTotalSelect2();
+
+	Long dayPriceTotalSelect3();
+
+	Long dayPriceTotalSelect4();
 
 }

@@ -124,12 +124,27 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 // 관리자 통계 - 매출(일일)	
 	@Override
-	public long daySalesVolumeSelect() {
-		return dao.daySalesVolumeSelect();
+	public Long dayPriceTotalSelect() {
+		return dao.dayPriceTotalSelect();
 	}
 
 	@Override
 	public String daySelect() {
 		return dao.daySelect();
+	}
+
+	@Override
+	public Long dayPriceTotalSelect2() {
+		return dao.dayPriceTotalSelect2();
+	}
+
+	@Override
+	public Long dayPriceTotalSelect3() {
+		return dao.dayPriceTotalSelect3();
+	}
+
+	@Override
+	public Long dayPriceTotalSelect4() {
+		return dao.dayPriceTotalSelect4();
 	}
 }

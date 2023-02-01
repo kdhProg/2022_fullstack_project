@@ -50,12 +50,27 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 
 // 관리자 통계 - 매출(일일)
 	@Override
-	public long daySalesVolumeSelect() {
-		return session.selectOne("PurchaseMapper.daySalesVolumeSelect");
+	public Long dayPriceTotalSelect() {
+		return session.selectOne("PurchaseMapper.dayPriceTotalSelect");
 	}
 
 	@Override
 	public String daySelect() {
 		return session.selectOne("PurchaseMapper.daySelect");
+	}
+
+	@Override
+	public Long dayPriceTotalSelect2() {
+		return session.selectOne("PurchaseMapper.dayPriceTotalSelect2");
+	}
+
+	@Override
+	public Long dayPriceTotalSelect3() {
+		return session.selectOne("PurchaseMapper.dayPriceTotalSelect3");
+	}
+
+	@Override
+	public Long dayPriceTotalSelect4() {
+		return session.selectOne("PurchaseMapper.dayPriceTotalSelect4");
 	}
 }
