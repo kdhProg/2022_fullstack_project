@@ -47,4 +47,15 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 	public int countCaseByMemIdNPdId(PurchaseVO vo) {
 		return session.selectOne("PurchaseMapper.countCaseByMemIdNPdId", vo);
 	}
+
+// 관리자 통계 - 매출(일일)
+	@Override
+	public long daySalesVolumeSelect() {
+		return session.selectOne("PurchaseMapper.daySalesVolumeSelect");
+	}
+
+	@Override
+	public String daySelect() {
+		return session.selectOne("PurchaseMapper.daySelect");
+	}
 }

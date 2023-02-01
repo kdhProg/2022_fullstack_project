@@ -931,6 +931,21 @@ public class AdminController {
 		return "/admin/adminStats";
 	}
 	
+	// 일일 매출액
+	@RequestMapping(value="/daySalesVolume")
+	@ResponseBody
+	public Map<String, Object> daySalesVolume() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		long plListTotal = purchaseService.daySalesVolumeSelect();
+		String plListDate = purchaseService.daySelect();
+		
+				
+		result.put("plListTotal", plListTotal);
+		result.put("plListDate", plListDate);
+		
+		return result;
+	}
 	
 	
 	
