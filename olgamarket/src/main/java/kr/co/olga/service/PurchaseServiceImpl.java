@@ -121,4 +121,15 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public int countCaseByMemIdNPdId(PurchaseVO vo) {
 		return dao.countCaseByMemIdNPdId(vo);
 	}
+
+// 관리자 통계 - 매출(일일)	
+	@Override
+	public long daySalesVolumeSelect() {
+		return dao.daySalesVolumeSelect();
+	}
+
+	@Override
+	public String daySelect() {
+		return dao.daySelect();
+	}
 }

@@ -22,4 +22,9 @@ public interface PurchaseDAO {
 
 	int countCaseByMemIdNPdId(PurchaseVO vo);
 
+// 관리자 통계 - 매출(일일)
+	long daySalesVolumeSelect();
+
+	String daySelect();
+
 }
