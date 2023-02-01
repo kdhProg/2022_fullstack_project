@@ -26,5 +26,6 @@
   	<typeAlias type="kr.co.olga.vo.PurchaseVO" alias="PurchaseVO"/>
   	<typeAlias type="kr.co.olga.vo.InquiryRecoReportVO" alias="InquiryRecoReportVO"/>
   	<typeAlias type="kr.co.olga.vo.CartVO" alias="CartVO"/>
+  	<typeAlias type="kr.co.olga.vo.VisitorsVO" alias="VisitorsVO"/>
   </typeAliases>
 </configuration>

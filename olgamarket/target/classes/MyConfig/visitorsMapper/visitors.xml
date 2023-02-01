@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="visitorsMapper">
+	
+	<!-- ip하고 날짜주면 입력함 -->
+	<insert id="visitorsInsert" parameterType="VisitorsVO">
+		insert into visitors values((select NVL(MAX(vino) +1, 1) from visitors),#{viIp},TO_DATE(#{viTime}))
+	</insert>
+	
+	<!-- 날짜별로 카운트하기 => 시간 오름차순-->
+	<select id="countGroupByDate" resultType="Long">
+		select count from (select count(*) as count,vitime from visitors group by viTime order by vitime) 
+	</select>
+	
+	<!-- 날짜별로 카운트 => 날짜 반환 => 바로위의 카운트에 대응--> 
+	<select id="showDateGroupByDate" resultType="String">
+		select vitime from (select count(*) as count,vitime from visitors group by viTime order by vitime) 
+	</select>
+	
+	<!-- 오늘 날짜 카운트 -->
+	<select id="todayVisit" resultType="Long">
+		select count(*) from visitors where TO_DATE(viTime,'yyyy-mm-dd') = TO_DATE(sysdate,'yyyy-mm-dd')
+	</select>
+	
+	<!-- 누적 카운트 -->
+	<select id="accumulateVisit" resultType="Long">
+		select count(*) from visitors
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
