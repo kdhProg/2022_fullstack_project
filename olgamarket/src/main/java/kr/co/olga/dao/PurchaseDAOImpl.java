@@ -156,5 +156,11 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 	public Long allPriceTotalSelect() {
 		return session.selectOne("PurchaseMapper.allPriceTotalSelect");
 	}
+	
+	// memId로 적립금 더하기
+	@Override
+	public Long sumSavedMoneyByMemId(MemberVO vo) {
+		return session.selectOne("PurchaseMapper.sumSavedMoneyByMemId",vo);
+	}
 
 }
