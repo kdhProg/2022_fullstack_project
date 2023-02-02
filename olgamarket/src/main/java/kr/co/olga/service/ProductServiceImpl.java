@@ -371,6 +371,11 @@ public class ProductServiceImpl implements ProductService {
 		return dao.increaseSaleByPdId(vo);
 	}
 
+	@Override
+	public List<ProductVO> getProductSellerPageList(PagingVO vo) {
+		return dao.getProductSellerPageList(vo);
+	}
+
 
 	
 }

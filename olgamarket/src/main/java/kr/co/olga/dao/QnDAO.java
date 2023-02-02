@@ -16,6 +16,8 @@ public interface QnDAO {
 	QnVO qnSelOne(Long otqNo);
 
 	int getQnCount();
+	
+	int getQnAdminCount(PagingVO sortVo);
 
 	List<QnVO> getQnPageList(PagingVO vo);
 
@@ -23,6 +25,8 @@ public interface QnDAO {
 	
 // 관리자 전용(답변 상태 업데이트)	
 	long qnStateUpdate(QnVO qnVo);
+
+	
 	
 
 }

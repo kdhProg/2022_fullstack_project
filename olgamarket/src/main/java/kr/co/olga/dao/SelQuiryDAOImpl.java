@@ -18,8 +18,8 @@ public class SelQuiryDAOImpl implements SelQuiryDAO {
 	
 // 관리자 판매자 페이징
 	@Override
-	public int getSelQuiryCount() {
-		return session.selectOne("selQuiryMapper.getSelQuiryCount");
+	public int getSelQuiryCount(PagingVO sortVo) {
+		return session.selectOne("selQuiryMapper.getSelQuiryCount", sortVo);
 	}
 
 	@Override

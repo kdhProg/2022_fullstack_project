@@ -29,7 +29,7 @@ public interface NewPdQuiryDAO {
 	long newPdQuiryStateUpdate(NewPdQuiryVO npqVo);
 
 // 신상품 등록 문의 페이징 (관리자)		
-	int getNewPdQuiryAdminCount();
+	int getNewPdQuiryAdminCount(PagingVO sortVo);
 	
 	List<SelQuiryVO> getNewPdQuiryAdminPageList(PagingVO vo);
 	

@@ -5,8 +5,14 @@
 <mapper namespace="selQuiryMapper">
 
 <!-- 판매자 페이징 -->
-	<select id="getSelQuiryCount" parameterType="int" resultType="Integer">
-		select count(*) from sellerQuirys
+	<select id="getSelQuiryCount" parameterType="PagingVO" resultType="Integer">
+		select count(*) from sellerQuirys where
+      					<if test='sort == 1'>
+		    				sqState = 0
+		   				</if>
+		   				<if test='sort == 2'>
+		    				sqState = 1
+		   				</if>
 	</select>
 	
 	<select id="getSelQuiryPageList" parameterType="PagingVO" resultType="SelQuiryVO">

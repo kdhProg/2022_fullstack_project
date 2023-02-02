@@ -197,6 +197,11 @@ public class ProductDAOImpl implements ProductDAO {
 		return session.update("productMapper.increaseSaleByPdId", vo);
 	}
 
+	@Override
+	public List<ProductVO> getProductSellerPageList(PagingVO vo) {
+		return session.selectList("productMapper.getProductSellerPageList", vo);
+	}
+
 
 	
 }

@@ -75,8 +75,14 @@
 	      					order by npqNo desc		
 	</select>
 	
-	<select id="getNewPdQuiryAdminCount" resultType="Integer" parameterType="int">
-		select count(*) from newPdQuirys
+	<select id="getNewPdQuiryAdminCount" resultType="Integer" parameterType="PagingVO">
+		select count(*) from newPdQuirys where
+      					<if test='sort == 1'>
+		    				npqState = 0
+		   				</if>
+		   				<if test='sort == 2'>
+		    				npqState = 1
+		   				</if>
 	</select>
 
 

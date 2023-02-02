@@ -71,8 +71,14 @@
 	      					order by selstlBrandName desc
 	</select>	
 	
-	<select id="getSellerCount" parameterType="int" resultType="Integer">
-		select count(*) from sellers
+	<select id="getSellerCount" parameterType="PagingVO" resultType="Integer">
+		select count(*) from sellers where 
+					<if test='sort == 1'>
+	    				selTypeGrade = 1
+	   				</if>
+	   				<if test='sort == 2'>
+	    				selTypeGrade = 0
+	   				</if>
 	</select>
 	
 <!-- 판매자 권한 회수 -->	

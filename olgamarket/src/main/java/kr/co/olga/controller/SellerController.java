@@ -111,7 +111,7 @@ public class SellerController {
 	public String newPdQuiryInsert(NewPdQuiryVO vo) {
 		newPdQuiryService.newPdQuiryInsert(vo);
 		
-		return "redirect:/seller/sellerMain";
+		return "redirect:/seller/newPdQuiry";
 	}
 	
 	
@@ -180,7 +180,7 @@ public class SellerController {
 		}
 		
 		PagingVO vo = productService.getProductPageInfo(currPage, brandName, selId); //페이징에 필요한 정보 계산
-		List<ProductVO> productList =  productService.getProductPageList(vo);
+		List<ProductVO> productList =  productService.getProductSellerPageList(vo);
 		
 		result.put("pdList",productList);  
 		result.put("pageInfo",vo);  //페이징정보
@@ -239,7 +239,7 @@ public class SellerController {
 	public String selQuiryInsert(SelQuiryVO vo) {
 		selquiryService.selQuiryInsert(vo);
 		
-		return "redirect:/seller/sellerMain";
+		return "redirect:/seller/productList";
 	}
 	
 	// 판매자 문의 등록 화면 
@@ -258,7 +258,7 @@ public class SellerController {
 	public String sqlQuiryUpdate(SelQuiryVO vo) {
 		selquiryService.selQuiryUpdate(vo);
 		
-		return "redirect:/seller/sellerMain";
+		return "redirect:/seller/productList";
 	}
 	
 	// 판매자 문의 수정 화면 
@@ -274,7 +274,7 @@ public class SellerController {
 	public String sqlQuiryDelete(SelQuiryVO vo) {
 		selquiryService.selQuiryDelete(vo.getSqNo());
 		
-		return "redirect:/seller/sellerMain";
+		return "redirect:/seller/productList";
 	}
 	
 	// 판매자 문의 조회

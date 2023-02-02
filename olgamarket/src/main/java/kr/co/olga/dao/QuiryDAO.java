@@ -19,7 +19,7 @@ public interface QuiryDAO {
 
 	List<QuiryVO> getRvPageList(PagingVO vo);
 
-	int getQuiryAdminCount();
+	int getQuiryAdminCount(PagingVO sortVo);
 
 	List<QuiryVO> getQuiryAdminPageList(PagingVO vo);
 

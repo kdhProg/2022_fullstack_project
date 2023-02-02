@@ -64,8 +64,8 @@ public class SellerDAOImpl implements SellerDAO {
 
 // 관리자 판매자 관리 + 페이징	
 	@Override
-	public int getSellerCount() {
-		return session.selectOne("sellerMapper.getSellerCount");
+	public int getSellerCount(PagingVO sortVo) {
+		return session.selectOne("sellerMapper.getSellerCount", sortVo);
 	}
 
 	@Override

@@ -86,7 +86,9 @@ public class QnServiceImpl implements QnService {
 	@Override
 	public PagingVO getQnAdminPageList(int currPage, int sortType) {
 		PagingVO vo = new PagingVO();
-		int setTotalRecordCount = dao.getQnCount();
+		PagingVO sortVo = new PagingVO();
+		sortVo.setSort(sortType);
+		int setTotalRecordCount = dao.getQnAdminCount(sortVo);
 		int recordCountPerPage = 20;
                         
 		int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
@@ -94,7 +96,7 @@ public class QnServiceImpl implements QnService {
 		int firstPageNoOnPageList = lastPageNoOnPageList - 9;
 		//int firstPageNoOnPageList = lastPageNoOnPageList - 9;
 		
-		int realEnd = (int)(Math.ceil((dao.getQnCount() * 1.0) / 20));
+		int realEnd = (int)(Math.ceil((dao.getQnAdminCount(sortVo) * 1.0) / 20));
 		if(realEnd < lastPageNoOnPageList) {
 			lastPageNoOnPageList = realEnd;
 		}

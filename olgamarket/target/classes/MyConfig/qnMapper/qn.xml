@@ -28,6 +28,8 @@
 		select * from oneToOneQs where otqNo = #{otqNo}
 	</select>
 	
+	
+	
 <!-- 페이징 -->	
 	<select id="getQnPageList" parameterType="PagingVO" resultType="QnVO">
 	      select * from 
@@ -55,6 +57,16 @@
 	      			where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
 	      				order by otqNo desc
 	</select>	
+	
+	<select id="getQnAdminCount" resultType="Integer" parameterType="PagingVO">
+		select count(*) from oneToOneQs where
+      					<if test='sort == 1'>
+		    				otqState = 0
+		   				</if>
+		   				<if test='sort == 2'>
+		    				otqState = 1
+		   				</if>
+	</select>
 	
 	<select id="getQnCount" parameterType="int" resultType="Integer">
 		select count(*) from oneToOneQs

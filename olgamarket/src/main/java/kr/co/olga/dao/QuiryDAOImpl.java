@@ -46,8 +46,8 @@ public class QuiryDAOImpl implements QuiryDAO {
 	}
 
 	@Override
-	public int getQuiryAdminCount() {
-		return session.selectOne("quiryMapper.getQuiryAdminCount");
+	public int getQuiryAdminCount(PagingVO sortVo) {
+		return session.selectOne("quiryMapper.getQuiryAdminCount", sortVo);
 	}
 
 	@Override

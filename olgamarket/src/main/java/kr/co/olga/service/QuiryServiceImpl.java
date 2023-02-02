@@ -84,7 +84,9 @@ public class QuiryServiceImpl implements QuiryService {
 	@Override
 	public PagingVO getQuiryAdminPageInfo(int currPage, int sortType) {
 		PagingVO vo = new PagingVO();
-		int setTotalRecordCount = dao.getQuiryAdminCount();
+		PagingVO sortVo = new PagingVO();
+		sortVo.setSort(sortType);
+		int setTotalRecordCount = dao.getQuiryAdminCount(sortVo);
 		int recordCountPerPage = 20;
                         
 		int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
@@ -92,7 +94,7 @@ public class QuiryServiceImpl implements QuiryService {
 		int firstPageNoOnPageList = lastPageNoOnPageList - 9;
 		//int firstPageNoOnPageList = lastPageNoOnPageList - 9;
 		
-		int realEnd = (int)(Math.ceil((dao.getQuiryAdminCount() * 1.0) / 20));
+		int realEnd = (int)(Math.ceil((dao.getQuiryAdminCount(sortVo) * 1.0) / 20));
 		if(realEnd < lastPageNoOnPageList) {
 			lastPageNoOnPageList = realEnd;
 		}

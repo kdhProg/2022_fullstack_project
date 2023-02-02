@@ -65,7 +65,9 @@ public class SellerServiceImpl implements SellerService {
 	@Override
 	public PagingVO getSellerPageInfo(int currPage, int sortType) {
 		PagingVO vo = new PagingVO();
-		int setTotalRecordCount = dao.getSellerCount();
+		PagingVO sortVo = new PagingVO();
+		sortVo.setSort(sortType);
+		int setTotalRecordCount = dao.getSellerCount(sortVo);
 		int recordCountPerPage = 20;
                         
 		int lastPageNoOnPageList = (int)(Math.ceil(currPage/10.0)) * 10;
@@ -73,7 +75,7 @@ public class SellerServiceImpl implements SellerService {
 		int firstPageNoOnPageList = lastPageNoOnPageList - 9;
 		//int firstPageNoOnPageList = lastPageNoOnPageList - 9;
 		
-		int realEnd = (int)(Math.ceil((dao.getSellerCount() * 1.0) / 20));
+		int realEnd = (int)(Math.ceil((dao.getSellerCount(sortVo) * 1.0) / 20));
 		if(realEnd < lastPageNoOnPageList) {
 			lastPageNoOnPageList = realEnd;
 		}

@@ -363,7 +363,15 @@
 			and sel.selId = #{selId}
 	</select> 
 	
-	
+	<select id="getProductSellerPageList" parameterType="PagingVO" resultType="ProductVO">
+		select * from 
+			(select pdId, pdThumbImg, pdName, pdMainCategory, pdSubCategory, pdstlBrandName,  
+			pdStorageType, pdUnit, pdWeight, pdCountry, pdBBE, pdRegiDate, pdUpdDate, pdDesInfoImg,
+			pdSeason, pdHits, pdSalesVolume, pdPrice, pdSale, pdStock, row_number() OVER(order by pdId desc) as Rnum
+				from productDatas) mp
+					where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
+	      			and pdstlBrandName = #{pdstlBrandName}
+	</select>
 	
 	
 <!-- 관리자 페이지 상품 관리에 모든 상품 목록 띄우기 + 페이징 -->

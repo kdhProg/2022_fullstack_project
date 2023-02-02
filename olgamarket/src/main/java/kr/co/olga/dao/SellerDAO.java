@@ -27,7 +27,7 @@ public interface SellerDAO {
 	SellerVO sellerPwdFind(SellerVO vo);
 
 // 관리자 판매자 관리 + 페이징	
-	int getSellerCount();
+	int getSellerCount(PagingVO sortVo);
 
 	List<SellerVO> getSellerPageList(PagingVO vo);
 

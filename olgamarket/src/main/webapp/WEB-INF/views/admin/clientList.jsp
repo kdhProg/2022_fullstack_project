@@ -182,7 +182,7 @@ function faqList(pageNo) {
 
 /********************* 1대1 문의 *******************************************************************/
 let sortType = 1;
-$(document).ready(otList(1), 1);
+$(document).ready(otList(1,1 ));
 function otList(pageNo, sortNo) {
 	$.ajax({
         url : "/admin/adminQnList",

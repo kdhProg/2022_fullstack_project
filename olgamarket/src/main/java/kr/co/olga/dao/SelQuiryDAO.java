@@ -9,7 +9,7 @@ import lombok.NonNull;
 public interface SelQuiryDAO {
 
 // 관리자 판매자 페이징
-	int getSelQuiryCount();
+	int getSelQuiryCount(PagingVO sortVo);
 
 	List<SelQuiryVO> getSelQuiryPageList(PagingVO vo);
 // 조회

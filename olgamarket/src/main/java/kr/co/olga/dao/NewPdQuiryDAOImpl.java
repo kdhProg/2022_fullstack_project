@@ -60,8 +60,8 @@ public class NewPdQuiryDAOImpl implements NewPdQuiryDAO {
 
 // 신상품 등록 문의 페이징 (관리자)		
 	@Override
-	public int getNewPdQuiryAdminCount() {
-		return session.selectOne("newPdQuiryMapper.getNewPdQuiryAdminCount");
+	public int getNewPdQuiryAdminCount(PagingVO sortVo) {
+		return session.selectOne("newPdQuiryMapper.getNewPdQuiryAdminCount", sortVo);
 	}
 	
 	@Override

@@ -38,8 +38,14 @@
 		where rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
 	</select>
 <!-- 관리자 전용 -->
-	<select id="getQuiryAdminCount" resultType="Integer" parameterType="int">
-		select count(*) from inquirys
+	<select id="getQuiryAdminCount" resultType="Integer" parameterType="PagingVO">
+		select count(*) from inquirys where
+      					<if test='sort == 1'>
+		    				iqState = 0
+		   				</if>
+		   				<if test='sort == 2'>
+		    				iqState = 1
+		   				</if>
 	</select>
 	
 	<select id="getQuiryAdminPageList" parameterType="PagingVO" resultType="QuiryVO">

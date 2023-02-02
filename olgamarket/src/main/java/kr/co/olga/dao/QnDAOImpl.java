@@ -56,5 +56,10 @@ public class QnDAOImpl implements QnDAO {
 		return session.update("qnMapper.qnStateUpdate", qnVo);
 	}
 
+	@Override
+	public int getQnAdminCount(PagingVO sortVo) {
+		return session.selectOne("qnMapper.getQnAdminCount",sortVo);
+	}
+
 	
 }
