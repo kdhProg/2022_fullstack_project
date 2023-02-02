@@ -35,4 +35,43 @@ public interface PurchaseService {
 
 	Long dayPriceTotalSelect4();
 
+// 관리자 통계 - 매출(당월, 전월, 두 달전, 세 달전)
+	Long monthPriceTotalSelect1();
+
+	Long monthPriceTotalSelect2();
+
+	Long monthPriceTotalSelect3();
+
+	Long monthPriceTotalSelect4();
+
+// 관리자 통계 - 매출(올해, 1년전, 2년전, 3년전)
+	Long yearPriceTotalSelect1();
+
+	Long yearPriceTotalSelect2();
+
+	Long yearPriceTotalSelect3();
+
+	Long yearPriceTotalSelect4();
+	
+	Long yearPriceTotalSelect5();
+
+	Long yearPriceTotalSelect6();
+
+	Long yearPriceTotalSelect7();
+
+	Long yearPriceTotalSelect8();
+
+	Long yearPriceTotalSelect9();
+
+	Long yearPriceTotalSelect10();
+
+	Long yearPriceTotalSelect11();
+
+// 관리자 통계 - 매출(누적)	
+	Long allPriceTotalSelect();
+
+	
+
+	
+
 }

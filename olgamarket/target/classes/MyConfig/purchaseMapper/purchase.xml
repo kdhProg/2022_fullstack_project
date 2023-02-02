@@ -87,16 +87,106 @@
         		where EXTRACT(day from (plDate)) = (select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd') -3,'dd') from dual)
 	</select>
 	
-	
-	
 	<select id="daySelect" resultType="String">
 		select to_date('2023-01-31', 'YYYY-MM-dd') from dual
 	</select>
 	
+<!-- 관리자 통계 - 매출(당월, 전월, 두 달전, 세 달전) -->	
+	<select id="monthPriceTotalSelect1" resultType="Long">
+		select sum(plTotalPrice) as month from purchaseLists
+    		where EXTRACT(month from (plDate)) = 
+    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), 0) PREV_MONTH FROM DUAL)) from dual)
+	</select>
 	
+	<select id="monthPriceTotalSelect2" resultType="Long">
+		select sum(plTotalPrice) as month from purchaseLists
+    		where EXTRACT(month from (plDate)) = 
+    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -1) PREV_MONTH FROM DUAL)) from dual)
+	</select>
 	
+	<select id="monthPriceTotalSelect3" resultType="Long">
+		select sum(plTotalPrice) as month from purchaseLists
+    		where EXTRACT(month from (plDate)) = 
+    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -2) PREV_MONTH FROM DUAL)) from dual)
+	</select>
 	
+	<select id="monthPriceTotalSelect4" resultType="Long">
+		select sum(plTotalPrice) as month from purchaseLists
+    		where EXTRACT(month from (plDate)) = 
+    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -3) PREV_MONTH FROM DUAL)) from dual)
+	</select>
+
+<!-- 관리자 통계 - 매출(올해, 1년전, 2년전, 3년전) -->
+	<select id="yearPriceTotalSelect1" resultType="Long">
+		select sum(plTotalPrice) as year from purchaseLists
+    		where EXTRACT(year from (plDate)) = 
+    			(select EXTRACT(year FROM(select sysdate + (INTERVAL '0' YEAR) PREV_YEAR FROM DUAL)) from dual)
+	</select>
 	
+	<select id="yearPriceTotalSelect2" resultType="Long">
+		select sum(plTotalPrice) as year from purchaseLists
+    		where EXTRACT(year from (plDate)) = 
+    			(select EXTRACT(year FROM(select sysdate + (INTERVAL '-1' YEAR) PREV_YEAR FROM DUAL)) from dual)
+	</select>
+	
+	<select id="yearPriceTotalSelect3" resultType="Long">
+		select sum(plTotalPrice) as year from purchaseLists
+    		where EXTRACT(year from (plDate)) = 
+    			(select EXTRACT(year FROM(select sysdate + (INTERVAL '-2' YEAR) PREV_YEAR FROM DUAL)) from dual)
+	</select>
+	
+	<select id="yearPriceTotalSelect4" resultType="Long">
+		select sum(plTotalPrice) as year from purchaseLists
+    		where EXTRACT(year from (plDate)) = 
+    			(select EXTRACT(year FROM(select sysdate + (INTERVAL '-3' YEAR) PREV_YEAR FROM DUAL)) from dual)
+	</select>
+	
+	<select id="yearPriceTotalSelect5" resultType="Long">
+		select sum(plTotalPrice) as year from purchaseLists
+    		where EXTRACT(year from (plDate)) = 
+    			(select EXTRACT(year FROM(select sysdate + (INTERVAL '-4' YEAR) PREV_YEAR FROM DUAL)) from dual)
+	</select>
+	
+	<select id="yearPriceTotalSelect6" resultType="Long">
+		select sum(plTotalPrice) as year from purchaseLists
+    		where EXTRACT(year from (plDate)) = 
+    			(select EXTRACT(year FROM(select sysdate + (INTERVAL '-5' YEAR) PREV_YEAR FROM DUAL)) from dual)
+	</select>
+	
+	<select id="yearPriceTotalSelect7" resultType="Long">
+		select sum(plTotalPrice) as year from purchaseLists
+    		where EXTRACT(year from (plDate)) = 
+    			(select EXTRACT(year FROM(select sysdate + (INTERVAL '-6' YEAR) PREV_YEAR FROM DUAL)) from dual)
+	</select>
+	
+	<select id="yearPriceTotalSelect8" resultType="Long">
+		select sum(plTotalPrice) as year from purchaseLists
+    		where EXTRACT(year from (plDate)) = 
+    			(select EXTRACT(year FROM(select sysdate + (INTERVAL '-7' YEAR) PREV_YEAR FROM DUAL)) from dual)
+	</select>
+	
+	<select id="yearPriceTotalSelect9" resultType="Long">
+		select sum(plTotalPrice) as year from purchaseLists
+    		where EXTRACT(year from (plDate)) = 
+    			(select EXTRACT(year FROM(select sysdate + (INTERVAL '-8' YEAR) PREV_YEAR FROM DUAL)) from dual)
+	</select>
+	
+	<select id="yearPriceTotalSelect10" resultType="Long">
+		select sum(plTotalPrice) as year from purchaseLists
+    		where EXTRACT(year from (plDate)) = 
+    			(select EXTRACT(year FROM(select sysdate + (INTERVAL '-9' YEAR) PREV_YEAR FROM DUAL)) from dual)
+	</select>
+	
+	<select id="yearPriceTotalSelect11" resultType="Long">
+		select sum(plTotalPrice) as year from purchaseLists
+    		where EXTRACT(year from (plDate)) = 
+    			(select EXTRACT(year FROM(select sysdate + (INTERVAL '-10' YEAR) PREV_YEAR FROM DUAL)) from dual)
+	</select>
+		
+<!-- 관리자 통계 - 매출(누적) -->
+	<select id="allPriceTotalSelect" resultType="Long">
+		select sum(plTotalPrice) as total from purchaseLists
+	</select>
 	
 	
 	

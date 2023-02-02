@@ -32,6 +32,7 @@ a {
    height: 600px;
 }
 
+
 /* 방문자수 - 폰트 크고굵게 */
 .focus_font{
    font-weight: bold;
@@ -73,15 +74,15 @@ a {
    </nav>
    
    <br />
-   <a href="#" onclick="noticeList(1);return false;" id="noticeBt" class="btn btn-primary">방문자 수</a>
-   <a href="#" onclick="faqList(1);return false;" id="faqBt" class="btn btn-primary">판매량</a>
-   <a href="#" onclick="otList(1);return false;" id="onetooneBt" class="btn btn-primary">매출액</a>
+   <a href="#" onclick="return false;" id="visitBt" class="btn btn-primary">방문자 수</a>
+   <a href="#" onclick="return false;" id="svBt" class="btn btn-primary">판매량</a>
+   <a href="#" onclick="return false;" id="tpBt" class="btn btn-primary">매출액</a>
 </div>
 <!-- 김동훈 작업 시작 -->
 
 <br />
 <br />
-<div class="container">
+<div class="container" id="visitDiv" style="display : none;">
    <div class="row">
       <div class="col col-lg-3">
          <div class="row">
@@ -106,62 +107,207 @@ a {
 <br />
 <br />
 
+<!-- 판매량 div -->
+<br />
+<br />
+<div class="container" id="svDiv" style="display : none;">
+	<!-- 일별 -->
+	<div class="container">
+		<div class="col col-lg-3">
+	         <div class="row">
+	            <div class="col border-grey">
+	               <p class="focus_font">총 판매량</p>
+	               <div id="todaySvPrice" class="focus_font"></div>
+	            </div>
+	         </div>
+	      </div>
+	   <div class="row" >
+	      <div class="col col-lg-9">
+	         <div id='columnchart_values_sv1' ></div>
+	      </div>
+	   </div>
+	</div>
+	
+	<!-- 월별 -->
+	<div class="container">
+		<div class="col col-lg-3">
+	         <div class="row">
+	            <div class="col border-grey">
+	               <p class="focus_font">총 판매량</p>
+	               <div id="monthSvPrice" class="focus_font"></div>
+	            </div>
+	         </div>
+	      </div>
+	   <div class="row" >
+	      <div class="col col-lg-9">
+	         <div id='columnchart_values_sv2' ></div>
+	      </div>
+	   </div>
+	</div>
+	
+	<!-- 연별 -->
+	<div class="container">
+		<div class="col col-lg-3">
+	         <div class="row">
+	            <div class="col border-grey">
+	               <p class="focus_font">총 판매량</p>
+	               <div id="yearSvPrice" class="focus_font"></div>
+	            </div>
+	         </div>
+	      </div>
+	   <div class="row" >
+	      <div class="col col-lg-9">
+	         <div id='columnchart_values_sv3' ></div>
+	      </div>
+	   </div>
+	</div>
+	
+	<!-- 누적 -->
+	<div class="container">
+		<div class="col col-lg-3">
+	         <div class="row">
+	            <div class="col border-grey">
+	               <p class="focus_font">총 판매량</p>
+	               <div id="allSvPrice" class="focus_font"></div>
+	            </div>
+	         </div>
+	      </div>
+	   <div class="row" >
+	      <div class="col col-lg-9">
+	         <div id='columnchart_values_sv4' ></div>
+	      </div>
+	   </div>
+	</div>
+</div>
+<br />
+<br />
+
 <!-- 매출액 div -->
 <br />
 <br />
-
 <!-- 일별 -->
-<div class="container">
-	<div class="col col-lg-3">
-         <div class="row">
-            <div class="col border-grey">
-               <p class="focus_font">총 매출액</p>
-               <div id="todayTotalPrice" class="focus_font"></div>
-            </div>
-         </div>
-         <div class="row">
-            <div class="col border-grey">
-               <p class="focus_font">순 매출액</p>
-               <div id="netSales" class="focus_font"></div>
-            </div>
-         </div>
-      </div>
-   <div class="row">
-      <div class="col col-lg-9">
-         <div id='columnchart_values' ></div>
-      </div>
-   </div>
+<div class="container" id="tpDiv" style="display : none;">
+	<div class="container">
+		<div class="col col-lg-3">
+	         <div class="row">
+	            <div class="col border-grey">
+	               <p class="focus_font">총 매출액</p>
+	               <div id="todayTotalPrice" class="focus_font"></div>
+	            </div>
+	         </div>
+	         <div class="row">
+	            <div class="col border-grey">
+	               <p class="focus_font">순 매출액</p>
+	               <div id="dayNetSales" class="focus_font"></div>
+	            </div>
+	         </div>
+	      </div>
+	   <div class="row" >
+	      <div class="col col-lg-9">
+	         <div id='columnchart_values' ></div>
+	      </div>
+	   </div>
+	</div>
+	
+	<!-- 월별 -->
+	<div class="container">
+		<div class="col col-lg-3">
+	         <div class="row">
+	            <div class="col border-grey">
+	               <p class="focus_font">총 매출액</p>
+	               <div id="monthTotalPrice" class="focus_font"></div>
+	            </div>
+	         </div>
+	         <div class="row">
+	            <div class="col border-grey">
+	               <p class="focus_font">순 매출액</p>
+	               <div id="monthNetSales" class="focus_font"></div>
+	            </div>
+	         </div>
+	      </div>
+	   <div class="row" >
+	      <div class="col col-lg-9">
+	         <div id='columnchart_values2' ></div>
+	      </div>
+	   </div>
+	</div>
+	
+	<!-- 연별 -->
+	<div class="container">
+		<div class="col col-lg-3">
+	         <div class="row">
+	            <div class="col border-grey">
+	               <p class="focus_font">총 매출액</p>
+	               <div id="yearTotalPrice" class="focus_font"></div>
+	            </div>
+	         </div>
+	         <div class="row">
+	            <div class="col border-grey">
+	               <p class="focus_font">순 매출액</p>
+	               <div id="yearNetSales" class="focus_font"></div>
+	            </div>
+	         </div>
+	      </div>
+	   <div class="row" >
+	      <div class="col col-lg-9">
+	         <div id='columnchart_values3' ></div>
+	      </div>
+	   </div>
+	</div>
+	
+	<!-- 누적 -->
+	<div class="container">
+		<div class="col col-lg-3">
+	         <div class="row">
+	            <div class="col border-grey">
+	               <p class="focus_font">총 매출액</p>
+	               <div id="allTotalPrice" class="focus_font"></div>
+	            </div>
+	         </div>
+	         <div class="row">
+	            <div class="col border-grey">
+	               <p class="focus_font">순 매출액</p>
+	               <div id="allNetSales" class="focus_font"></div>
+	            </div>
+	         </div>
+	      </div>
+	   <div class="row" >
+	      <div class="col col-lg-9">
+	         <div id='columnchart_values4' ></div>
+	      </div>
+	   </div>
+	</div>
 </div>
-
 <br />
 <br />
 
 <!-- 김동훈 작업 끝 -->   
 </body>
 <script>
-$("#noticeBt").on("click", function() {
+$("#visitBt").on("click", function() {
    $(this).css('font-weight', 'bold');
-   $('#noticeDiv').css('display', 'block');
-   $("#faqBt").css('font-weight', 'normal');
-   $("#onetooneBt").css('font-weight', 'normal');
-   $('#faqDiv').css('display', 'none');
-   $('#otoDiv').css('display', 'none');
+   $('#visitDiv').css('display', 'block');
+   $("#svBt").css('font-weight', 'normal');
+   $('#svDiv').css('display', 'none');
+   $("#tpBt").css('font-weight', 'normal');
+   $('#tpDiv').css('display', 'none');
 });
-$("#faqBt").on("click", function() {
+$("#svBt").on("click", function() {
    $(this).css('font-weight', 'bold');
-   $('#faqDiv').css('display', 'block');
-   $("#noticeBt").css('font-weight', 'normal');
-   $("#onetooneBt").css('font-weight', 'normal');
-   $('#noticeDiv').css('display', 'none');
-   $('#otoDiv').css('display', 'none');
+   $('#svDiv').css('display', 'block');
+   $("#visitBt").css('font-weight', 'normal');
+   $('#visitDiv').css('display', 'none');
+   $("#tpBt").css('font-weight', 'normal');
+   $('#tpDiv').css('display', 'none');
 });
-$("#onetooneBt").on("click", function() {
+$("#tpBt").on("click", function() {
    $(this).css('font-weight', 'bold');
-   $('#otoDiv').css('display', 'block');
-   $("#noticeBt").css('font-weight', 'normal');
-   $("#faqBt").css('font-weight', 'normal');
-   $('#faqDiv').css('display', 'none');
-   $('#noticeDiv').css('display', 'none');
+   $('#tpDiv').css('display', 'block');
+   $("#visitBt").css('font-weight', 'normal');
+   $('#visitDiv').css('display', 'none');
+   $("#svBt").css('font-weight', 'normal');
+   $('#svDiv').css('display', 'none');
+   
 });
 /* ===================김동훈추가시작==================== */
      
@@ -213,7 +359,17 @@ function drawChart(interGratedList) {
 }
 
 /* ===================김동훈추가끝==================== */
-/* ===================매출액==================== */
+
+
+/* ===================판매량 시작==================== */
+
+
+
+
+/* ===================판매량 끝==================== */
+
+
+/* ===================매출액 시작==================== */
 
 // 일별 매출
 google.charts.load("current", {packages:['corechart']});
@@ -226,39 +382,31 @@ function getDayTotalPrice(){
       data : {
       },
       success : function(result){
-         let plTotal = result.plListTotal;
-         let plTotal2 = result.plListTotal2;
-         let plTotal3 = result.plListTotal3;
-         let plTotal4 = result.plListTotal4;
+         let plDayTotal1 = result.plDay1;
+         let plDayTotal2 = result.plDay2;
+         let plDayTotal3 = result.plDay3;
+         let plDayTotal4 = result.plDay4;
          
-         if(plTotal == null){
-        	 plTotal = 0;
-         }
-         if(plTotal2 == null){
-        	 plTotal2 = 0;
-         }
-         if(plTotal3 == null){
-        	 plTotal3 = 0;
-         }
-         if(plTotal4 == null){
-        	 plTotal4 = 0;
-         }
+         if(plDayTotal1 == null){ plDayTotal1 = 0; }
+         if(plDayTotal2 == null){ plDayTotal2 = 0; }
+         if(plDayTotal3 == null){ plDayTotal3 = 0; }
+         if(plDayTotal4 == null){ plDayTotal4 = 0; }
          
-         $("#todayTotalPrice").text(Number(plTotal).toLocaleString('ko-KR'));
-         $("#netSales").text(Number(plTotal*10/100).toLocaleString('ko-KR'));
+         $("#todayTotalPrice").text(Number(plDayTotal1).toLocaleString('ko-KR'));
+         $("#dayNetSales").text(Number(plDayTotal1*10/100).toLocaleString('ko-KR'));
          
-         drawChart2(plTotal, plTotal2, plTotal3, plTotal4);
+         totalPriceChart1(plDayTotal1, plDayTotal2, plDayTotal3, plDayTotal4);
       }// success 종료
    }); // ajax 종료
 }
 
-function drawChart2(plTotal, plTotal2, plTotal3, plTotal4) {
+function totalPriceChart1(plDayTotal1, plDayTotal2, plDayTotal3, plDayTotal4) {
   var data = google.visualization.arrayToDataTable([
     ["기간", "Density", { role: "style" } ],
-    ["3일전", plTotal4, "#b87333"],
-    ["2일전", plTotal3, "silver"],
-    ["1일전", plTotal2, "gold"],
-    ["오늘", plTotal, "color: #e5e4e2"]
+    ["3일전", plDayTotal4, "#b87333"],
+    ["2일전", plDayTotal3, "silver"],
+    ["1일전", plDayTotal2, "gold"],
+    ["오늘", plDayTotal1, "color: #e5e4e2"]
   ]);
 
   var view = new google.visualization.DataView(data);
@@ -271,8 +419,8 @@ function drawChart2(plTotal, plTotal2, plTotal3, plTotal4) {
 
   var options = {
     title: "일일 매출액",
-    width: 600,
-    height: 400,
+    width: 800,
+    height: 600,
     bar: {groupWidth: "95%"},
     legend: { position: "none" },
   };
@@ -288,43 +436,35 @@ google.charts.setOnLoadCallback(getMonthTotalPrice);
 function getMonthTotalPrice(){
    $.ajax({
       type : "get",
-      url : "/admin/",
+      url : "/admin/monthTotalPrice",
       data : {
       },
       success : function(result){
-         let plTotal = result.plListTotal;
-         let plTotal2 = result.plListTotal2;
-         let plTotal3 = result.plListTotal3;
-         let plTotal4 = result.plListTotal4;
+         let plMonthTotal1 = result.plMonth1;
+         let plMonthTotal2 = result.plMonth2;
+         let plMonthTotal3 = result.plMonth3;
+         let plMonthTotal4 = result.plMonth4;
+        
+         if(plMonthTotal1 == null){ plMonthTotal1 = 0; }
+         if(plMonthTotal2 == null){ plMonthTotal2 = 0; }
+         if(plMonthTotal3 == null){ plMonthTotal3 = 0; }
+         if(plMonthTotal4 == null){ plMonthTotal4 = 0; }
          
-         if(plTotal == null){
-        	 plTotal = 0;
-         }
-         if(plTotal2 == null){
-        	 plTotal2 = 0;
-         }
-         if(plTotal3 == null){
-        	 plTotal3 = 0;
-         }
-         if(plTotal4 == null){
-        	 plTotal4 = 0;
-         }
+         $("#monthTotalPrice").text(Number(plMonthTotal1).toLocaleString('ko-KR'));
+         $("#monthNetSales").text(Number(plMonthTotal1*10/100).toLocaleString('ko-KR'));
          
-         $("#todayTotalPrice").text(Number(plTotal).toLocaleString('ko-KR'));
-         $("#netSales").text(Number(plTotal*10/100).toLocaleString('ko-KR'));
-         
-         drawChart3(plTotal, plTotal2, plTotal3, plTotal4);
+         totalPriceChart2(plMonthTotal1, plMonthTotal2, plMonthTotal3, plMonthTotal4);
       }// success 종료
    }); // ajax 종료
 }
 
-function drawChart3(plTotal, plTotal2, plTotal3, plTotal4) {
+function totalPriceChart2(plMonthTotal1, plMonthTotal2, plMonthTotal3, plMonthTotal4) {
   var data = google.visualization.arrayToDataTable([
     ["기간", "Density", { role: "style" } ],
-    ["3일전", plTotal4, "#b87333"],
-    ["2일전", plTotal3, "silver"],
-    ["1일전", plTotal2, "gold"],
-    ["오늘", plTotal, "color: #e5e4e2"]
+    ["세 달전", plMonthTotal4, "#b87333"],
+    ["두 달전", plMonthTotal3, "silver"],
+    ["전 월", plMonthTotal2, "gold"],
+    ["당 월", plMonthTotal1, "color: #e5e4e2"]
   ]);
 
   var view = new google.visualization.DataView(data);
@@ -336,13 +476,13 @@ function drawChart3(plTotal, plTotal2, plTotal3, plTotal4) {
                    2]);
 
   var options = {
-    title: "일일 매출액",
+    title: "월 매출액",
     width: 600,
     height: 400,
     bar: {groupWidth: "95%"},
     legend: { position: "none" },
   };
-  var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+  var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values2"));
   chart.draw(view, options);
 
 } 
@@ -354,43 +494,58 @@ google.charts.setOnLoadCallback(getYearTotalPrice);
 function getYearTotalPrice(){
    $.ajax({
       type : "get",
-      url : "/admin/",
+      url : "/admin/yearTotalPrice",
       data : {
       },
       success : function(result){
-         let plTotal = result.plListTotal;
-         let plTotal2 = result.plListTotal2;
-         let plTotal3 = result.plListTotal3;
-         let plTotal4 = result.plListTotal4;
+         let plYearTotal1 = result.plYear1;
+         let plYearTotal2 = result.plYear2;
+         let plYearTotal3 = result.plYear3;
+         let plYearTotal4 = result.plYear4;
+         let plYearTotal5 = result.plYear5;
+         let plYearTotal6 = result.plYear6;
+         let plYearTotal7 = result.plYear7;
+         let plYearTotal8 = result.plYear8;
+         let plYearTotal9 = result.plYear9;
+         let plYearTotal10 = result.plYear10;
+         let plYearTotal11 = result.plYear11;
          
-         if(plTotal == null){
-        	 plTotal = 0;
-         }
-         if(plTotal2 == null){
-        	 plTotal2 = 0;
-         }
-         if(plTotal3 == null){
-        	 plTotal3 = 0;
-         }
-         if(plTotal4 == null){
-        	 plTotal4 = 0;
-         }
+         if(plYearTotal1 == null){ plYearTotal1 = 0; }
+         if(plYearTotal2 == null){ plYearTotal2 = 0; }
+         if(plYearTotal3 == null){ plYearTotal3 = 0; }
+         if(plYearTotal4 == null){ plYearTotal4 = 0; }
+         if(plYearTotal5 == null){ plYearTotal5 = 0; }
+         if(plYearTotal6 == null){ plYearTotal6 = 0; }
+         if(plYearTotal7 == null){ plYearTotal7 = 0; }
+         if(plYearTotal8 == null){ plYearTotal8 = 0; }
+         if(plYearTotal9 == null){ plYearTotal9 = 0; }
+         if(plYearTotal10 == null){ plYearTotal10 = 0; }
+         if(plYearTotal11 == null){ plYearTotal11 = 0; }
          
-         $("#todayTotalPrice").text(Number(plTotal).toLocaleString('ko-KR'));
-         $("#netSales").text(Number(plTotal*10/100).toLocaleString('ko-KR'));
+         $("#yearTotalPrice").text(Number(plYearTotal1).toLocaleString('ko-KR'));
+         $("#yearNetSales").text(Number(plYearTotal1*10/100).toLocaleString('ko-KR'));
          
-         drawChart4(plTotal, plTotal2, plTotal3, plTotal4);
+         totalPriceChart3(plYearTotal1, plYearTotal2, plYearTotal3, plYearTotal4, plYearTotal5, 
+        		 			plYearTotal6, plYearTotal7, plYearTotal8, plYearTotal9, plYearTotal10, plYearTotal11);
       }// success 종료
    }); // ajax 종료
 }
 
-function drawChart4(plTotal, plTotal2, plTotal3, plTotal4) {
+function totalPriceChart3(plYearTotal1, plYearTotal2, plYearTotal3, plYearTotal4, plYearTotal5, 
+			plYearTotal6, plYearTotal7, plYearTotal8, plYearTotal9, plYearTotal10, plYearTotal11) {
   var data = google.visualization.arrayToDataTable([
     ["기간", "Density", { role: "style" } ],
-    ["3일전", plTotal4, "#b87333"],
-    ["2일전", plTotal3, "silver"],
-    ["1일전", plTotal2, "gold"],
-    ["오늘", plTotal, "color: #e5e4e2"]
+    ["10년전", plYearTotal11, "#b87333"],
+    ["9년전", plYearTotal10, "#b87333"],
+    ["8년전", plYearTotal9, "#b87333"],
+    ["7년전", plYearTotal8, "#b87333"],
+    ["6년전", plYearTotal7, "#b87333"],
+    ["5년전", plYearTotal6, "#b87333"],
+    ["4년전", plYearTotal5, "#b87333"],
+    ["3년전", plYearTotal4, "#b87333"],
+    ["2년전", plYearTotal3, "silver"],
+    ["1년전", plYearTotal2, "gold"],
+    ["올해", plYearTotal1, "color: #e5e4e2"]
   ]);
 
   var view = new google.visualization.DataView(data);
@@ -402,61 +557,44 @@ function drawChart4(plTotal, plTotal2, plTotal3, plTotal4) {
                    2]);
 
   var options = {
-    title: "일일 매출액",
+    title: "연별 매출액",
     width: 600,
     height: 400,
     bar: {groupWidth: "95%"},
     legend: { position: "none" },
   };
-  var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+  var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values3"));
   chart.draw(view, options);
 
 } 
 
 // 누적 매출
 google.charts.load("current", {packages:['corechart']});
-google.charts.setOnLoadCallback(getTotalPrice); 
+google.charts.setOnLoadCallback(getAllTotalPrice); 
  
-function getTotalPrice(){
+function getAllTotalPrice(){
    $.ajax({
       type : "get",
-      url : "/admin/daySalesVolume",
+      url : "/admin/allTotalPrice",
       data : {
       },
       success : function(result){
-         let plTotal = result.plListTotal;
-         let plTotal2 = result.plListTotal2;
-         let plTotal3 = result.plListTotal3;
-         let plTotal4 = result.plListTotal4;
+         let plAllTotal = result.plAll;
          
-         if(plTotal == null){
-        	 plTotal = 0;
-         }
-         if(plTotal2 == null){
-        	 plTotal2 = 0;
-         }
-         if(plTotal3 == null){
-        	 plTotal3 = 0;
-         }
-         if(plTotal4 == null){
-        	 plTotal4 = 0;
-         }
+         if(plAllTotal == null){ plAllTotal = 0; }
          
-         $("#todayTotalPrice").text(Number(plTotal).toLocaleString('ko-KR'));
-         $("#netSales").text(Number(plTotal*10/100).toLocaleString('ko-KR'));
+         $("#allTotalPrice").text(Number(plAllTotal).toLocaleString('ko-KR'));
+         $("#allNetSales").text(Number(plAllTotal*10/100).toLocaleString('ko-KR'));
          
-         drawChart2(plTotal, plTotal2, plTotal3, plTotal4);
+         totalPriceChart4(plAllTotal);
       }// success 종료
    }); // ajax 종료
 }
 
-function drawChart2(plTotal, plTotal2, plTotal3, plTotal4) {
+function totalPriceChart4(plAllTotal) {
   var data = google.visualization.arrayToDataTable([
     ["기간", "Density", { role: "style" } ],
-    ["3일전", plTotal4, "#b87333"],
-    ["2일전", plTotal3, "silver"],
-    ["1일전", plTotal2, "gold"],
-    ["오늘", plTotal, "color: #e5e4e2"]
+    ["누적", plAllTotal, "color: gold"]
   ]);
 
   var view = new google.visualization.DataView(data);
@@ -468,18 +606,18 @@ function drawChart2(plTotal, plTotal2, plTotal3, plTotal4) {
                    2]);
 
   var options = {
-    title: "일일 매출액",
+    title: "누적 매출액",
     width: 600,
     height: 400,
     bar: {groupWidth: "95%"},
     legend: { position: "none" },
   };
-  var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+  var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values4"));
   chart.draw(view, options);
 
 } 
 
- 
+/* ===================매출액 끝==================== */ 
  
 </script>
 </html>
