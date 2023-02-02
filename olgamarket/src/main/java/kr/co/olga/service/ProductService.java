@@ -84,49 +84,7 @@ public interface ProductService {
 	// vo객체의 pdId를 통하여 판매량 증가
 	int increaseSaleByPdId(ProductVO vo);
 
-// 관리자 통계 - 판매량(당일, 1일전, 2일전, 3일전)	
-	Long daySalesVolumeSelect1();
 
-	Long daySalesVolumeSelect2();
-
-	Long daySalesVolumeSelect3();
-
-	Long daySalesVolumeSelect4();
-
-// 관리자 통계 - 판매량(당월, 전월, 두 달전, 세 달전)	
-	Long monthSalesVolumeSelect1();
-
-	Long monthSalesVolumeSelect2();
-
-	Long monthSalesVolumeSelect3();
-
-	Long monthSalesVolumeSelect4();
-
-// 관리자 통계 - 판매량(올해, 1년전, 2년전, 3년젼 ... 10년전)
-	Long yearSalesVolumeSelect1();
-
-	Long yearSalesVolumeSelect2();
-
-	Long yearSalesVolumeSelect3();
-
-	Long yearSalesVolumeSelect4();
-
-	Long yearSalesVolumeSelect5();
-
-	Long yearSalesVolumeSelect6();
-
-	Long yearSalesVolumeSelect7();
-
-	Long yearSalesVolumeSelect8();
-
-	Long yearSalesVolumeSelect9();
-
-	Long yearSalesVolumeSelect10();
-
-	Long yearSalesVolumeSelect11();
-	
-// 관리자 통계 - 판매량(누적)
-	Long allSalesVolumeSelect();
 
 	
 
