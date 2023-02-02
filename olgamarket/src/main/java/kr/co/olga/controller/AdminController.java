@@ -40,7 +40,6 @@ import kr.co.olga.vo.NewPdQuiryVO;
 import kr.co.olga.vo.NoticeVO;
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ProductVO;
-import kr.co.olga.vo.PurchaseVO;
 import kr.co.olga.vo.QnVO;
 import kr.co.olga.vo.QuiryVO;
 import kr.co.olga.vo.SelAnswerVO;
@@ -1044,13 +1043,13 @@ public class AdminController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		// 당일
-		Long svDay1 = productService.daySalesVolumeSelect1();
+		Long svDay1 = purchaseService.daySalesVolumeSelect1();
 		// 1일전
-		Long svDay2 = productService.daySalesVolumeSelect2();
+		Long svDay2 = purchaseService.daySalesVolumeSelect2();
 		// 2일전
-		Long svDay3 = productService.daySalesVolumeSelect3();
+		Long svDay3 = purchaseService.daySalesVolumeSelect3();
 		// 3일전
-		Long svDay4 = productService.daySalesVolumeSelect4();
+		Long svDay4 = purchaseService.daySalesVolumeSelect4();
 		
 		result.put("svDay1", svDay1);
 		result.put("svDay2", svDay2);
@@ -1067,13 +1066,13 @@ public class AdminController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		// 당일
-		Long svMonth1 = productService.monthSalesVolumeSelect1();
+		Long svMonth1 = purchaseService.monthSalesVolumeSelect1();
 		// 1일전
-		Long svMonth2 = productService.monthSalesVolumeSelect2();
+		Long svMonth2 = purchaseService.monthSalesVolumeSelect2();
 		// 2일전
-		Long svMonth3 = productService.monthSalesVolumeSelect3();
+		Long svMonth3 = purchaseService.monthSalesVolumeSelect3();
 		// 3일전
-		Long svMonth4 = productService.monthSalesVolumeSelect4();
+		Long svMonth4 = purchaseService.monthSalesVolumeSelect4();
 		
 		result.put("svMonth1", svMonth1);
 		result.put("svMonth2", svMonth2);
@@ -1090,27 +1089,27 @@ public class AdminController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		// 올해
-		Long svYear1 = productService.yearSalesVolumeSelect1();
+		Long svYear1 = purchaseService.yearSalesVolumeSelect1();
 		// 1년전
-		Long svYear2 = productService.yearSalesVolumeSelect2();
+		Long svYear2 = purchaseService.yearSalesVolumeSelect2();
 		// 2년전
-		Long svYear3 = productService.yearSalesVolumeSelect3();
+		Long svYear3 = purchaseService.yearSalesVolumeSelect3();
 		// 3년전
-		Long svYear4 = productService.yearSalesVolumeSelect4();
+		Long svYear4 = purchaseService.yearSalesVolumeSelect4();
 		// 4년전
-		Long svYear5 = productService.yearSalesVolumeSelect5();
+		Long svYear5 = purchaseService.yearSalesVolumeSelect5();
 		// 5년전
-		Long svYear6 = productService.yearSalesVolumeSelect6();
+		Long svYear6 = purchaseService.yearSalesVolumeSelect6();
 		// 6년전
-		Long svYear7 = productService.yearSalesVolumeSelect7();
+		Long svYear7 = purchaseService.yearSalesVolumeSelect7();
 		// 7년전
-		Long svYear8 = productService.yearSalesVolumeSelect8();
+		Long svYear8 = purchaseService.yearSalesVolumeSelect8();
 		// 8년전
-		Long svYear9 = productService.yearSalesVolumeSelect9();
+		Long svYear9 = purchaseService.yearSalesVolumeSelect9();
 		// 9년전
-		Long svYear10 = productService.yearSalesVolumeSelect10();
+		Long svYear10 = purchaseService.yearSalesVolumeSelect10();
 		// 10년전
-		Long svYear11 = productService.yearSalesVolumeSelect11();
+		Long svYear11 = purchaseService.yearSalesVolumeSelect11();
 		
 		result.put("svYear1", svYear1);
 		result.put("svYear2", svYear2);
@@ -1133,7 +1132,7 @@ public class AdminController {
 	public Map<String, Object> allSalesVolume() {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
-		Long svAll = productService.allSalesVolumeSelect();
+		Long svAll = purchaseService.allSalesVolumeSelect();
 		
 		result.put("svAll", svAll);
 		

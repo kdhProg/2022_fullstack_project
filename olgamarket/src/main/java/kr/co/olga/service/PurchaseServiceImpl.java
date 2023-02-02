@@ -121,7 +121,115 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public int countCaseByMemIdNPdId(PurchaseVO vo) {
 		return dao.countCaseByMemIdNPdId(vo);
 	}
+	
+/***************************** 관리자 통계 판매량 *********************************/
+	
+// 관리자 통계 - 판매량(당일, 1일전, 2일전, 3일전)	
+	@Override
+	public Long daySalesVolumeSelect1() {
+		return dao.daySalesVolumeSelect1();
+	}
 
+	@Override
+	public Long daySalesVolumeSelect2() {
+		return dao.daySalesVolumeSelect2();
+	}
+
+	@Override
+	public Long daySalesVolumeSelect3() {
+		return dao.daySalesVolumeSelect3();
+	}
+
+	@Override
+	public Long daySalesVolumeSelect4() {
+		return dao.daySalesVolumeSelect4();
+	}
+
+// 관리자 통계 - 판매량(당월, 전월, 두 달전, 세 달전)
+	@Override
+	public Long monthSalesVolumeSelect1() {
+		return dao.monthSalesVolumeSelect1();
+	}
+
+	@Override
+	public Long monthSalesVolumeSelect2() {
+		return dao.monthSalesVolumeSelect2();
+	}
+
+	@Override
+	public Long monthSalesVolumeSelect3() {
+		return dao.monthSalesVolumeSelect3();
+	}
+
+	@Override
+	public Long monthSalesVolumeSelect4() {
+		return dao.monthSalesVolumeSelect4();
+	}
+
+// 관리자 통계 - 판매량(올해, 1년전, 2년전, 3년젼 ... 10년전)
+	@Override
+	public Long yearSalesVolumeSelect1() {
+		return dao.yearSalesVolumeSelect1();
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect2() {
+		return dao.yearSalesVolumeSelect2();
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect3() {
+		return dao.yearSalesVolumeSelect3();
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect4() {
+		return dao.yearSalesVolumeSelect4();
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect5() {
+		return dao.yearSalesVolumeSelect5();
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect6() {
+		return dao.yearSalesVolumeSelect6();
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect7() {
+		return dao.yearSalesVolumeSelect7();
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect8() {
+		return dao.yearSalesVolumeSelect8();
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect9() {
+		return dao.yearSalesVolumeSelect9();
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect10() {
+		return dao.yearSalesVolumeSelect10();
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect11() {
+		return dao.yearSalesVolumeSelect11();
+	}
+
+// 관리자 통계 - 판매량(누적)
+	@Override
+	public Long allSalesVolumeSelect() {
+		return dao.allSalesVolumeSelect();
+	}	
+	
+/***************************** 관리자 통계 매출액 *********************************/	
+	
 // 관리자 통계 - 매출(일일)	
 	@Override
 	public Long dayPriceTotalSelect() {

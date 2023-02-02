@@ -47,7 +47,114 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 	public int countCaseByMemIdNPdId(PurchaseVO vo) {
 		return session.selectOne("PurchaseMapper.countCaseByMemIdNPdId", vo);
 	}
+	
+/***************************** 관리자 통계 판매량 *********************************/		
 
+// 관리자 통계 - 판매량(당일, 1일전, 2일전, 3일전)
+	@Override
+	public Long daySalesVolumeSelect1() {
+		return session.selectOne("PurchaseMapper.daySalesVolumeSelect1");
+	}
+
+	@Override
+	public Long daySalesVolumeSelect2() {
+		return session.selectOne("PurchaseMapper.daySalesVolumeSelect2");
+	}
+
+	@Override
+	public Long daySalesVolumeSelect3() {
+		return session.selectOne("PurchaseMapper.daySalesVolumeSelect3");
+	}
+
+	@Override
+	public Long daySalesVolumeSelect4() {
+		return session.selectOne("PurchaseMapper.daySalesVolumeSelect4");
+	}
+
+// 관리자 통계 - 판매량(당월, 전월, 두 달전, 세 달전)
+	@Override
+	public Long monthSalesVolumeSelect1() {
+		return session.selectOne("PurchaseMapper.monthSalesVolumeSelect1");
+	}
+
+	@Override
+	public Long monthSalesVolumeSelect2() {
+		return session.selectOne("PurchaseMapper.monthSalesVolumeSelect2");
+	}
+
+	@Override
+	public Long monthSalesVolumeSelect3() {
+		return session.selectOne("PurchaseMapper.monthSalesVolumeSelect3");
+	}
+
+	@Override
+	public Long monthSalesVolumeSelect4() {
+		return session.selectOne("PurchaseMapper.monthSalesVolumeSelect4");
+	}
+
+// 관리자 통계 - 판매량(올해, 1년전, 2년전, 3년젼 ... 10년전)
+	@Override
+	public Long yearSalesVolumeSelect1() {
+		return session.selectOne("PurchaseMapper.yearSalesVolumeSelect1");
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect2() {
+		return session.selectOne("PurchaseMapper.yearSalesVolumeSelect2");
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect3() {
+		return session.selectOne("PurchaseMapper.yearSalesVolumeSelect3");
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect4() {
+		return session.selectOne("PurchaseMapper.yearSalesVolumeSelect4");
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect5() {
+		return session.selectOne("PurchaseMapper.yearSalesVolumeSelect5");
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect6() {
+		return session.selectOne("PurchaseMapper.yearSalesVolumeSelect6");
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect7() {
+		return session.selectOne("PurchaseMapper.yearSalesVolumeSelect7");
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect8() {
+		return session.selectOne("PurchaseMapper.yearSalesVolumeSelect8");
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect9() {
+		return session.selectOne("PurchaseMapper.yearSalesVolumeSelect9");
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect10() {
+		return session.selectOne("PurchaseMapper.yearSalesVolumeSelect10");
+	}
+
+	@Override
+	public Long yearSalesVolumeSelect11() {
+		return session.selectOne("PurchaseMapper.yearSalesVolumeSelect11");
+	}
+
+// 관리자 통계 - 판매량(누적)
+	@Override
+	public Long allSalesVolumeSelect() {
+		return session.selectOne("PurchaseMapper.allSalesVolumeSelect");
+	}	
+	
+/***************************** 관리자 통계 매출액 *********************************/	
 // 관리자 통계 - 매출(일일)
 	@Override
 	public Long dayPriceTotalSelect() {
