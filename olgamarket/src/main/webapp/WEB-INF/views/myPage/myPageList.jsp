@@ -179,6 +179,12 @@ a:hover{
 	margin-left: 30px;
 }
 
+/* 버튼장식제거 */
+.favor_deleteBtn,.cartQuantityPlus,.cartQuantityMinus{
+	border: none;
+	background: transparent;
+}
+
 .col{
 /* 	border: 1px solid blue; */
 }
@@ -601,6 +607,23 @@ a:hover{
     </div>
   </div>
 </div>
+
+<!-- 모달창-찜 삭제 -->
+<div id="fv_delete_modal" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+      </div>
+      <div class="modal-body">
+		<p>찜목록에서 삭제하시겠습니까?</p>
+      </div>
+      <div class="modal-footer">
+     	<button type="button" id="fv_delete_modal_btn" class="btn btn-danger" data-bs-dismiss="modal">삭제</button>
+      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 <script>
 //현재 세션값
@@ -732,7 +755,7 @@ function myFavorList(pageNo, fvmemId) {
 			var currPage = data.currPage;
             var favorPageList = data.myFavorList; // model 처럼
         	
-            var favorContentTag = "<table class='table'><tr><th>No</th><th>아이디</th><th>상품 아이디</th></tr>";
+            var favorContentTag = "<table class='table'><tr><th>No</th><th>아이디</th><th>상품 아이디</th><th>삭제</th></tr>";
             var favorPagingTag = "";
 
 			$.each(favorPageList, function(key, value) {
@@ -740,6 +763,7 @@ function myFavorList(pageNo, fvmemId) {
 				favorContentTag += "<td>"+value.fvNo+"</td>";
 				favorContentTag += "<td>"+value.fvmemId+"</td>";
 				favorContentTag += "<td><a href='/goods/detailView?pdId="+value.fvpdId+"'class='btn btn-danger'>"+value.fvpdId+"</a></td>";
+				favorContentTag += '<td><button type="button" class="favor_deleteBtn" value="'+value.fvpdId+'"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></button></td>';
              });
 			favorContentTag += "</table>";
 			$("#favResultList").html(favorContentTag); //메인 컨텐츠 적용
@@ -766,6 +790,31 @@ function myFavorList(pageNo, fvmemId) {
         }//error
     });//ajax
 }// function end
+
+
+
+//삭제 버튼 누를시 모달 띄우기 fv_delete_modal_btn
+let fvNo; //삭제할 기본키
+$(document).on('click', '.favor_deleteBtn', function(){
+	$("#fv_delete_modal").modal("show");
+	fvNo = $(this).val();
+});
+
+//삭제모달 삭제 버튼
+$("#fv_delete_modal_btn").click(function(){
+	$.ajax({
+		type : "post",
+		url : "/goods/deleteFavors",
+		data : {
+			currentSession : currentSession,
+			pdId : fvNo
+		},
+		success : function(){
+			//찜목록 다시띄우기
+			myFavorList(1, memIdType3)
+		}// success 종료
+	}); // ajax 종료	
+});
 
 /********************* 상품 후기 *******************************************************************/
 let memIdType4 = $(".sessionMemIdReview").text();
