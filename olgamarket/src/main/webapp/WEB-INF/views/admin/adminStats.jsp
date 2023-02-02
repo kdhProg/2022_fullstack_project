@@ -384,7 +384,7 @@ function getDaySalesVolume(){
 
 function salesVolumeChart1(svDayVolume1, svDayVolume2, svDayVolume3, svDayVolume4) {
   var data = google.visualization.arrayToDataTable([
-    ["기간", "Density", { role: "style" } ],
+    ["기간", "", { role: "style" } ],
     ["3일전", svDayVolume4, "#b87333"],
     ["2일전", svDayVolume3, "silver"],
     ["1일전", svDayVolume2, "gold"],
@@ -400,7 +400,7 @@ function salesVolumeChart1(svDayVolume1, svDayVolume2, svDayVolume3, svDayVolume
                    2]);
 
   var options = {
-    title: "일일 판매량",
+    title: "일 판매량",
     width: 1500,
     height: 900,
     bar: {groupWidth: "95%"},
@@ -459,7 +459,7 @@ function getMonthSalesVolume(){
 function salesVolumeChart2(svMonthVolume1, svMonthVolume2, svMonthVolume3, svMonthVolume4, svMonthVolume5, svMonthVolume6,
 		svMonthVolume7, svMonthVolume8, svMonthVolume9, svMonthVolume10, svMonthVolume11, svMonthVolume12) {
   var data = google.visualization.arrayToDataTable([
-    ["기간", "Density", { role: "style" } ],
+    ["기간", "", { role: "style" } ],
     ["열 한 달전 ", svMonthVolume12, "silver"],
     ["열 달전", svMonthVolume11, "gold"],
     ["아홉 달전", svMonthVolume10, "#b87333"],
@@ -540,14 +540,14 @@ function getYearSalesVolume(){
 function salesVolumeChart3(svYearVolume1, svYearVolume2, svYearVolume3, svYearVolume4, svYearVolume5, 
 		svYearVolume6, svYearVolume7, svYearVolume8, svYearVolume9, svYearVolume10, svYearVolume11) {
   var data = google.visualization.arrayToDataTable([
-    ["기간", "Density", { role: "style" } ],
-    ["10년전", svYearVolume11, "#b87333"],
+    ["기간", "", { role: "style" } ],
+    ["10년전", svYearVolume11, "gold"],
     ["9년전", svYearVolume10, "#b87333"],
-    ["8년전", svYearVolume9, "#b87333"],
-    ["7년전", svYearVolume8, "#b87333"],
+    ["8년전", svYearVolume9, "silver"],
+    ["7년전", svYearVolume8, "gold"],
     ["6년전", svYearVolume7, "#b87333"],
-    ["5년전", svYearVolume6, "#b87333"],
-    ["4년전", svYearVolume5, "#b87333"],
+    ["5년전", svYearVolume6, "silver"],
+    ["4년전", svYearVolume5, "gold"],
     ["3년전", svYearVolume4, "#b87333"],
     ["2년전", svYearVolume3, "silver"],
     ["1년전", svYearVolume2, "gold"],
@@ -563,7 +563,7 @@ function salesVolumeChart3(svYearVolume1, svYearVolume2, svYearVolume3, svYearVo
                    2]);
 
   var options = {
-    title: "연별 판매량",
+    title: "연 판매량",
     width: 1500,
     height: 900,
     bar: {groupWidth: "95%"},
@@ -598,7 +598,7 @@ function getAllSalesVolume(){
 
 function salesVolumeChart4(svAllVolume) {
   var data = google.visualization.arrayToDataTable([
-    ["기간", "Density", { role: "style" } ],
+    ["기간", "", { role: "style" } ],
     ["누적", svAllVolume, "color: gold"]
   ]);
 
@@ -658,7 +658,7 @@ function getDayTotalPrice(){
 
 function totalPriceChart1(plDayTotal1, plDayTotal2, plDayTotal3, plDayTotal4) {
   var data = google.visualization.arrayToDataTable([
-    ["기간", "Density", { role: "style" } ],
+    ["기간", "", { role: "style" } ],
     ["3일전", plDayTotal4, "#b87333"],
     ["2일전", plDayTotal3, "silver"],
     ["1일전", plDayTotal2, "gold"],
@@ -674,7 +674,7 @@ function totalPriceChart1(plDayTotal1, plDayTotal2, plDayTotal3, plDayTotal4) {
                    2]);
 
   var options = {
-    title: "일일 매출액",
+    title: "일 매출액",
     width: 1500,
     height: 900,
     bar: {groupWidth: "95%"},
@@ -734,7 +734,7 @@ function getMonthTotalPrice(){
 function totalPriceChart2(plMonthTotal1, plMonthTotal2, plMonthTotal3, plMonthTotal4, plMonthTotal5, plMonthTotal6, 
 		plMonthTotal7, plMonthTotal8, plMonthTotal9, plMonthTotal10, plMonthTotal11, plMonthTotal12) {
   var data = google.visualization.arrayToDataTable([
-    ["기간", "Density", { role: "style" } ],
+    ["기간", "", { role: "style" } ],
     ["열 한 달전 ", plMonthTotal12, "silver"],
     ["열 달전", plMonthTotal11, "gold"],
     ["아홉 달전", plMonthTotal10, "#b87333"],
@@ -816,14 +816,14 @@ function getYearTotalPrice(){
 function totalPriceChart3(plYearTotal1, plYearTotal2, plYearTotal3, plYearTotal4, plYearTotal5, 
 			plYearTotal6, plYearTotal7, plYearTotal8, plYearTotal9, plYearTotal10, plYearTotal11) {
   var data = google.visualization.arrayToDataTable([
-    ["기간", "Density", { role: "style" } ],
-    ["10년전", plYearTotal11, "#b87333"],
+    ["기간", "", { role: "style" } ],
+    ["10년전", plYearTotal11, "gold"],
     ["9년전", plYearTotal10, "#b87333"],
-    ["8년전", plYearTotal9, "#b87333"],
-    ["7년전", plYearTotal8, "#b87333"],
+    ["8년전", plYearTotal9, "silver"],
+    ["7년전", plYearTotal8, "gold"],
     ["6년전", plYearTotal7, "#b87333"],
-    ["5년전", plYearTotal6, "#b87333"],
-    ["4년전", plYearTotal5, "#b87333"],
+    ["5년전", plYearTotal6, "silver"],
+    ["4년전", plYearTotal5, "gold"],
     ["3년전", plYearTotal4, "#b87333"],
     ["2년전", plYearTotal3, "silver"],
     ["1년전", plYearTotal2, "gold"],
@@ -839,7 +839,7 @@ function totalPriceChart3(plYearTotal1, plYearTotal2, plYearTotal3, plYearTotal4
                    2]);
 
   var options = {
-    title: "연별 매출액",
+    title: "연 매출액",
     width: 1500,
     height: 900,
     bar: {groupWidth: "95%"},
@@ -875,7 +875,7 @@ function getAllTotalPrice(){
 
 function totalPriceChart4(plAllTotal) {
   var data = google.visualization.arrayToDataTable([
-    ["기간", "Density", { role: "style" } ],
+    ["기간", "", { role: "style" } ],
     ["누적", plAllTotal, "color: gold"]
   ]);
 
