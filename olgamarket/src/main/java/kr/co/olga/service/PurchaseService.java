@@ -42,6 +42,22 @@ public interface PurchaseService {
 	Long monthSalesVolumeSelect3();
 
 	Long monthSalesVolumeSelect4();
+	
+	Long monthSalesVolumeSelect5();
+	
+	Long monthSalesVolumeSelect6();
+	
+	Long monthSalesVolumeSelect7();
+	
+	Long monthSalesVolumeSelect8();
+	
+	Long monthSalesVolumeSelect9();
+	
+	Long monthSalesVolumeSelect10();
+	
+	Long monthSalesVolumeSelect11();
+	
+	Long monthSalesVolumeSelect12();
 
 // 관리자 통계 - 판매량(올해, 1년전, 2년전, 3년젼 ... 10년전)
 	Long yearSalesVolumeSelect1();
@@ -90,6 +106,22 @@ public interface PurchaseService {
 	Long monthPriceTotalSelect3();
 
 	Long monthPriceTotalSelect4();
+	
+	Long monthPriceTotalSelect5();
+	
+	Long monthPriceTotalSelect6();
+	
+	Long monthPriceTotalSelect7();
+	
+	Long monthPriceTotalSelect8();
+	
+	Long monthPriceTotalSelect9();
+	
+	Long monthPriceTotalSelect10();
+	
+	Long monthPriceTotalSelect11();
+	
+	Long monthPriceTotalSelect12();
 
 // 관리자 통계 - 매출(올해, 1년전, 2년전, 3년전)
 	Long yearPriceTotalSelect1();

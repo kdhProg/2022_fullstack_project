@@ -426,25 +426,51 @@ function getMonthSalesVolume(){
          let svMonthVolume2 = result.svMonth2;
          let svMonthVolume3 = result.svMonth3;
          let svMonthVolume4 = result.svMonth4;
+         let svMonthVolume5 = result.svMonth5;
+         let svMonthVolume6 = result.svMonth6;
+         let svMonthVolume7 = result.svMonth7;
+         let svMonthVolume8 = result.svMonth8;
+         let svMonthVolume9 = result.svMonth9;
+         let svMonthVolume10 = result.svMonth10;
+         let svMonthVolume11 = result.svMonth11;
+         let svMonthVolume12 = result.svMonth12;
         
          if(svMonthVolume1 == null){ svMonthVolume1 = 0; }
          if(svMonthVolume2 == null){ svMonthVolume2 = 0; }
          if(svMonthVolume3 == null){ svMonthVolume3 = 0; }
          if(svMonthVolume4 == null){ svMonthVolume4 = 0; }
+         if(svMonthVolume5 == null){ svMonthVolume5 = 0; }
+         if(svMonthVolume6 == null){ svMonthVolume6 = 0; }
+         if(svMonthVolume7 == null){ svMonthVolume7 = 0; }
+         if(svMonthVolume8 == null){ svMonthVolume8 = 0; }
+         if(svMonthVolume9 == null){ svMonthVolume9 = 0; }
+         if(svMonthVolume10 == null){ svMonthVolume10 = 0; }
+         if(svMonthVolume11 == null){ svMonthVolume11 = 0; }
+         if(svMonthVolume12 == null){ svMonthVolume12 = 0; }
          
          $("#monthSv").text(Number(svMonthVolume1).toLocaleString('ko-KR'));
          
-         salesVolumeChart2(svMonthVolume1, svMonthVolume2, svMonthVolume3, svMonthVolume4);
+         salesVolumeChart2(svMonthVolume1, svMonthVolume2, svMonthVolume3, svMonthVolume4, svMonthVolume5, svMonthVolume6,
+        					svMonthVolume7, svMonthVolume8, svMonthVolume9, svMonthVolume10, svMonthVolume11, svMonthVolume12);
       }// success 종료
    }); // ajax 종료
 }
 
-function salesVolumeChart2(svMonthVolume1, svMonthVolume2, svMonthVolume3, svMonthVolume4) {
+function salesVolumeChart2(svMonthVolume1, svMonthVolume2, svMonthVolume3, svMonthVolume4, svMonthVolume5, svMonthVolume6,
+		svMonthVolume7, svMonthVolume8, svMonthVolume9, svMonthVolume10, svMonthVolume11, svMonthVolume12) {
   var data = google.visualization.arrayToDataTable([
     ["기간", "Density", { role: "style" } ],
+    ["열 한 달전 ", svMonthVolume12, "silver"],
+    ["열 달전", svMonthVolume11, "gold"],
+    ["아홉 달전", svMonthVolume10, "#b87333"],
+    ["여덟 달전", svMonthVolume9, "silver"],
+    ["일곱 달전", svMonthVolume8, "gold"],
+    ["여섯 달전", svMonthVolume7, "#b87333"],
+    ["다섯 달전", svMonthVolume6, "silver"],
+    ["네 달전", svMonthVolume5, "gold"],
     ["세 달전", svMonthVolume4, "#b87333"],
     ["두 달전", svMonthVolume3, "silver"],
-    ["전 월", svMonthVolume2, "gold"],
+    ["한 달전", svMonthVolume2, "gold"],
     ["당 월", svMonthVolume1, "color: #e5e4e2"]
   ]);
 
@@ -674,26 +700,52 @@ function getMonthTotalPrice(){
          let plMonthTotal2 = result.plMonth2;
          let plMonthTotal3 = result.plMonth3;
          let plMonthTotal4 = result.plMonth4;
+         let plMonthTotal5 = result.plMonth5;
+         let plMonthTotal6 = result.plMonth6;
+         let plMonthTotal7 = result.plMonth7;
+         let plMonthTotal8 = result.plMonth8;
+         let plMonthTotal9 = result.plMonth9;
+         let plMonthTotal10 = result.plMonth10;
+         let plMonthTotal11 = result.plMonth11;
+         let plMonthTotal12 = result.plMonth12;
         
          if(plMonthTotal1 == null){ plMonthTotal1 = 0; }
          if(plMonthTotal2 == null){ plMonthTotal2 = 0; }
          if(plMonthTotal3 == null){ plMonthTotal3 = 0; }
          if(plMonthTotal4 == null){ plMonthTotal4 = 0; }
+         if(plMonthTotal5 == null){ plMonthTotal5 = 0; }
+         if(plMonthTotal6 == null){ plMonthTotal6 = 0; }
+         if(plMonthTotal7 == null){ plMonthTotal7 = 0; }
+         if(plMonthTotal8 == null){ plMonthTotal8 = 0; }
+         if(plMonthTotal9 == null){ plMonthTotal9 = 0; }
+         if(plMonthTotal10 == null){ plMonthTotal10 = 0; }
+         if(plMonthTotal11 == null){ plMonthTotal11 = 0; }
+         if(plMonthTotal12 == null){ plMonthTotal12 = 0; }
          
          $("#monthTotalPrice").text(Number(plMonthTotal1).toLocaleString('ko-KR'));
          $("#monthNetSales").text(Number(plMonthTotal1*10/100).toLocaleString('ko-KR'));
          
-         totalPriceChart2(plMonthTotal1, plMonthTotal2, plMonthTotal3, plMonthTotal4);
+         totalPriceChart2(plMonthTotal1, plMonthTotal2, plMonthTotal3, plMonthTotal4, plMonthTotal5, plMonthTotal6, 
+        				plMonthTotal7, plMonthTotal8, plMonthTotal9, plMonthTotal10, plMonthTotal11, plMonthTotal12);
       }// success 종료
    }); // ajax 종료
 }
 
-function totalPriceChart2(plMonthTotal1, plMonthTotal2, plMonthTotal3, plMonthTotal4) {
+function totalPriceChart2(plMonthTotal1, plMonthTotal2, plMonthTotal3, plMonthTotal4, plMonthTotal5, plMonthTotal6, 
+		plMonthTotal7, plMonthTotal8, plMonthTotal9, plMonthTotal10, plMonthTotal11, plMonthTotal12) {
   var data = google.visualization.arrayToDataTable([
     ["기간", "Density", { role: "style" } ],
+    ["열 한 달전 ", plMonthTotal12, "silver"],
+    ["열 달전", plMonthTotal11, "gold"],
+    ["아홉 달전", plMonthTotal10, "#b87333"],
+    ["여덟 달전", plMonthTotal9, "silver"],
+    ["일곱 달전", plMonthTotal8, "gold"],
+    ["여섯 달전", plMonthTotal7, "#b87333"],
+    ["다섯 달전", plMonthTotal6, "silver"],
+    ["네 달전", plMonthTotal5, "gold"],
     ["세 달전", plMonthTotal4, "#b87333"],
     ["두 달전", plMonthTotal3, "silver"],
-    ["전 월", plMonthTotal2, "gold"],
+    ["한 달전", plMonthTotal2, "gold"],
     ["당 월", plMonthTotal1, "color: #e5e4e2"]
   ]);
 

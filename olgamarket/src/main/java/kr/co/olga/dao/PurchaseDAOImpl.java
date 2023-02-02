@@ -91,6 +91,46 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 	public Long monthSalesVolumeSelect4() {
 		return session.selectOne("PurchaseMapper.monthSalesVolumeSelect4");
 	}
+	
+	@Override
+	public Long monthSalesVolumeSelect5() {
+		return session.selectOne("PurchaseMapper.monthSalesVolumeSelect5");
+	}
+	
+	@Override
+	public Long monthSalesVolumeSelect6() {
+		return session.selectOne("PurchaseMapper.monthSalesVolumeSelect6");
+	}
+	
+	@Override
+	public Long monthSalesVolumeSelect7() {
+		return session.selectOne("PurchaseMapper.monthSalesVolumeSelect7");
+	}
+	
+	@Override
+	public Long monthSalesVolumeSelect8() {
+		return session.selectOne("PurchaseMapper.monthSalesVolumeSelect8");
+	}
+	
+	@Override
+	public Long monthSalesVolumeSelect9() {
+		return session.selectOne("PurchaseMapper.monthSalesVolumeSelect9");
+	}
+	
+	@Override
+	public Long monthSalesVolumeSelect10() {
+		return session.selectOne("PurchaseMapper.monthSalesVolumeSelect10");
+	}
+	
+	@Override
+	public Long monthSalesVolumeSelect11() {
+		return session.selectOne("PurchaseMapper.monthSalesVolumeSelect11");
+	}
+	
+	@Override
+	public Long monthSalesVolumeSelect12() {
+		return session.selectOne("PurchaseMapper.monthSalesVolumeSelect12");
+	}
 
 // 관리자 통계 - 판매량(올해, 1년전, 2년전, 3년젼 ... 10년전)
 	@Override
@@ -200,6 +240,46 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 	@Override
 	public Long monthPriceTotalSelect4() {
 		return session.selectOne("PurchaseMapper.monthPriceTotalSelect4");
+	}
+	
+	@Override
+	public Long monthPriceTotalSelect5() {
+		return session.selectOne("PurchaseMapper.monthPriceTotalSelect5");
+	}
+	
+	@Override
+	public Long monthPriceTotalSelect6() {
+		return session.selectOne("PurchaseMapper.monthPriceTotalSelect6");
+	}
+	
+	@Override
+	public Long monthPriceTotalSelect7() {
+		return session.selectOne("PurchaseMapper.monthPriceTotalSelect7");
+	}
+	
+	@Override
+	public Long monthPriceTotalSelect8() {
+		return session.selectOne("PurchaseMapper.monthPriceTotalSelect8");
+	}
+	
+	@Override
+	public Long monthPriceTotalSelect9() {
+		return session.selectOne("PurchaseMapper.monthPriceTotalSelect9");
+	}
+	
+	@Override
+	public Long monthPriceTotalSelect10() {
+		return session.selectOne("PurchaseMapper.monthPriceTotalSelect10");
+	}
+	
+	@Override
+	public Long monthPriceTotalSelect11() {
+		return session.selectOne("PurchaseMapper.monthPriceTotalSelect11");
+	}
+	
+	@Override
+	public Long monthPriceTotalSelect12() {
+		return session.selectOne("PurchaseMapper.monthPriceTotalSelect12");
 	}
 
 // 관리자 통계 - 매출(올해, 1년전, 2년전, 3년전)	
