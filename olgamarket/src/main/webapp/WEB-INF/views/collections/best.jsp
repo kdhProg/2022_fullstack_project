@@ -1001,7 +1001,7 @@ $("#sortBtn4").on("click", function() {
 
 //필터 재설정 => 리다이렉트
 function filter_reload(){
-	location.href = "/collections/bestProduct";
+	location.href = "/collections/best";
 }
 
 

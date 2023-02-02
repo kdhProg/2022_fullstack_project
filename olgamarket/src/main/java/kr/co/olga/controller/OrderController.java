@@ -51,7 +51,7 @@ public class OrderController {
 	
 	//주문등록
 	@PostMapping(value="/orderAction")
-	public String orderAction(String payType,String payCard,String pay_simple,String memId,String shipDestination) {
+	public String orderAction(String payType,String payCard,String pay_simple,String memId,String shipDestination,Model model) {
 
 		String finalPayWay=""; //최종적으로 삽입될 결제법
 		if(payType.equals("payType1")) {finalPayWay = payCard;}
@@ -73,6 +73,13 @@ public class OrderController {
 		//고유번호용 UUID
 		String uuid = UUID.randomUUID().toString();
 		
+		//총 할인금액
+		long totalSalesPrice = 0L;
+		//총 주문금액
+		long totalOrderPrice = 0L;
+		//총 적립금
+		long totalSavedMoney = 0L;
+		
 		//최종삽입
 		for(int j=0;j<cartList.size();j++) {
 			PurchaseVO insertVO = new PurchaseVO();
@@ -85,12 +92,15 @@ public class OrderController {
 			
 			if(memService.memSelectOne(memId).getMemGrade().equals("Friend")) {
 				insertVO.setPlSavedMoney((prodList.get(j).getPdPrice())*(100-prodList.get(j).getPdSale())/100 * cartList.get(j).getCaQuantity()*5/100);
+				totalSavedMoney += (prodList.get(j).getPdPrice())*(100-prodList.get(j).getPdSale())/100 * cartList.get(j).getCaQuantity()*5/100;
 			}
 			if(memService.memSelectOne(memId).getMemGrade().equals("VIP")) {
-				insertVO.setPlSavedMoney((prodList.get(j).getPdPrice())*(100-prodList.get(j).getPdSale())/100 * cartList.get(j).getCaQuantity()*10/100);	
+				insertVO.setPlSavedMoney((prodList.get(j).getPdPrice())*(100-prodList.get(j).getPdSale())/100 * cartList.get(j).getCaQuantity()*10/100);
+				totalSavedMoney += (prodList.get(j).getPdPrice())*(100-prodList.get(j).getPdSale())/100 * cartList.get(j).getCaQuantity()*10/100;
 			}
 			if(memService.memSelectOne(memId).getMemGrade().equals("VVIP")) {
 				insertVO.setPlSavedMoney((prodList.get(j).getPdPrice())*(100-prodList.get(j).getPdSale())/100 * cartList.get(j).getCaQuantity()*20/100);
+				totalSavedMoney += (prodList.get(j).getPdPrice())*(100-prodList.get(j).getPdSale())/100 * cartList.get(j).getCaQuantity()*20/100;
 			}
 			
 			insertVO.setPlShipAddInfo(shipDestination);
@@ -103,13 +113,27 @@ public class OrderController {
 			pdVO.setPdId(prodList.get(j).getPdId());
 			pdVO.setPdSalesVolume(pdService.productSelectOne(prodList.get(j).getPdId()).getPdSalesVolume() + cartList.get(j).getCaQuantity());
 			pdService.increaseSaleByPdId(pdVO);
+			
+			//최종 할인/주문금액
+			totalSalesPrice += (prodList.get(j).getPdPrice())*(prodList.get(j).getPdSale())/100 * cartList.get(j).getCaQuantity();
+			totalOrderPrice += (prodList.get(j).getPdPrice())*(100-prodList.get(j).getPdSale())/100 * cartList.get(j).getCaQuantity();
 		}
+		
+		//주문 성공페이지에 값 넘겨주기
+		model.addAttribute("orderNumber", uuid);
+		model.addAttribute("cartList", cartList);
+		model.addAttribute("payWay", finalPayWay);
+		model.addAttribute("prodList", prodList);
+		model.addAttribute("totalSalesPrice", totalSalesPrice);
+		model.addAttribute("totalOrderPrice", totalOrderPrice);
+		model.addAttribute("totalSavedMoney", totalSavedMoney);
+		
 		//장바구니 리스트 삭제
 		CartVO delVO = new CartVO();
 		delVO.setCamemId(memId);
 		ctService.deleteByMemId(delVO);
 		
-		return "redirect:/myPage/myPageList";
+		return "/order/orderSuccess";
 	}
 
 }
