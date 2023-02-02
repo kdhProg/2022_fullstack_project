@@ -188,9 +188,9 @@
 		select sum(plTotalPrice) as total from purchaseLists
 	</select>
 	
-	
-	
-	
-	
-	
+	<!-- memId로 적립금 더하기 -->
+	<select id="sumSavedMoneyByMemId" parameterType="MemberVO" resultType="Long">
+		select sum(plsavedmoney) from purchaseLists where plmemid=#{memId}
+	</select>
+
 </mapper>

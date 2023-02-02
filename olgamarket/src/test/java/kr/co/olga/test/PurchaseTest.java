@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import kr.co.olga.service.PurchaseService;
+import kr.co.olga.vo.MemberVO;
 import kr.co.olga.vo.PurchaseVO;
 
 @WebAppConfiguration
@@ -47,6 +48,15 @@ public class PurchaseTest {
 		vo.setPlpdId(1570L);
 		vo.setPlmemId("ad332ass");
 		System.out.println(service.countCaseByMemIdNPdId(vo));
+	}
+	
+	@Test
+	@Ignore
+	public void sumSavedMoneyByMemIdTest() {
+		MemberVO vo = new MemberVO();
+		vo.setMemId("ertert43");
+		
+		System.out.println(service.sumSavedMoneyByMemId(vo));
 	}
 
 }

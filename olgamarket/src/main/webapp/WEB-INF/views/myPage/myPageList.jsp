@@ -112,8 +112,75 @@ a:hover{
 	padding-top: 5px;
 }
 /* =============헤더관련 끝================ */
+/* 등급-기본 */
+#grade_Friend{
+	width: 70px;
+	height: 50px;
+	border:2px solid #FC5603;
+	border-radius: 10%;
+	box-shadow: 0px 0px 1px 1px #FC5603;
+	color:#FC5603;
+}
+/* 등급-VIP */
+#grade_VIP{
+	width: 70px;
+	height: 50px;
+	border:2px solid silver;
+	border-radius: 10%;
+	box-shadow: 0px 0px 1px 1px silver;
+	color:silver;
+}
+/* 등급-VVIP */
+#grade_VVIP{
+	width: 70px;
+	height: 50px;
+	border:2px solid gold;
+	border-radius: 10%;
+	box-shadow: 0px 0px 1px 1px gold;
+	color:gold;
+}
+/* 마진/패딩 조정 */
+.grade_String{
+	margin-top:10px;
+}
+#mem_name_string{
+	margin-top:10px;
+	font-size: 1.2em;
+}
+#saved_money_percent{
+	margin-top: 7px;
+}
+/* 회색배경 */
+#simple_member_infos{
+	padding-top:30px;
+	padding-bottom:30px;
+	background: #FAFAFA;
+}
+/* 각각요소 흰색배경 */
+#grade_name_svPercent,#saved_money_entire_wrapper{
+	padding-top:10px;
+	background: white;
+	padding-bottom:10px;
+}
+/* 적립금 표시 */
+#savedMoney{
+	color:#fc5603;
+	font-weight: bold;
+	font-size: 2em;
+}
+
+/* 적립금 파트 마진 추가조정 */
+#saved_money_label{
+	margin-top: 15px;
+	margin-bottom: 10px;
+	margin-left: 30px;
+}
+#saved_money_show{
+	margin-left: 30px;
+}
+
 .col{
-	border: 1px solid blue;
+/* 	border: 1px solid blue; */
 }
 </style>
 <body>
@@ -248,28 +315,56 @@ a:hover{
 		</li>
 	</ul>
 	<!-- 회원개인정보 개요 -->
-	<div class="row">
+	<div id="simple_member_infos" class="row">
 		<div class="col col-lg-3"></div>
-		<div class="col">
+		<div id="grade_name_svPercent" class="col">
 			<div class="row">
-				<div class="col col-lg-3">
-				a
+				<div id="mem_grade" class="col col-lg-3">
+					<c:if test="${member.getMemGrade() eq 'Friend'}">
+						<div id="grade_Friend" class="text-center"><div class="grade_String"><strong>Friend</strong></div></div>
+					</c:if>
+					<c:if test="${member.getMemGrade() eq 'VIP'}">
+						<div id="grade_VIP" class="text-center"><div class="grade_String"><strong>VIP</strong></div></div>
+					</c:if>
+					<c:if test="${member.getMemGrade() eq 'VVIP'}">
+						<div id="grade_VVIP" class="text-center"><div class="grade_String"><strong>VVIP</strong></div></div>
+					</c:if>
 				</div>
-				<div class="col col-lg-9">
-					<strong>${member.getMemName()}</strong><span>님</span>
+				<div id="mem_name" class="col col-lg-9">
+					<div id="mem_name_string">
+						<strong>${member.getMemName()}</strong><span>님</span>
+					</div>
 				</div>
 			</div>
+			<hr />
 			<div class="row">
-				<div class="col">
-				a
+				<div id="saved_money_percent" class="col">
+					<c:if test="${member.getMemGrade() eq 'Friend'}">
+						<span>적립 5%</span>
+					</c:if>
+					<c:if test="${member.getMemGrade() eq 'VIP'}">
+						<span>적립 10%</span>
+					</c:if>
+					<c:if test="${member.getMemGrade() eq 'VVIP'}">
+						<span>적립 20%</span>
+					</c:if>
 				</div>
-				<div class="col">
-				등급기준 보기
+				<div id="saved_btn" class="col">
+					<button id="showSavedMoneyBtn" class="btn btn-outline-secondary">적립기준 보기</button>
 				</div>
 			</div>
 		</div>
-		<div class="col">
-			적립금
+		<div id="saved_money_entire_wrapper" class="col">
+			<div class="row">
+				<div id="saved_money_label" class="col">
+					<span><b>적립금</b></span>
+				</div>
+			</div>
+			<div class="row">
+				<div id="saved_money_show" class="col">
+					<span id="savedMoney"></span><span><b>원</b></span>
+				</div>
+			</div>
 		</div>
 		<div class="col col-lg-3"></div>
 	</div>
@@ -439,6 +534,68 @@ a:hover{
       </div>
       <div class="modal-footer">
      	<button type="button" id="warn_modal_login" class="btn btn-primary" data-bs-dismiss="modal">로그인</button>
+      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 모달창-적립기준-->
+<div id="show_savedMoney_modal" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+      	<strong>등급 기준</strong>
+      </div>
+      <div class="modal-body">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div id="grade_VVIP" class="text-center"><div class="grade_String"><strong>VVIP</strong></div></div>
+				</div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col">
+					<b>전월 500,000원이상 결제</b>
+				</div>
+				<div class="col">
+					<b>적립 20%</b>
+				</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="col">
+					<div id="grade_VIP" class="text-center"><div class="grade_String"><strong>VIP</strong></div></div>
+				</div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col">
+					<b>전월 200,000원이상 결제</b>
+				</div>
+				<div class="col">
+					<b>적립 10%</b>
+				</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="col">
+					<div id="grade_Friend" class="text-center"><div class="grade_String"><strong>Friend</strong></div></div>
+				</div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col">
+					<b>제한없음</b>
+				</div>
+				<div class="col">
+					<b>적립 5%</b>
+				</div>
+			</div>
+		</div>
+      </div>
+      <div class="modal-footer">
       	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
       </div>
     </div>
@@ -818,5 +975,26 @@ $("#navSearchBoxBtn_Btn").click(()=>{
 	location.href="/search/productList?searchKeyWord="+navSearchKeyWord;
 });
 /* 헤더관련  - 끝*/
+
+// 적립기준 모달 보여주기
+$("#showSavedMoneyBtn").click(()=>{
+	$("#show_savedMoney_modal").modal("show");
+});
+
+// 누적적립금 보여주기
+$(document).ready(()=>{
+	$.ajax({
+		type : "post",
+		url : "/myPage/getSavedMoneyBymemId",
+		data : {
+			memId : currentSession
+		},
+		success : function(rst){
+			let savedMoney = rst;
+			$("#savedMoney").text(Number(savedMoney).toLocaleString('ko-KR'));
+			
+		}// success 종료
+	}); // ajax 종료
+});
 </script>	
 </html>

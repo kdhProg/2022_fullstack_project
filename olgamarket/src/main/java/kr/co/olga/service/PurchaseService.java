@@ -70,6 +70,8 @@ public interface PurchaseService {
 // 관리자 통계 - 매출(누적)	
 	Long allPriceTotalSelect();
 
+	//memId에 해당하는 적립금 전부 더하기
+	Long sumSavedMoneyByMemId(MemberVO vo);
 	
 
 	

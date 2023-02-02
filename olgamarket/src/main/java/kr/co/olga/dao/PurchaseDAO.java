@@ -68,4 +68,7 @@ public interface PurchaseDAO {
 // 관리자 통계 - 매출(누적)
 	Long allPriceTotalSelect();
 
+	// memId로 적립금 더하기
+	Long sumSavedMoneyByMemId(MemberVO vo);
+
 }

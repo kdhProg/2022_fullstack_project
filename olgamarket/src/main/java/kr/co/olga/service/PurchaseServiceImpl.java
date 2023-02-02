@@ -230,6 +230,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public Long allPriceTotalSelect() {
 		return dao.allPriceTotalSelect();
 	}
+	
+	@Override
+	public Long sumSavedMoneyByMemId(MemberVO vo) {
+		return dao.sumSavedMoneyByMemId(vo);
+	}
 
 	
 }
