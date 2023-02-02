@@ -101,7 +101,20 @@ a {
          <div id='chart_div'></div>
       </div>
 </div>
-
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <!-- 판매량 div -->
 <div class="container" id="svDiv" style="display : none;">
 	<!-- 일별 -->
@@ -339,8 +352,8 @@ function drawChart(interGratedList) {
   var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
 
   var options = {
-	width: 1500,
-    height: 900,
+	width: 1200,
+    height: 800,
     bar: {groupWidth: "95%"},
     legend: { position: "none" },
     displayAnnotations: true
