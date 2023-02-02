@@ -112,6 +112,9 @@ a:hover{
 	padding-top: 5px;
 }
 /* =============헤더관련 끝================ */
+.col{
+	border: 1px solid blue;
+}
 </style>
 <body>
 <!-- 현재세션값 자바스크립트 넘기기-->
@@ -244,6 +247,32 @@ a:hover{
 			<a href="/myPage/memInfoUpdateView?memId=${member.getMemId()}" id="memUpdateBt" class="nav-link">내 정보 수정</a>
 		</li>
 	</ul>
+	<!-- 회원개인정보 개요 -->
+	<div class="row">
+		<div class="col col-lg-3"></div>
+		<div class="col">
+			<div class="row">
+				<div class="col col-lg-3">
+				a
+				</div>
+				<div class="col col-lg-9">
+					<strong>${member.getMemName()}</strong><span>님</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+				a
+				</div>
+				<div class="col">
+				등급기준 보기
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			적립금
+		</div>
+		<div class="col col-lg-3"></div>
+	</div>
 	
 <!-- 주문 내역-->	
 	<div id="plDiv" style="display : show;">
