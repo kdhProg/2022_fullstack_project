@@ -73,7 +73,7 @@
 					<button type="submit" class="btn btn-outline-danger">삭제</button>
 				</div>
 			</form>
-			<form name="listForm" method="post" action="/seller/dedicated">
+			<form name="listForm" method="post" action="/seller/newPdQuiryList">
 				<div>
 					<button type="submit" class="btn btn-outline-danger">목록</button>
 				</div>

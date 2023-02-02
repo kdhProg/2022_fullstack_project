@@ -103,7 +103,7 @@
 	
 				</div>
 			</form>
-			<form name="listForm" action="/seller/dedicated">
+			<form name="listForm" action="/seller/product">
 				<div>
 					<button type="submit" class="btn btn-outline-danger">목록</button>
 				</div>

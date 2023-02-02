@@ -64,7 +64,7 @@
 				</tr>
 	 			<c:forEach items="${answerList}" var="answerList">
 		 			<tr>
-		 				<td>${answerList.iaiqNo}</td>
+		 				<td>${answerList.iaContents}</td>
 						<td>	
 			        		<fmt:parseDate value="${answerList.iqUpdDate}" var="iqUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/> 
 			        		<fmt:formatDate value="${iqUpdDate}" pattern="yyyy-MM-dd" />
