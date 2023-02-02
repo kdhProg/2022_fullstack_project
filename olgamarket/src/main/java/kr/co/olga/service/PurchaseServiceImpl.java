@@ -165,6 +165,46 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public Long monthSalesVolumeSelect4() {
 		return dao.monthSalesVolumeSelect4();
 	}
+	
+	@Override
+	public Long monthSalesVolumeSelect5() {
+		return dao.monthSalesVolumeSelect5();
+	}
+	
+	@Override
+	public Long monthSalesVolumeSelect6() {
+		return dao.monthSalesVolumeSelect6();
+	}
+	
+	@Override
+	public Long monthSalesVolumeSelect7() {
+		return dao.monthSalesVolumeSelect7();
+	}
+	
+	@Override
+	public Long monthSalesVolumeSelect8() {
+		return dao.monthSalesVolumeSelect8();
+	}
+	
+	@Override
+	public Long monthSalesVolumeSelect9() {
+		return dao.monthSalesVolumeSelect9();
+	}
+	
+	@Override
+	public Long monthSalesVolumeSelect10() {
+		return dao.monthSalesVolumeSelect10();
+	}
+	
+	@Override
+	public Long monthSalesVolumeSelect11() {
+		return dao.monthSalesVolumeSelect11();
+	}
+	
+	@Override
+	public Long monthSalesVolumeSelect12() {
+		return dao.monthSalesVolumeSelect12();
+	}
 
 // 관리자 통계 - 판매량(올해, 1년전, 2년전, 3년젼 ... 10년전)
 	@Override
@@ -275,6 +315,46 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public Long monthPriceTotalSelect4() {
 		return dao.monthPriceTotalSelect4();
+	}
+	
+	@Override
+	public Long monthPriceTotalSelect5() {
+		return dao.monthPriceTotalSelect5();
+	}
+	
+	@Override
+	public Long monthPriceTotalSelect6() {
+		return dao.monthPriceTotalSelect6();
+	}
+	
+	@Override
+	public Long monthPriceTotalSelect7() {
+		return dao.monthPriceTotalSelect7();
+	}
+	
+	@Override
+	public Long monthPriceTotalSelect8() {
+		return dao.monthPriceTotalSelect8();
+	}
+	
+	@Override
+	public Long monthPriceTotalSelect9() {
+		return dao.monthPriceTotalSelect9();
+	}
+	
+	@Override
+	public Long monthPriceTotalSelect10() {
+		return dao.monthPriceTotalSelect10();
+	}
+	
+	@Override
+	public Long monthPriceTotalSelect11() {
+		return dao.monthPriceTotalSelect11();
+	}
+	
+	@Override
+	public Long monthPriceTotalSelect12() {
+		return dao.monthPriceTotalSelect12();
 	}
 
 // 관리자 통계 - 매출(올해, 1년전, 2년전, 3년전)	

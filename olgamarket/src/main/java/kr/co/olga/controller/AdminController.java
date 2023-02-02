@@ -930,6 +930,125 @@ public class AdminController {
 		return "/admin/adminStats";
 	}
 	
+	// 일일 판매량
+	@RequestMapping(value = "/daySalesVolume")
+	@ResponseBody
+	public Map<String, Object> daySalesVolume() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		// 당일
+		Long svDay1 = purchaseService.daySalesVolumeSelect1();
+		// 1일전
+		Long svDay2 = purchaseService.daySalesVolumeSelect2();
+		// 2일전
+		Long svDay3 = purchaseService.daySalesVolumeSelect3();
+		// 3일전
+		Long svDay4 = purchaseService.daySalesVolumeSelect4();
+		
+		result.put("svDay1", svDay1);
+		result.put("svDay2", svDay2);
+		result.put("svDay3", svDay3);
+		result.put("svDay4", svDay4);
+		
+		return result;
+	}
+	
+	// 월별 판매량
+	@RequestMapping(value = "/monthSalesVolume")
+	@ResponseBody
+	public Map<String, Object> monthSalesVolume() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		// 당일
+		Long svMonth1 = purchaseService.monthSalesVolumeSelect1();
+		// 1일전
+		Long svMonth2 = purchaseService.monthSalesVolumeSelect2();
+		// 2일전
+		Long svMonth3 = purchaseService.monthSalesVolumeSelect3();
+		// 3일전
+		Long svMonth4 = purchaseService.monthSalesVolumeSelect4();
+		Long svMonth5 = purchaseService.monthSalesVolumeSelect5();
+		Long svMonth6 = purchaseService.monthSalesVolumeSelect6();
+		Long svMonth7 = purchaseService.monthSalesVolumeSelect7();
+		Long svMonth8 = purchaseService.monthSalesVolumeSelect8();
+		Long svMonth9 = purchaseService.monthSalesVolumeSelect9();
+		Long svMonth10 = purchaseService.monthSalesVolumeSelect10();
+		Long svMonth11 = purchaseService.monthSalesVolumeSelect11();
+		Long svMonth12 = purchaseService.monthSalesVolumeSelect12();
+		
+		result.put("svMonth1", svMonth1);
+		result.put("svMonth2", svMonth2);
+		result.put("svMonth3", svMonth3);
+		result.put("svMonth4", svMonth4);
+		result.put("svMonth5", svMonth5);
+		result.put("svMonth6", svMonth6);
+		result.put("svMonth7", svMonth7);
+		result.put("svMonth8", svMonth8);
+		result.put("svMonth9", svMonth9);
+		result.put("svMonth10", svMonth10);
+		result.put("svMonth11", svMonth11);
+		result.put("svMonth12", svMonth12);
+		
+		return result;
+	}
+	
+	// 연별 판매량
+	@RequestMapping(value="/yearSalesVolume")
+	@ResponseBody
+	public Map<String, Object> yearSalesVolume() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		// 올해
+		Long svYear1 = purchaseService.yearSalesVolumeSelect1();
+		// 1년전
+		Long svYear2 = purchaseService.yearSalesVolumeSelect2();
+		// 2년전
+		Long svYear3 = purchaseService.yearSalesVolumeSelect3();
+		// 3년전
+		Long svYear4 = purchaseService.yearSalesVolumeSelect4();
+		// 4년전
+		Long svYear5 = purchaseService.yearSalesVolumeSelect5();
+		// 5년전
+		Long svYear6 = purchaseService.yearSalesVolumeSelect6();
+		// 6년전
+		Long svYear7 = purchaseService.yearSalesVolumeSelect7();
+		// 7년전
+		Long svYear8 = purchaseService.yearSalesVolumeSelect8();
+		// 8년전
+		Long svYear9 = purchaseService.yearSalesVolumeSelect9();
+		// 9년전
+		Long svYear10 = purchaseService.yearSalesVolumeSelect10();
+		// 10년전
+		Long svYear11 = purchaseService.yearSalesVolumeSelect11();
+		
+		result.put("svYear1", svYear1);
+		result.put("svYear2", svYear2);
+		result.put("svYear3", svYear3);
+		result.put("svYear4", svYear4);
+		result.put("svYear5", svYear5);
+		result.put("svYear6", svYear6);
+		result.put("svYear7", svYear7);
+		result.put("svYear8", svYear8);
+		result.put("svYear9", svYear9);
+		result.put("svYear10", svYear10);
+		result.put("svYear11", svYear11);
+
+		return result;
+	}
+	
+	// 누적 판매량
+	@RequestMapping(value="/allSalesVolume")
+	@ResponseBody
+	public Map<String, Object> allSalesVolume() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		Long svAll = purchaseService.allSalesVolumeSelect();
+		
+		result.put("svAll", svAll);
+		
+		return result;
+	}
+	
 	// 일일 매출액
 	@RequestMapping(value="/dayTotalPrice")
 	@ResponseBody
@@ -964,17 +1083,33 @@ public class AdminController {
 		
 		// 당일
 		Long plMonth1 = purchaseService.monthPriceTotalSelect1();
-		// 1일전
+		// 1
 		Long plMonth2 = purchaseService.monthPriceTotalSelect2();
-		// 2일전
+		// 2
 		Long plMonth3 = purchaseService.monthPriceTotalSelect3();
-		// 3일전
+		// 3
 		Long plMonth4 = purchaseService.monthPriceTotalSelect4();
+		Long plMonth5 = purchaseService.monthPriceTotalSelect5();
+		Long plMonth6 = purchaseService.monthPriceTotalSelect6();
+		Long plMonth7 = purchaseService.monthPriceTotalSelect7();
+		Long plMonth8 = purchaseService.monthPriceTotalSelect8();
+		Long plMonth9 = purchaseService.monthPriceTotalSelect9();
+		Long plMonth10 = purchaseService.monthPriceTotalSelect10();
+		Long plMonth11 = purchaseService.monthPriceTotalSelect11();
+		Long plMonth12 = purchaseService.monthPriceTotalSelect12();
 		
 		result.put("plMonth1", plMonth1);
 		result.put("plMonth2", plMonth2);
 		result.put("plMonth3", plMonth3);
 		result.put("plMonth4", plMonth4);
+		result.put("plMonth5", plMonth5);
+		result.put("plMonth6", plMonth6);
+		result.put("plMonth7", plMonth7);
+		result.put("plMonth8", plMonth8);
+		result.put("plMonth9", plMonth9);
+		result.put("plMonth10", plMonth10);
+		result.put("plMonth11", plMonth11);
+		result.put("plMonth12", plMonth12);
 		
 		return result;
 	}
@@ -1036,108 +1171,7 @@ public class AdminController {
 		return result;
 	}
 	
-	// 일일 판매량
-	@RequestMapping(value = "/daySalesVolume")
-	@ResponseBody
-	public Map<String, Object> daySalesVolume() {
-		Map<String, Object> result = new HashMap<String, Object>();
-		
-		// 당일
-		Long svDay1 = purchaseService.daySalesVolumeSelect1();
-		// 1일전
-		Long svDay2 = purchaseService.daySalesVolumeSelect2();
-		// 2일전
-		Long svDay3 = purchaseService.daySalesVolumeSelect3();
-		// 3일전
-		Long svDay4 = purchaseService.daySalesVolumeSelect4();
-		
-		result.put("svDay1", svDay1);
-		result.put("svDay2", svDay2);
-		result.put("svDay3", svDay3);
-		result.put("svDay4", svDay4);
-		
-		return result;
-	}
 	
-	// 월별 판매량
-	@RequestMapping(value = "/monthSalesVolume")
-	@ResponseBody
-	public Map<String, Object> monthSalesVolume() {
-		Map<String, Object> result = new HashMap<String, Object>();
-		
-		// 당일
-		Long svMonth1 = purchaseService.monthSalesVolumeSelect1();
-		// 1일전
-		Long svMonth2 = purchaseService.monthSalesVolumeSelect2();
-		// 2일전
-		Long svMonth3 = purchaseService.monthSalesVolumeSelect3();
-		// 3일전
-		Long svMonth4 = purchaseService.monthSalesVolumeSelect4();
-		
-		result.put("svMonth1", svMonth1);
-		result.put("svMonth2", svMonth2);
-		result.put("svMonth3", svMonth3);
-		result.put("svMonth4", svMonth4);
-		
-		return result;
-	}
-	
-	// 연별 판매량
-	@RequestMapping(value="/yearSalesVolume")
-	@ResponseBody
-	public Map<String, Object> yearSalesVolume() {
-		Map<String, Object> result = new HashMap<String, Object>();
-		
-		// 올해
-		Long svYear1 = purchaseService.yearSalesVolumeSelect1();
-		// 1년전
-		Long svYear2 = purchaseService.yearSalesVolumeSelect2();
-		// 2년전
-		Long svYear3 = purchaseService.yearSalesVolumeSelect3();
-		// 3년전
-		Long svYear4 = purchaseService.yearSalesVolumeSelect4();
-		// 4년전
-		Long svYear5 = purchaseService.yearSalesVolumeSelect5();
-		// 5년전
-		Long svYear6 = purchaseService.yearSalesVolumeSelect6();
-		// 6년전
-		Long svYear7 = purchaseService.yearSalesVolumeSelect7();
-		// 7년전
-		Long svYear8 = purchaseService.yearSalesVolumeSelect8();
-		// 8년전
-		Long svYear9 = purchaseService.yearSalesVolumeSelect9();
-		// 9년전
-		Long svYear10 = purchaseService.yearSalesVolumeSelect10();
-		// 10년전
-		Long svYear11 = purchaseService.yearSalesVolumeSelect11();
-		
-		result.put("svYear1", svYear1);
-		result.put("svYear2", svYear2);
-		result.put("svYear3", svYear3);
-		result.put("svYear4", svYear4);
-		result.put("svYear5", svYear5);
-		result.put("svYear6", svYear6);
-		result.put("svYear7", svYear7);
-		result.put("svYear8", svYear8);
-		result.put("svYear9", svYear9);
-		result.put("svYear10", svYear10);
-		result.put("svYear11", svYear11);
-
-		return result;
-	}
-	
-	// 누적 판매량
-	@RequestMapping(value="/allSalesVolume")
-	@ResponseBody
-	public Map<String, Object> allSalesVolume() {
-		Map<String, Object> result = new HashMap<String, Object>();
-		
-		Long svAll = purchaseService.allSalesVolumeSelect();
-		
-		result.put("svAll", svAll);
-		
-		return result;
-	}
 	
 	
 	
