@@ -111,7 +111,7 @@ public class SellerController {
 	public String newPdQuiryInsert(NewPdQuiryVO vo) {
 		newPdQuiryService.newPdQuiryInsert(vo);
 		
-		return "redirect:/seller/dedicated";
+		return "redirect:/seller/sellerMain";
 	}
 	
 	
@@ -239,7 +239,7 @@ public class SellerController {
 	public String selQuiryInsert(SelQuiryVO vo) {
 		selquiryService.selQuiryInsert(vo);
 		
-		return "redirect:/seller/dedicated";
+		return "redirect:/seller/sellerMain";
 	}
 	
 	// 판매자 문의 등록 화면 
@@ -258,7 +258,7 @@ public class SellerController {
 	public String sqlQuiryUpdate(SelQuiryVO vo) {
 		selquiryService.selQuiryUpdate(vo);
 		
-		return "redirect:/seller/dedicated";
+		return "redirect:/seller/sellerMain";
 	}
 	
 	// 판매자 문의 수정 화면 
@@ -274,7 +274,7 @@ public class SellerController {
 	public String sqlQuiryDelete(SelQuiryVO vo) {
 		selquiryService.selQuiryDelete(vo.getSqNo());
 		
-		return "redirect:/seller/dedicated";
+		return "redirect:/seller/sellerMain";
 	}
 	
 	// 판매자 문의 조회
