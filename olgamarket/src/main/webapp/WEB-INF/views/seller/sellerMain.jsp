@@ -37,9 +37,9 @@
 	<!-- 통계 -->
 	<div class="card" style="width: 75rem;">
 		<div class="card-body">
-			<h5 class="card-title">상품</h5>
-			<p class="card-text">상품 목록 / 상품 문의</p>
-			<a href="/seller/product" class="btn btn-primary">통계 보러 가기</a>
+			<h5 class="card-title">통계</h5>
+			<p class="card-text"></p>
+			<a href="" class="btn btn-primary">통계 보러 가기</a>
 		</div>
 	</div>
 </div>

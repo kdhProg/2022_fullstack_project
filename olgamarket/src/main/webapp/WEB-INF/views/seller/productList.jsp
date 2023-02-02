@@ -32,7 +32,7 @@ a {
 		<div class="container-fluid">
 			<a class="navbar-brand" href="/seller/newPdQuiry">신상품 등록</a>
 			<a class="navbar-brand" href="/seller/product">등록 상품 문의</a>
-			<a class="navbar-brand" href="/admin/storeList">통계</a>
+			<a class="navbar-brand" href="">통계</a>
 		</div>
 	</nav>
 
