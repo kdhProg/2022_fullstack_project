@@ -84,6 +84,15 @@ public interface ProductService {
 	// vo객체의 pdId를 통하여 판매량 증가
 	int increaseSaleByPdId(ProductVO vo);
 
+// 관리자 통계 - 판매량(당일, 1일전, 2일전, 3일전)	
+	Long daySalesVolumeSelect1();
+
+	Long daySalesVolumeSelect2();
+
+	Long daySalesVolumeSelect3();
+
+	Long daySalesVolumeSelect4();
+
 	
 
 	

@@ -1037,6 +1037,34 @@ public class AdminController {
 		return result;
 	}
 	
+	// 일일 판매량
+	@RequestMapping(value = "/daySalesVolume")
+	@ResponseBody
+	public Map<String, Object> daySalesVolume() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		// 당일
+		Long svDay1 = productService.daySalesVolumeSelect1();
+		// 1일전
+		Long svDay2 = productService.daySalesVolumeSelect2();
+		// 2일전
+		Long svDay3 = productService.daySalesVolumeSelect3();
+		// 3일전
+		Long svDay4 = productService.daySalesVolumeSelect4();
+		
+		result.put("svDay1", svDay1);
+		result.put("svDay2", svDay2);
+		result.put("svDay3", svDay3);
+		result.put("svDay4", svDay4);
+		
+		return result;
+	}
+	
+	// 월별 판매량
+	// 연별 판매량
+	// 누적 판매량
+	
+	
 	
 	
 	
