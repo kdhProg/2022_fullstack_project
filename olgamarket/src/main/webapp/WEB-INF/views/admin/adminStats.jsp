@@ -78,12 +78,10 @@ a {
    <a href="#" onclick="return false;" id="svBt" class="btn btn-primary">판매량</a>
    <a href="#" onclick="return false;" id="tpBt" class="btn btn-primary">매출액</a>
 </div>
-<!-- 김동훈 작업 시작 -->
+<br />
 
-<br />
-<br />
+<!-- 김동훈 작업 시작 -->
 <div class="container" id="visitDiv" style="display : none;">
-   <div class="row">
       <div class="col col-lg-3">
          <div class="row">
             <div class="col border-grey">
@@ -98,43 +96,38 @@ a {
             </div>
          </div>
       </div>
+      <br />
       <div class="col col-lg-9">
-         <div id='chart_div' ></div>
+         <div id='chart_div'></div>
       </div>
-   </div>
 </div>
-<br />
-<br />
-<br />
 
 <!-- 판매량 div -->
-<br />
-<br />
 <div class="container" id="svDiv" style="display : none;">
 	<!-- 일별 -->
 	<div class="container">
 		<div class="col col-lg-3">
 	         <div class="row">
 	            <div class="col border-grey">
-	               <p class="focus_font">총 판매량</p>
-	               <div id="todaySvPrice" class="focus_font"></div>
+	               <p class="focus_font">판매량(일일)</p>
+	               <div id="todaySv" class="focus_font"></div>
 	            </div>
 	         </div>
-	      </div>
-	   <div class="row" >
+	    </div>
+		<div class="row" >
 	      <div class="col col-lg-9">
 	         <div id='columnchart_values_sv1' ></div>
 	      </div>
-	   </div>
+	    </div>
 	</div>
-	
+<hr />	
 	<!-- 월별 -->
 	<div class="container">
 		<div class="col col-lg-3">
 	         <div class="row">
 	            <div class="col border-grey">
-	               <p class="focus_font">총 판매량</p>
-	               <div id="monthSvPrice" class="focus_font"></div>
+	               <p class="focus_font">판매량(월간)</p>
+	               <div id="monthSv" class="focus_font"></div>
 	            </div>
 	         </div>
 	      </div>
@@ -144,14 +137,14 @@ a {
 	      </div>
 	   </div>
 	</div>
-	
+<hr />	
 	<!-- 연별 -->
 	<div class="container">
 		<div class="col col-lg-3">
 	         <div class="row">
 	            <div class="col border-grey">
-	               <p class="focus_font">총 판매량</p>
-	               <div id="yearSvPrice" class="focus_font"></div>
+	               <p class="focus_font">판매량(연간)</p>
+	               <div id="yearSv" class="focus_font"></div>
 	            </div>
 	         </div>
 	      </div>
@@ -161,14 +154,14 @@ a {
 	      </div>
 	   </div>
 	</div>
-	
+<hr />	
 	<!-- 누적 -->
 	<div class="container">
 		<div class="col col-lg-3">
 	         <div class="row">
 	            <div class="col border-grey">
 	               <p class="focus_font">총 판매량</p>
-	               <div id="allSvPrice" class="focus_font"></div>
+	               <div id="allSv" class="focus_font"></div>
 	            </div>
 	         </div>
 	      </div>
@@ -179,25 +172,21 @@ a {
 	   </div>
 	</div>
 </div>
-<br />
-<br />
 
 <!-- 매출액 div -->
-<br />
-<br />
 <!-- 일별 -->
 <div class="container" id="tpDiv" style="display : none;">
 	<div class="container">
 		<div class="col col-lg-3">
 	         <div class="row">
 	            <div class="col border-grey">
-	               <p class="focus_font">총 매출액</p>
+	               <p class="focus_font">총 매출액(일간)</p>
 	               <div id="todayTotalPrice" class="focus_font"></div>
 	            </div>
 	         </div>
 	         <div class="row">
 	            <div class="col border-grey">
-	               <p class="focus_font">순 매출액</p>
+	               <p class="focus_font">순 매출액(일간)</p>
 	               <div id="dayNetSales" class="focus_font"></div>
 	            </div>
 	         </div>
@@ -208,19 +197,19 @@ a {
 	      </div>
 	   </div>
 	</div>
-	
+<hr />	
 	<!-- 월별 -->
 	<div class="container">
 		<div class="col col-lg-3">
 	         <div class="row">
 	            <div class="col border-grey">
-	               <p class="focus_font">총 매출액</p>
+	               <p class="focus_font">총 매출액(월간)</p>
 	               <div id="monthTotalPrice" class="focus_font"></div>
 	            </div>
 	         </div>
 	         <div class="row">
 	            <div class="col border-grey">
-	               <p class="focus_font">순 매출액</p>
+	               <p class="focus_font">순 매출액(월간)</p>
 	               <div id="monthNetSales" class="focus_font"></div>
 	            </div>
 	         </div>
@@ -231,19 +220,19 @@ a {
 	      </div>
 	   </div>
 	</div>
-	
+<hr />	
 	<!-- 연별 -->
 	<div class="container">
 		<div class="col col-lg-3">
 	         <div class="row">
 	            <div class="col border-grey">
-	               <p class="focus_font">총 매출액</p>
+	               <p class="focus_font">총 매출액(연간)</p>
 	               <div id="yearTotalPrice" class="focus_font"></div>
 	            </div>
 	         </div>
 	         <div class="row">
 	            <div class="col border-grey">
-	               <p class="focus_font">순 매출액</p>
+	               <p class="focus_font">순 매출액(연간)</p>
 	               <div id="yearNetSales" class="focus_font"></div>
 	            </div>
 	         </div>
@@ -254,7 +243,7 @@ a {
 	      </div>
 	   </div>
 	</div>
-	
+<hr />	
 	<!-- 누적 -->
 	<div class="container">
 		<div class="col col-lg-3">
@@ -278,8 +267,6 @@ a {
 	   </div>
 	</div>
 </div>
-<br />
-<br />
 
 <!-- 김동훈 작업 끝 -->   
 </body>
@@ -352,6 +339,10 @@ function drawChart(interGratedList) {
   var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
 
   var options = {
+	width: 1500,
+    height: 900,
+    bar: {groupWidth: "95%"},
+    legend: { position: "none" },
     displayAnnotations: true
   };
 
@@ -363,8 +354,247 @@ function drawChart(interGratedList) {
 
 /* ===================판매량 시작==================== */
 
+// 일별 판매량
+google.charts.load("current", {packages:['corechart']});
+google.charts.setOnLoadCallback(getDaySalesVolume); 
+ 
+function getDaySalesVolume(){
+   $.ajax({
+      type : "get",
+      url : "/admin/daySalesVolume",
+      data : {
+      },
+      success : function(result){
+         let svDayVolume1 = result.svDay1;
+         let svDayVolume2 = result.svDay2;
+         let svDayVolume3 = result.svDay3;
+         let svDayVolume4 = result.svDay4;
+         
+         if(svDayVolume1 == null){ svDayVolume1 = 0; }
+         if(svDayVolume2 == null){ svDayVolume2 = 0; }
+         if(svDayVolume3 == null){ svDayVolume3 = 0; }
+         if(svDayVolume4 == null){ svDayVolume4 = 0; }
+         
+         $("#todaySv").text(Number(svDayVolume1).toLocaleString('ko-KR'));
+         
+         salesVolumeChart1(svDayVolume1, svDayVolume2, svDayVolume3, svDayVolume4);
+      }// success 종료
+   }); // ajax 종료
+}
 
+function salesVolumeChart1(svDayVolume1, svDayVolume2, svDayVolume3, svDayVolume4) {
+  var data = google.visualization.arrayToDataTable([
+    ["기간", "Density", { role: "style" } ],
+    ["3일전", svDayVolume4, "#b87333"],
+    ["2일전", svDayVolume3, "silver"],
+    ["1일전", svDayVolume2, "gold"],
+    ["오늘", svDayVolume1, "color: #e5e4e2"]
+  ]);
 
+  var view = new google.visualization.DataView(data);
+  view.setColumns([0, 1,
+                   { calc: "stringify",
+                     sourceColumn: 1,
+                     type: "string",
+                     role: "annotation" },
+                   2]);
+
+  var options = {
+    title: "일일 판매량",
+    width: 1500,
+    height: 900,
+    bar: {groupWidth: "95%"},
+    legend: { position: "none" },
+  };
+  var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values_sv1"));
+  chart.draw(view, options);
+
+}
+
+//월별 매출
+google.charts.load("current", {packages:['corechart']});
+google.charts.setOnLoadCallback(getMonthSalesVolume); 
+ 
+function getMonthSalesVolume(){
+   $.ajax({
+      type : "get",
+      url : "/admin/monthSalesVolume",
+      data : {
+      },
+      success : function(result){
+         let svMonthVolume1 = result.svMonth1;
+         let svMonthVolume2 = result.svMonth2;
+         let svMonthVolume3 = result.svMonth3;
+         let svMonthVolume4 = result.svMonth4;
+        
+         if(svMonthVolume1 == null){ svMonthVolume1 = 0; }
+         if(svMonthVolume2 == null){ svMonthVolume2 = 0; }
+         if(svMonthVolume3 == null){ svMonthVolume3 = 0; }
+         if(svMonthVolume4 == null){ svMonthVolume4 = 0; }
+         
+         $("#monthSv").text(Number(svMonthVolume1).toLocaleString('ko-KR'));
+         
+         salesVolumeChart2(svMonthVolume1, svMonthVolume2, svMonthVolume3, svMonthVolume4);
+      }// success 종료
+   }); // ajax 종료
+}
+
+function salesVolumeChart2(svMonthVolume1, svMonthVolume2, svMonthVolume3, svMonthVolume4) {
+  var data = google.visualization.arrayToDataTable([
+    ["기간", "Density", { role: "style" } ],
+    ["세 달전", svMonthVolume4, "#b87333"],
+    ["두 달전", svMonthVolume3, "silver"],
+    ["전 월", svMonthVolume2, "gold"],
+    ["당 월", svMonthVolume1, "color: #e5e4e2"]
+  ]);
+
+  var view = new google.visualization.DataView(data);
+  view.setColumns([0, 1,
+                   { calc: "stringify",
+                     sourceColumn: 1,
+                     type: "string",
+                     role: "annotation" },
+                   2]);
+
+  var options = {
+    title: "월 판매량",
+    width: 1500,
+    height: 900,
+    bar: {groupWidth: "95%"},
+    legend: { position: "none" },
+  };
+  var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values_sv2"));
+  chart.draw(view, options);
+
+} 
+
+// 연별 판매량
+google.charts.load("current", {packages:['corechart']});
+google.charts.setOnLoadCallback(getYearSalesVolume); 
+ 
+function getYearSalesVolume(){
+   $.ajax({
+      type : "get",
+      url : "/admin/yearSalesVolume",
+      data : {
+      },
+      success : function(result){
+         let svYearVolume1 = result.svYear1;
+         let svYearVolume2 = result.svYear2;
+         let svYearVolume3 = result.svYear3;
+         let svYearVolume4 = result.svYear4;
+         let svYearVolume5 = result.svYear5;
+         let svYearVolume6 = result.svYear6;
+         let svYearVolume7 = result.svYear7;
+         let svYearVolume8 = result.svYear8;
+         let svYearVolume9 = result.svYear9;
+         let svYearVolume10 = result.svYear10;
+         let svYearVolume11 = result.svYear11;
+         
+         if(svYearVolume1 == null){ svYearVolume1 = 0; }
+         if(svYearVolume2 == null){ svYearVolume2 = 0; }
+         if(svYearVolume3 == null){ svYearVolume3 = 0; }
+         if(svYearVolume4 == null){ svYearVolume4 = 0; }
+         if(svYearVolume5 == null){ svYearVolume5 = 0; }
+         if(svYearVolume6 == null){ svYearVolume6 = 0; }
+         if(svYearVolume7 == null){ svYearVolume7 = 0; }
+         if(svYearVolume8 == null){ svYearVolume8 = 0; }
+         if(svYearVolume9 == null){ svYearVolume9 = 0; }
+         if(svYearVolume10 == null){ svYearVolume10 = 0; }
+         if(svYearVolume11 == null){ svYearVolume11 = 0; }
+         
+         $("#yearSv").text(Number(svYearVolume1).toLocaleString('ko-KR'));
+         
+         salesVolumeChart3(svYearVolume1, svYearVolume2, svYearVolume3, svYearVolume4, svYearVolume5, 
+        					svYearVolume6, svYearVolume7, svYearVolume8, svYearVolume9, svYearVolume10, svYearVolume11);
+      }// success 종료
+   }); // ajax 종료
+}
+
+function salesVolumeChart3(svYearVolume1, svYearVolume2, svYearVolume3, svYearVolume4, svYearVolume5, 
+		svYearVolume6, svYearVolume7, svYearVolume8, svYearVolume9, svYearVolume10, svYearVolume11) {
+  var data = google.visualization.arrayToDataTable([
+    ["기간", "Density", { role: "style" } ],
+    ["10년전", svYearVolume11, "#b87333"],
+    ["9년전", svYearVolume10, "#b87333"],
+    ["8년전", svYearVolume9, "#b87333"],
+    ["7년전", svYearVolume8, "#b87333"],
+    ["6년전", svYearVolume7, "#b87333"],
+    ["5년전", svYearVolume6, "#b87333"],
+    ["4년전", svYearVolume5, "#b87333"],
+    ["3년전", svYearVolume4, "#b87333"],
+    ["2년전", svYearVolume3, "silver"],
+    ["1년전", svYearVolume2, "gold"],
+    ["올해", svYearVolume1, "color: #e5e4e2"]
+  ]);
+
+  var view = new google.visualization.DataView(data);
+  view.setColumns([0, 1,
+                   { calc: "stringify",
+                     sourceColumn: 1,
+                     type: "string",
+                     role: "annotation" },
+                   2]);
+
+  var options = {
+    title: "연별 판매량",
+    width: 1500,
+    height: 900,
+    bar: {groupWidth: "95%"},
+    legend: { position: "none" },
+  };
+  var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values_sv3"));
+  chart.draw(view, options);
+
+} 
+
+// 누적 판매량
+google.charts.load("current", {packages:['corechart']});
+google.charts.setOnLoadCallback(getAllSalesVolume); 
+ 
+function getAllSalesVolume(){
+   $.ajax({
+      type : "get",
+      url : "/admin/allSalesVolume",
+      data : {
+      },
+      success : function(result){
+         let svAllVolume = result.svAll;
+         
+         if(svAllVolume == null){ svAllVolume = 0; }
+         
+         $("#allSv").text(Number(svAllVolume).toLocaleString('ko-KR'));
+         
+         salesVolumeChart4(svAllVolume);
+      }// success 종료
+   }); // ajax 종료
+}
+
+function salesVolumeChart4(svAllVolume) {
+  var data = google.visualization.arrayToDataTable([
+    ["기간", "Density", { role: "style" } ],
+    ["누적", svAllVolume, "color: gold"]
+  ]);
+
+  var view = new google.visualization.DataView(data);
+  view.setColumns([0, 1,
+                   { calc: "stringify",
+                     sourceColumn: 1,
+                     type: "string",
+                     role: "annotation" },
+                   2]);
+
+  var options = {
+    title: "누적 판매량",
+    width: 1500,
+    height: 900,
+    bar: {groupWidth: "95%"},
+    legend: { position: "none" },
+  };
+  var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values_sv4"));
+  chart.draw(view, options);
+
+} 
 
 /* ===================판매량 끝==================== */
 
@@ -419,8 +649,8 @@ function totalPriceChart1(plDayTotal1, plDayTotal2, plDayTotal3, plDayTotal4) {
 
   var options = {
     title: "일일 매출액",
-    width: 800,
-    height: 600,
+    width: 1500,
+    height: 900,
     bar: {groupWidth: "95%"},
     legend: { position: "none" },
   };
@@ -477,8 +707,8 @@ function totalPriceChart2(plMonthTotal1, plMonthTotal2, plMonthTotal3, plMonthTo
 
   var options = {
     title: "월 매출액",
-    width: 600,
-    height: 400,
+    width: 1500,
+    height: 900,
     bar: {groupWidth: "95%"},
     legend: { position: "none" },
   };
@@ -558,8 +788,8 @@ function totalPriceChart3(plYearTotal1, plYearTotal2, plYearTotal3, plYearTotal4
 
   var options = {
     title: "연별 매출액",
-    width: 600,
-    height: 400,
+    width: 1500,
+    height: 900,
     bar: {groupWidth: "95%"},
     legend: { position: "none" },
   };
@@ -607,8 +837,8 @@ function totalPriceChart4(plAllTotal) {
 
   var options = {
     title: "누적 매출액",
-    width: 600,
-    height: 400,
+    width: 1500,
+    height: 900,
     bar: {groupWidth: "95%"},
     legend: { position: "none" },
   };

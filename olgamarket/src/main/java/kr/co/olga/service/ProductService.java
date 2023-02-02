@@ -93,6 +93,41 @@ public interface ProductService {
 
 	Long daySalesVolumeSelect4();
 
+// 관리자 통계 - 판매량(당월, 전월, 두 달전, 세 달전)	
+	Long monthSalesVolumeSelect1();
+
+	Long monthSalesVolumeSelect2();
+
+	Long monthSalesVolumeSelect3();
+
+	Long monthSalesVolumeSelect4();
+
+// 관리자 통계 - 판매량(올해, 1년전, 2년전, 3년젼 ... 10년전)
+	Long yearSalesVolumeSelect1();
+
+	Long yearSalesVolumeSelect2();
+
+	Long yearSalesVolumeSelect3();
+
+	Long yearSalesVolumeSelect4();
+
+	Long yearSalesVolumeSelect5();
+
+	Long yearSalesVolumeSelect6();
+
+	Long yearSalesVolumeSelect7();
+
+	Long yearSalesVolumeSelect8();
+
+	Long yearSalesVolumeSelect9();
+
+	Long yearSalesVolumeSelect10();
+
+	Long yearSalesVolumeSelect11();
+	
+// 관리자 통계 - 판매량(누적)
+	Long allSalesVolumeSelect();
+
 	
 
 	
