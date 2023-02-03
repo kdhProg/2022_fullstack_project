@@ -40,6 +40,13 @@ a {
 		</div>
 	</nav>
 	<br />
+		<div class="row">
+			<div class="col text-center"> 
+				<h1>상품 관리</h1>
+			</div>
+		</div>
+	<br />
+	<br />
 	<a href="#" onclick="pdList(1);return false;" id="pdListBt" class="btn btn-primary">상품 목록</a>
 	<a href="#" onclick="pdQnList(1);return false;" id="pdQnListBt" class="btn btn-primary">상품 문의</a>
 	
@@ -47,14 +54,14 @@ a {
 
 <!-- 상품 목록 -->	
 <form name="insertForm" method="post" action="/admin/productInsertView">
-	
-	<br />
-	<div id="pdDiv" style="display : none;">
+	<div id="pdDiv" style="display : show;">
+		<div class="row">
+			<div class="col text-end">
+				<button type="submit" class="btn btn-outline-danger">상품 등록</button>
+			</div>
+		</div>
 		<div id="pdResultList"></div>
 		<div id="pdResultPagingNo"></div>
-		<div>
-			<button type="submit" class="btn btn-outline-danger">상품 등록</button>
-		</div>
 	</div>
 </form>	
 
@@ -156,7 +163,7 @@ function pdQnList(pageNo, sortNo) {
 				pdQuiryContentTag += "<td>"+value.iqpdId+"</td>";
 				pdQuiryContentTag += "<td>"+value.iqTitle+"</td>";
 				pdQuiryContentTag += "<td>"+value.iqContent+"</td>";
-				pdQuiryContentTag += "<td>"+value.iqState+"</td>";
+				if(value.iqState === 1){pdQuiryContentTag += "<td><p style='color:green;'><strong>답변완료</strong><p></td>";}else{pdQuiryContentTag += "<td><p><strong>처리대기중</strong><p></td>";}
 				pdQuiryContentTag += "<td>"+value.iqmemId+"</td>";
 				pdQuiryContentTag += "<td>"+value.iqRegiDate.substring(0,10)+"</td>";
 				pdQuiryContentTag += "</tr>";                

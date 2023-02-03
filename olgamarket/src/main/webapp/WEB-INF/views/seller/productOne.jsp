@@ -40,6 +40,13 @@ a {
 		</div>
 	</nav>
 	<section id="container">
+		<br />
+			<div class="row">
+				<div class="col text-center"> 
+					<h1>내 상품 문의</h1>
+				</div>
+			</div>
+		<br />	
 		<div>
 			<form name="readForm" role="form" method="post">
 				<input type="hidden" id="pdId" name="pdId" value="${productOne.pdId}" />
@@ -70,7 +77,7 @@ a {
 					<th>수정 날짜</th>
 				</tr>
 				<tr>
-					<td>${productOne.pdId}</td>
+					<td><a class="btn btn-light" href="/goods/detailView?pdId=${productOne.pdId}">${productOne.pdId}</a></td>
 					<td>${productOne.pdThumbImg}</td>
 					<td>${productOne.pdName}</td>
 					<td>${productOne.pdMainCategory}</td>
@@ -102,18 +109,26 @@ a {
 			<h3>문의 목록</h3>
 			<table class="table">
 				<tr>
-					<th>상품 Id</th>
 					<th>No</th>
+					<th>상품 Id</th>
 					<th>제목</th>
 					<th>답변 상태</th>
 					<th>등록일</th>				
 				</tr>
 				<c:forEach var="list" items="${selQnList}">
 					<tr>
-						<td>${list.getSqpdId()}</td>
 						<td><a class="btn btn-danger" href="/seller/selQuiryOne?sqNo=${list.getSqNo()}">${list.getSqNo()}</a></td>
+						<td><a class="btn btn-light" href="/goods/detailView?pdId=${list.getSqpdId()}">${list.getSqpdId()}</a></td>
 						<td>${list.getSqTitle()}</td>
-						<td>${list.getSqState()}</td>
+						<td>
+							<c:set value="${list.getSqState()}" var="grade" /> 
+							<c:if test="${grade eq 1}">
+								<c:out value="답변 완료" />
+							</c:if>	
+							<c:if test="${grade eq 0}">
+								<c:out value="처리대기중" />
+							</c:if>	
+						</td>
 						<td>
 							<fmt:parseDate value="${list.getSqRegiDate()}" var="sqRegiDate" pattern="yyyy-MM-dd HH:mm:ss"/>
 							<fmt:formatDate value="${sqRegiDate}" pattern="yyyy.MM.dd"/>

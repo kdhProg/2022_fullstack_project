@@ -385,12 +385,15 @@ a:hover{
 <!-- 배송지 -->	
 <form name="insertForm" method="post" action="/myPage/shipInsertView">
 	<div id="slDiv" style="display : none;">
+		<br />
+		<div class="row">
+			<div class="col text-end">
+				<button type="submit" class="btn btn-outline-danger">배송지 등록</button>
+			</div>
+		</div>
 		<span class="sessionMemIdShip">${member.getMemId()}</span>
 		<div id="slResultList"></div>
 		<div id="slResultPagingNo"></div>
-		<div>
-			<button type="submit" class="btn btn-outline-danger">배송지 등록</button>
-		</div>
 	</div>
 </form>	
 	
@@ -645,7 +648,7 @@ function purchaseList(pageNo, plmemId) {
 			var currPage = data.currPage;
             var purchasePageList = data.purchaseList; // model 처럼
         	
-            var purchaseContentTag = "<table class='table'><tr><th>No</th><th>주문 번호</th><th>상품 아이디</th><th>수량</th><th>가격</th><th>적립금</th><th>결제방식</th><th>배송지</th><th>주문 상태</th><th>주문 날짜</th></tr>";
+            var purchaseContentTag = "<table class='table'><tr><th>No</th><th>주문 번호</th><th>상품 ID</th><th>수량</th><th>가격</th><th>적립금</th><th>결제방식</th><th>배송지</th><th>주문 상태</th><th>주문 날짜</th></tr>";
             var purchasePagingTag = "";
 
 			$.each(purchasePageList, function(key, value) {

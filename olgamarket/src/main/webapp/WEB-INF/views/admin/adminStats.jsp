@@ -77,6 +77,13 @@ a {
 			<a class="navbar-brand" href="/admin/enterAdminMain"><svg class="nav_homeBtn" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16"><path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/></svg></a>
 		</div>
 	</nav>
+	<br />
+		<div class="row">
+			<div class="col text-center"> 
+				<h1>통계</h1>
+			</div>
+		</div>
+	<br />
    
    <br />
    <a href="#" onclick="return false;" id="visitBt" class="btn btn-primary">방문자 수</a>
@@ -87,6 +94,12 @@ a {
 
 <!-- 김동훈 작업 시작 -->
 <div class="container" id="visitDiv" style="display : none;">
+	<br />
+		<div>
+			<h2>*방문자수*</h2>
+		</div>
+	<br />
+	<br />
       <div class="col col-lg-3">
          <div class="row">
             <div class="col border-grey">
@@ -105,23 +118,31 @@ a {
       <div class="col col-lg-9">
          <div id='chart_div'></div>
       </div>
+	<br />      
+	<br />      
+	<br />      
+	<br />      
+	<br />      
+	<br />      
+	<br />      
+	<br />      
+	<br />      
+	<br />      
+	<br />      
+	<br />      
+	<br />      
+	<br />      
+	<br />      
 </div>
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
+
 <!-- 판매량 div -->
 <div class="container" id="svDiv" style="display : none;">
+	<br />
+		<div>
+			<h2>*판매량*</h2>
+		</div>
+	<br />
+	<br />
 	<!-- 일별 -->
 	<div class="container">
 		<div class="col col-lg-3">
@@ -194,6 +215,12 @@ a {
 <!-- 매출액 div -->
 <!-- 일별 -->
 <div class="container" id="tpDiv" style="display : none;">
+	<br />
+		<div>
+			<h2>*매출액*</h2>
+		</div>
+	<br />
+	<br />
 	<div class="container">
 		<div class="col col-lg-3">
 	         <div class="row">

@@ -19,19 +19,10 @@ a {
 	border: none;
 	background: transparent;
 }
+.button{
+	
+}
 </style>
-<script type="text/javascript">
-		$(document).ready(function(){
-			var formObj = $("form[name='insertForm']");
-			
-			// 판매점 등록
-			$(".insert_btn").on("click", function(){
-				formObj.attr("action", "/admin/storeInsertView");
-				formObj.attr("method", "get");
-				formObj.submit();				
-			})
-		})
-	</script>
 <body>
 <div class="container">
 	<nav class="navbar bg-light">
@@ -47,9 +38,22 @@ a {
 	</nav>
 	<br />
 	<section id="containers">
+		<br />
+			<div class="row">
+				<div class="col text-center"> 
+					<h1>스토어 관리</h1>
+				</div>
+			</div>
+		<br />
 		<form name="insertForm" role="form" method="post" action="/admin/storeInsertView">
 		<div>
+			<div class="row">
+				<div class="col text-end">
+					<button type="submit" class="btn btn-outline-danger">판매점 등록</button>
+				</div>
+			</div>
 			<table class="table">
+				
 				<tr>
 					<th>브랜드 No</th>
 					<th>브랜드 이름</th>
@@ -85,9 +89,7 @@ a {
 					<li><a href="/admin/storeList?showPage=${pageInfo.lastPageNoOnPageList+1 }">[next]</a></li>
 				</c:if>
 				</ul>
-					<div>
-						<button type="submit" class="btn btn-outline-danger">판매점 등록</button>
-					</div>
+					
 			</div>
 		</div>
 		</form>

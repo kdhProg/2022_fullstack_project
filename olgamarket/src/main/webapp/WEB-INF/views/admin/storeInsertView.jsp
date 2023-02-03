@@ -34,6 +34,13 @@
 		</div>
 	</nav>
 	<section id="container">
+		<br />
+		<div class="row">
+			<div class="col text-center"> 
+				<h1>스토어 관리</h1>
+			</div>
+		</div>
+		<br />
 		<form role="form" method="post" action="/admin/storeInsert">
 			<table class="table">
 				<tbody>

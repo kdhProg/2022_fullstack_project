@@ -32,13 +32,20 @@
 		</div>
 	</nav>
 	<section id="container">
+		<br />
+			<div class="row">
+				<div class="col text-center"> 
+					<h1>셀러 관리</h1>
+				</div>
+			</div>
+		<br />		
 		<form role="form" method="post"  action="/admin/selAnswerUpdate">
 			<input type="hidden" value="${selAnswerUp.sqNo}" id="ipNo" name="sasqNo" />
 			<table class="table">
 				<tbody>
 					<tr>
 						<td>
-							<label for="saContents">내용 : </label>
+							<label for="saContents">내용</label>
 							<textarea id="saContents" name="saContents" class="form-control"></textarea>
 						</td>
 					</tr>

@@ -37,6 +37,13 @@
 		</div>
 	</nav>
 	<section id="container">
+		<br />
+			<div class="row">
+				<div class="col text-center"> 
+					<h1>신상품 등록 문의</h1>
+				</div>
+			</div>
+		<br />
 		<div>
 			<form name="readForm" role="form" method="post">
 				<input type="hidden" id="npqNo" name="npqNo" value="${newPdQuiryOne.npqNo}" />
@@ -58,7 +65,15 @@
 					<td>${newPdQuiryOne.npqTitle}</td>
 					<td>${newPdQuiryOne.npqContent}</td>
 					<td>${newPdQuiryOne.npqImg}</td>
-					<td>${newPdQuiryOne.npqState}</td>
+					<td>
+						<c:set value="${newPdQuiryOne.npqState}" var="grade" /> 
+						<c:if test="${grade eq 1}">
+							<c:out value="답변 완료" />
+						</c:if>	
+						<c:if test="${grade eq 0}">
+							<c:out value="처리대기중" />
+						</c:if>	
+					</td>
 					<td>
 						<fmt:parseDate value="${newPdQuiryOne.npqUpdDate}" var="npqUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
 						<fmt:formatDate value="${npqUpdDate}" pattern="yyyy.MM.dd"/>

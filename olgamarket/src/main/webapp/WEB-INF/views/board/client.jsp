@@ -251,13 +251,16 @@ a:hover{
 	<!-- 1대1 문의 -->	
 	<form name="insertForm" method="post" action="/board/otqInsertView">	
 		<div id="otoDiv" style="display : none;">
+		<br />
+		<div class="row">
+			<div class="col text-end">
+				<button type="submit" class="btn btn-outline-danger">등록</button>
+			</div>
+		</div>
 		<a href="#" onclick="sortList(1);return false;" id="sortBtn1" class="btn btn-light">답변 대기</a>
 		<a href="#" onclick="sortList(2);return false;" id="sortBtn2" class="btn btn-light">답변 완료</a>
 			<div id="otoResultList"></div>
 			<div id="otoResultPagingNo"></div>
-			<div>
-				<button type="submit" class="btn btn-outline-danger">1:1 문의 등록</button>
-			</div>
 		</div>
 	</form>
 </div>

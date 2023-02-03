@@ -276,18 +276,25 @@ a:hover{
 	 		<br />
 			<h3>답변</h3>
 			<table class="table">
+				<tr>
+					<th>메인 카테고리</th>
+					<th>서브 카테고리</th>
+					<th>제목</th>
+					<th>답변 내용</th>
+					<th>작성 날짜</th>
+					<th>작성자</th>
+				</tr>
 				<c:forEach items="${boardAnList}" var="boardAnList">
 					<tr>
+						<td>${boardAnList.otaMainCategory}</td>
+						<td>${boardAnList.otaSubCategory}</td>
+						<td>${boardAnList.otaTitle}</td>
+						<td>${boardAnList.otaContent}</td>
 						<td>
-							 작성자 : ${boardAnList.otaadmId}<br />
-						     메인 카테고리 : ${boardAnList.otaMainCategory}<br />
-						     서브 카테고리 : ${boardAnList.otaSubCategory}<br />
-						     제목 :  ${boardAnList.otaTitle}<br />
-						     답변 내용 : ${boardAnList.otaContent}<br />
-						     작성 날짜 : 
-						     <fmt:parseDate value="${boardAnList.otaUpdDate}" var="otaUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/> 
-						     <fmt:formatDate value="${otaUpdDate}" pattern="yyyy-MM-dd" />
+							<fmt:parseDate value="${boardAnList.otaUpdDate}" var="otaUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/> 
+						    <fmt:formatDate value="${otaUpdDate}" pattern="yyyy-MM-dd" />
 						</td>
+						<td>${boardAnList.otaadmId}</td>
 					</tr>
 			    </c:forEach>   
 			</table>

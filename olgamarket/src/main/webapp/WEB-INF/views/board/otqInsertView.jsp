@@ -230,7 +230,7 @@ a:hover{
 			<table class="table">
 				<tr>
 					<td>
-						<label for="otqMainCategory">메인카테고리 : </label>
+						<label for="otqMainCategory">메인카테고리</label>
 						<select name="otqMainCategory" required="required" class="form-control">
 							<option value="">선택하세요.</option>
 							<option value="주문/결제">주문/결제</option>
@@ -242,7 +242,7 @@ a:hover{
 				</tr>		
 				<tr>
 					<td>
-						<label for="otqSubCategory">서브카테고리 : </label>
+						<label for="otqSubCategory">서브카테고리</label>
 						<select name="otqSubCategory" required="required" class="form-control">
 							<option value="">선택하세요</option>
 						</select>
@@ -250,19 +250,19 @@ a:hover{
 				</tr>
 				<tr>
 					<td>
-						<label for="otqTitle">제목 : </label>
+						<label for="otqTitle">제목</label>
 						<input type="text" id="otqTitle" name="otqTitle" class="form-control"/>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<label for="otqContent">내용 : </label>
+						<label for="otqContent">내용</label>
 						<textarea id="otqContent" name="otqContent" class="form-control"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<label for="otqmemId">작성자 : </label>
+						<label for="otqmemId">작성자</label>
 						<input type="text" id="otqmemId" name="otqmemId"
 							value="${member.getMemId()}" readonly="readonly" class="form-control"/>
 					</td>

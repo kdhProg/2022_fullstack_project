@@ -40,25 +40,32 @@ a {
 		</div>
 	</nav>
 	<section id="container">
+		<br />
+			<div class="row">
+				<div class="col text-center"> 
+					<h1>신상품 등록 문의</h1>
+				</div>
+			</div>
+		<br />
 		<form role="form" method="post"  action="/seller/newPdQuiryUpdate">
 			<input type="hidden" value="${npqUp.npqNo}" id="npqNo" name="npqNo" />
 			<table class="table">
 				<tbody>
 					<tr>
 						<td>
-							<label for="npqTitle">제목 : </label>
+							<label for="npqTitle">제목</label>
 							<input type="text" id="npqTitle" name="npqTitle" class="form-control"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="npqContent">내용 : </label>
+							<label for="npqContent">내용</label>
 							<textarea id="npqContent" name="npqContent" class="form-control"></textarea>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="npqImg">이미지 : </label>
+							<label for="npqImg">이미지</label>
 							<input type="text" id="npqImg" name="npqImg" class="form-control"/>
 						</td>
 					</tr>

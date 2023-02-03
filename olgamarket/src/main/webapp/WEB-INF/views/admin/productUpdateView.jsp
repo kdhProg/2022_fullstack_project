@@ -43,15 +43,28 @@
 		</div>
 	</nav>
 	<section id="container">
+		<br />
+			<div class="row">
+				<div class="col text-center"> 
+					<h1>상품 관리</h1>
+				</div>
+			</div>
+		<br />
 		<form name="updateForm" role="form" method="post" action="/admin/productUpdate">
 			<input hidden="hidden" name="pdId" value="${update.pdId}" readonly="readonly" />
 			<table class="table">
 				<tbody>
 					<tr>
-						<td>상품 번호 : ${update.pdId} </td>
+						<td>
+							<label for="pdId">상품 Id</label>
+							<input type="text" id="pdId" name="pdId" value="${update.pdId}" class="form-control" readonly="readonly"/>
+						</td>
 					</tr>
 					<tr>
-						<td>브랜드 이름 : ${update.pdstlBrandName} </td>
+						<td>
+							<label for="pdstlBrandName">브랜드 이름</label>
+							<input type="text" id="pdstlBrandName" name="pdstlBrandName" value="${update.pdstlBrandName}" class="form-control" readonly="readonly"/>
+						</td>
 					</tr>
 					<tr>
 						<td>

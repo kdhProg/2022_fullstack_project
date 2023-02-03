@@ -32,6 +32,13 @@
 		</div>
 	</nav>
 	<section id="container">
+		<br />
+			<div class="row">
+				<div class="col text-center"> 
+					<h1>회원 등급 관리</h1>
+				</div>
+			</div>
+		<br />		
 		<div>
 			<form name="readForm" role="form" method="post">
 				<input type="hidden" id="selId" name="memId" value="${adminMemOne.memId}" />

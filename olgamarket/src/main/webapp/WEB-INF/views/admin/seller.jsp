@@ -39,7 +39,13 @@ a {
 			<a class="navbar-brand" href="/admin/enterAdminMain"><svg class="nav_homeBtn" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16"><path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/></svg></a>
 		</div>
 	</nav>
-	
+	<br />
+		<div class="row">
+			<div class="col text-center"> 
+				<h1>셀러 관리</h1>
+			</div>
+		</div>
+	<br />
 	<br />
 	<a href="#" onclick="selList(1);return false;" id="selListBt" class="btn btn-primary">판매자 목록</a>
 	<a href="#" onclick="npqList(1);return false;" id="npqListBt" class="btn btn-primary">신상품 등록 문의</a>
@@ -48,7 +54,7 @@ a {
 	<hr />
 
 <!-- 판매자 목록 -->	
-	<div id="selDiv" style="display : none;">
+	<div id="selDiv" style="display : show;">
 		<a href="#" onclick="sortList1(1);return false;" id="sortBtn1" class="btn btn-light">판매자</a>
 		<a href="#" onclick="sortList1(2);return false;" id="sortBtn2" class="btn btn-light">권한 회수된 판매자</a>
 		<div id="selResultList"></div>
@@ -103,7 +109,7 @@ function selList(pageNo, sortNo) {
 				selContentTag += "<td>"+value.selPhone+"</td>";
 				selContentTag += "<td>"+value.selMarketUniqueNo+"</td>";
 				selContentTag += "<td>"+value.selSelRegiNo+"</td>";
-				selContentTag += "<td>"+value.selTypeGrade+"</td>";
+				if(value.selTypeGrade === 1){selContentTag += "<td><p style='color:green;'><strong>셀러</strong><p></td>";}else{selContentTag += "<td><p><strong>일반</strong><p></td>";}
 				selContentTag += "<td>"+value.selUpdDate.substring(0,10)+"</td>";
 				selContentTag += "</tr>";                
              });
@@ -165,7 +171,7 @@ function npqList(pageNo, sortNo) {
 				npqContentTag += "<td>"+value.npqTitle+"</td>";
 				npqContentTag += "<td>"+value.npqContent+"</td>";
 				npqContentTag += "<td>"+value.npqImg+"</td>";
-				npqContentTag += "<td>"+value.npqState+"</td>";
+				if(value.npqState === 1){npqContentTag += "<td><p style='color:green;'><strong>답변완료</strong><p></td>";}else{npqContentTag += "<td><p><strong>처리대기중</strong><p></td>";}
 				npqContentTag += "<td>"+value.npqRegiDate.substring(0,10)+"</td>";
 				npqContentTag += "</tr>";                
              });
@@ -226,7 +232,7 @@ function sqList(pageNo, sortNo) {
 				selQuiryContentTag += "<td>"+value.sqpdId+"</td>";
 				selQuiryContentTag += "<td>"+value.sqTitle+"</td>";
 				selQuiryContentTag += "<td>"+value.sqContent+"</td>";
-				selQuiryContentTag += "<td>"+value.sqState+"</td>";
+				if(value.sqState === 1){selQuiryContentTag += "<td><p style='color:green;'><strong>답변완료</strong><p></td>";}else{selQuiryContentTag += "<td><p><strong>처리대기중</strong><p></td>";}
 				selQuiryContentTag += "<td>"+value.sqselId+"</td>";
 				selQuiryContentTag += "<td>"+value.sqRegiDate.substring(0,10)+"</td>";
 				selQuiryContentTag += "</tr>";                

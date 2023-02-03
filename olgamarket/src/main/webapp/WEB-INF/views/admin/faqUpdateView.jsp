@@ -43,12 +43,22 @@
 		</div>
 	</nav>
 	<section id="container">
+		<br />
+			<div class="row">
+				<div class="col text-center"> 
+					<h1>고객센터 관리</h1>
+				</div>
+			</div>
+		<br />	
 		<form name="updateForm" role="form" method="post" action="/admin/faqUpdate">
 			<input type="hidden" name="faqNo" value="${update.faqNo}" readonly="readonly" />
 			<table class="table">
 				<tbody>
 					<tr>
-						<td>No : ${update.faqNo}</td>
+						<td>
+							<label for="faqNo">No</label>
+							<input type="text" id="faqNo" name="faqNo" value="${update.faqNo}" class="form-control" readonly="readonly"/>
+						</td>
 					</tr>
 					<tr>
 						<td>
