@@ -101,7 +101,7 @@ function pdList(pageNo) {
 				pdContentTag += "<td>"+value.pdSale+"</td>";
 				pdContentTag += "<td>"+value.pdStock+"</td>";
 				pdContentTag += "<td>"+value.pdSalesVolume+"</td>";
-				pdContentTag += "<td>"+value.pdUpdDate+"</td>";
+				pdContentTag += "<td>"+value.pdUpdDate.substring(0,10)+"</td>";
 				pdContentTag += "</tr>";                
              });
 			pdContentTag += "</table>";
@@ -158,7 +158,7 @@ function pdQnList(pageNo, sortNo) {
 				pdQuiryContentTag += "<td>"+value.iqContent+"</td>";
 				pdQuiryContentTag += "<td>"+value.iqState+"</td>";
 				pdQuiryContentTag += "<td>"+value.iqmemId+"</td>";
-				pdQuiryContentTag += "<td>"+value.iqRegiDate+"</td>";
+				pdQuiryContentTag += "<td>"+value.iqRegiDate.substring(0,10)+"</td>";
 				pdQuiryContentTag += "</tr>";                
              });
 			pdQuiryContentTag += "</table>";

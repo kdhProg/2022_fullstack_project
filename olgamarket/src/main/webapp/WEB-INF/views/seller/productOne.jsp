@@ -114,7 +114,10 @@ a {
 						<td><a class="btn btn-danger" href="/seller/selQuiryOne?sqNo=${list.getSqNo()}">${list.getSqNo()}</a></td>
 						<td>${list.getSqTitle()}</td>
 						<td>${list.getSqState()}</td>
-						<td>${list.getSqRegiDate()}</td>
+						<td>
+							<fmt:parseDate value="${list.getSqRegiDate()}" var="sqRegiDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+							<fmt:formatDate value="${sqRegiDate}" pattern="yyyy.MM.dd"/>
+						</td>
 					</tr>
 				</c:forEach>
 			</table>

@@ -71,11 +71,14 @@
 	 		<br />
 	 		<h3>답변</h3>
 			<table class="table">
+				<tr>
+					<th>내용</th>
+					<th>등록 날짜</th>
+				</tr>
 			    <c:forEach items="${selAnList}" var="selAnList">
 			    	<tr>
+			      		<td>${selAnList.saContents}</td>
 			      		<td>
-			      			답변 내용 : ${selAnList.saContents}<br />
-				        	작성 날짜 : 
 				        	<fmt:parseDate value="${selAnList.saUpdDate}" var="saUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/> 
 				        	<fmt:formatDate value="${saUpdDate}" pattern="yyyy-MM-dd" />
 						</td>
