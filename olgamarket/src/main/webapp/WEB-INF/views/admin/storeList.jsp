@@ -37,14 +37,13 @@ a {
 		</div>
 	</nav>
 	<br />
-	<section id="containers">
-		<br />
-			<div class="row">
-				<div class="col text-center"> 
-					<h1>스토어 관리</h1>
-				</div>
+		<div class="row">
+			<div class="col text-center"> 
+				<h1>스토어 관리</h1>
 			</div>
-		<br />
+		</div>
+	<br />
+	<section id="containers">
 		<form name="insertForm" role="form" method="post" action="/admin/storeInsertView">
 		<div>
 			<div class="row">
