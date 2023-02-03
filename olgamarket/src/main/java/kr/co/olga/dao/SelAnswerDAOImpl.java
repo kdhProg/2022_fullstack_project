@@ -29,6 +29,11 @@ public class SelAnswerDAOImpl implements SelAnswerDAO {
 	public long selAnswerUpdate(SelAnswerVO vo) {
 		return session.update("selAnswerMapper.selAnswerUpdate", vo);
 	}
+	
+	@Override
+	public int chkSaAnswerExists(SelAnswerVO vo) {
+		return session.selectOne("selAnswerMapper.chkSaAnswerExists", vo);
+	}
 
 
 }

@@ -13,34 +13,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <style>
 
-/* 모달 창 시작 */
-.modal{ 
-  position:absolute; width:100%; height:100%; background: rgba(0,0,0,0.7);
-  top:0; left:0;
-  display:none;
-}
 
-.modal_content{
-  width:300px; height:120px;
-  background:#fff; border-radius:20px;
-  position:relative; top:50%; left:50%;
-  margin-top:-100px; margin-left:-200px;
-  text-align:center;
-  box-sizing:border-box;
-  padding:20px 0;
-}
-.modal_msg{
-	font-weight: bold;
-	text-align: center;
-	padding: 10px 0;;
-}
-.modal_btn{
-	cursor:pointer;
-	font-weight: bold;
-	color: tomato;
-	padding-bottom:10px;	
-}
-/* 모달 창 끝 */
 /* 로그인 에러 메시지 */
 #loginErrorMsg{
 	display: none;
@@ -103,7 +76,7 @@ a{
 	font-size: 12px;
 }
 .container{
-	margin-top : 300px;
+	margin-top : 200px;
 }
 .h{
 	margin-left : 300px;
@@ -143,21 +116,26 @@ a{
 			</div>	
 		</form>
 	</div>
-	<div id="preLoginWarn"></div>
-	
+	<div class="row">
+		<div id="preLoginWarn" class="col text-center"></div>
+	</div>
 </div>
 
 <!-- 아래의 loginErrorMsg는 로그인 결과 체크용 -->
 <div id="loginErrorMsg">${loginResult}</div>
 
-<div class="modal">
-  <div class="modal_content">
-  	<div class="modal_msg">
-  	아이디,비밀번호를 확인하세요
-  	</div>
-  	<hr />
-    <div class="modal_btn">
-    	확인
+<!-- 모달창-로그인 -->
+<div id="login_warn_modal" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+      </div>
+      <div class="modal-body">
+		<p>아이디,비밀번호를 확인하세요</p>
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+      </div>
     </div>
   </div>
 </div>
@@ -191,16 +169,10 @@ $("#memPwdInputBox").keyup(function(){
 let loginRst = $("#loginErrorMsg").text();
 // console.log("loginRst"+loginRst);
 
-$(function(){ 
-	
-	if(loginRst == "failed"){$(".modal").fadeIn();}
-	  
-	  $(".modal_btn").click(function(){
-	    $(".modal").fadeOut();
-	  });
-	  
-	});
-</script>
+$(document).ready(()=>{
+	if(loginRst == "failed"){$("#login_warn_modal").modal("show");return false;}  
+});
 
+</script>
 </body>
 </html>

@@ -32,14 +32,10 @@
 		select * from iqAnswers where iaiqNo=#{iaiqNo}
 	</select>
 
-	
-
-
-
-
-
-
-
+	<!-- 답변이 존재하는지 체크 -->
+	<select id="chkAnswerExists" parameterType="AnswerVO" resultType="Integer">
+		select count(*) from iqAnswers where iaiqNo=#{iaiqNo}
+	</select>
 
 
 </mapper>

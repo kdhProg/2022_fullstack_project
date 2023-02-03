@@ -17,6 +17,9 @@ public interface AnswerService {
 
 	List<AnswerVO> answerList(@NonNull Long iqNo);
 
+	// vo에 들어있는 iaiqNO에 해당하는 답변개수 반환 => 있으면 1 없다면 0
+	int chkAnswerExists(AnswerVO vo);
+
 
 
 }

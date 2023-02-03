@@ -7,14 +7,17 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.olga.service.AnService;
+import kr.co.olga.service.AnswerService;
 import kr.co.olga.service.FAQService;
 import kr.co.olga.service.NoticeService;
 import kr.co.olga.service.QnService;
 import kr.co.olga.vo.AnVO;
+import kr.co.olga.vo.AnswerVO;
 import kr.co.olga.vo.FAQVO;
 import kr.co.olga.vo.NoticeVO;
 import kr.co.olga.vo.PagingVO;
@@ -199,22 +202,35 @@ public class BoardController {
 	}
 	
 	
+	// 1:1 답변있는지 체크 = > 있으면 1 없다면 0
+	@PostMapping(value = "/chkOtaAnswerExists")
+	@ResponseBody
+	public String chkOtaAnswerExists(AnVO vo) {
+		int rst = anService.chkOtaAnswerExists(vo);
+		if(rst == 1) {
+			//답변이 존재함
+			return "exists";
+		}else {
+			//답변이 없음
+			return "none";
+		}
+	}
 	
+	// 상품문의 답변있는지 체크 = > 있으면 1 없다면 0
+	@Autowired
+	private AnswerService answerService;
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@PostMapping(value = "/chkAnswerExists")
+	@ResponseBody
+	public String chkAnswerExists(AnswerVO vo) {
+		int rst = answerService.chkAnswerExists(vo);
+		if(rst == 1) {
+			//답변이 존재함
+			return "exists";
+		}else {
+			//답변이 없음
+			return "none";
+		}
+	}
 	
 }

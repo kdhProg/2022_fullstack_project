@@ -13,7 +13,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<style>
+#selOne_selGrade{
+	display:none;
+}
+</style>
 <body>
+<!-- JS로 selOne.selGrade 넘기기-->
+<span id="selOne_selGrade">${selUp.selTypeGrade}</span>
+
 <div class="container">
 	<nav class="navbar bg-light">
 		<div class="container-fluid">
@@ -39,9 +47,14 @@
 	<div>
 		<form name="readForm" method="post" action="/admin/sellerGrant?selId=${selUp.selId}">
 			<div>
-				<button type="submit" class="btn btn-outline-danger">권한 회수</button>
+				<button type="submit" id="revokeGrade" class="btn btn-outline-danger">권한 회수</button>
 			</div>
-		</form>		
+		</form>
+		<form name="readForm" method="post" action="/admin/sellerReGrant?selId=${selUp.selId}">
+			<div>
+				<button type="submit" id="grantGrade" class="btn btn-outline-danger">권한 복원</button>
+			</div>
+		</form>
 		<form name="listForm" method="post" action="/admin/seller">
 			<div>
 				<button type="submit" class="btn btn-outline-danger">취소</button>
@@ -51,4 +64,15 @@
 </section>
 </div>
 </body>
+<script>
+let selOne_selGrade = $("#selOne_selGrade").text();
+
+if(selOne_selGrade === '1'){
+	// 권한이 1인경우 => 회수가능
+	$("#grantGrade").css("display","none");
+}else{
+	// 권한이 0인경우 => 복원가능
+	$("#revokeGrade").css("display","none");
+}
+</script>
 </html>

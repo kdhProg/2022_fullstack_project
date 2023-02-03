@@ -17,8 +17,14 @@
 #pdList{
 	margin : 50px 50px 50px 0px;
 }
+#selOne_selGrade{
+	display:none;
+}
 </style>
 <body>
+<!-- JS로 selOne.selGrade 넘기기-->
+<span id="selOne_selGrade">${selOne.selTypeGrade}</span>
+
 <div class="container">
 	<nav class="navbar bg-light">
 		<div class="container-fluid">
@@ -116,9 +122,14 @@
  		</table>
 		<form name="readForm" method="post" action="/admin/sellerGrantView?selId=${selOne.selId}">
 			<div>
-				<button type="submit" class="btn btn-outline-danger">권한 회수</button>
+				<button type="submit" id="revokeGrade" class="btn btn-outline-danger">권한 회수</button>
 			</div>
-		</form>		
+		</form>
+		<form name="readForm" method="post" action="/admin/sellerGrantView?selId=${selOne.selId}">
+			<div>
+				<button type="submit" id="grantGrade" class="btn btn-outline-danger">권한 복원</button>
+			</div>
+		</form>	
 		<form name="listForm" method="post" action="/admin/seller">
 			<div>
 				<button type="submit" class="btn btn-outline-danger">목록</button>
@@ -128,4 +139,15 @@
 </section>
 </div>
 </body>
+<script>
+let selOne_selGrade = $("#selOne_selGrade").text();
+
+if(selOne_selGrade === '1'){
+	// 권한이 1인경우 => 회수가능
+	$("#grantGrade").css("display","none");
+}else{
+	// 권한이 0인경우 => 복원가능
+	$("#revokeGrade").css("display","none");
+}
+</script>
 </html>

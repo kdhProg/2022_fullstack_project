@@ -88,5 +88,10 @@ public class SellerDAOImpl implements SellerDAO {
 	public int sellerEmailCheck(String selEmail) {
 		return session.selectOne("sellerMapper.sellerEmailCheck", selEmail);
 	}
+	
+	@Override
+	public int sellerReGrantUpdate(SellerVO vo) {
+		return session.update("sellerMapper.sellerReGrantUpdate", vo);
+	}
 
 }

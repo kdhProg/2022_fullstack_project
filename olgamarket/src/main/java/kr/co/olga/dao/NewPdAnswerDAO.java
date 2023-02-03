@@ -15,4 +15,6 @@ public interface NewPdAnswerDAO {
 // 답글 수정	
 	long newPdAnswerUpdate(NewPdAnswerVO vo);
 
+	int chkNpAnswerExists(NewPdAnswerVO vo);
+
 }

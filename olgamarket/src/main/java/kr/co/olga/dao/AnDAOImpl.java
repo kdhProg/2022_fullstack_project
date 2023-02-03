@@ -38,5 +38,10 @@ public class AnDAOImpl implements AnDAO {
 	public List<AnVO> anList(Long otqNo) {
 		return session.selectList("anMapper.anList", otqNo);
 	}
+	
+	@Override
+	public int chkOtaAnswerExists(AnVO vo) {
+		return session.selectOne("anMapper.chkOtaAnswerExists", vo);
+	}
 
 }

@@ -95,7 +95,7 @@
 					<button type="submit" class="btn btn-outline-danger">삭제</button>
 				</div>
 			</form>	
-			<form name="listForm" method="post" action="/admin/productList">
+			<form name="listForm" method="post" action="/admin/product">
 				<div>
 					<button type="submit" class="btn btn-outline-danger">목록</button>
 				</div>

@@ -13,5 +13,7 @@ public interface SelAnswerDAO {
 
 	long selAnswerUpdate(SelAnswerVO vo);
 
+	int chkSaAnswerExists(SelAnswerVO vo);
+
 
 }

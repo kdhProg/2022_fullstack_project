@@ -16,5 +16,7 @@ public interface AnDAO {
 
 	List<AnVO> anList(Long otqNo);
 
+	int chkOtaAnswerExists(AnVO vo);
+
 
 }

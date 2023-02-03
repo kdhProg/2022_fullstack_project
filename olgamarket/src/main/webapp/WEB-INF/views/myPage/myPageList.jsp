@@ -897,7 +897,7 @@ function myQuiryList(pageNo, iqmemId) {
 				quiryContentTag += "<td><a href='/myPage/quiryOne?iqNo="+value.iqNo+"'class='btn btn-danger'>"+value.iqNo+"</a></td>";
 				quiryContentTag += "<td><a href='/goods/detailView?pdId="+value.iqpdId+"'class='btn btn-danger'>"+value.iqpdId+"</a></td>";
 				quiryContentTag += "<td>"+value.iqTitle+"</td>";
-				quiryContentTag += "<td>"+value.iqState+"</td>";
+				if(value.iqState === 1){quiryContentTag += "<td><p style='color:green;'><strong>답변완료</strong><p></td>";}else{quiryContentTag += "<td><p><strong>처리대기중</strong><p></td>";}
 				quiryContentTag += "<td>"+value.iqRegiDate+"</td>";
              });
 			quiryContentTag += "</table>";

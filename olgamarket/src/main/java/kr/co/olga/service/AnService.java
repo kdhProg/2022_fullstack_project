@@ -16,5 +16,6 @@ public interface AnService {
 
 	List<AnVO> anList(Long otqNo);
 
-	
+	//vo의 otaotqNo로 답변있는지 카운트
+	int chkOtaAnswerExists(AnVO vo);
 }

@@ -161,6 +161,10 @@ a:hover{
 .event_tab{
 	width:60%;
 }
+/* 판매자 세션 감지 */
+#sellerSessionDetect{
+	display: none;
+}
 .col{
 /*    	border:2px solid green;   */
 }
@@ -168,6 +172,7 @@ a:hover{
 <body>
 <!-- 현재세션값 자바스크립트 넘기기-->
 <span id="currentSession">${member.getMemId()}</span>
+<span id="sellerSessionDetect">${seller.getSelName()}</span>
 
 <!-- ======== 헤더시작 ============= -->
 <div id="header_and_contents" class="container">
@@ -847,5 +852,13 @@ $("#navSearchBoxBtn_Btn").click(()=>{
 });
 /* 헤더관련  - 끝*/
 
+/* 판매자 세션감지 => 판매자페이지로 강제이동 */
+let sellerSessionDetect = $("#sellerSessionDetect").text()
+
+$(document).ready(()=>{
+	if(sellerSessionDetect !== ""){
+		location.href = "/seller/sellerMain";
+	}
+});
 </script>
 </html>

@@ -37,6 +37,8 @@ public interface SellerDAO {
 	SellerVO sellerLogin(SellerVO vo);
 
 	int sellerEmailCheck(String selEmail);
+
+	int sellerReGrantUpdate(SellerVO vo);
 	
 	
 

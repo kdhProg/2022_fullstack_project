@@ -102,10 +102,16 @@ a:hover{
 	padding-top: 5px;
 }
 /* =============헤더관련 끝================ */
+/* JS전용 값 넘기기 지우기 */
+#boardQnOne_otqNo{
+	display: none;
+}
 </style>
 <body>
 <!-- 현재세션값 자바스크립트 넘기기-->
 <span id="currentSession">${member.getMemId()}</span>
+<!-- otqNo 자바스크립트 넘기기 -->
+<span id="boardQnOne_otqNo">${boardQnOne.otqNo}</span>
 
 <!-- ======== 헤더시작 ============= -->
 <div id="header_and_contents" class="container">
@@ -250,7 +256,12 @@ a:hover{
 					<td>${boardQnOne.otqSubCategory}</td>
 					<td>${boardQnOne.otqTitle}</td>
 					<td>${boardQnOne.otqContent}</td>
-					<td>${boardQnOne.otqState}</td>
+					<c:if test="${boardQnOne.otqState eq 0}">
+						<td><p><strong>처리대기중</strong><p></td>
+					</c:if>
+					<c:if test="${boardQnOne.otqState eq 1}">
+						<td><p style='color:green;'><strong>답변완료</strong><p></td>
+					</c:if>
 				  	<td>
 				  		<fmt:parseDate value="${boardQnOne.otqRegiDate}" var="otqRegiDate" pattern="yyyy-MM-dd HH:mm:ss"/>
 						<fmt:formatDate value="${otqRegiDate}" pattern="yyyy.MM.dd"/>
@@ -282,12 +293,12 @@ a:hover{
 			</table>
 			<form name="updateForm" method="post" action="/board/otqUpdateView?otqNo=${boardQnOne.otqNo}">
 				<div>
-					<button type="submit" class="btn btn-outline-danger">수정</button>
+					<button type="submit" id="modifyBtn" class="btn btn-outline-danger">수정</button>
 				</div>
 			</form>	
 			<form name="deleteForm" method="post" action="/board/otqDelete?otqNo=${boardQnOne.otqNo}">
 				<div>
-					<button type="submit" class="btn btn-outline-danger">삭제</button>
+					<button type="submit" id="registBtn" class="btn btn-outline-danger">삭제</button>
 				</div>
 			</form>	
 			<form name="listForm" method="post" action="/board/client">
@@ -473,6 +484,27 @@ $("#navSearchBoxBtn_Btn").click(()=>{
 	location.href="/search/productList?searchKeyWord="+navSearchKeyWord;
 });
 /* 헤더관련  - 끝*/
+
+let boardQnOne_otqNo = $("#boardQnOne_otqNo").text();
+
+$(document).ready(()=>{
+	$.ajax({
+		type : "post",
+		url : "/admin/chkOtaAnswerExists",
+		data : {
+			otaotqNo : boardQnOne_otqNo
+		},
+		success : function(result){
+			let validation = result;
+			if(validation === "exists"){
+				// 답변 존재 => 등록 OFF 수정 ON
+				$("#modifyBtn").css("display", "none");
+				$("#registBtn").css("display", "none");
+			}
+			
+		}// success 종료
+	}); // ajax 종료	
+});
 
 </script>
 </html>

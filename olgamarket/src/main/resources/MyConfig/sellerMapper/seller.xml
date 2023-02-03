@@ -97,7 +97,10 @@
 	 	select count(*) from sellers where selEmail = #{selEmail}
 	</select>	
 	
-	
+<!-- 판매자 권한 복원 -->	
+	<update id="sellerReGrantUpdate" parameterType="SellerVO">
+		update sellers set selTypeGrade = 1 where selId = #{selId}
+	</update>	
 	
 	
 	
