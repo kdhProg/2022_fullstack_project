@@ -45,7 +45,7 @@
 						<td>
 							<label for="pdMainCategory">메인카테고리 : </label>
 							<select name="pdMainCategory" required="required" class="form-control">
-								<option value="">선택하세요.</option>
+								<option value="" disabled="disabled">선택하세요.</option>
 								<option value="과일">과일</option>
 								<option value="채소">채소</option>
 								<option value="쌀/잡곡">쌀/잡곡</option>
@@ -59,7 +59,7 @@
 						<td>
 							<label for="pdSubCategory">서브카테고리 : </label>
 							<select name="pdSubCategory" required="required" class="form-control">
-								<option value="">선택하세요</option>
+								<option value="" disabled="disabled">선택하세요</option>
 							</select>
 						</td>		
 					</tr>
@@ -73,7 +73,7 @@
 						<td>
 							<label for="pdStorageType">보관 방법 : </label>
 							<select name="pdStorageType" required="required" class="form-control">
-								<option value="">선택하세요.</option>
+								<option value="" disabled="disabled">선택하세요.</option>
 								<option value="냉동">냉동</option>
 								<option value="냉장">냉장</option>
 								<option value="상온">상온</option>
@@ -84,7 +84,7 @@
 						<td>
 							<label for="pdUnit">구성 단위 : </label>
 							<select name="pdUnit" required="required" class="form-control">
-								<option value="">1개 기준</option>
+								<option value="" disabled="disabled">1개 기준</option>
 								<option value="박스">박스</option>
 								<option value="팩">팩</option>
 								<option value="봉지">봉지</option>
@@ -131,18 +131,6 @@
 					</tr>	
 					<tr>
 						<td>
-							<label for="pdHits">조회수 : </label>
-							<input type="text" id="pdHits" name="pdHits" class="form-control"/>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<label for="pdSalesVolume">판매량 : </label>
-							<input type="text" id="pdSalesVolume" name="pdSalesVolume" class="form-control"/>
-						</td>
-					</tr>
-					<tr>
-						<td>
 							<label for="pdPrice">가격 : </label>
 							<input type="text" id="pdPrice" name="pdPrice" class="form-control"/>
 						</td>
@@ -161,13 +149,28 @@
 					</tr>
 					<tr>
 						<td>
-							<button type="submit" class="btn btn-outline-danger">상품 등록</button>
+							<button type="submit" id="rgstBtn" class="btn btn-outline-danger">상품 등록</button>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</form>	
 	</section>
+</div>	
+<!-- 모달창-경고문구 -->
+<div id="modal_warn_msg" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+      </div>
+      <div class="modal-body">
+		<div id="warn_msg_content"></div>
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+      </div>
+    </div>
+  </div>
 </div>	
 </body>
 <script>
@@ -232,5 +235,22 @@
 			}
 		});
 	});
+
+
+$("#rgstBtn").click(function(){
+	if($('#pdThumbImg').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>썸네일 이미지</strong>을 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+	if($('#pdName').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>상품명</strong>을 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+	if($('#pdstlBrandName').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>브랜드명</strong>을 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+	if($('#pdWeight').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>단위무게</strong>을 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+	if($('#pdCountry').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>원산지</strong>를 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+	if($('#pdBBE').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>유통기한</strong>을 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+	if($('#pdDesInfoImg').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>상세정보이미지</strong>을 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+	if($('#pdPrice').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>가격</strong>을 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+	if($('#pdSale').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>할인율</strong>을 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+	if($('#pdStock').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>재고량</strong>을 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+
+});
+
+
 </script>
 </html>

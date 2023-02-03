@@ -33,7 +33,7 @@
 					</tr>
 					<tr>
 						<td>
-							<button type="submit" class="btn btn-outline-danger">등록</button>
+							<button type="submit" id="rgstBtn" class="btn btn-outline-danger">등록</button>
 						</td>
 					</tr>
 				</tbody>
@@ -41,5 +41,26 @@
 		</form>	
 	</section>
 </div>	
+<!-- 모달창-경고문구 -->
+<div id="modal_warn_msg" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+      </div>
+      <div class="modal-body">
+		<div id="warn_msg_content"></div>
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
+<script>
+$("#rgstBtn").click(function(){
+	if($('#sqTitle').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>제목</strong>을 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+	if($('#sqContent').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>내용</strong>을 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+});
+</script>
 </html>

@@ -56,7 +56,7 @@
 				<th>수정 날짜</th>
 			</tr>
 			<tr>
-				<td>${productOne.pdId}</td>
+				<td><a class="btn btn-danger" href="/goods/detailView?pdId=${productOne.pdId}">${productOne.pdId}</a></td>
 				<td>${productOne.pdThumbImg}</td>
 				<td>${productOne.pdName}</td>
 				<td>${productOne.pdMainCategory}</td>

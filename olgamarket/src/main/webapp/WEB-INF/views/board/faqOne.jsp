@@ -116,7 +116,7 @@ a:hover{
 </style>
 <body>
 <!-- 현재세션값 자바스크립트 넘기기-->
-<span id="currentSession">${member.getMemId()}</span>s
+<span id="currentSession">${member.getMemId()}</span>
 
 <!-- ======== 헤더시작 ============= -->
 <div id="header_and_contents" class="container">

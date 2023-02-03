@@ -68,7 +68,7 @@
 	   				</if>
 				) mp
 					where Rnum <![CDATA[>=]]> #{contStart} and rnum <![CDATA[<=]]> #{contEnd}
-	      					order by selstlBrandName desc
+	      					order by selUpdDate desc
 	</select>	
 	
 	<select id="getSellerCount" parameterType="PagingVO" resultType="Integer">

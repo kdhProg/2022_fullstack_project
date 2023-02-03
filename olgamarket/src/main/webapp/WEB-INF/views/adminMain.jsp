@@ -66,6 +66,14 @@
 			<a href="/admin/adminStats" class="btn btn-primary">통계 보러 가기</a>
 		</div>
 	</div>
+	
+	<div class="card" style="width: 75rem;">
+		<div class="card-body">
+			<h5 class="card-title"></h5>
+			<p class="card-text"></p>
+			<a href="/adminLogout" class="btn btn-danger">로그아웃</a>
+		</div>
+	</div>
 </div>
 </body>
 

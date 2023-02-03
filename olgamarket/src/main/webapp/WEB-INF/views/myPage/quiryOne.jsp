@@ -261,8 +261,8 @@ a:hover{
 					<td>${quiryOne.iqpdId}</td>
 					<td>${quiryOne.iqTitle}</td>
 					<td>${quiryOne.iqContent}</td>
-					<td>${quiryOne.iqPrivate}</td>
 					<td>${quiryOne.iqState}</td>
+					<td>${quiryOne.iqPrivate}</td>
 					<td>
 						<fmt:parseDate value="${quiryOne.iqUpdDate}" var="iqUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
 						<fmt:formatDate value="${iqUpdDate}" pattern="yyyy.MM.dd"/>

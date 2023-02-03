@@ -62,7 +62,7 @@
 						<td>
 							<label for="pdStorageType">보관 방법 : </label>
 							<select name="pdStorageType" required="required" class="form-control">
-								<option value="">선택하세요.</option>
+								<option value="" disabled="disabled">선택하세요.</option>
 								<option value="냉동">냉동</option>
 								<option value="냉장">냉장</option>
 								<option value="상온">상온</option>
@@ -73,7 +73,7 @@
 						<td>
 							<label for="pdUnit">구성 단위 : </label>
 							<select name="pdUnit" required="required" class="form-control">
-								<option value="">1개 기준</option>
+								<option value="" disabled="disabled">1개 기준</option>
 								<option value="박스">박스</option>
 								<option value="팩">팩</option>
 								<option value="봉지">봉지</option>
@@ -133,5 +133,34 @@
 		</form>
 	</section>
 </div>	
+<!-- 모달창-경고문구 -->
+<div id="modal_warn_msg" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+      </div>
+      <div class="modal-body">
+		<div id="warn_msg_content"></div>
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+      </div>
+    </div>
+  </div>
+</div>	
 </body>
+<script>
+$("#update_btn").click(function(){
+	if($('#pdThumbImg').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>썸네일 이미지</strong>을 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+	if($('#pdName').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>상품명</strong>을 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+	if($('#pdWeight').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>단위무게</strong>을 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+	if($('#pdCountry').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>원산지</strong>를 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+	if($('#pdBBE').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>유통기한</strong>을 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+	if($('#pdDesInfoImg').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>상세정보이미지</strong>을 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+	if($('#pdPrice').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>가격</strong>을 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+	if($('#pdSale').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>할인율</strong>을 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+	if($('#pdStock').val().length === 0){$("#warn_msg_content").html("<p><strong style='color:red'>재고량</strong>을 입력하세요</p>");$("#modal_warn_msg").modal("show");return false;}
+
+});
+</script>
 </html>

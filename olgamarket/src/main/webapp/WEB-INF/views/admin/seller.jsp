@@ -19,7 +19,10 @@
 a {
 	text-decoration: none;
 }
-
+.nav_homeBtn{
+	border: none;
+	background: transparent;
+}
 
 </style>
 
@@ -33,6 +36,7 @@ a {
 			<a class="navbar-brand" href="/admin/clientList">고객센터</a>
 			<a class="navbar-brand" href="/admin/memberGrade">회원</a>
 			<a class="navbar-brand" href="/admin/adminStats">통계</a>	
+			<a class="navbar-brand" href="/admin/enterAdminMain"><svg class="nav_homeBtn" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16"><path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/></svg></a>
 		</div>
 	</nav>
 	
@@ -100,7 +104,7 @@ function selList(pageNo, sortNo) {
 				selContentTag += "<td>"+value.selMarketUniqueNo+"</td>";
 				selContentTag += "<td>"+value.selSelRegiNo+"</td>";
 				selContentTag += "<td>"+value.selTypeGrade+"</td>";
-				selContentTag += "<td>"+value.selUpdDate+"</td>";
+				selContentTag += "<td>"+value.selUpdDate.substring(0,10)+"</td>";
 				selContentTag += "</tr>";                
              });
 			selContentTag += "</table>";
@@ -162,7 +166,7 @@ function npqList(pageNo, sortNo) {
 				npqContentTag += "<td>"+value.npqContent+"</td>";
 				npqContentTag += "<td>"+value.npqImg+"</td>";
 				npqContentTag += "<td>"+value.npqState+"</td>";
-				npqContentTag += "<td>"+value.npqRegiDate+"</td>";
+				npqContentTag += "<td>"+value.npqRegiDate.substring(0,10)+"</td>";
 				npqContentTag += "</tr>";                
              });
 			npqContentTag += "</table>";
@@ -224,7 +228,7 @@ function sqList(pageNo, sortNo) {
 				selQuiryContentTag += "<td>"+value.sqContent+"</td>";
 				selQuiryContentTag += "<td>"+value.sqState+"</td>";
 				selQuiryContentTag += "<td>"+value.sqselId+"</td>";
-				selQuiryContentTag += "<td>"+value.sqRegiDate+"</td>";
+				selQuiryContentTag += "<td>"+value.sqRegiDate.substring(0,10)+"</td>";
 				selQuiryContentTag += "</tr>";                
              });
 			selQuiryContentTag += "</table>";
