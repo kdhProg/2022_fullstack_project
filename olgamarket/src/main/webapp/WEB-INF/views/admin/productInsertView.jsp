@@ -13,6 +13,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<style>
+a:hover{
+	color:#fc5603;
+}
+</style>
 <body>
 <div class="container">
 	<nav class="navbar bg-light">
@@ -66,7 +71,12 @@
 					<tr>
 						<td>
 							<label for="pdstlBrandName">브랜드 이름 : </label>
-							<input type="text" id="pdstlBrandName" name="pdstlBrandName" class="form-control"/>
+							<input type="text" id="pdstlBrandName" name="pdstlBrandName" class="form-control" disabled="disabled" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<button type="button" id="selectBrandBtn" class="btn btn-outline-primary"><strong>브랜드 선택하기</strong></button>
 						</td>
 					</tr>
 					<tr>
@@ -172,6 +182,24 @@
     </div>
   </div>
 </div>	
+
+<!-- 모달창-브랜드 선택 -->
+<div id="modal_select_brand" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+      	<p><strong style="font-size:1.3em">브랜드 선택</strong></p>
+      </div>
+      <div class="modal-body">
+		<div id="storeListRst"></div>
+		<div id="storeListRstPaging"></div>
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>	
 </body>
 <script>
 	$(function() {
@@ -251,6 +279,73 @@ $("#rgstBtn").click(function(){
 
 });
 
+//브랜드 선택 모달
+$("#selectBrandBtn").click(()=>{
+	$("#modal_select_brand").modal("show");
+});
+
+
+//판매점리스트 띄우기
+$(document).ready(storeList(1));
+function storeList(pageNo) {
+	$.ajax({
+        url : "/admin/modalStoreList",
+        type : "get",
+        data : {
+        	showPage : pageNo
+        },
+        success : function(data){
+        	
+        	var pageInfo = data.pageInfo;
+			var currPage = data.currPage;
+            var storeList = data.storeList; // model 처럼
+        	
+            var stContentTag = "<table class='table'><th>브랜드 No</th><th>브랜드 이름</th><th>연락처</th><th>Email</th><th></th></tr>";
+            var stPagingTag = "";
+
+			$.each(storeList, function(key, value) {
+				stContentTag += "<tr>";
+				stContentTag += "<td><a href='/admin/storeOne?stlNo="+value.stlNo+"'class='btn btn-danger'>"+value.stlNo+"</a></td>";
+				stContentTag += "<td>"+value.stlBrandName+"</td>";
+				stContentTag += "<td>"+value.stlPhone+"</td>";
+				stContentTag += "<td>"+value.stlEmail+"</td>";
+				stContentTag += "<td><button class='modal_brd_btn btn btn-outline-secondary' value='"+value.stlBrandName+"'>선택</button></td>";
+				stContentTag += "</tr>";                
+             });
+			stContentTag += "</table>";
+			$("#storeListRst").html(stContentTag); //메인 컨텐츠 적용
+			
+			if(pageInfo.xprev){
+				stPagingTag+="<a href='#' onclick='storeList("+(pageInfo.firstPageNoOnPageList-1)+ ");return false;'>[prev]</a>&nbsp;&nbsp;&nbsp;";
+			}
+			for(var i = pageInfo.firstPageNoOnPageList; i< pageInfo.lastPageNoOnPageList+1;i++){
+				if(i == currPage){
+					stPagingTag+="<span>["+i+"]&nbsp;&nbsp;&nbsp;</span>";
+				}else{
+					stPagingTag+="<a href='#' onclick='storeList(" + i + ");return false;'>["+i+"]</a>&nbsp;&nbsp;&nbsp;";
+				}
+				
+			}
+			if(pageInfo.xnext){
+				stPagingTag+="<a href='#' onclick='storeList("+(pageInfo.lastPageNoOnPageList+1)+ ");return false;'>[next]</a>&nbsp;&nbsp;&nbsp;";
+			}
+			
+			$("#storeListRstPaging").html(stPagingTag); //페이징 적용
+        },
+        error : function(){
+             alert('error - pdList');
+        }//error
+    });//ajax
+}// function end
+
+
+// 브랜드 선택버튼
+$(document).on('click', '.modal_brd_btn', function(){
+	let brdName= $(this).val();
+	$("#pdstlBrandName").val(brdName);
+	$("#pdstlBrandName").prop("disabled",false);
+	$("#modal_select_brand").modal("hide");
+});
 
 </script>
 </html>

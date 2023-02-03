@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -1236,8 +1237,27 @@ public class AdminController {
 	}
 	
 	
-	
-	
+	///// 어드민 상품등록/수정 -> 브랜드 등록
+	@GetMapping(value = "/modalStoreList")
+	@ResponseBody
+	public Map<String, Object> storeList(Integer showPage) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		int currPage;
+		if(showPage == null) {
+			currPage = 1;
+		}else {
+			currPage = showPage;
+		}
+		
+		PagingVO vo = storeService.getStorePageInfo(currPage); //페이징에 필요한 정보 계산
+		List<StoreVO> pageList =  storeService.getStorePageList(vo);
+		
+		result.put("storeList",pageList);  //게시판목록
+		result.put("pageInfo",vo);  //페이징정보
+		result.put("currPage",currPage); //현재페이지
+
+		return result;
+	}
 	
 	
 	
