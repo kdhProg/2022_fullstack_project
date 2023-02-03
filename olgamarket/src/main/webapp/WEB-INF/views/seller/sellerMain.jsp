@@ -49,9 +49,9 @@
 	<!-- 등록 상품 문의 -->
 	<div class="card" style="width: 75rem;">
 		<div class="card-body">
-			<h5 class="card-title">등록 상품 문의</h5>
-			<p class="card-text">등록 상품 목록 / 등록 상품 문의</p>
-			<a href="/seller/product" class="btn btn-primary">등록 상품 문의하러 가기</a>
+			<h5 class="card-title">내 상품 문의</h5>
+			<p class="card-text">내 상품 목록 / 내 상품 문의</p>
+			<a href="/seller/product" class="btn btn-primary">내 상품 문의하러 가기</a>
 		</div>
 	</div>
 	<!-- 통계 -->

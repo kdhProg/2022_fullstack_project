@@ -21,24 +21,24 @@
 	<!-- 판매점 -->
 	<div class="card" style="width: 75rem;">
 		<div class="card-body">
-			<h5 class="card-title">판매점</h5>
-			<p class="card-text">판매점 추가 / 판매점 정보 수정</p>
-			<a href="/admin/storeList" class="btn btn-primary">판매점 관리하러 가기</a>
+			<h5 class="card-title">스토어</h5>
+			<p class="card-text">스토어 추가 / 스토어 정보 수정</p>
+			<a href="/admin/storeList" class="btn btn-primary">스토어 관리하러 가기</a>
 		</div>
 	</div>
 	<!-- 판매자 -->
 	<div class="card" style="width: 75rem;">
 		<div class="card-body">
-			<h5 class="card-title">판매자</h5>
-			<p class="card-text">판매자 목록 / 신상품 등록 문의 / 판매자 문의</p>
-			<a href="/admin/seller" class="btn btn-primary">판매점 관리하러 가기</a>
+			<h5 class="card-title">셀러</h5>
+			<p class="card-text">셀러 목록 / 신상품 등록 문의 / 셀러 문의</p>
+			<a href="/admin/seller" class="btn btn-primary">셀러 관리하러 가기</a>
 		</div>
 	</div>
 	<!-- 상품 -->
 	<div class="card" style="width: 75rem;">
 		<div class="card-body">
 			<h5 class="card-title">상품</h5>
-			<p class="card-text">상품 목록 / 상품 문의</p>
+			<p class="card-text">상품 등록 / 목록 / 상품 문의</p>
 			<a href="/admin/product" class="btn btn-primary">판매점 관리하러 가기</a>
 		</div>
 	</div>
