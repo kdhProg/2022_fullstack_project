@@ -39,13 +39,13 @@
 		</div>
 	</nav>
 	<br />
-	<section id="container">
-	<br />
 		<div class="row">
 			<div class="col text-center"> 
 				<h1>셀러 관리</h1>
 			</div>
 		</div>
+	<br />	
+	<section id="container">
 	<br />
 	<h3>판매자 문의</h3>
 		<div>
