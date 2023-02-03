@@ -227,13 +227,13 @@ a:hover{
 <div class="container">
 	<ul class="nav nav-pills">
 	  <li class="nav-item">
-	    <a href="#" onclick="noticeList(1);return false;" aria-current="page" id="noticeBt" class="nav-link" href="#">공지사항</a>
+	    <a href="/board/client" onclick="noticeList(1);return false;" aria-current="page" id="noticeBt" class="nav-link" href="#">공지사항</a>
 	  </li>
 	  <li class="nav-item">
-	    <a href="#" onclick="faqList(1);return false;" id="faqBt" class="nav-link">FAQ</a>
+	    <a href="/board/client" onclick="faqList(1);return false;" id="faqBt" class="nav-link">FAQ</a>
 	  </li>
 	  <li class="nav-item">
-		<a href="#" onclick="otList(1);return false;" id="onetooneBt" class="nav-link">1 : 1 문의</a>
+		<a href="/board/client" onclick="otList(1);return false;" id="onetooneBt" class="nav-link">1 : 1 문의</a>
 	  </li>
 	</ul>
 	<section id="container">
