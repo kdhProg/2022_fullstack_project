@@ -241,19 +241,19 @@ a:hover{
 				<tbody>
 					<tr>
 						<td>
-							<label for="iqTitle">제목 : </label>
+							<label for="iqTitle">제목</label>
 							<input type="text" id="iqTitle" name="iqTitle" class="form-control"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="iqContent">내용 : </label>
+							<label for="iqContent">내용</label>
 							<textarea id="iqContent" name="iqContent" class="form-control"></textarea>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="iqPrivate">비밀글 여부 : </label>
+							<label for="iqPrivate">비밀글 여부</label>
 							<input type="text" id="iqPrivate" name="iqPrivate" class="form-control"/>
 						</td>
 					</tr>

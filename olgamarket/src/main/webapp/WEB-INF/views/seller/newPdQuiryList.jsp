@@ -39,18 +39,28 @@ a {
 			<a class="navbar-brand" href="/seller/sellerMain"><svg class="nav_homeBtn" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16"><path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/></svg></a>
 		</div>
 	</nav>
+	<br />
+		<div class="row">
+			<div class="col text-center"> 
+				<h1>신상품 등록 문의</h1>
+			</div>
+		</div>
+	<br />
 	
 <!-- 신상품 등록 문의 -->
 	<form name="insertForm" method="post" action="/seller/newPdQuiryInsertView?selId=${seller.getSelId()}">
 		<span class="sessionSelId">${seller.getSelId()}</span>
 		<div id="npqDiv" style="display : show;">
+			<br />
 			<a href="#" onclick="sortList1(1);return false;" id="sortBtn1" class="btn btn-light">답변 대기</a>
 			<a href="#" onclick="sortList1(2);return false;" id="sortBtn2" class="btn btn-light">답변 완료</a>
+			<div class="row">
+				<div class="col text-end">
+					<button type="submit" class="btn btn-outline-danger">등록 문의하기</button>
+				</div>
+			</div>
 			<div id="newPdQuiryResultList"></div>
 			<div id="newPdQuiryResultPagingNo"></div>
-			<div>
-				<button type="submit" class="btn btn-outline-danger">등록 문의하기</button>
-			</div>
 		</div>
 	</form>	
 </div>
@@ -86,7 +96,7 @@ function npqList(pageNo, sortNo, npqselId) {
 				npqContentTag += "<td>"+value.npqTitle+"</td>";
 				npqContentTag += "<td>"+value.npqContent+"</td>";
 				npqContentTag += "<td>"+value.npqImg+"</td>";
-				npqContentTag += "<td>"+value.npqState+"</td>";
+				if(value.npqState === 1){npqContentTag += "<td><p style='color:green;'><strong>답변완료</strong><p></td>";}else{npqContentTag += "<td><p><strong>처리대기중</strong><p></td>";}
 				npqContentTag += "<td>"+value.npqRegiDate.substring(0,10)+"</td>";
 				npqContentTag += "</tr>";                
              });

@@ -36,24 +36,31 @@ a:hover{
 		</div>
 	</nav>
 	<section id="container">
+		<br />
+			<div class="row">
+				<div class="col text-center"> 
+					<h1>상품 관리</h1>
+				</div>
+			</div>
+		<br />	
 		<form role="form" method="post" action="/admin/productInsert">
 			<table class="table">
 				<tbody>
 					<tr>
 						<td>
-							<label for="pdThumbImg">썸네일 이미지 : </label>
+							<label for="pdThumbImg">썸네일 이미지</label>
 							<input type="text" id="pdThumbImg" name="pdThumbImg" class="form-control"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="pdName">상품 이름 : </label>
+							<label for="pdName">상품 이름</label>
 							<input type="text" id="pdName" name="pdName" class="form-control"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="pdMainCategory">메인카테고리 : </label>
+							<label for="pdMainCategory">메인카테고리</label>
 							<select name="pdMainCategory" required="required" class="form-control">
 								<option value="" disabled="disabled">선택하세요.</option>
 								<option value="과일">과일</option>
@@ -67,7 +74,7 @@ a:hover{
 					</tr>	
 					<tr>
 						<td>
-							<label for="pdSubCategory">서브카테고리 : </label>
+							<label for="pdSubCategory">서브카테고리</label>
 							<select name="pdSubCategory" required="required" class="form-control">
 								<option value="" disabled="disabled">선택하세요</option>
 							</select>
@@ -75,7 +82,7 @@ a:hover{
 					</tr>
 					<tr>
 						<td>
-							<label for="pdstlBrandName">브랜드 이름 : </label>
+							<label for="pdstlBrandName">브랜드 이름</label>
 							<input type="text" id="pdstlBrandName" name="pdstlBrandName" class="form-control" disabled="disabled" readonly="readonly"/>
 						</td>
 					</tr>
@@ -86,7 +93,7 @@ a:hover{
 					</tr>
 					<tr>
 						<td>
-							<label for="pdStorageType">보관 방법 : </label>
+							<label for="pdStorageType">보관 방법</label>
 							<select name="pdStorageType" required="required" class="form-control">
 								<option value="" disabled="disabled">선택하세요.</option>
 								<option value="냉동">냉동</option>
@@ -97,7 +104,7 @@ a:hover{
 					</tr>
 					<tr>
 						<td>
-							<label for="pdUnit">구성 단위 : </label>
+							<label for="pdUnit">구성 단위</label>
 							<select name="pdUnit" required="required" class="form-control">
 								<option value="" disabled="disabled">1개 기준</option>
 								<option value="박스">박스</option>
@@ -110,31 +117,31 @@ a:hover{
 					</tr>		
 					<tr>
 						<td>
-							<label for="pdWeight">단위 무게 : </label>
+							<label for="pdWeight">단위 무게</label>
 							<input type="text" id="pdWeight" name="pdWeight" class="form-control"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="pdCountry">원산지 : </label>
+							<label for="pdCountry">원산지</label>
 							<input type="text" id="pdCountry" name="pdCountry" class="form-control"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="pdBBE">유통기한 : </label>
+							<label for="pdBBE">유통기한</label>
 							<input type="text" id="pdBBE" name="pdBBE" class="form-control"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="pdDesInfoImg">상품 정보 이미지 : </label>
+							<label for="pdDesInfoImg">상품 정보 이미지</label>
 							<input type="text" id="pdDesInfoImg" name="pdDesInfoImg" class="form-control"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="pdSeason">계절 : </label>
+							<label for="pdSeason">계절</label>
 							<select name="pdSeason" required="required" class="form-control">
 								<option value="no">no</option>
 								<option value="spring">spring</option>
@@ -146,19 +153,19 @@ a:hover{
 					</tr>	
 					<tr>
 						<td>
-							<label for="pdPrice">가격 : </label>
+							<label for="pdPrice">가격</label>
 							<input type="text" id="pdPrice" name="pdPrice" class="form-control"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="pdSale">할인 : </label>
+							<label for="pdSale">할인</label>
 							<input type="text" id="pdSale" name="pdSale" class="form-control"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="pdStock">재고 : </label>
+							<label for="pdStock">재고</label>
 							<input type="text" id="pdStock" name="pdStock" class="form-control"/>
 						</td>
 					</tr>

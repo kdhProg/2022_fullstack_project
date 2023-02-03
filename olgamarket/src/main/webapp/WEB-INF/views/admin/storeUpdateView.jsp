@@ -44,12 +44,22 @@
 		</div>
 	</nav>
 	<section id="container">
+		<br />
+			<div class="row">
+				<div class="col text-center"> 
+					<h1>스토어 관리</h1>
+				</div>
+			</div>
+		<br />
 		<form name="updateForm" role="form" method="post" action="/admin/storeUpdate">
 			<input type="hidden" name="stlNo" value="${update.stlNo}" readonly="readonly" />
 			<table class="table">
 				<tbody>
 					<tr>
-						<td>브랜드 이름 : ${update.stlBrandName}</td>
+						<td>
+							<label for="stlBrandName">스토어 브랜드 이름</label>
+							<input type="text" id="stlBrandName" name="stlBrandName" value="${update.stlBrandName}" class="form-control" />
+						</td>
 					</tr>
 					<tr>
 						<td>

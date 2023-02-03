@@ -32,6 +32,13 @@
 		</div>
 	</nav>
 	<section id="container">
+		<br />
+			<div class="row">
+				<div class="col text-center"> 
+					<h1>고객센터 관리</h1>
+				</div>
+			</div>
+		<br />	
 		<form role="form" method="post"  action="/admin/anUpdate">
 			<input type="hidden" value="${anUp.otqNo}" id="otqNo" name="otaotqNo" />
 			<table class="table">

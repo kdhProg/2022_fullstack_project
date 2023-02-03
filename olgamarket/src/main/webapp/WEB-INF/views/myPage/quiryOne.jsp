@@ -261,8 +261,24 @@ a:hover{
 					<td>${quiryOne.iqpdId}</td>
 					<td>${quiryOne.iqTitle}</td>
 					<td>${quiryOne.iqContent}</td>
-					<td>${quiryOne.iqState}</td>
-					<td>${quiryOne.iqPrivate}</td>
+					<td>
+						<c:set value="${quiryOne.iqState}" var="grade" /> 
+						<c:if test="${grade eq 1}">
+							<c:out value="답변 완료" />
+						</c:if>	
+						<c:if test="${grade eq 0}">
+							<c:out value="처리대기중" />
+						</c:if>
+					</td>
+					<td>
+						<c:set value="${quiryOne.iqPrivate}" var="iqPrivate" /> 
+						<c:if test="${iqPrivate eq 1}">
+							<c:out value="비밀글 입니다." />
+						</c:if>	
+						<c:if test="${iqPrivate eq 0}">
+							<c:out value="비밀글이 아닙니다." />
+						</c:if>
+					</td>
 					<td>
 						<fmt:parseDate value="${quiryOne.iqUpdDate}" var="iqUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
 						<fmt:formatDate value="${iqUpdDate}" pattern="yyyy.MM.dd"/>

@@ -40,6 +40,13 @@
 	</nav>
 	<br />
 	<section id="container">
+	<br />
+		<div class="row">
+			<div class="col text-center"> 
+				<h1>셀러 관리</h1>
+			</div>
+		</div>
+	<br />
 	<h3>판매자 문의</h3>
 		<div>
 			<form name="readForm" role="form" method="post">
@@ -60,7 +67,15 @@
 					<td><a class="btn btn-danger" href="/admin/productOne?pdId=${selQuiryOne.sqpdId}">${selQuiryOne.sqpdId}</a></td>
 					<td>${selQuiryOne.sqTitle}</td>
 					<td>${selQuiryOne.sqContent}</td>
-					<td>${selQuiryOne.sqState}</td>
+					<td>
+						<c:set value="${selQuiryOne.sqState}" var="grade" /> 
+						<c:if test="${grade eq 1}">
+							<c:out value="답변 완료" />
+						</c:if>	
+						<c:if test="${grade eq 0}">
+							<c:out value="처리대기중" />
+						</c:if>	
+					</td>
 					<td>
 						<fmt:parseDate value="${selQuiryOne.sqUpdDate}" var="sqUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
 						<fmt:formatDate value="${sqUpdDate}" pattern="yyyy.MM.dd"/>

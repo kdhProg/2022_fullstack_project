@@ -38,10 +38,18 @@
 			<a class="navbar-brand" href="/admin/enterAdminMain"><svg class="nav_homeBtn" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16"><path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/></svg></a>
 		</div>
 	</nav>
-	<br />
-	<h3>신상품 등록 문의</h3>
+	
 	<section id="container">
+		<br />
+			<div class="row">
+				<div class="col text-center"> 
+					<h1>셀러 관리</h1>
+				</div>
+			</div>
+		<br />
 		<div>
+			<br />
+			<h3>신상품 등록 문의</h3>
 			<form name="readForm" role="form" method="post">
 				<input type="hidden" id="npqNo" name="npqNo" value="${newPdQuiryOne.npqNo}" />
 			</form>
@@ -60,7 +68,15 @@
 					<td>${newPdQuiryOne.npqTitle}</td>
 					<td>${newPdQuiryOne.npqContent}</td>
 					<td>${newPdQuiryOne.npqImg}</td>
-					<td>${newPdQuiryOne.npqState}</td>
+					<td>
+						<c:set value="${newPdQuiryOne.npqState}" var="grade" /> 
+						<c:if test="${grade eq 1}">
+							<c:out value="답변 완료" />
+						</c:if>	
+						<c:if test="${grade eq 0}">
+							<c:out value="처리대기중" />
+						</c:if>	
+					</td>
 					<td>
 						<fmt:parseDate value="${newPdQuiryOne.npqUpdDate}" var="npqUpdDate" pattern="yyyy-MM-dd HH:mm:ss"/>
 						<fmt:formatDate value="${npqUpdDate}" pattern="yyyy.MM.dd"/>

@@ -39,19 +39,26 @@ a {
 		</div>
 	</nav>
 	<section id="container">
+		<br />
+			<div class="row">
+				<div class="col text-center"> 
+					<h1>내 상품 문의</h1>
+				</div>
+			</div>
+		<br />
 		<form role="form" method="post"  action="/seller/sqlQuiryUpdate">
 			<input type="hidden" value="${selQuiryUp.sqNo}" id="sqNo" name="sqNo" />
 			<table class="table">
 				<tbody>
 					<tr>
 						<td>
-							<label for="sqTitle">제목 : </label>
+							<label for="sqTitle">제목</label>
 							<input type="text" id="sqTitle" name="sqTitle" class="form-control"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="sqContent">내용 : </label>
+							<label for="sqContent">내용</label>
 							<textarea id="sqContent" name="sqContent" class="form-control"></textarea>
 						</td>
 					</tr>

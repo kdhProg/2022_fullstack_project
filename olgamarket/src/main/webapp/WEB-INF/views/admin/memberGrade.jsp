@@ -35,6 +35,12 @@ a {
 		</div>
 	</nav>
 	<br />
+		<div class="row">
+			<div class="col text-center"> 
+				<h1>회원 등급 관리</h1>
+			</div>
+		</div>
+	<br />
 <!-- 회원 등급 관리 -->	
 	
 	<h3>전월 기준</h3>

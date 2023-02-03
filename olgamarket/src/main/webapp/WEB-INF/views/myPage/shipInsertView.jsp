@@ -241,9 +241,9 @@ a:hover{
 			<tbody>
 				<tr>
 					<td>
-						<input type="text" name="postcode" id="postcode" placeholder="우편번호" class="form-control">
-						<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn btn-secondary"><br>
-						<input type="text" name="address" id="address" placeholder="주소" class="form-control"><br>
+						<input type="text" name="postcode" id="postcode" placeholder="우편번호" class="form-control"><br />
+						<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn btn-secondary"><br />
+						<input type="text" name="address" id="address" placeholder="주소" class="form-control"><br />
 						<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소" class="form-control"><br />
 						<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목" class="form-control"><br />
 					</td>

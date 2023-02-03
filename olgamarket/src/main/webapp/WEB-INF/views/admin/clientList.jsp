@@ -39,7 +39,13 @@ a {
 			<a class="navbar-brand" href="/admin/enterAdminMain"><svg class="nav_homeBtn" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16"><path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/></svg></a>
 		</div>
 	</nav>
-
+		<br />
+			<div class="row">
+				<div class="col text-center"> 
+					<h1>고객센터 관리</h1>
+				</div>
+			</div>
+		<br />
 	<br />
 	<a href="#" onclick="noticeList(1);return false;" id="noticeBt" class="btn btn-primary">공지사항</a>
 	<a href="#" onclick="faqList(1);return false;" id="faqBt" class="btn btn-primary">FAQ</a>
@@ -48,22 +54,27 @@ a {
 	<hr />
 <!-- 공지사항 -->	
 <form name="insertForm" method="post" action="/admin/noticeInsertView">
-	<div id="noticeDiv" style="display : none;">
+	<div id="noticeDiv" style="display : show;">
+		<div class="row">
+			<div class="col text-end">
+				<button type="submit" class="btn btn-outline-danger">공지사항 등록</button>
+			</div>
+		</div>	
 		<div id="noticeResultList"></div>
 		<div id="noticeResultPagingNo"></div>
-		<div>
-			<button type="submit" class="btn btn-outline-danger">공지사항 등록</button>
-		</div>
+		
 	</div>
 </form>	
 <!-- faq -->	
 <form name="insertForm" method="post" action="/admin/faqInsertView">
 	<div id="faqDiv" style="display : none;">
+		<div class="row">
+			<div class="col text-end">
+				<button type="submit" class="btn btn-outline-danger">FAQ 등록</button>
+			</div>
+		</div>
 		<div id="faqResultList"></div>
 		<div id="faqResultPagingNo"></div>
-		<div>
-			<button type="submit" class="btn btn-outline-danger">FAQ 등록</button>
-		</div>
 	</div>
 </form>	
 <!-- 1대1 문의 -->	
@@ -212,7 +223,7 @@ function otList(pageNo, sortNo) {
 				otContentTag += "<td>"+value.otqSubCategory  +"</td>";
 				otContentTag += "<td>"+value.otqTitle+"</td>";
 				otContentTag += "<td>"+value.otqmemId+"</td>";
-				otContentTag += "<td>"+value.otqState+"</td>";
+				if(value.otqState === 1){otContentTag += "<td><p style='color:green;'><strong>답변완료</strong><p></td>";}else{otContentTag += "<td><p><strong>처리대기중</strong><p></td>";}
 				otContentTag += "<td>"+value.otqRegiDate.substring(0,10)+"</td>";
 				otContentTag += "</tr>";                
              });

@@ -232,25 +232,25 @@ a:hover{
 				<tbody>
 					<tr>
 						<td>
-							<label for="otqMainCategory">메인 카테고리 : </label>
+							<label for="otqMainCategory">메인 카테고리</label>
 							<input type="text" id="otqMainCategory" value="${otqUp.otqMainCategory}" name="otqMainCategory" class="form-control"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="otqSubCategory">서브 카테고리 : </label>
+							<label for="otqSubCategory">서브 카테고리</label>
 							<input type="text" id="otqSubCategory" value="${otqUp.otqSubCategory}" name="otqSubCategory" class="form-control"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="otqTitle">제목 : </label>
+							<label for="otqTitle">제목</label>
 							<input type="text" id="otqTitle" name="otqTitle" class="form-control"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="otqContent">내용 : </label>
+							<label for="otqContent">내용</label>
 							<textarea id="otqContent" name="otqContent" class="form-control"></textarea>
 						</td>
 					</tr>

@@ -39,6 +39,13 @@
 		</div>
 	</nav>
 	<section id="container">
+		<br />
+			<div class="row">
+				<div class="col text-center"> 
+					<h1>셀러 관리</h1>
+				</div>
+			</div>
+		<br />
 		<form name="updateForm" role="form" method="post" action="/admin/sellerGrant">
 			<input type="hidden" name="selId" value="${selUp.selId}" readonly="readonly" />
 			<table class="table">

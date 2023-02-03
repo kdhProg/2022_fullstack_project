@@ -32,13 +32,20 @@
 		</div>
 	</nav>
 	<section id="container">
+		<br />
+			<div class="row">
+				<div class="col text-center"> 
+					<h1>상품 관리</h1>
+				</div>
+			</div>
+		<br />
 		<form role="form" method="post" action="/admin/answerInsert">
 			<input type="hidden" value="${quiryIn.iqNo}" id="iqNo" name="iaiqNo" />
 			<table class="table">
 				<tbody>
 					<tr>
 						<td>
-							<label for="iaContents">내용 : </label>
+							<label for="iaContents">내용</label>
 							<textarea id="iaContents" name="iaContents" class="form-control"></textarea>
 						</td>
 					</tr>

@@ -21,7 +21,6 @@
 <body>
 <div class="container">
 	<nav class="navbar bg-light">
-	<nav class="navbar bg-light">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="/admin/storeList">스토어 관리</a>
 			<a class="navbar-brand" href="/admin/seller">셀러 관리</a>
@@ -33,13 +32,20 @@
 		</div>
 	</nav>
 	<section id="container">
+		<br />
+			<div class="row">
+				<div class="col text-center"> 
+					<h1>상품 관리</h1>
+				</div>
+			</div>
+		<br />	
 		<form role="form" method="post"  action="/admin/answerUpdate">
 			<input type="hidden" value="${quiryUp.iqNo}" id="ipNo" name="iaiqNo" />
 			<table class="table">
 				<tbody>
 					<tr>
 						<td>
-							<label for="iaContents">내용 : </label>
+							<label for="iaContents">내용</label>
 							<textarea id="iaContents" name="iaContents" class="form-control"></textarea>
 						</td>
 					</tr>
