@@ -21,5 +21,10 @@
 		update newPdAnswers 
 			set npaContent = #{npaContent} where npanpqNo = #{npanpqNo}
 	</update>
+	
+	<!-- npanpqno에 해당하는 답변있는지 카운트 -->
+	<select id="chkNpAnswerExists" parameterType="NewPdAnswerVO" resultType="Integer">
+		select count(*) from newPdAnswers where npanpqNo = #{npanpqNo}
+	</select>
 
 </mapper>

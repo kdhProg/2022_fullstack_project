@@ -60,5 +60,13 @@ public class AnswerTest {
 		System.out.println(service.answerSelOne(iaiqNo));
 	}
 	
+	
+	@Test
+	public void chkAnswerExistsTest() {
+		AnswerVO vo = new AnswerVO();
+		vo.setIaiqNo(2313L);
+		System.out.println(service.chkAnswerExists(vo));
+	}
+	
 
 }

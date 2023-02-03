@@ -29,5 +29,10 @@ public class SelAnswerServiceImpl implements SelAnswerService {
 	public long selAnswerUpdate(SelAnswerVO vo) {
 		return dao.selAnswerUpdate(vo);
 	}
+	
+	@Override
+	public int chkSaAnswerExists(SelAnswerVO vo) {
+		return dao.chkSaAnswerExists(vo);
+	}
 
 }

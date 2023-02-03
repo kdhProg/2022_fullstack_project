@@ -126,4 +126,9 @@ public class SellerServiceImpl implements SellerService {
 	public int sellerEmailCheck(String selEmail) {
 		return dao.sellerEmailCheck(selEmail);
 	}
+	
+	@Override
+	public int sellerReGrantUpdate(SellerVO vo) {
+		return dao.sellerReGrantUpdate(vo);
+	}
 }

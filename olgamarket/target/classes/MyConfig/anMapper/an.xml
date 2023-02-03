@@ -37,25 +37,11 @@
 			where otaotqNo = #{otaotqNo}
 	</select>
 	
+	<!-- 답변달려있는지 카운트 -->
+	<select id="chkOtaAnswerExists" parameterType="AnVO" resultType="Integer">
+		select count(*) from oneToOneAs where otaotqNo = #{otaotqNo}
+	</select>
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		
 	
 </mapper>

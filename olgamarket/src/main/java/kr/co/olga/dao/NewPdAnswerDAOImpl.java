@@ -31,4 +31,9 @@ public class NewPdAnswerDAOImpl implements NewPdAnswerDAO {
 	public long newPdAnswerUpdate(NewPdAnswerVO vo) {
 		return session.update("newPdAnswerMapper.newPdAnswerUpdate", vo);
 	}
+	
+	@Override
+	public int chkNpAnswerExists(NewPdAnswerVO vo) {
+		return session.selectOne("newPdAnswerMapper.chkNpAnswerExists", vo);
+	}
 }

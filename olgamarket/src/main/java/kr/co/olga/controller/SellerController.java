@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -148,7 +149,19 @@ public class SellerController {
 		return "redirect:/seller/newPdQuiry";
 	}
 
-	
+	// 답변있는지 체크 = > 있으면 1 없다면 0
+	@PostMapping(value = "/chkNpAnswerExists")
+	@ResponseBody
+	public String chkAnswerExists(NewPdAnswerVO vo) {
+		int rst = newPdAnswerService.chkNpAnswerExists(vo);
+		if(rst == 1) {
+			//답변이 존재함
+			return "exists";
+		}else {
+			//답변이 없음
+			return "none";
+		}
+	}
 	
 	
 /***************** 등록된 상품 문의 ****************************************************************************************/	
@@ -289,10 +302,19 @@ public class SellerController {
 		return "/seller/selQuiryOne";
 	}
 
-	
-	
-	
-	
+	// 답변있는지 체크 = > 있으면 1 없다면 0
+	@PostMapping(value = "/chkSaAnswerExists")
+	@ResponseBody
+	public String chkSaAnswerExists(SelAnswerVO vo) {
+		int rst = selanswerService.chkSaAnswerExists(vo);
+		if(rst == 1) {
+			//답변이 존재함
+			return "exists";
+		}else {
+			//답변이 없음
+			return "none";
+		}
+	}	
 	
 	
 }

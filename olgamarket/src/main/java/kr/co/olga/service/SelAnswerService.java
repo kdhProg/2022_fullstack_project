@@ -13,5 +13,7 @@ public interface SelAnswerService {
 
 	long selAnswerUpdate(SelAnswerVO vo);
 
+	//sqsano로 답변있는지 체크
+	int chkSaAnswerExists(SelAnswerVO vo);
 
 }

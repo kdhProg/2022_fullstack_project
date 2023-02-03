@@ -131,6 +131,11 @@ a:hover{
 	padding-top: 5px;
 }
 /* =============헤더관련 끝================ */
+/* 강조폰트-최종결제가 */
+.focus_font{
+	font-weight: bold;
+	font-size: 1.3em;
+}
 .col{
 /* 	border: 1px red solid; */
 }
@@ -392,7 +397,7 @@ a:hover{
 				</div>
 				<div class="row">
 					<div class="col col-lg-6">최종결제금액</div>
-					<div class="col">${totalPrice}원</div>
+					<div class="col focus_font">${totalPrice}원</div>
 				</div>
 			</div>
 		</div>

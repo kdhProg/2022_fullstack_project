@@ -102,10 +102,16 @@ a:hover{
 	padding-top: 5px;
 }
 /* =============헤더관련 끝================ */
+/* iqNo 안보이기 */
+#quiryOne_iqNo{
+	display: none;
+}
 </style>
 <body>
 <!-- 현재세션값 자바스크립트 넘기기-->
 <span id="currentSession">${member.getMemId()}</span>
+<!-- iqNo 자바스크립트 넘기 -->
+<span id="quiryOne_iqNo">${quiryOne.iqNo}</span>
 
 <!-- ======== 헤더시작 ============= -->
 <div id="header_and_contents" class="container">
@@ -282,12 +288,12 @@ a:hover{
 			</table>
 			<form name="readForm" method="post" action="/myPage/quiryUpdateView?iqNo=${quiryOne.iqNo}">
 				<div>
-					<button type="submit" class="btn btn-outline-danger">문의 수정</button>
+					<button type="submit" id="modifyBtn" class="btn btn-outline-danger">문의 수정</button>
 				</div>
 			</form>	
 			<form name="deleteForm" method="post" action="/myPage/quiryDelete?iqNo=${quiryOne.iqNo}">
 				<div>
-					<button type="submit" class="btn btn-outline-danger">문의 삭제</button>
+					<button type="submit" id="deleteBtn" class="btn btn-outline-danger">문의 삭제</button>
 				</div>
 			</form>		
 			<form name="listForm" method="post" action="/myPage/myPageList">
@@ -471,5 +477,25 @@ $("#navSearchBoxBtn_Btn").click(()=>{
 });
 /* 헤더관련  - 끝*/
 
+let quiryOne_iqNo = $("#quiryOne_iqNo").text();
+
+$(document).ready(()=>{
+	$.ajax({
+		type : "post",
+		url : "/admin/chkAnswerExists",
+		data : {
+			iaiqNo : quiryOne_iqNo
+		},
+		success : function(result){
+			let validation = result;
+			if(validation === "exists"){
+				// 답변 존재
+				$("#deleteBtn").css("display", "none");
+				$("#modifyBtn").css("display", "none");
+			}
+			
+		}// success 종료
+	}); // ajax 종료	
+});
 </script>
 </html>

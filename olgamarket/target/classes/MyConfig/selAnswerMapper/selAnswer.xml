@@ -20,5 +20,9 @@
 				where sasqNo = #{sasqNo} 
 	</update>
 	
+	<!-- sasqno로 답변있는지 카운트 -->
+	<select id="chkSaAnswerExists" parameterType="SelAnswerVO" resultType="Integer">
+		select count(*) from sellerAnswers where sasqNo = #{sasqNo}
+	</select>
 	
 </mapper>

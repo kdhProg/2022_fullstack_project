@@ -536,7 +536,7 @@ function otList(pageNo, sortNo) {
 				otContentTag += "<td>"+value.otqSubCategory  +"</td>";
 				otContentTag += "<td>"+value.otqTitle+"</td>";
 				otContentTag += "<td>"+value.otqmemId+"</td>";
-				otContentTag += "<td>"+value.otqState+"</td>";
+				if(value.otqState === 1){otContentTag += "<td><p style='color:green;'><strong>답변완료</strong><p></td>";}else{otContentTag += "<td><p><strong>처리대기중</strong><p></td>";}
 				otContentTag += "<td>"+value.otqRegiDate+"</td>";
 				otContentTag += "</tr>";                
              });

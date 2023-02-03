@@ -43,6 +43,8 @@ a {
 
 <!-- 상품 목록 -->	
 <form name="insertForm" method="post" action="/admin/productInsertView">
+	
+	<br />
 	<div id="pdDiv" style="display : none;">
 		<div id="pdResultList"></div>
 		<div id="pdResultPagingNo"></div>
@@ -60,8 +62,10 @@ a {
 		<div id="pdQuiryResultPagingNo"></div>
 		
 	</div>
-		
 </div>
+<br />
+<br />
+<br />
 </body>
 <script>
 /********************* 상품 목록 *******************************************************************/

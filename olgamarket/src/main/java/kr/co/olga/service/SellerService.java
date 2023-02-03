@@ -47,5 +47,6 @@ public interface SellerService {
 
 	public int sellerEmailCheck(String selEmail);
 
-
+	// 판매자 권한 복원
+	public int sellerReGrantUpdate(SellerVO vo);
 }

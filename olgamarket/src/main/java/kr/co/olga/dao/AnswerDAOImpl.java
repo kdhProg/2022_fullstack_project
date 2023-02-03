@@ -39,6 +39,11 @@ public class AnswerDAOImpl implements AnswerDAO {
 	public List<AnswerVO> answerList(@NonNull Long iqNo) {
 		return session.selectList("answerMapper.answerList", iqNo);
 	}
+	
+	@Override
+	public int chkAnswerExists(AnswerVO vo) {
+		return session.selectOne("answerMapper.chkAnswerExists", vo);
+	}
 	 
 	 
 }

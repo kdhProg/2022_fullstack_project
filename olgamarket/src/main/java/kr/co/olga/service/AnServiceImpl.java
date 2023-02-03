@@ -40,5 +40,10 @@ public class AnServiceImpl implements AnService {
 	public List<AnVO> anList(Long otqNo) {
 		return dao.anList(otqNo);
 	}
+	
+	@Override
+	public int chkOtaAnswerExists(AnVO vo) {
+		return dao.chkOtaAnswerExists(vo);
+	}
 
 }

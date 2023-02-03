@@ -31,4 +31,9 @@ public class NewPdAnswerServiceImpl implements NewPdAnswerService {
 	public long newPdAnswerUpdate(NewPdAnswerVO vo) {
 		return dao.newPdAnswerUpdate(vo);
 	}
+	
+	@Override
+	public int chkNpAnswerExists(NewPdAnswerVO vo) {
+		return dao.chkNpAnswerExists(vo);
+	}
 }

@@ -15,8 +15,28 @@
 .card{
 	margin : 40px;
 }
+#selName{
+	color:#fc5603;
+	font-size: 2em;
+}
+#sub_font{
+	font-size: 1.3em;
+	font-weight: bold;
+}
 </style>
 <body>
+<!-- 상단 링크 -->
+<br />
+<div class="container">
+	<div class="row">
+		<div class="col col-lg-3"></div>
+		<div class="col text-center">
+			<span id="selName"><strong>${seller.getSelName()}</strong></span><span id="sub_font">님 환영합니다.</span>
+		</div>
+		<div class="col col-lg-3"></div>
+	</div>
+</div>
+
 <div class="container">
 	<!-- 신상품 등록 문의 -->
 	<div class="card" style="width: 75rem;">
@@ -40,6 +60,14 @@
 			<h5 class="card-title">통계</h5>
 			<p class="card-text"></p>
 			<a href="" class="btn btn-primary">통계 보러 가기</a>
+		</div>
+	</div>
+	<!-- 통계 -->
+	<div class="card" style="width: 75rem;">
+		<div class="card-body">
+			<h5 class="card-title"></h5>
+			<p class="card-text"></p>
+			<a href="/member/logout" class="btn btn-danger">로그아웃</a>
 		</div>
 	</div>
 </div>

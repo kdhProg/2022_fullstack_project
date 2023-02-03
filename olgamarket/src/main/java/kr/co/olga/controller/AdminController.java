@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -238,6 +239,15 @@ public class AdminController {
 		
 		return "admin/sellerGrantView";
 	}
+	
+	// 판매자 권한 복원
+		@RequestMapping(value = "/sellerReGrant")
+		public String sellerReGrant(SellerVO vo)	{
+			
+			sellerService.sellerReGrantUpdate(vo);
+			
+			return "redirect:/admin/seller";
+		}
 /************ 신상품 문의 답변 ************************************************************************************************************************/
 
 	@Autowired
@@ -327,7 +337,19 @@ public class AdminController {
 		return "/admin/newPdAnswerUpdateView";
 	}
 	
-	
+	// 답변있는지 체크 = > 있으면 1 없다면 0
+	@PostMapping(value = "/chkNpAnswerExists")
+	@ResponseBody
+	public String chkNpAnswerExists(NewPdAnswerVO vo) {
+		int rst = newPdAnswerService.chkNpAnswerExists(vo);
+		if(rst == 1) {
+			//답변이 존재함
+			return "exists";
+		}else {
+			//답변이 없음
+			return "none";
+		}
+	}
 /************ 판매자 문의 관리 ************************************************************************************************************************/
 
 	@Autowired
@@ -414,6 +436,20 @@ public class AdminController {
 		model.addAttribute("selAnswerUp", selquiryService.getSelectOne(vo.getSqNo()));
 		
 		return "/admin/selAnswerUpdateView";
+	}
+	
+	// 답변있는지 체크 = > 있으면 1 없다면 0
+	@PostMapping(value = "/chkSaAnswerExists")
+	@ResponseBody
+	public String chkSaAnswerExists(SelAnswerVO vo) {
+		int rst = selanswerService.chkSaAnswerExists(vo);
+		if(rst == 1) {
+			//답변이 존재함
+			return "exists";
+		}else {
+			//답변이 없음
+			return "none";
+		}
 	}
 
 /************ 상품 관리 ************************************************************************************************************************/
@@ -593,7 +629,21 @@ public class AdminController {
 		model.addAttribute("quiryUp", quiryService.quirySelOne(vo.getIqNo()));
 		
 		return "/admin/answerUpdateView";
-	}	
+	}
+	
+	// 답변있는지 체크 = > 있으면 1 없다면 0
+	@PostMapping(value = "/chkAnswerExists")
+	@ResponseBody
+	public String chkAnswerExists(AnswerVO vo) {
+		int rst = answerService.chkAnswerExists(vo);
+		if(rst == 1) {
+			//답변이 존재함
+			return "exists";
+		}else {
+			//답변이 없음
+			return "none";
+		}
+	}
 
 /************ 공지사항 관리 ************************************************************************************************************************/
 
@@ -921,6 +971,20 @@ public class AdminController {
 		model.addAttribute("anUp", qnService.qnSelOne(vo.getOtqNo()));
 		
 		return "/admin/anUpdateView";
+	}
+	
+	// 답변있는지 체크 = > 있으면 1 없다면 0
+	@PostMapping(value = "/chkOtaAnswerExists")
+	@ResponseBody
+	public String chkOtaAnswerExists(AnVO vo) {
+		int rst = anService.chkOtaAnswerExists(vo);
+		if(rst == 1) {
+			//답변이 존재함
+			return "exists";
+		}else {
+			//답변이 없음
+			return "none";
+		}
 	}
 	
 /************ 관리자 통계 ************************************************************************************************************************/	

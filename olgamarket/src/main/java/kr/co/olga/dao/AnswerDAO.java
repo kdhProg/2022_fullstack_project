@@ -17,4 +17,6 @@ public interface AnswerDAO {
 
 	List<AnswerVO> answerList(@NonNull Long iqNo);
 
+	int chkAnswerExists(AnswerVO vo);
+
 }

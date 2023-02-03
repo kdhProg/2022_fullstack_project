@@ -43,6 +43,11 @@ public class AnswerServiceImpl implements AnswerService {
 	public List<AnswerVO> answerList(@NonNull Long iqNo) {
 		return dao.answerList(iqNo);
 	}
+	
+	@Override
+	public int chkAnswerExists(AnswerVO vo) {
+		return dao.chkAnswerExists(vo);
+	}
 
 
 }
