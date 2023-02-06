@@ -68,10 +68,10 @@
 					<td>
 						<c:set value="${selQuiryOne.sqState}" var="grade" /> 
 						<c:if test="${grade eq 1}">
-							<c:out value="답변 완료" />
+							<span style="color : green;">답변 완료</span>
 						</c:if>	
 						<c:if test="${grade eq 0}">
-							<c:out value="처리대기중" />
+							<span>처리대기중</span>
 						</c:if>
 					</td>
 					<td>

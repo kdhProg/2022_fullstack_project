@@ -79,10 +79,10 @@
 					<td>
 						<c:set value="${selOne.selTypeGrade}" var="grade" /> 
 						<c:if test="${grade eq 1}">
-							<c:out value="셀러" />
+							<span style="color : green;">셀러</span>
 						</c:if>	
 						<c:if test="${grade eq 0}">
-							<c:out value="일반" />
+							<span>일반</span>
 						</c:if>					
 					</td>
 				  	<td>
