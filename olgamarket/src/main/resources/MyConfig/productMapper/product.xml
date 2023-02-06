@@ -69,14 +69,14 @@
 		<select id="mainProductReviewSelect" parameterType="ProductVO" resultType="ProductVO">
 			select * from 
 					(select pd.pdId from productDatas pd, reviews rv 
-    					where pd.pdId = rv.rvpdId group by pdId having count(rvNo) >= 10000) 
+    					where pd.pdId = rv.rvpdId group by pdId having count(rvNo) >= 100) 
     			temp where rownum <![CDATA[<=]]> 10
 		</select>
 		<!-- 후기 10,000개 이상 selectList 페이지 -->
 			<select id="productReviewSelectList" parameterType="ProductVO" resultType="ProductVO">
 				select * from 
 					(select pd.pdId from productDatas pd, reviews rv 
-    					where pd.pdId = rv.rvpdId group by pdId having count(rvNo) >= 10000) 
+    					where pd.pdId = rv.rvpdId group by pdId having count(rvNo) >= 100) 
     			temp where rownum <![CDATA[<=]]> 30
 			</select>
 					
@@ -91,7 +91,11 @@
 					
 	<!-- 메인페이지 제품 출시 6개월 미만 판매량 높은 제품 select -->	
 		<select id="mainProductDateSelect" parameterType="ProductVO" resultType="ProductVO">
-			select * from productDatas where pdRegiDate <![CDATA[<]]> (select add_months(pdRegiDate, 6) from dual) and rownum <![CDATA[<=]]> 10 order by pdSalesVolume desc
+			select * from 
+					(select * from productDatas 
+						where pdRegiDate > (select add_months(sysdate, -6) from dual) 
+							order by pdSalesVolume desc)
+				temp where rownum <![CDATA[<=]]> 10
 		</select>
 		<!-- 제품 출시 6개월 미만 판매량 높은 제품 selectList 페이지 -->
 			<select id="productDateSelectList" parameterType="ProductVO" resultType="ProductVO">

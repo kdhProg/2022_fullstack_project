@@ -954,18 +954,18 @@ function searchPdList(pageNo,sortNo,searchKeyWord,finalCateList,finalBrandList,f
 			//페이징
 			searchPdPagingTag += '<nav aria-label="Page navigation"><ul class="pagination justify-content-center">';
 			if(pageInfo.xprev){
-				searchPdPagingTag+="<li class='page-item'><a href='#' class='page-link' aria-label='Previous' onclick='searchPdList("+(pageInfo.firstPageNoOnPageList-1)+ ", " + sortType +", "+searchString+", "+ cateString +", "+ brandString +", "+ priceString +");return false;'><span aria-hidden='true'>&laquo;</span></a></li>";			
+				searchPdPagingTag+="<li class='page-item'><a href='#' class='page-link pagingBtn' aria-label='Previous' onclick='searchPdList("+(pageInfo.firstPageNoOnPageList-1)+ ", " + sortType +", "+searchString+", "+ cateString +", "+ brandString +", "+ priceString +");return false;'><span aria-hidden='true'>&laquo;</span></a></li>";			
 				
 			}
 			for(var i = pageInfo.firstPageNoOnPageList; i< pageInfo.lastPageNoOnPageList+1;i++){
 				if(i == currPage){
 					searchPdPagingTag += "<li class='page-item'><a class='page-link active' href='#'>"+i+"</a></li>";
 				}else{
-					searchPdPagingTag += "<li class='page-item'><a class='page-link' href='#' onclick='searchPdList(" + i + ", " + sortType +", "+searchString+", "+ cateString +", "+ brandString +", "+ priceString +");return false;' >"+i+"</a></li>";
+					searchPdPagingTag += "<li class='page-item'><a class='page-link pagingBtn' href='#' onclick='searchPdList(" + i + ", " + sortType +", "+searchString+", "+ cateString +", "+ brandString +", "+ priceString +");return false;' >"+i+"</a></li>";
 				}
 			}
 			if(pageInfo.xnext){
-				searchPdPagingTag+="<li class='page-item'><a href='#' class='page-link' aria-label='Previous' onclick='searchPdList("+(pageInfo.lastPageNoOnPageList+1)+ ", " + sortType +", "+searchString+", "+ cateString +", "+ brandString +", "+ priceString +");return false;'><span aria-hidden='true'>&raquo;</span></a></li>";
+				searchPdPagingTag+="<li class='page-item'><a href='#' class='page-link pagingBtn' aria-label='Previous' onclick='searchPdList("+(pageInfo.lastPageNoOnPageList+1)+ ", " + sortType +", "+searchString+", "+ cateString +", "+ brandString +", "+ priceString +");return false;'><span aria-hidden='true'>&raquo;</span></a></li>";
 			}
 			
 			searchPdPagingTag +='</ul></nav>';
@@ -1178,5 +1178,11 @@ $("#navSearchBoxBtn_Btn").click(()=>{
 	location.href="/search/productList?searchKeyWord="+navSearchKeyWord;
 });
 /* 헤더관련  - 끝*/
+
+
+// 페이징 버튼 누르면 상단으로 이동
+$(document).on('click', '.pagingBtn', ()=>{
+	window.scrollTo(0,0);
+});
 </script>
 </html>

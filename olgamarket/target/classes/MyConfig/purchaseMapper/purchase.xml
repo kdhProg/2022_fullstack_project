@@ -70,99 +70,95 @@
 <!-- 관리자 통계 - 판매량(당일, 1일전, 2일전, 3일전) -->
 	<select id="daySalesVolumeSelect1" resultType="Long">
 		select sum(plPdQuantity) as day from purchaseLists
-        	where EXTRACT(day from (plDate)) = 
-        		(select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd'), 'dd') from dual)
+        		where (select (to_date(plDate, 'YYYY-MM-dd')) from dual) = (select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd'), 'YYYY-MM-dd') from dual)
 	</select>
 	
 	<select id="daySalesVolumeSelect2" resultType="Long">
 		select sum(plPdQuantity) as day from purchaseLists
-        	where EXTRACT(day from (plDate)) = 
-        		(select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd') -1, 'dd') from dual)
+        		where (select (to_date(plDate, 'YYYY-MM-dd')) from dual) = (select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd')-1, 'YYYY-MM-dd') from dual)
 	</select> 
 	
 	<select id="daySalesVolumeSelect3" resultType="Long">
 		select sum(plPdQuantity) as day from purchaseLists
-        	where EXTRACT(day from (plDate)) = 
-        		(select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd') -2, 'dd') from dual)
+        		where (select (to_date(plDate, 'YYYY-MM-dd')) from dual) = (select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd')-2, 'YYYY-MM-dd') from dual)
 	</select> 
 	
 	<select id="daySalesVolumeSelect4" resultType="Long">
 		select sum(plPdQuantity) as day from purchaseLists
-        	where EXTRACT(day from (plDate)) = 
-        		(select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd') -3, 'dd') from dual)
+        		where (select (to_date(plDate, 'YYYY-MM-dd')) from dual) = (select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd')-3, 'YYYY-MM-dd') from dual)
 	</select>  
  
 <!-- 관리자 통계 - 판매량(당월, 전월, 두 달전, 세 달전) -->
 	<select id="monthSalesVolumeSelect1" resultType="Long">
 		select sum(plPdQuantity) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), 0) PREV_MONTH FROM DUAL)) from dual)
+    		where plDate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), 0) from dual), 'MM') FROM  DUAL))
+            and plDate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), 0) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthSalesVolumeSelect2" resultType="Long">
 		select sum(plPdQuantity) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -1) PREV_MONTH FROM DUAL)) from dual)
+    		where pldate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -1) from dual), 'MM') FROM  DUAL))
+            and pldate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -1) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthSalesVolumeSelect3" resultType="Long">
 		select sum(plPdQuantity) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -2) PREV_MONTH FROM DUAL)) from dual)
+    		where pldate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -2) from dual), 'MM') FROM  DUAL))
+            and pldate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -2) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthSalesVolumeSelect4" resultType="Long">
 		select sum(plPdQuantity) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -3) PREV_MONTH FROM DUAL)) from dual)
+    		where pldate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -3) from dual), 'MM') FROM  DUAL))
+            and pldate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -3) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthSalesVolumeSelect5" resultType="Long">
 		select sum(plPdQuantity) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -4) PREV_MONTH FROM DUAL)) from dual)
+    		where pldate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -4) from dual), 'MM') FROM  DUAL))
+            and pldate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -4) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthSalesVolumeSelect6" resultType="Long">
 		select sum(plPdQuantity) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -5) PREV_MONTH FROM DUAL)) from dual)
+    		where pldate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -5) from dual), 'MM') FROM  DUAL))
+            and pldate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -5) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthSalesVolumeSelect7" resultType="Long">
 		select sum(plPdQuantity) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -6) PREV_MONTH FROM DUAL)) from dual)
+    		where pldate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -6) from dual), 'MM') FROM  DUAL))
+            and pldate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -6) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthSalesVolumeSelect8" resultType="Long">
 		select sum(plPdQuantity) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -7) PREV_MONTH FROM DUAL)) from dual)
+    		where pldate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -7) from dual), 'MM') FROM  DUAL))
+            and pldate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -7) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthSalesVolumeSelect9" resultType="Long">
 		select sum(plPdQuantity) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -8) PREV_MONTH FROM DUAL)) from dual)
+    		where pldate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -8) from dual), 'MM') FROM  DUAL))
+            and pldate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -8) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthSalesVolumeSelect10" resultType="Long">
 		select sum(plPdQuantity) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -9) PREV_MONTH FROM DUAL)) from dual)
+    		where pldate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -9) from dual), 'MM') FROM  DUAL))
+            and pldate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -9) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthSalesVolumeSelect11" resultType="Long">
 		select sum(plPdQuantity) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -10) PREV_MONTH FROM DUAL)) from dual)
+    		where pldate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -10) from dual), 'MM') FROM  DUAL))
+            and pldate <![CDATA[<=]]>TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -10) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthSalesVolumeSelect12" resultType="Long">
 		select sum(plPdQuantity) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -11) PREV_MONTH FROM DUAL)) from dual)
+    		where pldate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -11) from dual), 'MM') FROM  DUAL))
+            and pldate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -11) from dual)) FROM   DUAL))
 	</select>
  
 <!-- 관리자 통계 - 판매량(올해, 1년전, 2년전, 3년젼 ... 10년전) --> 
@@ -243,22 +239,22 @@
 <!-- 관리자 통계 - 매출(일일) -->
 	<select id="dayPriceTotalSelect" resultType="Long">
 			select sum(plTotalPrice) as day from purchaseLists
-        		where EXTRACT(day from (plDate)) = (select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd'),'dd') from dual)
+        		where (select (to_date(plDate, 'YYYY-MM-dd')) from dual) = (select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd'), 'YYYY-MM-dd') from dual)
 	</select>
 	
 	<select id="dayPriceTotalSelect2" resultType="Long">
 			select sum(plTotalPrice) as day from purchaseLists
-        		where EXTRACT(day from (plDate)) = (select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd') -1,'dd') from dual)
+        		where (select (to_date(plDate, 'YYYY-MM-dd')) from dual) = (select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd') -1, 'YYYY-MM-dd') from dual)
 	</select>
 	
 	<select id="dayPriceTotalSelect3" resultType="Long">
 			select sum(plTotalPrice) as day from purchaseLists
-        		where EXTRACT(day from (plDate)) = (select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd') -2,'dd') from dual)
+        		where (select (to_date(plDate, 'YYYY-MM-dd')) from dual) = (select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd') -2, 'YYYY-MM-dd') from dual)
 	</select>
 	
 	<select id="dayPriceTotalSelect4" resultType="Long">
 			select sum(plTotalPrice) as day from purchaseLists
-        		where EXTRACT(day from (plDate)) = (select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd') -3,'dd') from dual)
+        		where (select (to_date(plDate, 'YYYY-MM-dd')) from dual) = (select TO_CHAR(TO_DATE(sysdate,'YYYY-MM-dd') -3, 'YYYY-MM-dd') from dual)
 	</select>
 	
 	<select id="daySelect" resultType="String">
@@ -268,74 +264,74 @@
 <!-- 관리자 통계 - 매출(당월, 전월, 두 달전, 세 달전) -->	
 	<select id="monthPriceTotalSelect1" resultType="Long">
 		select sum(plTotalPrice) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), 0) PREV_MONTH FROM DUAL)) from dual)
+    		where plDate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), 0) from dual), 'MM') FROM  DUAL))
+            and plDate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), 0) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthPriceTotalSelect2" resultType="Long">
 		select sum(plTotalPrice) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -1) PREV_MONTH FROM DUAL)) from dual)
+    		where plDate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -1) from dual), 'MM') FROM  DUAL))
+            and plDate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -1) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthPriceTotalSelect3" resultType="Long">
 		select sum(plTotalPrice) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -2) PREV_MONTH FROM DUAL)) from dual)
+    		where plDate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -2) from dual), 'MM') FROM  DUAL))
+            and plDate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -2) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthPriceTotalSelect4" resultType="Long">
 		select sum(plTotalPrice) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -3) PREV_MONTH FROM DUAL)) from dual)
+    		where plDate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -3) from dual), 'MM') FROM  DUAL))
+            and plDate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -3) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthPriceTotalSelect5" resultType="Long">
 		select sum(plTotalPrice) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -4) PREV_MONTH FROM DUAL)) from dual)
+    		where plDate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -4) from dual), 'MM') FROM  DUAL))
+            and plDate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -4) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthPriceTotalSelect6" resultType="Long">
 		select sum(plTotalPrice) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -5) PREV_MONTH FROM DUAL)) from dual)
+    		where plDate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -5) from dual), 'MM') FROM  DUAL))
+            and plDate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -5) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthPriceTotalSelect7" resultType="Long">
 		select sum(plTotalPrice) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -6) PREV_MONTH FROM DUAL)) from dual)
+    		where plDate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -6) from dual), 'MM') FROM  DUAL))
+            and plDate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -6) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthPriceTotalSelect8" resultType="Long">
 		select sum(plTotalPrice) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -7) PREV_MONTH FROM DUAL)) from dual)
+    		where plDate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -7) from dual), 'MM') FROM  DUAL))
+            and plDate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -7) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthPriceTotalSelect9" resultType="Long">
 		select sum(plTotalPrice) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -8) PREV_MONTH FROM DUAL)) from dual)
+    		where plDate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -8) from dual), 'MM') FROM  DUAL))
+            and plDate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -8) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthPriceTotalSelect10" resultType="Long">
 		select sum(plTotalPrice) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -9) PREV_MONTH FROM DUAL)) from dual)
+    		where plDate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -9) from dual), 'MM') FROM  DUAL))
+            and plDate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -9) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthPriceTotalSelect11" resultType="Long">
 		select sum(plTotalPrice) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -10) PREV_MONTH FROM DUAL)) from dual)
+    		where plDate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -10) from dual), 'MM') FROM  DUAL))
+            and plDate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -10) from dual)) FROM   DUAL))
 	</select>
 	
 	<select id="monthPriceTotalSelect12" resultType="Long">
 		select sum(plTotalPrice) as month from purchaseLists
-    		where EXTRACT(month from (plDate)) = 
-    			(select EXTRACT(MONTH FROM(SELECT ADD_MONTHS(TO_DATE(sysdate,'YYYY-MM-DD'), -11) PREV_MONTH FROM DUAL)) from dual)
+    		where plDate <![CDATA[>=]]> TO_CHAR((SELECT TRUNC((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -11) from dual), 'MM') FROM  DUAL))
+            and plDate <![CDATA[<=]]> TO_CHAR((SELECT LAST_DAY((SELECT ADD_MONTHS(TO_DATE(sysDate,'YYYY-MM-DD'), -11) from dual)) FROM   DUAL))
 	</select>
 
 <!-- 관리자 통계 - 매출(올해, 1년전, 2년전, 3년전) -->
