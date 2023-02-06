@@ -59,8 +59,19 @@ a {
 	border: none;
 	background: transparent;
 }
+/* 상단 요약탭 */
+#daySummary{
+	padding: 15px;
+	background: #FAFAFA;
+}
+/* 각각요소 흰색배경 */
+#daySummary_inside{
+	padding-top:10px;
+	background: white;
+	padding-bottom:10px;
+}
 .col{
-/*    border: 1px solid red; */
+/*     border: 1px solid red;  */
 }
 /* 김동훈추가끝 */
 </style>
@@ -84,11 +95,27 @@ a {
 			</div>
 		</div>
 	<br />
-   
+   		<div id="daySummary" class="row">
+			<div id="daySummary_inside" class="col text-center"> 
+				<table class="table">
+					<tr>
+						<th>일자</th><th>주문수</th><th>매출액</th><th>방문자</th><th>가입</th>
+					</tr>
+					<tr>
+						<td><span id="summ_today"></span></td>
+						<td><span id="summ_orderCnt"></span></td>
+						<td><span id="summ_sales"></span></td>
+						<td><span id="summ_visitors"></span></td>
+						<td><span id="summ_join"></span></td>
+					</tr>
+				</table>
+			</div>
+		</div>
    <br />
    <a href="#" onclick="return false;" id="visitBt" class="btn btn-primary">방문자 수</a>
    <a href="#" onclick="return false;" id="svBt" class="btn btn-primary">판매량</a>
    <a href="#" onclick="return false;" id="tpBt" class="btn btn-primary">매출액</a>
+   <a href="#" onclick="return false;" id="downloadBtnExcel" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" class="bi bi-file-earmark-excel" viewBox="0 0 16 16"><path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/></svg>&nbsp;자료 다운받기(Excel)</a>
 </div>
 <br />
 
@@ -945,6 +972,73 @@ function totalPriceChart4(plAllTotal) {
 } 
 
 /* ===================매출액 끝==================== */ 
- 
+
+// 엑셀다운
+$("#downloadBtnExcel").click(()=>{
+	location.href="/admin/downExcel";
+});
+
+// 요약탭
+$(document).ready(()=>{
+	// 1. 날짜
+	let today = new Date();
+	let year = today.getFullYear();
+	let month = ('0' + (today.getMonth() + 1)).slice(-2);
+	let day = ('0' + today.getDate()).slice(-2);
+	let week = new Array('일', '월', '화', '수', '목', '금', '토');
+	$("#summ_today").text(year + '-' + month  + '-' + day+"  "+week[today.getDay()]+"요일");
+	
+	// 2.주문건수
+	$.ajax({
+      type : "get",
+      url : "/admin/countTodayPurchase",
+      data : {
+      },
+      success : function(result){
+         let rst = result;
+         if(rst == null){ rst = 0; }
+         $("#summ_orderCnt").text(Number(rst).toLocaleString('ko-KR'));
+      }// success 종료
+   }); // ajax 종료
+	
+	// 3.판매량
+	$.ajax({
+      type : "get",
+      url : "/admin/dayTotalPrice",
+      data : {
+      },
+      success : function(result){
+         let plDayTotal1 = result.plDay1;
+         if(plDayTotal1 == null){ plDayTotal1 = 0; }
+         $("#summ_sales").text(Number(plDayTotal1).toLocaleString('ko-KR'));
+      }// success 종료
+   }); // ajax 종료
+	
+   
+	// 4. 방문자수
+	$.ajax({
+      type : "get",
+      url : "/visitors/getVisitorList",
+      data : {
+      },
+      success : function(result){
+         let todayVisit = result.todayVisit;
+  
+         $("#summ_visitors").text(Number(todayVisit).toLocaleString('ko-KR'));
+      }// success 종료 
+   }); // ajax 종료
+	// 5. 가입수
+	$.ajax({
+      type : "get",
+      url : "/admin/countTodayJoin",
+      data : {
+      },
+      success : function(result){
+         let todayJoin = result;
+  
+         $("#summ_join").text(Number(todayJoin).toLocaleString('ko-KR'));
+      }// success 종료 
+   }); // ajax 종료
+});
 </script>
 </html>

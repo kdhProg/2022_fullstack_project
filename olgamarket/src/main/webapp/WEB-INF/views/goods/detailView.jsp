@@ -396,7 +396,7 @@ a:hover{
 		<div class="col col-lg-6">
 		<!-- 상품썸네일 -->
 			<div class="pd_thumbnail">
-				<img src="/resources/pdimages/pd_default.jpg" alt="" />
+				<img src="${productDetail.getPdThumbImg()}" alt="" />
 			</div>	
 		</div>
 		<div class="col col-lg-6">

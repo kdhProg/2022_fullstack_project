@@ -36,8 +36,8 @@ public class VisitorsTest {
 		
 		//============= 인서트하기
 		//반복문으로 넣기
-		String case1_date = "20230101";
-		String case1_ip = "512.123.123.123";
+		String case1_date = "20230401";
+		String case1_ip = "321.123.123.123";
 		
 		for(int i=0;i<20;i++) {
 			VisitorsVO vo = new VisitorsVO();
@@ -46,10 +46,10 @@ public class VisitorsTest {
 			service.visitorsInsert(vo);
 		}
 		
-		String case2_date = "20230101";
-		String case2_ip = "444.123.123.123";
+		String case2_date = "20230115";
+		String case2_ip = "967.555.123.123";
 		
-		for(int i=0;i<25;i++) {
+		for(int i=0;i<35;i++) {
 			VisitorsVO vo = new VisitorsVO();
 			vo.setViIp(case2_ip);
 			vo.setViTime(service.CalculationDate(case2_date, 0, 0, i));
@@ -57,7 +57,7 @@ public class VisitorsTest {
 		}
 		
 		String case3_date = "20230101";
-		String case3_ip = "555.123.123.123";
+		String case3_ip = "856.524.123.123";
 		
 		for(int i=0;i<50;i++) {
 			VisitorsVO vo = new VisitorsVO();

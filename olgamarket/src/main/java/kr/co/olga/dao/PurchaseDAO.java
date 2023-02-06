@@ -151,4 +151,6 @@ public interface PurchaseDAO {
 	// memId로 적립금 더하기
 	Long sumSavedMoneyByMemId(MemberVO vo);
 
+	Long countTodayPurchase();
+
 }

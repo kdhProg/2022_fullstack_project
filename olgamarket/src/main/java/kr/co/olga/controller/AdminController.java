@@ -1,10 +1,12 @@
 package kr.co.olga.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.olga.dao.NewPdQuiryDAO;
+import kr.co.olga.dao.QnDAO;
+import kr.co.olga.dao.QuiryDAO;
+import kr.co.olga.dao.SelQuiryDAO;
 import kr.co.olga.service.AdminService;
 import kr.co.olga.service.AnService;
 import kr.co.olga.service.AnswerService;
@@ -57,6 +63,10 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private MemberService memService;
+	
 	
 	@RequestMapping(value = "/enterAdminMain")
 	public String adminMain() {
@@ -1259,20 +1269,74 @@ public class AdminController {
 		return result;
 	}
 	
+	/* 통계 엑셀 다운로드 */
+	@GetMapping(value="/downExcel")
+	public void downExcel(HttpServletResponse response) throws IOException{
+		
+		adminService.mkStatisticsExcel(response);
+	}
+	
+	// 통계 요약탭 - 오늘 주문건수
+	@GetMapping(value="countTodayPurchase")
+	@ResponseBody
+	public Long countTodayPurchase() {
+		Long rst = purchaseService.countTodayPurchase();
+		return rst;
+	}
+	
+	// 통계 요약탭 - 오늘 주문건수
+	@GetMapping(value="countTodayJoin")
+	@ResponseBody
+	public Long countTodayJoin() {
+		Long rst = memService.countTodayJoin();
+		return rst;
+	}
+	
+	// 어드민 메인페이지 오늘의 할일 세팅
+	@Autowired
+	private NewPdQuiryDAO npdDao; // 판매자 신상품문의
+	
+	@Autowired
+	private QuiryDAO quDao; // 일반회원 상품문의
+	
+	@Autowired
+	private SelQuiryDAO selDao; //판매자 상품문의
+	
+	@Autowired
+	private QnDAO qnDao; //일반회원 1:1 문의
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@GetMapping(value="setTodayWorks")
+	@ResponseBody
+	public Map<String, Object> setTodayWorks(){
+		Map<String, Object> result = new HashMap<String, Object>();
+		PagingVO vo1 = new PagingVO();
+		vo1.setSort(1);
+		Integer memQuiry = quDao.getQuiryAdminCount(vo1);
+		
+		PagingVO vo2 = new PagingVO();
+		vo2.setSort(1);
+		Integer memOneqn = qnDao.getQnAdminCount(vo2);
+		
+		PagingVO vo3 = new PagingVO();
+		vo3.setSort(1);
+		Integer sellerNpd = npdDao.getNewPdQuiryAdminCount(vo3);
+		
+		PagingVO vo4 = new PagingVO();
+		vo4.setSort(1);
+		Integer sellerPd = selDao.getSelQuiryCount(vo4);
+		
+		if(memQuiry == null) {memQuiry = 0;}
+		if(memOneqn == null) {memOneqn = 0;}
+		if(sellerNpd == null) {sellerNpd = 0;}
+		if(sellerPd == null) {sellerPd = 0;}
+		
+		result.put("memQuiry", memQuiry);
+		result.put("memOneqn", memOneqn);
+		result.put("sellerNpd", sellerNpd);
+		result.put("sellerPd", sellerPd);
+		return result;
+	}
 	
 
 }

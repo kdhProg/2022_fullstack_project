@@ -49,5 +49,7 @@ public interface MemberDAO {
 // 관리자 회원 등급 업데이트
 	long memGradeUpdate(MemberVO vo);
 
+	Long countTodayJoin();
+
 
 }

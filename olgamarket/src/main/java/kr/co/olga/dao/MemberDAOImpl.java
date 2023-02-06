@@ -107,4 +107,9 @@ public class MemberDAOImpl implements MemberDAO {
 	public long memGradeUpdate(MemberVO vo) {
 		return session.update("memberMapper.memGradeUpdate", vo);
 	}
+	
+	@Override
+	public Long countTodayJoin() {
+		return session.selectOne("memberMapper.countTodayJoin");
+	}
 }
