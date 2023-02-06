@@ -181,5 +181,8 @@ public class MemberServiceImpl implements MemberService {
 		return dao.memGradeUpdate(vo);
 	}
 
-	
+	@Override
+	public Long countTodayJoin() {
+		return dao.countTodayJoin();
+	}
 }

@@ -58,5 +58,6 @@ public class PurchaseTest {
 		
 		System.out.println(service.sumSavedMoneyByMemId(vo));
 	}
+	
 
 }

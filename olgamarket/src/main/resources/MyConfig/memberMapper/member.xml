@@ -116,6 +116,12 @@
 	</update>
 	
 	
+	<!-- 오늘 가입자수 -->
+	<select id="countTodayJoin" resultType="Long">
+		select count(*) from members where TO_DATE(memregidate,'yyyy-mm-dd') = TO_DATE(sysdate,'yyyy-mm-dd')
+	</select>
+	
+	
 </mapper>
 
 

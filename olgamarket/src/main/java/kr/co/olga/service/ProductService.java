@@ -87,6 +87,11 @@ public interface ProductService {
 	List<ProductVO> getProductSellerPageList(PagingVO vo);
 
 	
+//	난수 상품 생성기
+	ProductVO makeRandomPdDatas(String pdMainCategory, String pdSubCategory, String pdstlBrandName, String pdUnit,
+			String pdWeight, String pdSeason,long pdStock, int startPrice, int endPrice, int startSale, int endSale);
+
+	
 
 
 

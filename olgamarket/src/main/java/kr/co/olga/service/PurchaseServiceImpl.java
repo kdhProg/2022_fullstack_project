@@ -423,6 +423,10 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public Long sumSavedMoneyByMemId(MemberVO vo) {
 		return dao.sumSavedMoneyByMemId(vo);
 	}
-
+	
+	@Override
+	public Long countTodayPurchase() {
+		return dao.countTodayPurchase();
+	}
 	
 }

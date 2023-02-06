@@ -94,13 +94,12 @@ function pdList(pageNo) {
 			var currPage = data.currPage;
             var pdPageList = data.pdList; // model 처럼
         	
-            var pdContentTag = "<table class='table'><tr><th>Id</th><th>썸네일 이미지</th><th>상품 이름</th><th>카테고리</th><th>브랜드</th><th>가격</th><th>할인</th><th>재고</th><th>판매량</th><th>등록일</th></tr>";
+            var pdContentTag = "<table class='table'><tr><th>Id</th><th>상품 이름</th><th>카테고리</th><th>브랜드</th><th>가격</th><th>할인</th><th>재고</th><th>판매량</th><th>등록일</th></tr>";
             var pdPagingTag = "";
 
 			$.each(pdPageList, function(key, value) {
 				pdContentTag += "<tr>";
 				pdContentTag += "<td><a href='/admin/productOne?pdId="+value.pdId+"'class='btn btn-danger'>"+value.pdId+"</a></td>";
-				pdContentTag += "<td>"+value.pdThumbImg+"</td>";
 				pdContentTag += "<td>"+value.pdName+"</td>";
 				pdContentTag += "<td>"+value.pdMainCategory+"</td>";
 				pdContentTag += "<td>"+value.pdstlBrandName+"</td>";

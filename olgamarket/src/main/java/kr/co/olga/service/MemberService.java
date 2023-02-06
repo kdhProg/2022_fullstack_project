@@ -51,6 +51,9 @@ public interface MemberService {
 // 관리자 회원 등급 업데이트	
 	long memGradeUpdate(MemberVO vo);
 
+	// 오늘 가입자수
+	Long countTodayJoin();
+
 	
 
 

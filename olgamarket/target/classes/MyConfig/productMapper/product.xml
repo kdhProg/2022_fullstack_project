@@ -11,7 +11,7 @@
 				#{pdName}, #{pdMainCategory}, #{pdSubCategory}, 
 				#{pdstlBrandName}, #{pdStorageType}, #{pdUnit}, #{pdWeight}, 
 				#{pdCountry}, #{pdBBE}, sysdate, sysdate, #{pdDesInfoImg}, 
-				#{pdSeason}, 0, 0, #{pdPrice}, 0, 0)
+				#{pdSeason}, 0, 0, #{pdPrice}, #{pdSale}, #{pdStock})
 	</insert>
 
 <!-- 상품 정보 수정(썸네일, 이름, 보관타입, 단위, 단위 당 무게, 원산지, 유통기한, 수정날짜, 설명이미지, 가격, 세일, 재고 -->	

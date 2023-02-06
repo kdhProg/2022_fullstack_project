@@ -26,7 +26,7 @@ div {
 	overflow: hidden;
 }
 .show_img_size{
-	width:500px;
+	width:350px;
 	height: 250px;
 }
 /*  */
@@ -320,7 +320,7 @@ a:hover{
 										</div>
 										<div class="row">
 											<div class="col show_img_div">
-												<img class="show_img_size" src="/resources/pdimages/pd_main_default.jpg" alt="" />
+												<img class="show_img_size" src="${list.getPdThumbImg()}" alt="" />
 											</div>
 										</div>
 										<br />
@@ -389,7 +389,7 @@ a:hover{
 										</div>
 										<div class="row">
 											<div class="col show_img_div">
-												<img class="show_img_size" src="/resources/pdimages/pd_main_default.jpg" alt="" />
+												<img class="show_img_size" src="${list.getPdThumbImg()}" alt="" />
 											</div>
 										</div>
 										<br />
@@ -458,7 +458,7 @@ a:hover{
 										</div>
 										<div class="row">
 											<div class="col show_img_div">
-												<img class="show_img_size" src="/resources/pdimages/pd_main_default.jpg" alt="" />
+												<img class="show_img_size" src="${list.getPdThumbImg()}" alt="" />
 											</div>
 										</div>
 										<br />
@@ -518,7 +518,7 @@ a:hover{
 										</div>
 										<div class="row">
 											<div class="col show_img_div">
-												<img class="show_img_size" src="/resources/pdimages/pd_main_default.jpg" alt="" />
+												<img class="show_img_size" src="${list.getPdThumbImg()}" alt="" />
 											</div>
 										</div>
 										<br />
@@ -587,7 +587,7 @@ a:hover{
 										</div>
 										<div class="row">
 											<div class="col show_img_div">
-												<img class="show_img_size" src="/resources/pdimages/pd_main_default.jpg" alt="" />
+												<img class="show_img_size" src="${list.getPdThumbImg()}" alt="" />
 											</div>
 										</div>
 										<br />
@@ -647,7 +647,7 @@ a:hover{
 										</div>
 										<div class="row">
 											<div class="col show_img_div">
-												<img class="show_img_size" src="/resources/pdimages/pd_main_default.jpg" alt="" />
+												<img class="show_img_size" src="${list.getPdThumbImg()}" alt="" />
 											</div>
 										</div>
 										<br />

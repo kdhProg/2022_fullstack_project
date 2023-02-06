@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -12,14 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.olga.dao.ProductDAO;
 import kr.co.olga.service.ProductService;
 import kr.co.olga.vo.PagingVO;
 import kr.co.olga.vo.ProductVO;
-import kr.co.olga.vo.SellerVO;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -262,6 +260,38 @@ public class ProductTest {
 		vo.setPdSalesVolume(2000L);
 		assertEquals(1, service.increaseSaleByPdId(vo));
 	}
+	
+	
+//	무작위 입력 테스트
+	@Test
+	public void randomNumberInsertTest() {
+		
+		// 메인/서브 카테고리 => productinertView.jsp의 선택옵션들 그대로 사용하기
+		// ex) String pdSubCategory = "양파/마늘/파";
+        String pdMainCategory = "수산물";
+        String pdSubCategory = "생선";
+        String pdstlBrandName = "브랜드44444";
+        String pdUnit = "1박스";
+        String pdWeight = "500g";
+        String pdSeason = "no";
+        long pdStock = 100L;
+        
+        int startPrice = 1000;   //가격: 1000원 이상으로 하기
+        int endPrice = 100000;
+        
+        int startSale = 0;  // 0 ~ 100사이만, 시작/끝 둘다 0 주기 가능
+        int endSale = 90;
+        
+        for(int i=0; i < 25;i++) {
+        	ProductVO vo =  service.makeRandomPdDatas(pdMainCategory,pdSubCategory,pdstlBrandName,pdUnit,pdWeight,pdSeason,pdStock,startPrice,endPrice,startSale,endSale);
+            service.productInsert(vo);
+        }
+	}
+	
+	
+	
+	
+	
 }
 
 

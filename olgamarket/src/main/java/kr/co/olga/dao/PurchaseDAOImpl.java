@@ -349,5 +349,10 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 	public Long sumSavedMoneyByMemId(MemberVO vo) {
 		return session.selectOne("PurchaseMapper.sumSavedMoneyByMemId",vo);
 	}
+	
+	@Override
+	public Long countTodayPurchase() {
+		return session.selectOne("PurchaseMapper.countTodayPurchase");
+	}
 
 }

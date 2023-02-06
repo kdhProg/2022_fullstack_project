@@ -151,6 +151,10 @@ public interface PurchaseService {
 
 	//memId에 해당하는 적립금 전부 더하기
 	Long sumSavedMoneyByMemId(MemberVO vo);
+
+	// 오늘 주문건수 카운트
+	Long countTodayPurchase();
+
 	
 
 	

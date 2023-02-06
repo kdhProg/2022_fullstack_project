@@ -414,5 +414,12 @@
 	<select id="sumSavedMoneyByMemId" parameterType="MemberVO" resultType="Long">
 		select sum(plsavedmoney) from purchaseLists where plmemid=#{memId}
 	</select>
+	
+	
+	<!-- 오늘 주문건수 -->
+	<select id="countTodayPurchase" resultType="Long">
+		select count(*) from (select PLORDERNO from purchaseLists where TO_DATE(plDate,'yyyy-mm-dd') = TO_DATE(sysdate,'yyyy-mm-dd')  group by PLORDERNO)
+	</select>
+	
 
 </mapper>
