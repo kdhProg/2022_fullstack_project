@@ -66,7 +66,7 @@
 		select count(*) from purchaseLists where plpdId=#{plpdId} and plmemId = #{plmemId}
 	</select>
 	
-<!-- ******************************************** 관리자 통계 판매량 ************************************************ -->	
+<!-- ******************************************** 관리자 통계 판매량 ************************************************* -->	
 <!-- 관리자 통계 - 판매량(당일, 1일전, 2일전, 3일전) -->
 	<select id="daySalesVolumeSelect1" resultType="Long">
 		select sum(plPdQuantity) as day from purchaseLists
