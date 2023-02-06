@@ -242,7 +242,6 @@ a:hover{
 		<a href="#" onclick="sortFaqList('defaultCate');return false;" id="categoryBt1" class="btn btn-light">전체</a>
 		<a href="#" onclick="sortFaqList('주문/결제');return false;" id="categoryBt2" class="btn btn-light">주문/결제</a>
 		<a href="#" onclick="sortFaqList('취소/교환/환불');return false;" id="categoryBt3" class="btn btn-light">취소/교환/환불</a>
-		<a href="#" onclick="sortFaqList('포장');return false;" id="categoryBt4" class="btn btn-light">포장</a>
 		<a href="#" onclick="sortFaqList('회원');return false;" id="categoryBt5" class="btn btn-light">회원</a>
 			<div id="faqResultList"></div>
 			<div id="faqResultPagingNo"></div>
@@ -422,7 +421,7 @@ function noticeList(pageNo) {
 				noticeContentTag += "<td><a href='/board/noticeOne?ntNo="+value.ntNo+"'class='btn btn-danger'>"+value.ntNo+"</a></td>";
 				noticeContentTag += "<td>"+value.ntTitle+"</td>";
 				noticeContentTag += "<td>"+value.ntadmId+"</td>";
-				noticeContentTag += "<td>"+value.ntUpdDate+"</td>";
+				noticeContentTag += "<td>"+value.ntUpdDate.substring(0,10)+"</td>";
 				noticeContentTag += "</tr>";                
              });
 			noticePagingTag += "</table>";
@@ -477,7 +476,7 @@ function faqList(pageNo, category) {
 				faqContentTag += "<td>"+value.faqCategory+"</td>";
 				faqContentTag += "<td>"+value.faqTitle+"</td>";
 				faqContentTag += "<td>"+value.faqadmId+"</td>";
-				faqContentTag += "<td>"+value.faqUpdDate+"</td>";
+				faqContentTag += "<td>"+value.faqUpdDate.substring(0,10)+"</td>";
 				faqContentTag += "</tr>";                
              });
 			faqContentTag += "</table>";
@@ -540,7 +539,7 @@ function otList(pageNo, sortNo) {
 				otContentTag += "<td>"+value.otqTitle+"</td>";
 				otContentTag += "<td>"+value.otqmemId+"</td>";
 				if(value.otqState === 1){otContentTag += "<td><p style='color:green;'><strong>답변완료</strong><p></td>";}else{otContentTag += "<td><p><strong>처리대기중</strong><p></td>";}
-				otContentTag += "<td>"+value.otqRegiDate+"</td>";
+				otContentTag += "<td>"+value.otqRegiDate.substring(0,10)+"</td>";
 				otContentTag += "</tr>";                
              });
 			otContentTag += "</table>";

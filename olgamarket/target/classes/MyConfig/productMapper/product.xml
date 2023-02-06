@@ -41,7 +41,7 @@
 		</select>
 		<!-- 제철과일 selectList 페이지 -->
 			<select id="productSeasonFruitSelectList" parameterType="ProductVO" resultType="ProductVO">
-				select * from productDatas where pdSeason = 'summer' and rownum <![CDATA[<=]]> 30
+				select * from productDatas where pdSeason = 'summer' and rownum <![CDATA[<=]]> 10
 			</select>
 	
 	<!-- 메인페이지 지금 할인 중 select -->	
