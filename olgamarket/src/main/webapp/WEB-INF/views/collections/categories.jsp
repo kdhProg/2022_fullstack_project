@@ -869,18 +869,18 @@ function catePdList(pageNo,sortNo,finalCateList,finalBrandList,finalpriceList) {
 			// 페이징
 			catePdPagingTag += '<nav aria-label="Page navigation"><ul class="pagination justify-content-center">';
 			if(pageInfo.xprev){
-				catePdPagingTag+="<li class='page-item'><a href='#' class='page-link' aria-label='Previous' onclick='catePdList("+(pageInfo.firstPageNoOnPageList-1)+ ", " + sortType +", "+ cateString +", "+ brandString +", "+ priceString +");return false;'><span aria-hidden='true'>&laquo;</span></a></li>";
+				catePdPagingTag+="<li class='page-item'><a href='#' class='page-link pagingBtn' aria-label='Previous' onclick='catePdList("+(pageInfo.firstPageNoOnPageList-1)+ ", " + sortType +", "+ cateString +", "+ brandString +", "+ priceString +");return false;'><span aria-hidden='true'>&laquo;</span></a></li>";
 			}
 			for(var i = pageInfo.firstPageNoOnPageList; i< pageInfo.lastPageNoOnPageList+1;i++){
 				if(i == currPage){
 					catePdPagingTag += "<li class='page-item'><a class='page-link active' href='#'>"+i+"</a></li>";
 				}else{
-					catePdPagingTag += "<li class='page-item'><a class='page-link' href='#' onclick='catePdList(" + i + ", " + sortType +", "+ cateString +", "+ brandString +", "+ priceString +");return false;' >"+i+"</a></li>";
+					catePdPagingTag += "<li class='page-item'><a class='page-link pagingBtn' href='#' onclick='catePdList(" + i + ", " + sortType +", "+ cateString +", "+ brandString +", "+ priceString +");return false;' >"+i+"</a></li>";
 				}
 				
 			}
 			if(pageInfo.xnext){
-				catePdPagingTag+="<li class='page-item'><a href='#' class='page-link' aria-label='Previous' onclick='catePdList("+(pageInfo.lastPageNoOnPageList+1)+ ", " + sortType +", "+ cateString +", "+ brandString +", "+ priceString +");return false;'><span aria-hidden='true'>&raquo;</span></a></li>";
+				catePdPagingTag+="<li class='page-item'><a href='#' class='page-link pagingBtn' aria-label='Previous' onclick='catePdList("+(pageInfo.lastPageNoOnPageList+1)+ ", " + sortType +", "+ cateString +", "+ brandString +", "+ priceString +");return false;'><span aria-hidden='true'>&raquo;</span></a></li>";
 			}
 			
 			catePdPagingTag +='</ul></nav>';
@@ -1092,5 +1092,10 @@ $("#navSearchBoxBtn_Btn").click(()=>{
 	location.href="/search/productList?searchKeyWord="+navSearchKeyWord;
 });
 /* 헤더관련  - 끝*/
+
+// 페이징 버튼 누르면 상단으로 이동
+$(document).on('click', '.pagingBtn', ()=>{
+	window.scrollTo(0,0);
+});
 </script>
 </html>
