@@ -182,7 +182,7 @@ public class SellerController {
 	@ResponseBody
 	public Map<String, Object> productList(String showPage, String brandName, String selId) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		
+
 		int stShowPage = Integer.parseInt(showPage);
 		
 		int currPage;
@@ -194,7 +194,7 @@ public class SellerController {
 		
 		PagingVO vo = productService.getProductPageInfo(currPage, brandName, selId); //페이징에 필요한 정보 계산
 		List<ProductVO> productList =  productService.getProductSellerPageList(vo);
-		
+
 		result.put("pdList",productList);  
 		result.put("pageInfo",vo);  //페이징정보
 		result.put("currPage",currPage); //현재페이지

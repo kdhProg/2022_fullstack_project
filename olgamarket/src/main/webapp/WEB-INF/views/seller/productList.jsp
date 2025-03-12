@@ -77,8 +77,7 @@ function pdList(pageNo, selstlBrandName, selId) {
 			var currPage = data.currPage;
             var pdPageList = data.pdList;
             var selId = data.selId;// model 처럼
-        console.log(pdPageList); 	
-        console.log(pageInfo); 	
+
             var pdContentTag = "<table class='table'><tr><th>Id</th><th>썸네일 이미지</th><th>상품 이름</th><th>카테고리</th><th>브랜드</th><th>가격</th><th>할인</th><th>재고</th><th>판매량</th><th>등록일</th></tr>";
             var pdPagingTag = "";
 
